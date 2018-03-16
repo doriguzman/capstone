@@ -30,14 +30,19 @@ CREATE TABLE destination (
 
 CREATE TABLE attributes (
     id SERIAL PRIMARY KEY,
-    attr VARCHAR,
-    user_id INT REFERENCES users(id)
-);
-
-CREATE TABLE preferences (
-    id SERIAL PRIMARY KEY,
-    pref VARCHAR,
-    user_id INT REFERENCES users(id)
+    user_id INT REFERENCES users(id),
+    early_bird VARCHAR,
+    night_owl VARCHAR,
+    clubbing VARCHAR,
+    spontaneous VARCHAR,
+    active VARCHAR,
+    sightseeing VARCHAR,
+    foodie VARCHAR,
+    relax VARCHAR,
+    nature VARCHAR,
+    extroverted VARCHAR,
+    smokes VARCHAR,
+    drinks VARCHAR
 );
 
 CREATE TABLE thread (
@@ -59,3 +64,7 @@ CREATE TABLE messages (
 INSERT INTO users (username, first_name, password_digest, age, email, my_location, bio, pic, ethnicity)
     VALUES ('janedoe', 'jane', 'password', '21', 'janedoe@janedoe.com', 'new york', 'blah', 'pic', 'white'),
            ('meganfox', 'megan', 'password', '21', 'meganfox@meganfox.com', 'new york', 'blah', 'pic', 'white');
+
+INSERT INTO attributes (user_id, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks)
+    VALUES (1, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE),
+           (2, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE);
