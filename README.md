@@ -1,1 +1,3 @@
 # capstone
+
+I WILL DO THIS TODAY/SATURDAY MORNING 
