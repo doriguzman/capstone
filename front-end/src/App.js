@@ -33,6 +33,11 @@ class App extends React.Component {
     return <NewUser />
   }
 
+  renderSurvey =() =>{
+    return <NewUserSurvey/>
+  }
+
+
   // Home is the feed screen
   // renderHome = () => {
   //   const { user } = this.state
@@ -52,7 +57,7 @@ class App extends React.Component {
 
         <div>
           <Route exact path='/' render={this.renderNewUser} />
-          <Route exact path='/users' render={this.renderLogin} />
+          <Route exact path='/users/signup/survey' render={this.renderSurvey} />
           <Route path='/users/login' render={this.renderLogin} />
           <Route path='/users/new' render={this.renderNew} />
           <Route path='/users/logout' render={this.renderLogout} />

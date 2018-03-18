@@ -99,11 +99,11 @@ class NewUser extends React.Component {
         const {username, email, password, message}=this.state
         console.log(this.state)
         return (
-            <div className="login-user-container">
-
+            <div className="register-user-container">
+                {/* nav bar goes here  */}
 
             <h2> Drift Together </h2>
-                <div className="loginBox">
+                <div className="registerBox">
 
                     <form onSubmit={this.submitForm}>
                         <input
@@ -134,11 +134,12 @@ class NewUser extends React.Component {
                             onChange={this.handleInput}
                         />
 
-                        <input className="loginBtn" type="submit" value="Join Us" />
+                        <input className="loginBtn" type="submit" value="Join Us" onClick={this.renderSurvey}/>
 
                     </form>
                 </div>
                 {message}
+                {message ==='Registered user' ? <Redirect to ='/users/signup/survey'/>: {message}}
             </div>
         )
     }
