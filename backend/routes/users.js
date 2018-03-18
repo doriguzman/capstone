@@ -7,12 +7,12 @@ const passport = require('../auth/local')
 // gets all users in the db
 router.get('/', db.getAllUsers)
 
+// POST functions
+router.post('/setAttributes', db.setAttributes) // sets user attributes after user survey is submitted
 
 // User authentication functions 
-
-// router.post('/login', passport.authenticate('local'), (req, res) => res.json(req.user))
+router.post('/login', passport.authenticate('local'), (req, res) => res.json(req.user))
 // router.post('/new', db.registerUser)
-// router.get('/logout', loginRequired, db.logoutUser)
-
+router.get('/logout', loginRequired, db.logoutUser)
 
 module.exports = router;

@@ -74,11 +74,40 @@ function logoutUser(req, res, next) {
   res.status(200).send("log out success");
 }
 
+// Set user attributes
+function setAttributes(req, res, next) {
+  db.none(
+    "INSERT INTO attributes VALUES (DEFAULT, ${user_id}, ${earlyBird}, ${nightOwl}, ${clubbing}, ${spontaneous}, ${active}, ${sightseeing}, ${foodie}, ${relax}, ${nature}, ${extroverted}, ${smokes}, ${drinks});",
+    {
+      user_id: req.body.user_id,
+      earlyBird: req.body.earlyBird,
+      nightOwl: req.body.nightOwl,
+      clubbing: req.body.clubbing,
+      spontaneous: req.body.spontaneous,
+      active: req.body.active,
+      sightseeing: req.body.sightseeing,
+      foodie: req.body.foodie,
+      relax: req.body.relax,
+      nature: req.body.nature,
+      extroverted: req.body.extroverted,
+      smokes: req.body.smokes,
+      drinks: req.body.drinks
+		})
+		.then(() => {
+			res.status(200).send("added user attributes into database")
+		})
+		.catch(err => {
+			console.log(err)
+			res.status(500).send("error adding user attributes: ", err)
+		})
+}
+
 module.exports = {
-	createUser: createUser,
+  createUser: createUser,
   getAllUsers: getAllUsers,
   // getSingleUser: getSingleUser,
   getUserAttributes: getUserAttributes,
   // registerUser: registerUser,
-  logoutUser: logoutUser
+	logoutUser: logoutUser,
+	setAttributes: setAttributes
 };
