@@ -25,11 +25,12 @@ function registerUser(req, res, next) {
 
 // Set user attributes from registration survey
 function userSurvey(req, res, next) {
+	// console.log(req.user.id)
   db
     .none(
       "INSERT INTO attributes VALUES (DEFAULT, ${user_id}, ${firstName}, ${age}, ${location}, ${bio}, ${pic}, ${ethnicity}, ${earlyBird}, ${nightOwl}, ${clubbing}, ${spontaneous}, ${active}, ${sightseeing}, ${foodie}, ${relax}, ${nature}, ${extroverted}, ${smokes}, ${drinks});",
       {
-        user_id: req.body.user_id,
+        user_id: req.user.id,
         firstName: req.body.firstName,
         age: req.body.age,
         location: req.body.location,
@@ -108,23 +109,46 @@ function getMatches(req, res, next) {
 
 // Add a trip to the trips table
 function addTrip(req, res, next) {
-	// startDate and endDate have to be in the following format: 'YYYY-MM-DD'
-	console.log(`res.user: `, req.user)
-  db.none(
-    "INSERT INTO trips VALUES (DEFAULT, ${id}, ${destination}, ${startDate}, ${endDate})",
-    {
-			id: req.user.id,
-			destination: req.body.destination,
-			startDate: req.body.startDate,
-			endDate: req.body.endDate
-		}
-	)
-	.then(() => {
-		res.status(200).send(`added a new trip for user_id: ${req.user.id}, username: ${req.user.username}`)
-	})
-	.catch(err => {
-		res.status(500).send(`error adding new trip!`)
-	})
+  // startDate and endDate have to be in the following format: 'YYYY-MM-DD'
+  console.log(`res.user: `, req.user);
+  db
+    .none(
+      "INSERT INTO trips VALUES (DEFAULT, ${id}, ${username}, ${destination}, ${startDate}, ${endDate})",
+      {
+				id: req.user.id,
+				username: req.user.username,
+        destination: req.body.destination,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate
+      }
+    )
+    .then(() => {
+      res.status(200)
+         .send(`added a new trip for user_id: ${req.user.id}, username: ${req.user.username}`);
+    })
+    .catch(err => {
+      res.status(500).send(`error adding new trip!`);
+    });
+}
+
+// Get all trips for a user
+function getAllTrips(req, res, next) {
+	db.any("SELECT * FROM trips WHERE username=${username}", { username: req.params.username })
+		.then(data => { res.status(200).send(data) })
+		.catch(err => { res.status(500).send("error retrieving all trips: ", err) })
+}
+
+// Deletes one trip
+function removeTrip(req, res, next) {
+	// *** Need to figure out if we're using req.body or req.params for the trip id ***
+	console.log('attempting to remove trip...')
+	db.none("DELETE FROM trips WHERE username=${username} AND id=${id}",
+		{ 
+			username: req.user.username,
+			id: req.params.id
+		})
+		.then(() => { res.status(200).send("removed trip") })
+		.catch(err => res.status(500).send("error retrieving one trip"))
 }
 
 // Log out user
@@ -137,7 +161,9 @@ module.exports = {
   registerUser: registerUser,
   userSurvey: userSurvey,
   getAllUsers: getAllUsers,
-	getUserAttributes: getUserAttributes,
+  getUserAttributes: getUserAttributes,
 	addTrip: addTrip,
+	getAllTrips: getAllTrips,
+	removeTrip: removeTrip,
   logoutUser: logoutUser
 };
