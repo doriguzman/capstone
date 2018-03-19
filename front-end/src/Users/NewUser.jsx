@@ -112,8 +112,7 @@ class NewUser extends React.Component {
 
         return (
             <div className="register-user-container">
-                {/* nav bar goes here  */}
-
+            
             <h2> Drift Together </h2>
                 <div className="registerBox">
 
@@ -153,6 +152,7 @@ class NewUser extends React.Component {
                 {message}
                 
             </div>
+          
         )
     }
 }

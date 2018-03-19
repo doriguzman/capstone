@@ -16,7 +16,7 @@ class LogOutUser extends Component {
       .get("/users/logout")
       .then(res => {
         console.log("logout response", res);
-        // this.props.logOutUser()
+        this.props.logOutUser()
         this.setState({
           loggedOut: true
         });
@@ -27,6 +27,7 @@ class LogOutUser extends Component {
   }
 
   render() {
+      console.log(this.state)
     const { loggedOut } = this.state;
     return loggedOut ? <div> you are logged out </div> : "";
   }
