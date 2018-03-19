@@ -72,7 +72,7 @@ CREATE TABLE thread (
     sender INT REFERENCES users(id)
 );
 
-CREATE TABLE messages (
+CREATE TABLE messages (i
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
     thread_id INT REFERENCES thread(id),
