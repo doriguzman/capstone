@@ -11,7 +11,7 @@ router.get('/', db.getAllUsers)
 // User authentication functions 
 
 // router.post('/login', passport.authenticate('local'), (req, res) => res.json(req.user))
-// router.post('/new', db.registerUser)
+router.post('/new', db.registerUser)
 // router.get('/logout', loginRequired, db.logoutUser)
 
 

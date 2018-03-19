@@ -61,10 +61,7 @@ class NewUser extends React.Component {
                     })
                     .then(res => {
                       console.log(res);
-                      this.setState({             
-                        username: "",
-                        email: "",
-                        password: "",
+                      this.setState({
                         message: "Registered user",
                         registered:true
                         
@@ -139,7 +136,7 @@ class NewUser extends React.Component {
                     </form>
                 </div>
                 {message}
-                {message ==='Registered user' ? <Redirect to ='/users/signup/survey'/>: {message}}
+                {registered ? <Redirect to ='/users/signup/survey'/>: {message}}
             </div>
         )
     }
