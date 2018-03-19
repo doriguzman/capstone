@@ -3,7 +3,7 @@ CREATE DATABASE feathers;
 
 \c feathers;
 
-DROP TABLE IF EXISTS users, likes, destination, attributes, preferences, thread, messages;
+DROP TABLE IF EXISTS users, likes, trips, attributes, preferences, thread, messages;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,

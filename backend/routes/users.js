@@ -6,6 +6,8 @@ const passport = require('../auth/local')
 
 // GET routes
 router.get('/', db.getAllUsers)
+router.get('/getUser',loginRequired, db.getUser)
+
 router.get('/userAttributes/:username', loginRequired, db.getUserAttributes)
 
 // POST routes
