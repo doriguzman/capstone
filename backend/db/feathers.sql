@@ -97,3 +97,4 @@ INSERT INTO attributes (user_id, first_name, age, my_location, bio, pic, ethnici
            (5, 'princess', 25, 'san diego', 'i am princess', 'pictureofprincess', 'asian', FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
            (6, 'elon', 19, 'new jersey', 'i am elon', 'pictureofelon', 'black/african', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
            (7, 'sergina', 30, 'texas', 'i am sergina', 'pictureofsergina', 'latin/hispanic', FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE);
+
