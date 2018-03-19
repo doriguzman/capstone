@@ -1,25 +1,35 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import { Route, Link, Switch } from "react-router-dom";
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import { Route, Link, Switch, Redirect } from "react-router-dom";
+import axios from 'axios'
+import "./App.css";
+import NewUser from "./Users/NewUser";
+import NewUserSurvey from "./Users/NewUserSurvey";
+import LoginUser from './Users/LoginUser'
+import LogOutUser from './Users/LogOutUser'
 
-import './App.css';
-import NewUser from './Users/NewUser'
-import NewUserSurvey from './Users/NewUserSurvey'
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      user: null
+      user: null,
+      active: false,
     };
   }
 
   setUser = user => {
-    this.setState({ user: user })
-  }
+    this.setState({ user: user });
+  };
 
   logOutUser = () => {
-    this.setState({ user: null })
+    this.setState({ user: null });
+  };
+
+  isActive = () => {
+    this.setState({
+      active: !this.state.active
+    })
   }
 
   // renderLogin = () => {
@@ -31,15 +41,34 @@ class App extends React.Component {
   // }
 
   renderNewUser = () => {
-    return <NewUser setUser={this.setUser} />
-  }
+    const { user, active} = this.state
+    if(active === false) {
+      return <NewUser setUser={this.setUser} active={this.isActive} />;
+    } else {
+        return <Redirect to="/users/signup/survey" />
+    }
+  };
 
-  renderSurvey =() =>{
-    const {user}=this.state
-    if(user){
-    return <NewUserSurvey username={user.username}/>
-  }
-  }
+  renderSurvey = () => {
+    // const { user, active} = this.state;
+      return <NewUserSurvey setUser={this.setUser} />;
+  };
+
+  componentDidMount() {
+    const { user, active } = this.state;
+    axios
+      .get("/users/getUser")
+      .then(res => {
+        console.log("THIS IS A RESPONSE test" , res)
+        this.setState({
+          user: res.data.user,
+          active: true
+        });
+      })
+      .catch(err => {
+        console.log(`errrr`, err);
+      });
+  } 
 
   // Home is the feed screen
   // renderHome = () => {
@@ -50,22 +79,21 @@ class App extends React.Component {
   //     return this.renderLogin()
   //   }
   // }
-  
+
   render() {
-    console.log('HI')
-    //nav bar holds 
+
+    //nav bar holds
     return (
       <div className="App">
-      {/* NAV BAR GOES HERE ????*/}
+        {/* NAV BAR GOES HERE ????*/}
 
         <div>
-          <Route exact path='/' render={this.renderNewUser} />
-          <Route exact path='/users/signup/survey' render={this.renderSurvey} />
-          <Route path='/users/login' render={this.renderLogin} />
-          <Route path='/users/new' render={this.renderNew} />
-          <Route path='/users/logout' render={this.renderLogout} />
-          <Route path='/users/home' render={this.renderHome} />
-
+          <Route exact path="/" render={this.renderNewUser} />
+          <Route exact path="/users/signup/survey" render={this.renderSurvey} />
+          <Route path="/users/login" render={this.renderLogin} />
+          <Route path="/users/new" render={this.renderNew} />
+          <Route path="/users/logout" render={this.renderLogout} />
+          <Route path="/users/home" render={this.renderHome} />
         </div>
       </div>
     );

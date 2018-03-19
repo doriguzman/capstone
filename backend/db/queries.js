@@ -5,35 +5,37 @@ const passport = require("../auth/local");
 
 function registerUser(req, res, next) {
   const hash = authHelpers.createHash(req.body.password);
-  db.none(
-    "INSERT INTO users (username, email, password_digest) VALUES (${username}, ${email}, ${password})",
-    {
-			username: req.body.username,
-			email: req.body.email,
-			password: hash,
-		}
-	)
-	.then(() => {
-		return next()
-	})
-	.catch(err => {
-		res.status(500).send("Error registering new user!")
-	})
+  db
+    .none(
+      "INSERT INTO users (username, email, password_digest) VALUES (${username}, ${email}, ${password})",
+      {
+        username: req.body.username,
+        email: req.body.email,
+        password: hash
+      }
+    )
+    .then(() => {
+      return next();
+    })
+    .catch(err => {
+      res.status(500).send("Error registering new user!");
+    });
 }
 
 // Set user attributes
 function userSurvey(req, res, next) {
+    console.log(`you asked for this`, req.user.id)
   db
     .none(
       "INSERT INTO attributes VALUES (DEFAULT, ${user_id}, ${firstName}, ${age}, ${location}, ${bio}, ${pic}, ${ethnicity}, ${earlyBird}, ${nightOwl}, ${clubbing}, ${spontaneous}, ${active}, ${sightseeing}, ${foodie}, ${relax}, ${nature}, ${extroverted}, ${smokes}, ${drinks});",
       {
-				user_id: req.body.user_id,
-				firstName: req.body.firstName,
-				age: req.body.age,
-				location: req.body.location,
-				bio: req.body.bio,
-				pic: req.body.pic,
-				ethnicity: req.body.ethnicity,
+        user_id: req.user.id,
+        firstName: req.body.firstName,
+        age: req.body.age,
+        location: req.body.location,
+        bio: req.body.bio,
+        pic: req.body.pic,
+        ethnicity: req.body.ethnicity,
         earlyBird: req.body.earlyBird,
         nightOwl: req.body.nightOwl,
         clubbing: req.body.clubbing,
@@ -46,17 +48,25 @@ function userSurvey(req, res, next) {
         extroverted: req.body.extroverted,
         smokes: req.body.smokes,
         drinks: req.body.drinks
-      }
-    )
+      })
     .then(() => {
       res.status(200).send("added user attributes into database");
     })
     .catch(err => {
-			console.log(`error adding user attributes: `, err);
+      console.log(`error adding user attributes: `, err);
       // res.status(500).send("error adding user attributes: ", err);
     });
 }
 
+function getUser(req, res, next) {
+    db
+      .one("SELECT * FROM users WHERE username=${username}", {
+        username: req.user.username
+      })
+      .then(data => {
+        res.status(200).json({ user: data });
+      });
+  } 
 // Information on all users
 function getAllUsers(req, res, next) {
   db
@@ -101,9 +111,10 @@ function logoutUser(req, res, next) {
 }
 
 module.exports = {
-	registerUser: registerUser,
+  registerUser: registerUser,
   userSurvey: userSurvey,
   getAllUsers: getAllUsers,
+  getUser: getUser,
   // getSingleUser: getSingleUser,
   getUserAttributes: getUserAttributes,
   // registerUser: registerUser,

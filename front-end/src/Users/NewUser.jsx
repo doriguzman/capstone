@@ -62,7 +62,8 @@ class NewUser extends React.Component {
                     })
                     .then(res => {
                       console.log(res.data);
-                      this.props.setUser(res.data)
+                      this.props.setUser(res.data);
+                      this.props.active();
                       this.setState({
                         message: "Registered user",
                         registered:true,

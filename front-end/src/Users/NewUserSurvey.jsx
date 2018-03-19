@@ -76,11 +76,36 @@ class NewUserSurvey extends React.Component {
       religion: ""
     };
   }
-  renderSurvey= e => {
+  renderSurvey = e => {
 
-
-
-
+    axios
+    .post('/users/survey', {
+      
+      firstName: this.state.firstName,
+      age: this.state.age,
+      location: this.state.location,
+      bio: this.state.bio,
+      pic: this.state.pic,
+      ethnicity: this.state.ethnicity,
+      earlyBird: this.state.earlyBird,
+      nightOwl: this.state.nightOwl,
+      clubbing: this.state.clubbing,
+      spontaneous: this.state.spontaneous,
+      active: this.state.active,
+      sightseeing: this.state.sightseeing,
+      foodie: this.state.foodie,
+      relax: this.state.relax,
+      nature: this.state.nature,
+      extroverted: this.state.extroverted,
+      smokes: this.state.smokes,
+      drinks: this.state.drinks
+    })
+    .then(res => {
+      console.log(res)
+    })
+    .catch(err => {
+      console.log('err sending post req in NewUserSurvey', err)
+    })
 
   e.preventDefault();
   const { username, email, password} = this.state;
