@@ -4,6 +4,7 @@ import { Route, Link, Switch } from "react-router-dom";
 
 import './App.css';
 import NewUser from './Users/NewUser'
+import NewUserSurvey from './Users/NewUserSurvey'
 
 class App extends React.Component {
   constructor() {
@@ -30,13 +31,15 @@ class App extends React.Component {
   // }
 
   renderNewUser = () => {
-    return <NewUser />
+    return <NewUser setUser={this.setUser} />
   }
 
   renderSurvey =() =>{
-    return <NewUserSurvey/>
+    const {user}=this.state
+    if(user){
+    return <NewUserSurvey username={user.username}/>
   }
-
+  }
 
   // Home is the feed screen
   // renderHome = () => {

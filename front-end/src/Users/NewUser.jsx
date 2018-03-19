@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link , Redirect} from "react-router-dom";
 
 
 class NewUser extends React.Component {
@@ -12,7 +12,8 @@ class NewUser extends React.Component {
             password: '', 
             validEmail:false, 
             message:'', 
-            registered:false
+            registered:false,
+            loggedIn:false
         }
     }
 
@@ -54,19 +55,18 @@ class NewUser extends React.Component {
                 console.log("RESPONSE FOR GET REQUEST", response.data.data);
                 if (!response.data.data.find(n => n.username === username)) {
                   axios
-                    .post("/users/new", {
+                    .post("/users/register", {
                       username: username,
                       email: email,
                       password: password
                     })
                     .then(res => {
-                      console.log(res);
-                      this.setState({             
-                        username: "",
-                        email: "",
-                        password: "",
+                      console.log(res.data);
+                      this.props.setUser(res.data)
+                      this.setState({
                         message: "Registered user",
-                        registered:true
+                        registered:true,
+                        loggedIn:true, 
                         
                       });
                     })
@@ -96,8 +96,15 @@ class NewUser extends React.Component {
 
 
     render() {
-        const {username, email, password, message}=this.state
+        const {username, email, password, message, registered}=this.state
         console.log(this.state)
+
+        if (registered)
+          return (<Redirect to={{
+            pathname: '/users/signup/survey',
+            state: { referrer: this.state.username }
+        }} />)
+
         return (
             <div className="register-user-container">
                 {/* nav bar goes here  */}
@@ -139,7 +146,7 @@ class NewUser extends React.Component {
                     </form>
                 </div>
                 {message}
-                {message ==='Registered user' ? <Redirect to ='/users/signup/survey'/>: {message}}
+                
             </div>
         )
     }
