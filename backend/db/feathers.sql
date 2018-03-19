@@ -7,9 +7,9 @@ DROP TABLE IF EXISTS users, likes, destination, attributes, preferences, thread,
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  username VARCHAR,
-  password_digest VARCHAR,
-  email VARCHAR
+  username VARCHAR NOT NULL UNIQUE,
+  password_digest VARCHAR NOT NULL,
+  email VARCHAR NOT NULL UNIQUE
 );
 
 CREATE TABLE likes (
@@ -21,6 +21,7 @@ CREATE TABLE likes (
 CREATE TABLE trips (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
+    username VARCHAR REFERENCES users(username),
     destination VARCHAR,
     start_date DATE,
     end_date DATE
@@ -72,7 +73,7 @@ CREATE TABLE thread (
     sender INT REFERENCES users(id)
 );
 
-CREATE TABLE messages (i
+CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
     thread_id INT REFERENCES thread(id),
