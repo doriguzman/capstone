@@ -8,8 +8,8 @@ DROP TABLE IF EXISTS users, likes, destination, attributes, preferences, thread,
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username VARCHAR,
-  email VARCHAR,
-  password_digest VARCHAR
+  password_digest VARCHAR,
+  email VARCHAR
 );
 
 CREATE TABLE likes (
@@ -80,7 +80,7 @@ CREATE TABLE messages (
 -- INSERT INTO users (username, password_digest, hobbies)
 --   VALUES ('Tyler', '$2a$10$brAZfSmByFeZmPZ/MH5zne9YDhugjW9CtsBGgXqGfix0g1tcooZWq', 'swimming')
 
-INSERT INTO users (username, email, password_digest)
+INSERT INTO users (username, password_digest, email)
     VALUES ('janedoe', 'password', 'jane@jane.com'),
            ('meganfox', 'password', 'megan@megan.com'),
            ('DoriG', 'password', 'dori@dorian.com'),
