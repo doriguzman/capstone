@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link , Redirect} from "react-router-dom";
-import MatchedBuddies from '../LoggedInUser/FEED/MatchedBuddies'
+import { Link, Redirect } from "react-router-dom";
+import MatchedBuddies from "../LoggedInUser/FEED/MatchedBuddies";
 
 class Select extends React.Component {
   render() {
@@ -81,109 +81,39 @@ class NewUserSurvey extends React.Component {
     };
   }
   renderSurvey = e => {
-
+    e.preventDefault()
     axios
-    
-    .post('/users/survey', {
-      
-      firstName: this.state.firstName,
-      age: this.state.age,
-      location: this.state.location,
-      bio: this.state.bio,
-      pic: this.state.pic,
-      ethnicity: this.state.ethnicity,
-      earlyBird: this.state["Early Bird"],
-      nightOwl: this.state["Night Owl"],
-      clubbing: this.state.Clubbing,
-      spontaneous: this.state.Spontaneous,
-      active: this.state.Active,
-      sightseeing: this.state["Likes sightseeing"],
-      foodie: this.state.Foodie,
-      relax: this.state["Mainly likes to relax"],
-      nature: this.state["Nature-Lover"],
-      extroverted: this.state.Extroverted,
-      smokes: this.state.smokes,
-      drinks: this.state.drinks
-    })
-    .then(res => {
-      console.log(res)
-      this.setState({
-        submitted: true
+
+      .post("/users/survey", {
+        firstName: this.state.firstName,
+        age: this.state.age,
+        location: this.state.location,
+        bio: this.state.bio,
+        pic: this.state.pic,
+        ethnicity: this.state.ethnicity,
+        earlyBird: this.state["Early Bird"],
+        nightOwl: this.state["Night Owl"],
+        clubbing: this.state.Clubbing,
+        spontaneous: this.state.Spontaneous,
+        active: this.state.Active,
+        sightseeing: this.state["Likes sightseeing"],
+        foodie: this.state.Foodie,
+        relax: this.state["Mainly likes to relax"],
+        nature: this.state["Nature-Lover"],
+        extroverted: this.state.Extroverted,
+        smokes: this.state.smokes,
+        drinks: this.state.drinks
       })
-    })
-    .catch(err => {
-      console.log('err sending post req in NewUserSurvey', err)
-    })
-
-  e.preventDefault();
-  const { username, email, password} = this.state;
-  if (email) {
-    axios.get("/users").then(response => {
-      console.log("RESPONSE FOR GET REQUEST", response.data.data);
-      console.log(email);
-
-      if (!response.data.data.find(n => n.email === email)) {
+      .then(res => {
+        console.log(res);
         this.setState({
-          validEmail: true
+          submitted: true
         });
-      } else {
-        this.setState({
-          validEmail: false,
-          message: "email already in use"
-        });
-      }
-    });
-  }
-  if (username && password) {
-    if (password.length < 6) {
-      return this.setState({
-        message: "Password must be at least 6 characters"
+      })
+      .catch(err => {
+        console.log("err sending post req in NewUserSurvey", err);
       });
-    }
-    axios.get("/users").then(response => {
-      console.log("RESPONSE FOR GET REQUEST", response.data.data);
-      if (!response.data.data.find(n => n.username === username)) {
-        axios
-          .post("/users/new", {
-            username: username,
-            email: email,
-            password: password
-          })
-          .then(res => {
-            console.log(res);
-            this.setState({             
-              username: "",
-              email: "",
-              password: "",
-              message: "Registered user",
-              registered:true
-              
-            });
-          })
-          .catch(err => {
-            console.log(err);
-            this.setState({
-              email: "",
-              fullname: "",
-              username: "",
-              password: "",
-              message: "Error registering user"
-            });
-          });
-      } else {
-        this.setState({
-          message: "Username  already exists"
-        });
-      }
-    });
-  } else {
-    this.setState({
-      message: "Please fill all forms"
-    });
-  }
-};
-
-
+    };
 
   handleInput = e => {
     this.setState({
@@ -216,11 +146,6 @@ class NewUserSurvey extends React.Component {
     }
   };
 
-handleSubmit = e => {
-
-}
- 
-
   render() {
     const {
       username,
@@ -234,8 +159,8 @@ handleSubmit = e => {
     } = this.state;
     const { attributes, ethnicities, religions } = this;
     console.log(this.state);
-    if(submitted){
-      return <Redirect to='/users/feed' />
+    if (submitted) {
+      return <Redirect to="/users/feed" />;
     }
     return (
       <div className="register-survey-container">
@@ -351,8 +276,12 @@ handleSubmit = e => {
               handleSelected={this.handleInput}
             />
           </div>
-
-             <input className="surveyBtn" type="submit" value="Submit" onClick={this.renderSurvey}/>
+          <input
+            className="surveyBtn"
+            type="submit"
+            value="Submit"
+            onClick={this.renderSurvey}
+          />
         </form>
       </div>
     );
