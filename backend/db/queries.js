@@ -6,41 +6,54 @@ const passport = require("../auth/local");
 function registerUser(req, res, next) {
   const hash = authHelpers.createHash(req.body.password);
   db.none(
-    "INSERT INTO users (username, password_digest, email) VALUES (${username}, ${password}, ${email})",
+    "INSERT INTO users (username, email, password_digest) VALUES (${username}, ${email}, ${password})",
     {
 			username: req.body.username,
+			email: req.body.email,
 			password: hash,
-			email: req.body.email
 		}
 	)
 	.then(() => {
-		res.send(`registered new user: ${req.body.username}`)
+		return next()
 	})
 	.catch(err => {
 		res.status(500).send("Error registering new user!")
 	})
 }
 
-// Create a new user
+// Set user attributes
 function userSurvey(req, res, next) {
   db
     .none(
-      "INSERT INTO users (first_name, age, my_location, bio, pic, ethnicity) VALUES (${firstName}, ${age}, ${location}, ${bio}, ${pic}, ${ethnicity})",
+      "INSERT INTO attributes VALUES (DEFAULT, ${user_id}, ${firstName}, ${age}, ${location}, ${bio}, ${pic}, ${ethnicity}, ${earlyBird}, ${nightOwl}, ${clubbing}, ${spontaneous}, ${active}, ${sightseeing}, ${foodie}, ${relax}, ${nature}, ${extroverted}, ${smokes}, ${drinks});",
       {
-        firstName: req.body.firstName,
-        age: req.body.age,
-        location: req.body.location,
-        bio: req.body.bio,
-        pic: req.body.pic,
-        ethnicity: req.body.ethnicity
+				user_id: req.body.user_id,
+				firstName: req.body.firstName,
+				age: req.body.age,
+				location: req.body.location,
+				bio: req.body.bio,
+				pic: req.body.pic,
+				ethnicity: req.body.ethnicity,
+        earlyBird: req.body.earlyBird,
+        nightOwl: req.body.nightOwl,
+        clubbing: req.body.clubbing,
+        spontaneous: req.body.spontaneous,
+        active: req.body.active,
+        sightseeing: req.body.sightseeing,
+        foodie: req.body.foodie,
+        relax: req.body.relax,
+        nature: req.body.nature,
+        extroverted: req.body.extroverted,
+        smokes: req.body.smokes,
+        drinks: req.body.drinks
       }
     )
     .then(() => {
-      res.send(`created user: ${req.body.username}`);
+      res.status(200).send("added user attributes into database");
     })
     .catch(err => {
-      console.log(err);
-      res.status(500).send("error creating user");
+			console.log(`error adding user attributes: `, err);
+      // res.status(500).send("error adding user attributes: ", err);
     });
 }
 
@@ -87,42 +100,12 @@ function logoutUser(req, res, next) {
   res.status(200).send("log out success");
 }
 
-// Set user attributes
-function setAttributes(req, res, next) {
-  db
-    .none(
-      "INSERT INTO attributes VALUES (DEFAULT, ${user_id}, ${earlyBird}, ${nightOwl}, ${clubbing}, ${spontaneous}, ${active}, ${sightseeing}, ${foodie}, ${relax}, ${nature}, ${extroverted}, ${smokes}, ${drinks});",
-      {
-        user_id: req.body.user_id,
-        earlyBird: req.body.earlyBird,
-        nightOwl: req.body.nightOwl,
-        clubbing: req.body.clubbing,
-        spontaneous: req.body.spontaneous,
-        active: req.body.active,
-        sightseeing: req.body.sightseeing,
-        foodie: req.body.foodie,
-        relax: req.body.relax,
-        nature: req.body.nature,
-        extroverted: req.body.extroverted,
-        smokes: req.body.smokes,
-        drinks: req.body.drinks
-      }
-    )
-    .then(() => {
-      res.status(200).send("added user attributes into database");
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).send("error adding user attributes: ", err);
-    });
-}
-
 module.exports = {
-  createUser: createUser,
+	registerUser: registerUser,
+  userSurvey: userSurvey,
   getAllUsers: getAllUsers,
   // getSingleUser: getSingleUser,
   getUserAttributes: getUserAttributes,
   // registerUser: registerUser,
-  logoutUser: logoutUser,
-  setAttributes: setAttributes
+  logoutUser: logoutUser
 };

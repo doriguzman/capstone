@@ -55,7 +55,7 @@ class NewUser extends React.Component {
                 console.log("RESPONSE FOR GET REQUEST", response.data.data);
                 if (!response.data.data.find(n => n.username === username)) {
                   axios
-                    .post("/users/new", {
+                    .post("/users/register", {
                       username: username,
                       email: email,
                       password: password

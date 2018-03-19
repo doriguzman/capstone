@@ -14,6 +14,7 @@
     "express-session": "^1.15.6",
     "jade": "~1.11.0",
     "morgan": "~1.9.0",
+    "npm": "^5.7.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "password-hash-and-salt": "^0.1.4",
