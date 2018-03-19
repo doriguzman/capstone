@@ -3,13 +3,13 @@ CREATE DATABASE feathers;
 
 \c feathers;
 
-DROP TABLE IF EXISTS users, likes, destination, attributes, preferences, thread, messages;
+DROP TABLE IF EXISTS users, likes, trips, attributes, preferences, thread, messages;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  username VARCHAR,
-  password_digest VARCHAR,
-  email VARCHAR
+  username VARCHAR NOT NULL UNIQUE,
+  password_digest VARCHAR NOT NULL,
+  email VARCHAR NOT NULL UNIQUE
 );
 
 CREATE TABLE likes (
@@ -21,6 +21,7 @@ CREATE TABLE likes (
 CREATE TABLE trips (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
+    username VARCHAR REFERENCES users(username),
     destination VARCHAR,
     start_date DATE,
     end_date DATE
@@ -72,7 +73,7 @@ CREATE TABLE thread (
     sender INT REFERENCES users(id)
 );
 
-CREATE TABLE messages (i
+CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
     thread_id INT REFERENCES thread(id),
@@ -83,13 +84,13 @@ CREATE TABLE messages (i
 --   VALUES ('Tyler', '$2a$10$brAZfSmByFeZmPZ/MH5zne9YDhugjW9CtsBGgXqGfix0g1tcooZWq', 'swimming')
 
 INSERT INTO users (username, password_digest, email)
-    VALUES ('janedoe', 'password', 'jane@jane.com'),
-           ('meganfox', 'password', 'megan@megan.com'),
-           ('DoriG', 'password', 'dori@dorian.com'),
-           ('michelleS', 'password', 'michelle@michelle.com'),
-           ('Princess', 'password', 'princess@princess.com'),
-           ('ElonJ', 'password', 'elon@elon.com'),
-           ('Sergina', 'password', 'serge@serge.com');
+    VALUES ('janedoe', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'jane@jane.com'),
+           ('meganfox', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'megan@megan.com'),
+           ('DoriG', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'dori@dorian.com'),
+           ('michelleS', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'michelle@michelle.com'),
+           ('Princess', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'princess@princess.com'),
+           ('ElonJ', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'elon@elon.com'),
+           ('Sergina', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'serge@serge.com');
 
 INSERT INTO attributes (user_id, first_name, age, my_location, bio, pic, ethnicity, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks)
     VALUES (1, 'jane', 21, 'nyc', 'i am jane', 'pictureofjane', 'white', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE),

@@ -8,4 +8,13 @@ class AllBuddies extends React.Component{
             user:
         }
     }
+    render(){
+        return(
+            <div>
+                </div> 
+        )
+    }
 }
+
+
+export default AllBuddies;

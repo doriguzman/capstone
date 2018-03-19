@@ -17,6 +17,7 @@ class LogOutUser extends Component {
       .then(res => {
         console.log("logout response", res);
         this.props.logOutUser()
+        this.props.active()
         this.setState({
           loggedOut: true
         });

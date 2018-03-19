@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import { Route, Link, Switch } from "react-router-dom";
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import { Route, Link, Switch, Redirect } from "react-router-dom";
+import axios from 'axios'
+
 
 import './App.css';
 import NewUser from './Users/NewUser'
@@ -9,21 +11,29 @@ import LoginUser from './Users/LoginUser'
 import MatchedBuddies from './LoggedInUser/FEED/MatchedBuddies'
 import LogOutUser from './Users/LogOutUser'
 import AboutUs from './Users/AboutUs'
+import User from './LoggedInUser/User'
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       user: null,
+      active: false,
     };
   }
 
   setUser = user => {
-    this.setState({ user: user })
-  }
+    this.setState({ user: user });
+  };
 
   logOutUser = () => {
-    this.setState({ user: null })
+    this.setState({ user: null });
+  };
+
+  isActive = () => {
+    this.setState({
+      active: !this.state.active
+    })
   }
 
 
@@ -34,19 +44,38 @@ class App extends React.Component {
   }
 
   renderLogOutUser = () => {
-    return <LogOutUser logOutUser={this.logOutUser} />
+    return <LogOutUser logOutUser={this.logOutUser} active={this.isActive} />
   }
 
   renderNewUser = () => {
-    return <NewUser setUser={this.setUser} />
-  }
+    const { user, active} = this.state
+    if(active === false) {
+      return <NewUser setUser={this.setUser} active={this.isActive} />;
+    } else {
+        return <Redirect to="/users/signup/survey" />
+    }
+  };
 
-  renderSurvey =() =>{
-    const {user}=this.state
-    if(user){
-    return <NewUserSurvey username={user.username}/>
-  }
-  }
+  renderSurvey = () => {
+    // const { user, active} = this.state;
+      return <NewUserSurvey setUser={this.setUser} />;
+  };
+
+  componentDidMount() {
+    const { user, active } = this.state;
+    axios
+      .get("/users/getUser")
+      .then(res => {
+        console.log("THIS IS A RESPONSE test" , res)
+        this.setState({
+          user: res.data.user,
+          active: true
+        });
+      })
+      .catch(err => {
+        console.log(`errrr`, err);
+      });
+  } 
 
   // Home is the feed screen
   renderFeed = () => {
@@ -61,6 +90,13 @@ class App extends React.Component {
   renderAboutUs =()=>{
     return <AboutUs/>
   }
+
+  renderMyProfile =()=>{
+    const {user}=this.state
+    if(user){
+      return <User user={user} />
+  }
+}
   
   render() {
     const {user} = this.state
@@ -102,6 +138,7 @@ class App extends React.Component {
           <Route path='/users/logout' render={this.renderLogOutUser} />
           <Route path='/users/feed' render={this.renderFeed} />
           <Route path='/users/aboutus' render={this.renderAboutUs}/>
+          <Route path='/users/me/:username' render={this.renderMyProfile}/>
         </Switch>
         </div>
       </div>
