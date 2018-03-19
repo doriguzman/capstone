@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from 'axios'
-import "./App.css";
-import NewUser from "./Users/NewUser";
-import NewUserSurvey from "./Users/NewUserSurvey";
-import LoginUser from './Users/LoginUser'
-import LogOutUser from './Users/LogOutUser'
 
+
+import './App.css';
+import NewUser from './Users/NewUser'
+import NewUserSurvey from './Users/NewUserSurvey'
+import LoginUser from './Users/LoginUser'
+import MatchedBuddies from './LoggedInUser/FEED/MatchedBuddies'
+import LogOutUser from './Users/LogOutUser'
+import AboutUs from './Users/AboutUs'
 
 class App extends React.Component {
   constructor() {
@@ -32,13 +35,16 @@ class App extends React.Component {
     })
   }
 
-  // renderLogin = () => {
-  //   return <LoginUser setUser={this.setUser} />
-  // }
 
-  // renderLogOut = () => {
-  //   return <LogOut logOutUser={this.logOutUser} />
-  // }
+
+  //do we just want the user to be logged out on click ????
+  renderLogin = () => {
+    return <LoginUser setUser={this.setUser} />
+  }
+
+  renderLogOutUser = () => {
+    return <LogOutUser logOutUser={this.logOutUser} />
+  }
 
   renderNewUser = () => {
     const { user, active} = this.state
@@ -71,29 +77,63 @@ class App extends React.Component {
   } 
 
   // Home is the feed screen
-  // renderHome = () => {
-  //   const { user } = this.state
-  //   if (user) {
-  //     return <Home user={user} />
-  //   } else {
-  //     return this.renderLogin()
-  //   }
-  // }
+  renderFeed = () => {
+    const { user } = this.state
+    if (user) {
+      return <MatchedBuddies user={user} />
+    } else {
+      return this.renderLogin()
+    }
+  }
 
+  renderAboutUs =()=>{
+    return <AboutUs/>
+  }
+  
   render() {
-
-    //nav bar holds
+    const {user} = this.state
+    // if(user){
+    //   const username=user.username
+    // }
+    console.log(this.state)
+    //nav bar holds 
     return (
       <div className="App">
         {/* NAV BAR GOES HERE ????*/}
 
+      <div className = 'top-nav-bar'>
+          <div className ='top-nav-bar-left'>
+          logo icon goes here 
+          </div>
+
+          <div className='top-nav-bar-right'>
+          <Link to ='/users/aboutus'>How it Works</Link>
+           {' '}
+
+           {user ? <Link to ='/users/feed'>Feed</Link>: 
+          <Link to ='/users/register'>Register</Link>}
+          {' '}
+           {user ? <Link to ='/users/bffs'>BFFs</Link>:
+          <Link to ='/users/login'>Log In</Link>}
+          {' '}
+          {user ? <Link to= {`/users/me/:${user.username}`}>Profile</Link> :''}
+          {' '}
+          {user ? <Link to='/users/logout'>Logout</Link>:''}
+          </div> 
+
+           </div>
+        {/* logo  and how it works and login functionality  */}
         <div>
-          <Route exact path="/" render={this.renderNewUser} />
-          <Route exact path="/users/signup/survey" render={this.renderSurvey} />
-          <Route path="/users/login" render={this.renderLogin} />
-          <Route path="/users/new" render={this.renderNew} />
-          <Route path="/users/logout" render={this.renderLogout} />
-          <Route path="/users/home" render={this.renderHome} />
+          <Switch>
+          <Route exact path='/' render={this.renderNewUser} />
+          <Route exact path='/users' render={this.renderNewUser} />
+          <Route exact path='/users/register' render={this.renderNewUser} />
+          <Route exact path='/users/signup/survey' render={this.renderSurvey} />
+          <Route path='/users/login' render={this.renderLogin} />
+          <Route path='/users/logout' render={this.renderLogOutUser} />
+          <Route path='/users/feed' render={this.renderFeed} />
+          <Route path='/users/aboutus' render={this.renderAboutUs}/>
+        </Switch>
         </div>
       </div>
     );

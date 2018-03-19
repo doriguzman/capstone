@@ -29,7 +29,8 @@ class NewUserSurvey extends React.Component {
       "Mainly likes to relax",
       "Nature-Lover",
       "Likes sightseeing",
-      "Spontaneous"
+      "Spontaneous",
+      "Extroverted"
     ];
     this.smokes = ["No", "Yes-occasionally", "Yes-daily"];
     this.drinks = ["Never", "Social drinker", "Moderately", "Regularly"];
@@ -70,6 +71,7 @@ class NewUserSurvey extends React.Component {
       "Nature-Lover": false,
       "Likes sightseeing": false,
       Spontaneous: false,
+      Extroverted: false,
       smokes: false,
       drinks: false,
       ethnicity: "",
@@ -79,6 +81,7 @@ class NewUserSurvey extends React.Component {
   renderSurvey = e => {
 
     axios
+    
     .post('/users/survey', {
       
       firstName: this.state.firstName,
@@ -87,16 +90,16 @@ class NewUserSurvey extends React.Component {
       bio: this.state.bio,
       pic: this.state.pic,
       ethnicity: this.state.ethnicity,
-      earlyBird: this.state.earlyBird,
-      nightOwl: this.state.nightOwl,
-      clubbing: this.state.clubbing,
-      spontaneous: this.state.spontaneous,
-      active: this.state.active,
-      sightseeing: this.state.sightseeing,
-      foodie: this.state.foodie,
-      relax: this.state.relax,
-      nature: this.state.nature,
-      extroverted: this.state.extroverted,
+      earlyBird: this.state["Early Bird"],
+      nightOwl: this.state["Night Owl"],
+      clubbing: this.state.Clubbing,
+      spontaneous: this.state.Spontaneous,
+      active: this.state.Active,
+      sightseeing: this.state["Likes sightseeing"],
+      foodie: this.state.Foodie,
+      relax: this.state["Mainly likes to relax"],
+      nature: this.state["Nature-Lover"],
+      extroverted: this.state.Extroverted,
       smokes: this.state.smokes,
       drinks: this.state.drinks
     })
@@ -338,9 +341,6 @@ class NewUserSurvey extends React.Component {
               handleSelected={this.handleInput}
             />
           </div>
-          <h2> My Ideal Companion</h2>
-          <hr />
-          <h4>select all that apply:</h4>
 
              <input className="surveyBtn" type="submit" value="Submit" onClick={this.renderSurvey}/>
         </form>

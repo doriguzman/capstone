@@ -3,7 +3,7 @@ CREATE DATABASE feathers;
 
 \c feathers;
 
-DROP TABLE IF EXISTS users, likes, destination, attributes, preferences, thread, messages;
+DROP TABLE IF EXISTS users, likes, trips, attributes, preferences, thread, messages;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -18,10 +18,12 @@ CREATE TABLE likes (
     liked_id INT REFERENCES users(id)
 );
 
-CREATE TABLE destination (
+CREATE TABLE trips (
     id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
     destination VARCHAR,
-    user_id INT REFERENCES users(id)
+    start_date DATE,
+    end_date DATE
 );
 
 CREATE TABLE attributes (
@@ -33,35 +35,35 @@ CREATE TABLE attributes (
     bio VARCHAR,
     pic VARCHAR,
     ethnicity VARCHAR,
-    early_bird VARCHAR,
-    night_owl VARCHAR,
-    clubbing VARCHAR,
-    spontaneous VARCHAR,
-    active VARCHAR,
-    sightseeing VARCHAR,
-    foodie VARCHAR,
-    relax VARCHAR,
-    nature VARCHAR,
-    extroverted VARCHAR,
-    smokes VARCHAR,
-    drinks VARCHAR
+    early_bird BOOLEAN,
+    night_owl BOOLEAN,
+    clubbing BOOLEAN,
+    spontaneous BOOLEAN,
+    active BOOLEAN,
+    sightseeing BOOLEAN,
+    foodie BOOLEAN,
+    relax BOOLEAN,
+    nature BOOLEAN,
+    extroverted BOOLEAN,
+    smokes BOOLEAN,
+    drinks BOOLEAN
 );
 
 CREATE TABLE preferences (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
-    early_bird VARCHAR,
-    night_owl VARCHAR,
-    clubbing VARCHAR,
-    spontaneous VARCHAR,
-    active VARCHAR,
-    sightseeing VARCHAR,
-    foodie VARCHAR,
-    relax VARCHAR,
-    nature VARCHAR,
-    extroverted VARCHAR,
-    smokes VARCHAR,
-    drinks VARCHAR
+    early_bird BOOLEAN,
+    night_owl BOOLEAN,
+    clubbing BOOLEAN,
+    spontaneous BOOLEAN,
+    active BOOLEAN,
+    sightseeing BOOLEAN,
+    foodie BOOLEAN,
+    relax BOOLEAN,
+    nature BOOLEAN,
+    extroverted BOOLEAN,
+    smokes BOOLEAN,
+    drinks BOOLEAN
 );
 
 CREATE TABLE thread (
@@ -70,7 +72,7 @@ CREATE TABLE thread (
     sender INT REFERENCES users(id)
 );
 
-CREATE TABLE messages (
+CREATE TABLE messages (i
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
     thread_id INT REFERENCES thread(id),

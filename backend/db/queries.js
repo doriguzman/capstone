@@ -3,6 +3,7 @@ const db = pgp("postgres://localhost/feathers");
 const authHelpers = require("../auth/helpers");
 const passport = require("../auth/local");
 
+// Add a new user to the database
 function registerUser(req, res, next) {
   const hash = authHelpers.createHash(req.body.password);
   db
@@ -22,7 +23,7 @@ function registerUser(req, res, next) {
     });
 }
 
-// Set user attributes
+// Set user attributes from registration survey
 function userSurvey(req, res, next) {
     console.log(`you asked for this`, req.user.id)
   db
@@ -84,30 +85,64 @@ function getAllUsers(req, res, next) {
     });
 }
 
+// // Get a user's basic id
+// function getUserId(req, res, next) {
+//   db.any("SELECT id FROM users").then(data => {
+//     res.status(200).send(data);
+//   });
+// }
+
 // Get a user's attributes
 function getUserAttributes(req, res, next) {
   db
-    .any("SELECT * FROM attributes")
+    .any(
+      `SELECT first_name, age, my_location, bio, pic, ethnicity, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks 
+      FROM users 
+      JOIN attributes ON users.id=attributes.user_id 
+      WHERE users.username=${username};`,
+      { username: req.params.username }
+    )
     .then(data => {
       res.status(200).send(data);
     })
     .catch(err => {
       res.status(500).json({
-        status: "Error getting user attributes",
+        status: "Error getting user attributes. Make sure you're logged in.",
         error: err
       });
     });
 }
 
-// get matches by attributes
+// Get matches by attributes
 function getMatches(req, res, next) {
   db.any();
+}
+
+// Add a trip to the trips table
+function addTrip(req, res, next) {
+	// startDate and endDate have to be in the following format: 'YYYY-MM-DD'
+	console.log(`res.user: `, req.user)
+  db.none(
+    "INSERT INTO trips VALUES (DEFAULT, ${id}, ${destination}, ${startDate}, ${endDate})",
+    {
+			id: req.user.id,
+			destination: req.body.destination,
+			startDate: req.body.startDate,
+			endDate: req.body.endDate
+		}
+	)
+	.then(() => {
+		res.status(200).send(`added a new trip for user_id: ${req.user.id}, username: ${req.user.username}`)
+	})
+	.catch(err => {
+		res.status(500).send(`error adding new trip!`)
+	})
 }
 
 // Log out user
 function logoutUser(req, res, next) {
   req.logout();
-  res.status(200).send("log out success");
+  res.status(200).json("log out success");
 }
 
 module.exports = {
@@ -116,7 +151,8 @@ module.exports = {
   getAllUsers: getAllUsers,
   getUser: getUser,
   // getSingleUser: getSingleUser,
-  getUserAttributes: getUserAttributes,
   // registerUser: registerUser,
+	getUserAttributes: getUserAttributes,
+	addTrip: addTrip,
   logoutUser: logoutUser
 };

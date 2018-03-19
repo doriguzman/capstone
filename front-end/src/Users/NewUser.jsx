@@ -46,10 +46,15 @@ class NewUser extends React.Component {
               });
             }
             if (username && password) {
-              if (password.length < 6) {
+              if (username.length<6) {
                 return this.setState({
-                  message: "Password must be at least 6 characters"
+                  message: "Username must be at least 6 characters"
                 });
+              }
+              if (username.length< 6){
+                return this.setState({
+                  message:'Password must be at least 6 characters'
+                })
               }
               axios.get("/users").then(response => {
                 console.log("RESPONSE FOR GET REQUEST", response.data.data);
@@ -108,8 +113,7 @@ class NewUser extends React.Component {
 
         return (
             <div className="register-user-container">
-                {/* nav bar goes here  */}
-
+            
             <h2> Drift Together </h2>
                 <div className="registerBox">
 
@@ -149,6 +153,7 @@ class NewUser extends React.Component {
                 {message}
                 
             </div>
+          
         )
     }
 }

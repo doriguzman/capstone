@@ -8,14 +8,15 @@ const passport = require('../auth/local')
 router.get('/', db.getAllUsers)
 router.get('/getUser',loginRequired, db.getUser)
 
+router.get('/userAttributes/:username', loginRequired, db.getUserAttributes)
 
 // POST functions
 router.post('/survey', db.userSurvey) // sets user attributes after user survey is submitted
+router.post('/addTrip', loginRequired, db.addTrip)
 
 // User authentication functions 
-router.post('/register', db.registerUser, passport.authenticate('local'), (req, res) => res.json(req.user))
-router.post('/login', passport.authenticate('local'), (req, res) => res.json(req.user))
-// router.post('/new', db.registerUser)
+router.post('/register', db.registerUser, passport.authenticate('local'), (req, res) => res.json(req.user.username))
+router.post('/login', passport.authenticate('local'), (req, res) => res.json({ id: req.user.id, username: req.user.username }))
 router.get('/logout', loginRequired, db.logoutUser)
 
 module.exports = router;
