@@ -11,7 +11,7 @@ router.get('/', db.getAllUsers)
 router.post('/survey', db.userSurvey) // sets user attributes after user survey is submitted
 
 // User authentication functions 
-router.post('/register', db.registerUser, passport.authenticate('local'), (res, res) => res.json(req.user))
+router.post('/register', db.registerUser, passport.authenticate('local'), (req, res) => res.json(req.user))
 router.post('/login', passport.authenticate('local'), (req, res) => res.json(req.user))
 // router.post('/new', db.registerUser)
 router.get('/logout', loginRequired, db.logoutUser)
