@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link , Redirect} from "react-router-dom";
+import MatchedBuddies from '../LoggedInUser/FEED/MatchedBuddies'
 
 class Select extends React.Component {
   render() {
@@ -75,7 +76,8 @@ class NewUserSurvey extends React.Component {
       smokes: false,
       drinks: false,
       ethnicity: "",
-      religion: ""
+      religion: "",
+      submitted: false
     };
   }
   renderSurvey = e => {
@@ -105,6 +107,9 @@ class NewUserSurvey extends React.Component {
     })
     .then(res => {
       console.log(res)
+      this.setState({
+        submitted: true
+      })
     })
     .catch(err => {
       console.log('err sending post req in NewUserSurvey', err)
@@ -211,7 +216,9 @@ class NewUserSurvey extends React.Component {
     }
   };
 
+handleSubmit = e => {
 
+}
  
 
   render() {
@@ -222,11 +229,14 @@ class NewUserSurvey extends React.Component {
       location,
       bio,
       ethnicity,
-      religion
+      religion,
+      submitted
     } = this.state;
     const { attributes, ethnicities, religions } = this;
     console.log(this.state);
-
+    if(submitted){
+      return <Redirect to='/users/feed' />
+    }
     return (
       <div className="register-survey-container">
         <h2>Tell Us About Yourself</h2>

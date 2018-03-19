@@ -43,7 +43,7 @@ class App extends React.Component {
   }
 
   renderLogOutUser = () => {
-    return <LogOutUser logOutUser={this.logOutUser} />
+    return <LogOutUser logOutUser={this.logOutUser} active={this.isActive} />
   }
 
   renderNewUser = () => {
