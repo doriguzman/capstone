@@ -64,14 +64,11 @@ class App extends React.Component {
   
   render() {
     const {user} = this.state
-    // if(user){
-    //   const username=user.username
-    // }
     console.log(this.state)
-    //nav bar holds 
+
     return (
       <div className="App">
-      {/* NAV BAR GOES HERE ????*/}
+      {/* NAV BAR GOES HERE */}
 
       <div className = 'top-nav-bar'>
           <div className ='top-nav-bar-left'>
