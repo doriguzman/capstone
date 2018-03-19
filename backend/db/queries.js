@@ -3,37 +3,39 @@ const db = pgp("postgres://localhost/feathers");
 const authHelpers = require("../auth/helpers");
 const passport = require("../auth/local");
 
+// Add a new user to the database
 function registerUser(req, res, next) {
   const hash = authHelpers.createHash(req.body.password);
-  db.none(
-    "INSERT INTO users (username, email, password_digest) VALUES (${username}, ${email}, ${password})",
-    {
-			username: req.body.username,
-			email: req.body.email,
-			password: hash,
-		}
-	)
-	.then(() => {
-		return next()
-	})
-	.catch(err => {
-		res.status(500).send("Error registering new user!")
-	})
+  db
+    .none(
+      "INSERT INTO users (username, email, password_digest) VALUES (${username}, ${email}, ${password})",
+      {
+        username: req.body.username,
+        email: req.body.email,
+        password: hash
+      }
+    )
+    .then(() => {
+      return next();
+    })
+    .catch(err => {
+      res.status(500).send("Error registering new user!");
+    });
 }
 
-// Set user attributes
+// Set user attributes from registration survey
 function userSurvey(req, res, next) {
   db
     .none(
       "INSERT INTO attributes VALUES (DEFAULT, ${user_id}, ${firstName}, ${age}, ${location}, ${bio}, ${pic}, ${ethnicity}, ${earlyBird}, ${nightOwl}, ${clubbing}, ${spontaneous}, ${active}, ${sightseeing}, ${foodie}, ${relax}, ${nature}, ${extroverted}, ${smokes}, ${drinks});",
       {
-				user_id: req.body.user_id,
-				firstName: req.body.firstName,
-				age: req.body.age,
-				location: req.body.location,
-				bio: req.body.bio,
-				pic: req.body.pic,
-				ethnicity: req.body.ethnicity,
+        user_id: req.body.user_id,
+        firstName: req.body.firstName,
+        age: req.body.age,
+        location: req.body.location,
+        bio: req.body.bio,
+        pic: req.body.pic,
+        ethnicity: req.body.ethnicity,
         earlyBird: req.body.earlyBird,
         nightOwl: req.body.nightOwl,
         clubbing: req.body.clubbing,
@@ -52,7 +54,7 @@ function userSurvey(req, res, next) {
       res.status(200).send("added user attributes into database");
     })
     .catch(err => {
-			console.log(`error adding user attributes: `, err);
+      console.log(`error adding user attributes: `, err);
       // res.status(500).send("error adding user attributes: ", err);
     });
 }
@@ -74,24 +76,55 @@ function getAllUsers(req, res, next) {
     });
 }
 
+// // Get a user's basic id
+// function getUserId(req, res, next) {
+//   db.any("SELECT id FROM users").then(data => {
+//     res.status(200).send(data);
+//   });
+// }
+
 // Get a user's attributes
 function getUserAttributes(req, res, next) {
   db
-    .any("SELECT * FROM attributes")
+    .any(
+      "SELECT first_name, age, my_location, bio, pic, ethnicity, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks FROM users JOIN attributes ON users.id=attributes.user_id WHERE users.username=${username};",
+      { username: req.params.username }
+    )
     .then(data => {
       res.status(200).send(data);
     })
     .catch(err => {
       res.status(500).json({
-        status: "Error getting user attributes",
+        status: "Error getting user attributes. Make sure you're logged in.",
         error: err
       });
     });
 }
 
-// get matches by attributes
+// Get matches by attributes
 function getMatches(req, res, next) {
   db.any();
+}
+
+// Add a trip to the trips table
+function addTrip(req, res, next) {
+	// startDate and endDate have to be in the following format: 'YYYY-MM-DD'
+	console.log(`res.user: `, req.user)
+  db.none(
+    "INSERT INTO trips VALUES (DEFAULT, ${id}, ${destination}, ${startDate}, ${endDate})",
+    {
+			id: req.user.id,
+			destination: req.body.destination,
+			startDate: req.body.startDate,
+			endDate: req.body.endDate
+		}
+	)
+	.then(() => {
+		res.status(200).send(`added a new trip for user_id: ${req.user.id}, username: ${req.user.username}`)
+	})
+	.catch(err => {
+		res.status(500).send(`error adding new trip!`)
+	})
 }
 
 // Log out user
@@ -101,11 +134,10 @@ function logoutUser(req, res, next) {
 }
 
 module.exports = {
-	registerUser: registerUser,
+  registerUser: registerUser,
   userSurvey: userSurvey,
   getAllUsers: getAllUsers,
-  // getSingleUser: getSingleUser,
-  getUserAttributes: getUserAttributes,
-  // registerUser: registerUser,
+	getUserAttributes: getUserAttributes,
+	addTrip: addTrip,
   logoutUser: logoutUser
 };
