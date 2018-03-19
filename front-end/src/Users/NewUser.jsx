@@ -46,10 +46,15 @@ class NewUser extends React.Component {
               });
             }
             if (username && password) {
-              if (password.length < 6) {
+              if (username.length<6) {
                 return this.setState({
-                  message: "Password must be at least 6 characters"
+                  message: "Username must be at least 6 characters"
                 });
+              }
+              if (username.length< 6){
+                return this.setState({
+                  message:'Password must be at least 6 characters'
+                })
               }
               axios.get("/users").then(response => {
                 console.log("RESPONSE FOR GET REQUEST", response.data.data);

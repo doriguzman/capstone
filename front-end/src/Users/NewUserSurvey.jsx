@@ -76,6 +76,8 @@ class NewUserSurvey extends React.Component {
       religion: ""
     };
   }
+
+  
   renderSurvey= e => {
 
 
@@ -313,9 +315,6 @@ class NewUserSurvey extends React.Component {
               handleSelected={this.handleInput}
             />
           </div>
-          <h2> My Ideal Companion</h2>
-          <hr />
-          <h4>select all that apply:</h4>
 
              <input className="surveyBtn" type="submit" value="Submit" onClick={this.renderSurvey}/>
         </form>

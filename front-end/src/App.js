@@ -5,6 +5,9 @@ import { Route, Link, Switch } from "react-router-dom";
 import './App.css';
 import NewUser from './Users/NewUser'
 import NewUserSurvey from './Users/NewUserSurvey'
+import LoginUser from './Users/LoginUser'
+import MatchedBuddies from './LoggedInUser/FEED/MatchedBuddies'
+import LogOutUser from './Users/LogOutUser'
 
 class App extends React.Component {
   constructor() {
@@ -22,13 +25,16 @@ class App extends React.Component {
     this.setState({ user: null })
   }
 
-  // renderLogin = () => {
-  //   return <LoginUser setUser={this.setUser} />
-  // }
 
-  // renderLogOut = () => {
-  //   return <LogOut logOutUser={this.logOutUser} />
-  // }
+
+  //do we just want the user to be logged out on click ????
+  renderLogin = () => {
+    return <LoginUser setUser={this.setUser} />
+  }
+
+  renderLogOutUser = () => {
+    return <LogOutUser logOutUser={this.logOutUser} />
+  }
 
   renderNewUser = () => {
     return <NewUser setUser={this.setUser} />
@@ -42,14 +48,14 @@ class App extends React.Component {
   }
 
   // Home is the feed screen
-  // renderHome = () => {
-  //   const { user } = this.state
-  //   if (user) {
-  //     return <Home user={user} />
-  //   } else {
-  //     return this.renderLogin()
-  //   }
-  // }
+  renderFeed = () => {
+    const { user } = this.state
+    if (user) {
+      return <MatchedBuddies user={user} />
+    } else {
+      return this.renderLogin()
+    }
+  }
   
   render() {
     console.log('HI')
@@ -62,9 +68,8 @@ class App extends React.Component {
           <Route exact path='/' render={this.renderNewUser} />
           <Route exact path='/users/signup/survey' render={this.renderSurvey} />
           <Route path='/users/login' render={this.renderLogin} />
-          <Route path='/users/new' render={this.renderNew} />
-          <Route path='/users/logout' render={this.renderLogout} />
-          <Route path='/users/home' render={this.renderHome} />
+          <Route path='/users/logout' render={this.renderLogOutUser} />
+          <Route path='/users/feed' render={this.renderFeed} />
 
         </div>
       </div>
