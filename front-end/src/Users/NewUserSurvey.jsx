@@ -77,82 +77,73 @@ class NewUserSurvey extends React.Component {
     };
   }
 
-  
-  renderSurvey= e => {
+  renderSurvey = e => {
+    e.preventDefault();
+    const { username, email, password } = this.state;
+    if (email) {
+      axios.get("/users").then(response => {
+        console.log("RESPONSE FOR GET REQUEST", response.data.data);
+        console.log(email);
 
-
-
-
-
-  e.preventDefault();
-  const { username, email, password} = this.state;
-  if (email) {
-    axios.get("/users").then(response => {
-      console.log("RESPONSE FOR GET REQUEST", response.data.data);
-      console.log(email);
-
-      if (!response.data.data.find(n => n.email === email)) {
-        this.setState({
-          validEmail: true
-        });
-      } else {
-        this.setState({
-          validEmail: false,
-          message: "email already in use"
-        });
-      }
-    });
-  }
-  if (username && password) {
-    if (password.length < 6) {
-      return this.setState({
-        message: "Password must be at least 6 characters"
+        if (!response.data.data.find(n => n.email === email)) {
+          this.setState({
+            validEmail: true
+          });
+        } else {
+          this.setState({
+            validEmail: false,
+            message: "email already in use"
+          });
+        }
       });
     }
-    axios.get("/users").then(response => {
-      console.log("RESPONSE FOR GET REQUEST", response.data.data);
-      if (!response.data.data.find(n => n.username === username)) {
-        axios
-          .post("/users/new", {
-            username: username,
-            email: email,
-            password: password
-          })
-          .then(res => {
-            console.log(res);
-            this.setState({             
-              username: "",
-              email: "",
-              password: "",
-              message: "Registered user",
-              registered:true
-              
-            });
-          })
-          .catch(err => {
-            console.log(err);
-            this.setState({
-              email: "",
-              fullname: "",
-              username: "",
-              password: "",
-              message: "Error registering user"
-            });
-          });
-      } else {
-        this.setState({
-          message: "Username  already exists"
+    if (username && password) {
+      if (password.length < 6) {
+        return this.setState({
+          message: "Password must be at least 6 characters"
         });
       }
-    });
-  } else {
-    this.setState({
-      message: "Please fill all forms"
-    });
-  }
-};
-
-
+      axios.get("/users").then(response => {
+        console.log("RESPONSE FOR GET REQUEST", response.data.data);
+        if (!response.data.data.find(n => n.username === username)) {
+          axios
+            .post("/users/new", {
+              username: username,
+              email: email,
+              password: password
+            })
+            .then(res => {
+              console.log(res);
+              this.setState({
+                username: "",
+                email: "",
+                password: "",
+                message: "Registered user",
+                registered: true
+              });
+            })
+            .catch(err => {
+              console.log(err);
+              this.setState({
+                email: "",
+                fullname: "",
+                username: "",
+                password: "",
+                message: "Error registering user"
+              });
+            });
+        } else {
+          this.setState({
+            message: "Username  already exists"
+          });
+        }
+      });
+    } else {
+      this.setState({
+        message: "Please fill all forms"
+      });
+    }
+  };
 
   handleInput = e => {
     this.setState({
@@ -184,9 +175,6 @@ class NewUserSurvey extends React.Component {
       this.setState({ drinks: true });
     }
   };
-
-
- 
 
   render() {
     const {
@@ -315,8 +303,12 @@ class NewUserSurvey extends React.Component {
               handleSelected={this.handleInput}
             />
           </div>
-
-             <input className="surveyBtn" type="submit" value="Submit" onClick={this.renderSurvey}/>
+          <input
+            className="surveyBtn"
+            type="submit"
+            value="Submit"
+            onClick={this.renderSurvey}
+          />
         </form>
       </div>
     );

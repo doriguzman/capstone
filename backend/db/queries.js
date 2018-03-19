@@ -87,7 +87,7 @@ function getAllUsers(req, res, next) {
 // Get a user's attributes
 function getUserAttributes(req, res, next) {
   db
-    .any(
+    .one(
       "SELECT first_name, age, my_location, bio, pic, ethnicity, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks FROM users JOIN attributes ON users.id=attributes.user_id WHERE users.username=${username};",
       { username: req.params.username }
     )

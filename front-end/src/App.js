@@ -9,6 +9,7 @@ import LoginUser from './Users/LoginUser'
 import MatchedBuddies from './LoggedInUser/FEED/MatchedBuddies'
 import LogOutUser from './Users/LogOutUser'
 import AboutUs from './Users/AboutUs'
+import User from './LoggedInUser/User'
 
 class App extends React.Component {
   constructor() {
@@ -61,6 +62,13 @@ class App extends React.Component {
   renderAboutUs =()=>{
     return <AboutUs/>
   }
+
+  renderMyProfile =()=>{
+    const {user}=this.state
+    if(user){
+      return <User user={user} />
+  }
+}
   
   render() {
     const {user} = this.state
@@ -105,6 +113,7 @@ class App extends React.Component {
           <Route path='/users/logout' render={this.renderLogOutUser} />
           <Route path='/users/feed' render={this.renderFeed} />
           <Route path='/users/aboutus' render={this.renderAboutUs}/>
+          <Route path='/users/me/:username' render={this.renderMyProfile}/>
         </Switch>
         </div>
       </div>
