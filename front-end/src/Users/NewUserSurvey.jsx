@@ -18,8 +18,8 @@ class Select extends React.Component {
 }
 
 class NewUserSurvey extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.attributes = [
       "Clubbing",
       "Night Owl",
@@ -56,7 +56,7 @@ class NewUserSurvey extends React.Component {
       "Other Religion"
     ];
     this.state = {
-      username: "",
+      username: this.props.username,
       firstName: "",
       age: "",
       location: "",
@@ -76,87 +76,79 @@ class NewUserSurvey extends React.Component {
       religion: ""
     };
   }
+  renderSurvey= e => {
 
-  componentDidMount(){
-   axios.get('/users').then(response => {
-       console.log('response for get request', response.data.data);
-       let user= //trying to get the last user in the database
-   }
+
+
+
+
+  e.preventDefault();
+  const { username, email, password} = this.state;
+  if (email) {
+    axios.get("/users").then(response => {
+      console.log("RESPONSE FOR GET REQUEST", response.data.data);
+      console.log(email);
+
+      if (!response.data.data.find(n => n.email === email)) {
+        this.setState({
+          validEmail: true
+        });
+      } else {
+        this.setState({
+          validEmail: false,
+          message: "email already in use"
+        });
+      }
+    });
   }
-
-
-  renderSurvey= e =>{
-
-  }
-
-
-//   e.preventDefault();
-//   const { username, email, password} = this.state;
-//   if (email) {
-//     axios.get("/users").then(response => {
-//       console.log("RESPONSE FOR GET REQUEST", response.data.data);
-//       console.log(email);
-
-//       if (!response.data.data.find(n => n.email === email)) {
-//         this.setState({
-//           validEmail: true
-//         });
-//       } else {
-//         this.setState({
-//           validEmail: false,
-//           message: "email already in use"
-//         });
-//       }
-//     });
-//   }
-//   if (username && password) {
-//     if (password.length < 6) {
-//       return this.setState({
-//         message: "Password must be at least 6 characters"
-//       });
-//     }
-//     axios.get("/users").then(response => {
-//       console.log("RESPONSE FOR GET REQUEST", response.data.data);
-//       if (!response.data.data.find(n => n.username === username)) {
-//         axios
-//           .post("/users/new", {
-//             username: username,
-//             email: email,
-//             password: password
-//           })
-//           .then(res => {
-//             console.log(res);
-//             this.setState({             
-//               username: "",
-//               email: "",
-//               password: "",
-//               message: "Registered user",
-//               registered:true
+  if (username && password) {
+    if (password.length < 6) {
+      return this.setState({
+        message: "Password must be at least 6 characters"
+      });
+    }
+    axios.get("/users").then(response => {
+      console.log("RESPONSE FOR GET REQUEST", response.data.data);
+      if (!response.data.data.find(n => n.username === username)) {
+        axios
+          .post("/users/new", {
+            username: username,
+            email: email,
+            password: password
+          })
+          .then(res => {
+            console.log(res);
+            this.setState({             
+              username: "",
+              email: "",
+              password: "",
+              message: "Registered user",
+              registered:true
               
-//             });
-//           })
-//           .catch(err => {
-//             console.log(err);
-//             this.setState({
-//               email: "",
-//               fullname: "",
-//               username: "",
-//               password: "",
-//               message: "Error registering user"
-//             });
-//           });
-//       } else {
-//         this.setState({
-//           message: "Username  already exists"
-//         });
-//       }
-//     });
-//   } else {
-//     this.setState({
-//       message: "Please fill all forms"
-//     });
-//   }
-// };
+            });
+          })
+          .catch(err => {
+            console.log(err);
+            this.setState({
+              email: "",
+              fullname: "",
+              username: "",
+              password: "",
+              message: "Error registering user"
+            });
+          });
+      } else {
+        this.setState({
+          message: "Username  already exists"
+        });
+      }
+    });
+  } else {
+    this.setState({
+      message: "Please fill all forms"
+    });
+  }
+};
 
 
 
