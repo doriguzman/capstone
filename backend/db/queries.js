@@ -97,7 +97,7 @@ function getMatches(req, res, next) {
 // Log out user
 function logoutUser(req, res, next) {
   req.logout();
-  res.status(200).send("log out success");
+  res.status(200).json("log out success");
 }
 
 module.exports = {
