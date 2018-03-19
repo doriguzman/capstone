@@ -6,14 +6,8 @@ CREATE DATABASE feathers;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username VARCHAR,
-  first_name VARCHAR,
-  password_digest VARCHAR,
-  age INT,
   email VARCHAR,
-  my_location VARCHAR,
-  bio VARCHAR,
-  pic VARCHAR,
-  ethnicity VARCHAR
+  password_digest VARCHAR
 );
 
 CREATE TABLE likes (
@@ -30,14 +24,42 @@ CREATE TABLE destination (
 
 CREATE TABLE attributes (
     id SERIAL PRIMARY KEY,
-    attr VARCHAR,
-    user_id INT REFERENCES users(id)
+    user_id INT REFERENCES users(id),
+    first_name VARCHAR,
+    age INT,
+    my_location VARCHAR,
+    bio VARCHAR,
+    pic VARCHAR,
+    ethnicity VARCHAR,
+    early_bird VARCHAR,
+    night_owl VARCHAR,
+    clubbing VARCHAR,
+    spontaneous VARCHAR,
+    active VARCHAR,
+    sightseeing VARCHAR,
+    foodie VARCHAR,
+    relax VARCHAR,
+    nature VARCHAR,
+    extroverted VARCHAR,
+    smokes VARCHAR,
+    drinks VARCHAR
 );
 
 CREATE TABLE preferences (
     id SERIAL PRIMARY KEY,
-    pref VARCHAR,
-    user_id INT REFERENCES users(id)
+    user_id INT REFERENCES users(id),
+    early_bird VARCHAR,
+    night_owl VARCHAR,
+    clubbing VARCHAR,
+    spontaneous VARCHAR,
+    active VARCHAR,
+    sightseeing VARCHAR,
+    foodie VARCHAR,
+    relax VARCHAR,
+    nature VARCHAR,
+    extroverted VARCHAR,
+    smokes VARCHAR,
+    drinks VARCHAR
 );
 
 CREATE TABLE thread (
@@ -56,6 +78,10 @@ CREATE TABLE messages (
 -- INSERT INTO users (username, password_digest, hobbies)
 --   VALUES ('Tyler', '$2a$10$brAZfSmByFeZmPZ/MH5zne9YDhugjW9CtsBGgXqGfix0g1tcooZWq', 'swimming')
 
-INSERT INTO users (username, first_name, password_digest, age, email, my_location, bio, pic, ethnicity)
-    VALUES ('janedoe', 'jane', 'password', '21', 'janedoe@janedoe.com', 'new york', 'blah', 'pic', 'white'),
-           ('meganfox', 'megan', 'password', '21', 'meganfox@meganfox.com', 'new york', 'blah', 'pic', 'white');
+INSERT INTO users (username, email, password_digest)
+    VALUES ('janedoe', 'password', 'jane@jane.com'),
+           ('meganfox', 'password', 'megan@megan.com');
+
+INSERT INTO attributes (user_id, first_name, age, my_location, bio, pic, ethnicity, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks)
+    VALUES (1, 'jane', 21, 'nyc', 'i am jane', 'pictureofjane', 'white', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE),
+           (2, 'megan', 21, 'san diego', 'i am megan', 'pictureofmegan', 'asian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE);
