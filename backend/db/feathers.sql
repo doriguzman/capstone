@@ -18,10 +18,12 @@ CREATE TABLE likes (
     liked_id INT REFERENCES users(id)
 );
 
-CREATE TABLE destination (
+CREATE TABLE trips (
     id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
     destination VARCHAR,
-    user_id INT REFERENCES users(id)
+    start_date VARCHAR,
+    end_date VARCHAR
 );
 
 CREATE TABLE attributes (
