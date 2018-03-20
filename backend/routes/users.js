@@ -17,6 +17,10 @@ router.post("/addTrip", loginRequired, db.addTrip);
 // DELETE routes
 router.delete("/remove/:id", loginRequired, db.removeTrip); // removes a trip by trip ID
 
+// PUT routes
+router.put("/edit/attributes", loginRequired, db.editAttributes)
+router.put("/edit/trip", loginRequired, db.editTrip)
+
 // User authentication routes
 router.post("/register", db.registerUser, passport.authenticate("local"), (req, res) => res.json(req.user.username));
 router.post("/login", passport.authenticate("local"), (req, res) =>
