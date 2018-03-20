@@ -62,6 +62,7 @@ class App extends React.Component {
 
   renderNewUser = () => {
     const { user, active} = this.state
+    console.log(this.state)
     if(active === false) {
       return <NewUser setUser={this.setUser} active={this.isActive} />;
     } else {
@@ -71,7 +72,8 @@ class App extends React.Component {
 
   renderSurvey = () => {
     const { user, active} = this.state;
-      return <NewUserSurvey setUser={this.setUser} username={user}  />;
+    console.log(this.state)
+      return <NewUserSurvey setUser={this.setUser} username={user} active={active} />;
   };
 
   componentDidMount() {

@@ -66,7 +66,7 @@ class NewUserSurvey extends React.Component {
       Clubbing: false,
       "Night Owl": false,
       "Early Bird": false,
-      Active: false,
+      // Active: false,
       Foodie: false,
       "Mainly likes to relax": false,
       "Nature-Lover": false,
@@ -77,7 +77,8 @@ class NewUserSurvey extends React.Component {
       drinks: false,
       ethnicity: "",
       religion: "",
-      submitted: false
+      submitted: false,
+      USERLOGGED:this.props.active
     };
   }
   renderSurvey = e => {
@@ -94,7 +95,7 @@ class NewUserSurvey extends React.Component {
         nightOwl: this.state["Night Owl"],
         clubbing: this.state.Clubbing,
         spontaneous: this.state.Spontaneous,
-        active: this.state.Active,
+        // active: this.state.Active,
         sightseeing: this.state["Likes sightseeing"],
         foodie: this.state.Foodie,
         relax: this.state["Mainly likes to relax"],

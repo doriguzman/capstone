@@ -13,7 +13,8 @@ class NewUser extends React.Component {
             validEmail:false, 
             message:'', 
             registered:false,
-            loggedIn:false
+            loggedIn:false,
+           
         }
     }
 
