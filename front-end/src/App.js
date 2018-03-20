@@ -57,9 +57,11 @@ class App extends React.Component {
   };
 
   renderSurvey = () => {
-    // const { user, active} = this.state;
-      return <NewUserSurvey setUser={this.setUser} />;
+    const { user, active} = this.state;
+    if (user){
+      return <NewUserSurvey username={user.user} />;
   };
+}
 
   componentDidMount() {
     const { user, active } = this.state;
