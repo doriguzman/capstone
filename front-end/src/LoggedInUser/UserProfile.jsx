@@ -28,7 +28,9 @@ class UserProfile extends React.Component {
       nature: "",
       extroverted: "",
       smokes: "",
-      drinks: ""
+      drinks: "",
+      toggleTripsBtn: false,
+      toggleAboutBtn: false
     };
   }
 
@@ -44,9 +46,11 @@ fixUser = ()=>{
 
 
   getUserInfo = () => {
+
     const {username, user}=this.state
     console.log('user:' , user, 'username:' , username)
     // console.log("get user info"), console.log("this is the username", username);
+
     axios
       .get(`/users/userAttributes/${this.state.username}`)
       .then(res => {
@@ -92,11 +96,24 @@ fixUser = ()=>{
     this.getUserInfo();
   }
 
+  handleClickAddTrip = e => {
+    const { username } = this.state;
+    window.location = `/users/me/${username}/trips/add`;
+  };
+
+  handleClickTrips = e => {
+    const { username } = this.state;
+    window.location = `/users/me/${username}/trips`;
+    this.setState({
+        toggleTripsBtn: true
+    })   
+  }
+
   render() {
     const {
       user,
       user_id,
-      userName,
+      username,
       userImageURL,
       first_name,
       my_location,
@@ -113,7 +130,9 @@ fixUser = ()=>{
       nature,
       extroverted,
       smokes,
-      drinks
+      drinks,
+      toggleTripsBtn,
+      toggleAboutBtn
     } = this.state;
     console.log("THE STATE IS", this.state);
     console.log("USER_id IS ", user_id);
@@ -129,9 +148,12 @@ fixUser = ()=>{
           <div>
             Name:{" "}{first_name}, Age:{" "}{age}
           </div>
+
+           <div>@{username}</div>
           <div>Location:{" "} {my_location}</div>
         </div>
         <div>
+          <div >About</div>
           <div>About me:{" "}{bio}</div>
           Ethnicity: {" "}{ethnicity}
           <div>
@@ -164,6 +186,9 @@ fixUser = ()=>{
                {this.state["drinks"] ? "yes" : "no"}
             </pre>
           </div>
+                <div onClick={this.handleClickTrips}>Trips
+            {toggleTripsBtn ? <button onClick={this.handleClickAddTrip}>Add trips</button> : ""}
+
         </div>
       </div>
     );
