@@ -88,7 +88,7 @@ function getAllUsers(req, res, next) {
 // // Get a user's basic id
 // function getUserId(req, res, next) {
 //   db.any("SELECT id FROM users").then(data => {
-//     res.status(200).send(data);
+//     res.status(200).send(da1ta);
 //   });
 // }
 
