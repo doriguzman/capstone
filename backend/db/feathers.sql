@@ -24,18 +24,7 @@ CREATE TABLE trips (
     username VARCHAR REFERENCES users(username),
     destination VARCHAR,
     start_date DATE,
-    end_date DATE
-);
-
-CREATE TABLE attributes (
-    id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(id),
-    first_name VARCHAR,
-    age INT,
-    my_location VARCHAR,
-    bio VARCHAR,
-    pic VARCHAR,
-    ethnicity VARCHAR,
+    end_date DATE,
     early_bird BOOLEAN,
     night_owl BOOLEAN,
     clubbing BOOLEAN,
@@ -47,12 +36,19 @@ CREATE TABLE attributes (
     nature BOOLEAN,
     extroverted BOOLEAN,
     smokes BOOLEAN,
-    drinks BOOLEAN
+    drinks BOOLEAN,
+    todos VARCHAR
 );
 
-CREATE TABLE preferences (
+CREATE TABLE attributes (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
+    first_name VARCHAR,
+    age INT,
+    my_location VARCHAR,
+    bio VARCHAR,
+    pic VARCHAR,
+    ethnicity VARCHAR,
     early_bird BOOLEAN,
     night_owl BOOLEAN,
     clubbing BOOLEAN,
