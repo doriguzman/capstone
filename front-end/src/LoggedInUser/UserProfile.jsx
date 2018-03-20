@@ -104,6 +104,7 @@ class UserProfile extends React.Component {
     console.log("USER_id IS ", user_id);
     console.log(this.state);
     console.log("this is userprofile");
+    console.log("this is for dori");
 
     return (
       <div>
