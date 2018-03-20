@@ -1,29 +1,30 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import axios from "axios";
-import { Link, Redirect } from "react-router-dom";
+import { Link , Redirect} from "react-router-dom";
+
 
 class NewUser extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      username: "",
-      email: "",
-      password: "",
-      validEmail: false,
-      message: "",
-      registered: false,
-      loggedIn: false
-    };
-  }
+    constructor() {
+        super();
+        this.state = {
+            username: '',
+            email: '',
+            password: '', 
+            validEmail:false, 
+            message:'', 
+            registered:false,
+            loggedIn:false,
+ 
+        }
+    }
 
-  handleInput = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
+    handleInput = e => {
+        this.setState({
+          [e.target.name]: e.target.value
+        });
+      };
 
-
-submitForm = e =>{
+    submitForm = e =>{
         //on submit we have to check if the username is taken 
         // and if the email is already in use 
             e.preventDefault();
@@ -91,79 +92,72 @@ submitForm = e =>{
                     message: "Username  already exists"
                   });
                 }
-              })
-        } else {
-          this.setState({
-            message: "Username  already exists"
-          });
-        }
-      });
-    } else {
-      this.setState({
-        message: "Please fill all forms"
-      });
-    }
-  };
+              });
+            } else {
+              this.setState({
+                message: "Please fill all forms"
+              });
+            }
+          };
+      
 
-  render() {
-    const { username, email, password, message, registered } = this.state;
-    console.log(this.state);
 
-    if (registered)
-      return (
-        <Redirect
-          to={{
-            pathname: "/users/signup/survey",
+    render() {
+        const {username, email, password, message, registered}=this.state
+        console.log(this.state)
+
+        if (registered)
+          return (<Redirect to={{
+            pathname: '/users/signup/survey',
             state: { referrer: this.state.username }
-          }}
-        />
-      );
+        }} />)
 
-    return (
-      <div className="register-user-container">
-        <h2> Drift Together </h2>
-        <div className="registerBox">
-          <form onSubmit={this.submitForm}>
-            <input
-              className="usernameBox"
-              placeholder="Username"
-              type="text"
-              name="username"
-              value={username}
-              onChange={this.handleInput}
-            />
+        return (
+            <div className="register-user-container">
+            
+            <h2> Drift Together </h2>
+                <div className="registerBox">
 
-            <input
-              className="emailBox"
-              placeholder="Email"
-              type="email"
-              name="email"
-              value={email}
-              onChange={this.handleInput}
-            />
+                    <form onSubmit={this.submitForm}>
+                        <input
+                            className="usernameBox"
+                            placeholder="Username"
+                            type="text"
+                            name="username"
+                            value={username}
+                            onChange={this.handleInput}
+                        />
+                    
+                        <input
+                            className="emailBox"
+                            placeholder="Email"
+                            type="email"
+                            name="email"
+                            value={email}
+                            onChange={this.handleInput}
+                        />
+                      
 
-            <input
-              className="passwordBox"
-              placeholder="Password"
-              type="password"
-              name="password"
-              value={password}
-              onChange={this.handleInput}
-            />
+                        <input
+                            className="passwordBox"
+                            placeholder="Password"
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={this.handleInput}
+                        />
 
-            <input
-              className="loginBtn"
-              type="submit"
-              value="Join Us"
-              onClick={this.renderSurvey}
-            />
-          </form>
-        </div>
-        {message}
-      </div>
-    );
-  }
+                        <input className="loginBtn" type="submit" value="Join Us" onClick={this.renderSurvey}/>
+
+                    </form>
+                </div>
+                {message}
+                
+            </div>
+          
+        )
+    }
 }
 
-export default NewUser;
-//on click of join us we want to go to the user survey but holding the username that they just tried to use
+export default NewUser; 
+//on click of join us we want to go to the user survey but holding the username that they just tried to use 
