@@ -28,13 +28,15 @@ class UserProfile extends React.Component {
       nature: "",
       extroverted: "",
       smokes: "",
-      drinks: ""
+      drinks: "",
+      toggleTripsBtn: false,
+      toggleAboutBtn: false
     };
   }
 
   getUserInfo = () => {
     const { username } = this.state;
-    console.log("get user info")
+    console.log("get user info");
     axios
       .get(`/users/userAttributes/${username}`)
       .then(res => {
@@ -76,11 +78,24 @@ class UserProfile extends React.Component {
     this.getUserInfo();
   }
 
+  handleClickAddTrip = e => {
+    const { username } = this.state;
+    window.location = `/users/me/${username}/trips/add`;
+  };
+
+  handleClickTrips = e => {
+    const { username } = this.state;
+    window.location = `/users/me/${username}/trips`;
+    this.setState({
+        toggleTripsBtn: true
+    })   
+  }
+
   render() {
     const {
       user,
       user_id,
-      userName,
+      username,
       userImageURL,
       first_name,
       my_location,
@@ -98,13 +113,14 @@ class UserProfile extends React.Component {
       nature,
       extroverted,
       smokes,
-      drinks
+      drinks,
+      toggleTripsBtn,
+      toggleAboutBtn
     } = this.state;
-    console.log('THE STATE IS' , this.state)
+    console.log("THE STATE IS", this.state);
     console.log("USER_id IS ", user_id);
     console.log(this.state);
     console.log("this is userprofile");
-    console.log("this is for dori");
 
     return (
       <div>
@@ -115,18 +131,30 @@ class UserProfile extends React.Component {
           <div>
             Name:{first_name}, Age:{age}
           </div>
+          <div>@{username}</div>
           <div>Location: {my_location}</div>
         </div>
-        <div>
-          <div>About me:{bio}</div>
-          Ethnicity: {ethnicity}
-          <div>
-            As a traveller, I am an early bird: {this.state["early_bird"] ? "yes" : "no"} {" "}
-            a night owl: {this.state["night_owl"] ? "yes" : "no"}, like clubbing: {this.state["clubbing"] ? "yes" : "no"}, am spontaneous:
-            {this.state["spontaneous"] ? "yes" : "no"}, active: {this.state["active"] ? "yes" : "no"}, like sightseeing: {this.state["sightseeing"] ? "yes" : "no"}, am
-            a foodie: {this.state["foodie"] ? "yes" : "no"}, relax: {this.state["relax"] ? "yes" : "no"}, enjoy nature: {this.state["nature"] ? "yes": "no"}, am
-            extroverted: {this.state["extroverted"] ? "yes" : "no"}, smoke: {this.state["smokes"] ? "yes" : "no"}, drink: {this.state["drinks"] ? "yes" : "no"}
-          </div>
+           <div >About</div>
+           <div>About me:{this.state.bio}
+          Ethnicity: {this.state.ethnicity} 
+          
+            As a traveller, I am an early bird:{" "}
+            {this.state["early_bird"] ? "yes" : "no"} a night owl:{" "}
+            {this.state["night_owl"] ? "yes" : "no"}, like clubbing:{" "}
+            {this.state["clubbing"] ? "yes" : "no"}, am spontaneous:
+            {this.state["spontaneous"] ? "yes" : "no"}, active:{" "}
+            {this.state["active"] ? "yes" : "no"}, like sightseeing:{" "}
+            {this.state["sightseeing"] ? "yes" : "no"}, am a foodie:{" "}
+            {this.state["foodie"] ? "yes" : "no"}, relax:{" "}
+            {this.state["relax"] ? "yes" : "no"}, enjoy nature:{" "}
+            {this.state["nature"] ? "yes" : "no"}, am extroverted:{" "}
+            {this.state["extroverted"] ? "yes" : "no"}, smoke:{" "}
+            {this.state["smokes"] ? "yes" : "no"}, drink:{" "}
+            {this.state["drinks"] ? "yes" : "no"}
+           </div>
+        <div onClick={this.handleClickTrips}>Trips
+            {toggleTripsBtn ? <button onClick={this.handleClickAddTrip}>Add trips</button> : ""}
+          
         </div>
       </div>
     );
