@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 // import './profile.css';
 import axios from "axios";
-import Bffs from "./Bffs";
+// import Bffs from "./Bffs";
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -91,7 +91,6 @@ class UserProfile extends React.Component {
       night_owl,
       clubbing,
       spontaneous,
-      active,
       sightseeing,
       foodie,
       relax,

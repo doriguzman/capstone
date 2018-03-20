@@ -48,7 +48,8 @@ function userSurvey(req, res, next) {
         extroverted: req.body.extroverted,
         smokes: req.body.smokes,
         drinks: req.body.drinks
-      })
+      }
+    )
     .then(() => {
       res.status(200).send("added user attributes into database");
     })
@@ -59,14 +60,14 @@ function userSurvey(req, res, next) {
 }
 
 function getUser(req, res, next) {
-    db
-      .one("SELECT * FROM users WHERE username=${username}", {
-        username: req.user.username
-      })
-      .then(data => {
-        res.status(200).json({ user: data });
-      });
-  } 
+  db
+    .one("SELECT * FROM users WHERE username=${username}", {
+      username: req.user.username
+    })
+    .then(data => {
+      res.status(200).json({ user: data });
+    });
+}
 // Information on all users
 function getAllUsers(req, res, next) {
   db
@@ -94,12 +95,12 @@ function getAllUsers(req, res, next) {
 // Get a user's attributes
 function getUserAttributes(req, res, next) {
   db
-//     .any(
-//       `SELECT first_name, age, my_location, bio, pic, ethnicity, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks 
-//       FROM users 
-//       JOIN attributes ON users.id=attributes.user_id 
-//       WHERE users.username=${username};`,
-    
+    //     .any(
+    //       `SELECT first_name, age, my_location, bio, pic, ethnicity, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks
+    //       FROM users
+    //       JOIN attributes ON users.id=attributes.user_id
+    //       WHERE users.username=${username};`,
+
     .one(
       "SELECT first_name, age, my_location, bio, pic, ethnicity, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks FROM users JOIN attributes ON users.id=attributes.user_id WHERE users.username=${username};",
 
@@ -129,16 +130,21 @@ function addTrip(req, res, next) {
     .none(
       "INSERT INTO trips VALUES (DEFAULT, ${id}, ${username}, ${destination}, ${startDate}, ${endDate})",
       {
-				id: req.user.id,
-				username: req.user.username,
+        id: req.user.id,
+        username: req.user.username,
         destination: req.body.destination,
         startDate: req.body.startDate,
         endDate: req.body.endDate
       }
     )
     .then(() => {
-      res.status(200)
-         .send(`added a new trip for user_id: ${req.user.id}, username: ${req.user.username}`);
+      res
+        .status(200)
+        .send(
+          `added a new trip for user_id: ${req.user.id}, username: ${
+            req.user.username
+          }`
+        );
     })
     .catch(err => {
       res.status(500).send(`error adding new trip!`);
@@ -147,22 +153,31 @@ function addTrip(req, res, next) {
 
 // Get all trips for a user
 function getAllTrips(req, res, next) {
-	db.any("SELECT * FROM trips WHERE username=${username}", { username: req.params.username })
-		.then(data => { res.status(200).send(data) })
-		.catch(err => { res.status(500).send("error retrieving all trips: ", err) })
+  db
+    .any("SELECT * FROM trips WHERE username=${username}", {
+      username: req.params.username
+    })
+    .then(data => {
+      res.status(200).send(data);
+    })
+    .catch(err => {
+      res.status(500).send("error retrieving all trips: ", err);
+    });
 }
 
 // Deletes one trip
 function removeTrip(req, res, next) {
-	// *** Need to figure out if we're using req.body or req.params for the trip id ***
-	console.log('attempting to remove trip...')
-	db.none("DELETE FROM trips WHERE username=${username} AND id=${id}",
-		{ 
-			username: req.user.username,
-			id: req.params.id
-		})
-		.then(() => { res.status(200).send("removed trip") })
-		.catch(err => res.status(500).send("error retrieving one trip"))
+  // *** Need to figure out if we're using req.body or req.params for the trip id ***
+  console.log("attempting to remove trip...");
+  db
+    .none("DELETE FROM trips WHERE username=${username} AND id=${id}", {
+      username: req.user.username,
+      id: req.params.id
+    })
+    .then(() => {
+      res.status(200).send("removed trip");
+    })
+    .catch(err => res.status(500).send("error retrieving one trip"));
 }
 
 // Log out user
@@ -175,14 +190,10 @@ module.exports = {
   registerUser: registerUser,
   userSurvey: userSurvey,
   getAllUsers: getAllUsers,
-
   getUser: getUser,
-  // getSingleUser: getSingleUser,
-  // registerUser: registerUser,
-	getUserAttributes: getUserAttributes,
-
-	addTrip: addTrip,
-	getAllTrips: getAllTrips,
-	removeTrip: removeTrip,
+  getUserAttributes: getUserAttributes,
+  addTrip: addTrip,
+  getAllTrips: getAllTrips,
+  removeTrip: removeTrip,
   logoutUser: logoutUser
 };
