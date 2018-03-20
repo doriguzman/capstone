@@ -86,7 +86,6 @@ function getAllUsers(req, res, next) {
     });
 }
 
-
 // Get a user's attributes
 function getUserAttributes(req, res, next) {
   db
@@ -122,8 +121,8 @@ function addTrip(req, res, next) {
         username: req.user.username,
         destination: req.body.destination,
         startDate: req.body.startDate,
-				endDate: req.body.endDate,
-				earlyBird: req.body.earlyBird,
+        endDate: req.body.endDate,
+        earlyBird: req.body.earlyBird,
         nightOwl: req.body.nightOwl,
         clubbing: req.body.clubbing,
         spontaneous: req.body.spontaneous,
@@ -134,8 +133,8 @@ function addTrip(req, res, next) {
         nature: req.body.nature,
         extroverted: req.body.extroverted,
         smokes: req.body.smokes,
-				drinks: req.body.drinks,
-				todos: req.body.todos // should be a string
+        drinks: req.body.drinks,
+        todos: req.body.todos // should be a string
       }
     )
     .then(() => {
@@ -150,16 +149,6 @@ function addTrip(req, res, next) {
     .catch(err => {
       res.status(500).send(`error adding new trip!`);
     });
-}
-
-function getOneTrip(req, res, next) {
-  db.one(
-    "SELECT * FROM trips WHERE username=${username} AND id=${tripId});",
-    {
-			username: req.user.username,
-			tripId: req.body.tripId
-		}
-  );
 }
 
 // Get all trips for a user
@@ -198,7 +187,6 @@ function logoutUser(req, res, next) {
 }
 
 module.exports = {
-
   registerUser,
   userSurvey,
   getAllUsers,
@@ -206,7 +194,6 @@ module.exports = {
   addTrip,
   getAllTrips,
   removeTrip,
-  logoutUser, 
+  logoutUser,
   getUser
-
 };
