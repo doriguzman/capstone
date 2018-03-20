@@ -22,67 +22,76 @@ class NewUser extends React.Component {
     });
   };
 
-  submitForm = e => {
-    //on submit we have to check if the username is taken
-    // and if the email is already in use
-    e.preventDefault();
-    const { username, email, password } = this.state;
-    if (email) {
-      axios.get("/users").then(response => {
-        console.log("RESPONSE FOR GET REQUEST", response.data.data);
-        console.log(email);
 
-        if (!response.data.data.find(n => n.email === email)) {
-          this.setState({
-            validEmail: true
-          });
-        } else {
-          this.setState({
-            validEmail: false,
-            message: "email already in use"
-          });
-        }
-      });
-    }
-    if (username && password) {
-      if (username.length < 6) {
-        return this.setState({
-          message: "Username must be at least 6 characters"
-        });
-      }
-      if (username.length < 6) {
-        return this.setState({
-          message: "Password must be at least 6 characters"
-        });
-      }
-      axios.get("/users").then(response => {
-        console.log("RESPONSE FOR GET REQUEST", response.data.data);
-        if (!response.data.data.find(n => n.username === username)) {
-          axios
-            .post("/users/register", {
-              username: username,
-              email: email,
-              password: password
-            })
-            .then(res => {
-              console.log(res.data);
-              this.props.setUser(res.data);
-              this.setState({
-                message: "Registered user",
-                registered: true,
-                loggedIn: true
+submitForm = e =>{
+        //on submit we have to check if the username is taken 
+        // and if the email is already in use 
+            e.preventDefault();
+            const { username, email, password} = this.state;
+            if (email) {
+              axios.get("/users").then(response => {
+                console.log("RESPONSE FOR GET REQUEST", response.data.data);
+                console.log(email);
+        
+                if (!response.data.data.find(n => n.email === email)) {
+                  this.setState({
+                    validEmail: true
+                  });
+                } else {
+                  this.setState({
+                    validEmail: false,
+                    message: "email already in use"
+                  });
+                }
               });
-            })
-            .catch(err => {
-              console.log(err);
-              this.setState({
-                email: "",
-                fullname: "",
-                username: "",
-                password: "",
-                message: "Error registering user"
-              });
-            });
+            }
+            if (username && password) {
+              if (username.length<6) {
+                return this.setState({
+                  message: "Username must be at least 6 characters"
+                });
+              }
+              if (username.length< 6){
+                return this.setState({
+                  message:'Password must be at least 6 characters'
+                })
+              }
+              axios.get("/users").then(response => {
+                console.log("RESPONSE FOR GET REQUEST", response.data.data);
+                if (!response.data.data.find(n => n.username === username)) {
+                  axios
+                    .post("/users/register", {
+                      username: username,
+                      email: email,
+                      password: password
+                    })
+                    .then(res => {
+                      console.log(res.data);
+                      this.props.setUser(res.data);
+                      this.props.active();
+                      this.setState({
+                        message: "Registered user",
+                        registered:true,
+                        loggedIn:true, 
+                        
+                      });
+                    })
+                    .catch(err => {
+                      console.log(err);
+                      this.setState({
+                        email: "",
+                        fullname: "",
+                        username: "",
+                        password: "",
+                        message: "Error registering user"
+                      });
+                    });
+                } else {
+                  this.setState({
+                    message: "Username  already exists"
+                  });
+                }
+              })
         } else {
           this.setState({
             message: "Username  already exists"
