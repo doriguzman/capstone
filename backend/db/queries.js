@@ -3,7 +3,7 @@ const db = pgp("postgres://localhost/feathers");
 const authHelpers = require("../auth/helpers");
 const passport = require("../auth/local");
 
-// ------------------ Add a new user to the database ------------------ //
+// Add a new user to the database
 function registerUser(req, res, next) {
   const hash = authHelpers.createHash(req.body.password);
   db
@@ -19,12 +19,12 @@ function registerUser(req, res, next) {
       return next();
     })
     .catch(err => {
-      // ***** ADD if/else statements for different errors *****
+      // if/else statements for different errors
       res.status(500).send("Error registering new user!");
     });
 }
 
-// ------------------ Set user attributes from registration survey ------------------ //
+// Set user attributes from registration survey
 function userSurvey(req, res, next) {
   db
     .none(
@@ -69,10 +69,10 @@ function getUser(req, res, next) {
       res.status(200).json({ user: data });
     });
 }
-// ------------------ Information on all users ------------------ //
+// Information on all users
 function getAllUsers(req, res, next) {
   db
-    .any("SELECT id, username, email FROM users")
+    .any("SELECT * FROM users")
     .then(data => {
       console.log("data:", data);
       res.status(200).json({
@@ -86,7 +86,7 @@ function getAllUsers(req, res, next) {
     });
 }
 
-// ------------------ Get a user's attributes ------------------ //
+// Get a user's attributes
 function getUserAttributes(req, res, next) {
   db
     .one(
@@ -110,7 +110,7 @@ function getMatches(req, res, next) {
   db.any();
 }
 
-// ------------------ ADD A TRIP TO trips TABLE ------------------ //
+// Add a trip to the trips table
 function addTrip(req, res, next) {
   // startDate and endDate have to be in the following format: 'YYYY-MM-DD'
   db
@@ -151,7 +151,7 @@ function addTrip(req, res, next) {
     });
 }
 
-// ------------------ Get all trips for a user ------------------ //
+// Get all trips for a user
 function getAllTrips(req, res, next) {
   db
     .any("SELECT * FROM trips WHERE username=${username}", {
@@ -165,7 +165,7 @@ function getAllTrips(req, res, next) {
     });
 }
 
-// ------------------ REMOVES ONE TRIP ------------------ //
+// Deletes one trip
 function removeTrip(req, res, next) {
   // *** Need to figure out if we're using req.body or req.params for the trip id ***
   console.log("attempting to remove trip...");
@@ -186,81 +186,6 @@ function logoutUser(req, res, next) {
   res.status(200).json("log out success");
 }
 
-// ------------------ EDIT FUNCTIONS ------------------ //
-function editAttributes(req, res, next) {
-  console.log(`attempting to edit attributes. user id: `, req.user.id);
-  db
-    .none(
-      "UPDATE attributes SET first_name=${firstName}, age=${age}, my_location=${location}, bio=${bio}, pic=${pic}, ethnicity=${ethnicity}, early_bird=${earlyBird}, night_owl=${nightOwl}, clubbing=${clubbing}, spontaneous=${spontaneous}, active=${active}, sightseeing=${sightseeing}, foodie=${foodie}, relax=${relax}, nature=${nature}, extroverted=${extroverted}, smokes=${smokes}, drinks=${drinks} WHERE user_id=${id}",
-      {
-        firstName: req.body.firstName,
-        age: req.body.age,
-        location: req.body.location,
-        bio: req.body.bio,
-        pic: req.body.pic,
-        ethnicity: req.body.ethnicity,
-        earlyBird: req.body.earlyBird,
-        nightOwl: req.body.nightOwl,
-        clubbing: req.body.clubbing,
-        spontaneous: req.body.spontaneous,
-        active: req.body.active,
-        sightseeing: req.body.sightseeing,
-        foodie: req.body.foodie,
-        relax: req.body.relax,
-        nature: req.body.nature,
-        extroverted: req.body.extroverted,
-        smokes: req.body.smokes,
-        drinks: req.body.drinks,
-        id: req.user.id
-      }
-    )
-    .then(() =>
-      res
-        .status(200)
-        .send(`Successfully edited ATTRIBUTES for ${req.user.username}`)
-    )
-    .catch(err =>
-      res
-        .status(500)
-        .send(`Error editing ATTRIBUTES for ${req.user.username}. ${err}`)
-    );
-}
-
-function editTrip(req, res, next) {
-  db
-    .none(
-      "UPDATE trips SET destination=${destination}, start_date=${startDate}, end_date=${endDate}, early_bird=${earlyBird}, night_owl=${nightOwl}, clubbing=${clubbing}, spontaneous=${spontaneous}, active=${active}, sightseeing=${sightseeing}, foodie=${foodie}, relax=${relax}, nature=${nature}, extroverted=${extroverted}, smokes=${smokes}, drinks=${drinks}, todos=${todos} WHERE user_id=${id} AND id=${tripId}",
-      {
-        destination: req.body.destination,
-        startDate: req.body.startDate,
-        endDate: req.body.endDate,
-        earlyBird: req.body.earlyBird,
-        nightOwl: req.body.nightOwl,
-        clubbing: req.body.clubbing,
-        spontaneous: req.body.spontaneous,
-        active: req.body.active,
-        sightseeing: req.body.sightseeing,
-        foodie: req.body.foodie,
-        relax: req.body.relax,
-        nature: req.body.nature,
-        extroverted: req.body.extroverted,
-        smokes: req.body.smokes,
-				drinks: req.body.drinks,
-				todos: req.body.todos,
-				id: req.user.id,
-				tripId: req.body.tripId
-      }
-    )
-    .then(() =>
-      res.status(200).send(`Successfully edited TRIP for ${req.user.username}`)
-    )
-    .catch(err =>
-      res
-        .status(500)
-        .send(`Error editing TRIP for ${req.user.username}. ${err}`)
-    );
-}
-
 module.exports = {
   registerUser,
   userSurvey,
@@ -270,7 +195,5 @@ module.exports = {
   getAllTrips,
   removeTrip,
   logoutUser,
-  getUser,
-	editAttributes,
-	editTrip
+  getUser
 };

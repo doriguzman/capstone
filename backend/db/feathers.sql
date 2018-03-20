@@ -12,10 +12,10 @@ CREATE TABLE users (
   email VARCHAR NOT NULL UNIQUE
 );
 
-CREATE TABLE bffs (
+CREATE TABLE likes (
     id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(id),
-    bff VARCHAR REFERENCES users(username)
+    liker_id INT REFERENCES users(id),
+    liked_id INT REFERENCES users(id)
 );
 
 CREATE TABLE trips (
