@@ -17,12 +17,21 @@ class App extends React.Component {
     super();
     this.state = {
       user: null,
-      active: false
+      active: false,
+      username:null
     };
   }
 
   setUser = user => {
-    this.setState({ user: user });
+    this.setState({ 
+      user: user, 
+      
+    });
+    if(!user.username){
+      this.setState({
+        username:user
+      })
+    }
   };
 
   logOutUser = () => {
@@ -125,26 +134,25 @@ class App extends React.Component {
         <div className="top-nav-bar">
           <div className="top-nav-bar-left">logo icon goes here</div>
 
-          <div className="top-nav-bar-right">
-            <Link to="/users/aboutus">How it Works</Link>{" "}
-            {user ? (
-              <Link to="/users/feed">Feed</Link>
-            ) : (
-              <Link to="/users/register">Register</Link>
-            )}{" "}
-            {user ? (
-              <Link to="/users/bffs">BFFs</Link>
-            ) : (
-              <Link to="/users/login">Log In</Link>
-            )}{" "}
-            {user ? (
-              <Link to={`/users/me/${username}`}>Profile</Link>
-            ) : (
-              ""
-            )}{" "}
-            {user ? <Link to="/users/logout">Logout</Link> : ""}
-          </div>
-        </div>
+  
+          <div className='top-nav-bar-right'>
+          <Link to ='/users/aboutus'>How it Works</Link>
+           {' '}
+
+           {user ? <Link to ='/users/feed'>Feed</Link>: 
+          <Link to ='/users/register'>Register</Link>}
+          {' '}
+           {user ? <Link to ='/users/bffs'>BFFs</Link>:
+          <Link to ='/users/login'>Log In</Link>}
+          {' '}
+          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile</Link> : ''}
+          {' '}
+          {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
+          {' '}
+          {user ? <Link to='/users/logout'>Logout</Link>:''}
+          </div> 
+
+           </div>
         {/* logo  and how it works and login functionality  */}
         <div>
           <Switch>
