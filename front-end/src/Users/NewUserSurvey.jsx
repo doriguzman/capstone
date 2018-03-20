@@ -83,7 +83,6 @@ class NewUserSurvey extends React.Component {
   renderSurvey = e => {
     e.preventDefault()
     axios
-
       .post("/users/survey", {
         firstName: this.state.firstName,
         age: this.state.age,
@@ -115,6 +114,7 @@ class NewUserSurvey extends React.Component {
       });
    
   };
+
 
   handleInput = e => {
     this.setState({
