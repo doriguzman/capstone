@@ -1,170 +1,292 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import MatchedBuddies from "../LoggedInUser/FEED/MatchedBuddies";
 
+class Select extends React.Component {
+  render() {
+    const { name, values, selectedValue, handleSelected } = this.props;
+    const displayValues = ["", ...values];
 
+    return (
+      <select name={name} value={selectedValue} onChange={handleSelected}>
+        {displayValues.map(element => (
+          <option value={element}> {element}</option>
+        ))}
+      </select>
+    );
+  }
+}
 
 class NewUserSurvey extends React.Component {
-    constructor() {
-      super();
-      this.attributes = [
-        'Clubbing',
-        'Night Owl',
-        'Early Bird',
-        'Active',
-        'Foodie',
-        'Mainly likes to relax',
-        'Nature-Lover',
-        'Likes sightseeing',
-        'Spontaneous'
-      ]
-      this.smokes=['No', 'Yes-occasionally', 'Yes-daily']
-      this.drinks=['Never' , 'Social drinker' , 'Moderately', 'Regularly']
-      this.state = {
-        username: '',
-        fullName: '',
-        age: '',
-        location: '',
-        bio: '',
-        'Clubbing':false,
-        'Night Owl':false,
-        'Early Bird':false,
-        'Active': false,
-        'Foodie': false,
-        'Mainly likes to relax': false,
-        'Nature-Lover': false,
-        'Likes sightseeing':false,
-        'Spontaneous': false, 
-        extrovert:false, 
-        smokes:false,
-        drinks:false
-      }
-    }
-  
-  
-    // componentDidMount(){
-    //  axios.get('/users').then(response => {
-    //      console.log('response for get request', response.data.data);
-    //      let user= //trying to get the last user in the database 
-    //  }
-    // }
-  
-    handleInput = e => {
-      this.setState({
-        [e.target.name]: e.target.value
-      });
+  constructor(props) {
+    super(props);
+    this.attributes = [
+      "Clubbing",
+      "Night Owl",
+      "Early Bird",
+      "Active",
+      "Foodie",
+      "Mainly likes to relax",
+      "Nature-Lover",
+      "Likes sightseeing",
+      "Spontaneous",
+      "Extroverted"
+    ];
+    this.smokes = ["No", "Yes-occasionally", "Yes-daily"];
+    this.drinks = ["Never", "Social drinker", "Moderately", "Regularly"];
+    this.ethnicities = [
+      "Asian",
+      "Black / African",
+      "East Indian",
+      "Latin / Hispanic",
+      "Middle Eastern",
+      "Mixed race",
+      "Native American",
+      "Other ethnicity",
+      "Pacific Islander",
+      "White / Caucasian"
+    ];
+    this.religions = [
+      "Agnostic / Non-religious",
+      "Buddhist",
+      "Christian",
+      "Hindu",
+      "Jewish",
+      "Muslim",
+      "New Age (Spiritual, but not religious)",
+      "Other Religion"
+    ];
+    this.state = {
+      username: this.props.username,
+      firstName: "",
+      age: "",
+      location: "",
+      bio: "",
+      Clubbing: false,
+      "Night Owl": false,
+      "Early Bird": false,
+      // Active: false,
+      Foodie: false,
+      "Mainly likes to relax": false,
+      "Nature-Lover": false,
+      "Likes sightseeing": false,
+      Spontaneous: false,
+      Extroverted: false,
+      smokes: false,
+      drinks: false,
+      ethnicity: "",
+      religion: "",
+      submitted: false,
+      USERLOGGED:this.props.active
     };
-  
-  
-    handleCheckBoxChange = e => {
-      this.setState({
-        [e.target.name]: true
+  }
+  renderSurvey = e => {
+    e.preventDefault()
+    axios
+      .post("/users/survey", {
+        firstName: this.state.firstName,
+        age: this.state.age,
+        location: this.state.location,
+        bio: this.state.bio,
+        pic: this.state.pic,
+        ethnicity: this.state.ethnicity,
+        earlyBird: this.state["Early Bird"],
+        nightOwl: this.state["Night Owl"],
+        clubbing: this.state.Clubbing,
+        spontaneous: this.state.Spontaneous,
+        // active: this.state.Active,
+        sightseeing: this.state["Likes sightseeing"],
+        foodie: this.state.Foodie,
+        relax: this.state["Mainly likes to relax"],
+        nature: this.state["Nature-Lover"],
+        extroverted: this.state.Extroverted,
+        smokes: this.state.smokes,
+        drinks: this.state.drinks
       })
-  
-    };
-  
-  
-    render() {
-      const {username, fullName, age,location,bio,attributes}= this.state
-      console.log(this.state)
-      return (
-        <div className='register-survey-container'>
-          <h2> Please fill out the form</h2>
-    
-  
-            <form >
-              Full name
-              <input
-                className="fullName"
-                placeholder="Full Name"
-                type="text"
-                name="fullName"
-                value={fullName}
-                onChange={this.handleInput}
-              />
-              <br />
-              Age
-                          <input
-                className="age"
-                placeholder="Age"
-                type="text"
-                name="age"
-                value={age}
-                onChange={this.handleInput}
-              />
-              <br />
-              Location
-                          <input
-                className="location"
-                placeholder="location"
-                type="text"
-                name="location"
-                value={location}
-                onChange={this.handleInput}
-              />
-              <br />
-              Bio
-                          <input
-                className="Bio"
-                placeholder="Bio"
-                type="text"
-                name="bio"
-                value={bio}
-                onChange={this.handleInput}
-              />
-  
-              <br />
-              {/*  now we are going to start radio buttons here */}
-             <br/>
-          
-              <div className='checkBoxes'>Check what applies to you <br />
-                {this.attributes.map(value => (
-                  <span> {value} {" "}
-                    <input
-                      type="radio"
-                      name={value}
-                     
-                      onChange={this.handleCheckBoxChange}
-                    />
-                  </span>
-                ))}
-              </div>     
-                <br />
-              <div className='smoke'>Do you smoke?
-              <br/> 
-               {this.smokes.map(value => (
-                <span> {value} {" "}
-                  <input
-                    type="radio"
-                    name='smokes'
-               
-                    onChange={this.handleCheckBoxChange}
-                  />
-                </span>
-              ))}
-              </div>
-              <br/>
-            <div className='drink'> How often do you drink?
-            <br/> 
-            {this.drinks.map(value => (
-              <span> {value} {" "}
+      .then(res => {
+        console.log(res);
+        this.setState({
+          submitted: true
+        });
+      })
+      .catch(err => {
+        console.log("err sending post req in NewUserSurvey", err);
+      });
+   
+  };
+
+
+  handleInput = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  handleCheckBoxChange = e => {
+    this.setState({
+      [e.target.name]: e.target.checked
+    });
+  };
+
+  handleSmokes = e => {
+    if (
+      e.target.value === "Yes-occasionally" ||
+      e.target.value === "Yes-daily"
+    ) {
+      this.setState({ smokes: true });
+    } else {
+      this.setState({ smokes: false });
+    }
+  };
+
+  handleDrinks = e => {
+    if (e.target.value === "Never") {
+      this.setState({ drinks: false });
+    } else {
+      this.setState({ drinks: true });
+    }
+  };
+
+  render() {
+    const {
+      username,
+      firstName,
+      age,
+      location,
+      bio,
+      ethnicity,
+      religion,
+      submitted
+    } = this.state;
+    const { attributes, ethnicities, religions } = this;
+    console.log(this.state);
+    if (submitted) {
+      return <Redirect to="/users/feed" />;
+    }
+    return (
+      <div className="register-survey-container">
+        <h2>Tell Us About Yourself</h2>
+        <hr />
+        <form>
+          First Name <br />
+          <input
+            className="firstName"
+            placeholder="First name"
+            type="text"
+            name="firstName"
+            value={firstName}
+            onChange={this.handleInput}
+          />
+          <br />
+          Age <br />
+          <input
+            className="age"
+            placeholder="Age"
+            type="text"
+            name="age"
+            onChange={this.handleInput}
+          />
+          <br />
+          Location <br />
+          <input
+            className="location"
+            placeholder="location"
+            type="text"
+            name="location"
+            value={location}
+            onChange={this.handleInput}
+          />
+          <br />
+          Bio <br />
+          <input
+            className="bio"
+            placeholder="Bio"
+            type="textarea"
+            name="bio"
+            value={bio}
+            onChange={this.handleInput}
+          />
+          <br />
+          {/*  now we are going to start radio buttons here */}
+          <br />
+          <div className="checkBoxes">
+            What are you like on vacation? <br />
+            {attributes.map(value => (
+              <span>
                 <input
-                  type="radio"
+                  type="checkbox"
                   name={value}
-                 
+                  value={value}
                   onChange={this.handleCheckBoxChange}
-                />
+                />{" "}
+                {value}
+                <br />
               </span>
             ))}
-            </div>
-  
-  
-  
-              </form>
-              </div>
-  
-                      )
-                  }
-  }  
-
-  export default NewUserSurvey;
+          </div>
+          <br />
+          <div className="smoke">
+            Do you smoke?
+            <br />
+            {this.smokes.map(value => (
+              <span>
+                <input
+                  type="radio"
+                  name="smokes"
+                  value={value}
+                  onChange={this.handleSmokes}
+                />{" "}
+                {value}{" "}
+              </span>
+            ))}
+          </div>
+          <br />
+          <div className="drink">
+            {" "}
+            How often do you drink?
+            <br />
+            {this.drinks.map(value => (
+              <span>
+                <input
+                  type="radio"
+                  name="drinks"
+                  value={value}
+                  onChange={this.handleDrinks}
+                />{" "}
+                {value}{" "}
+              </span>
+            ))}
+          </div>
+          <br />
+          <div className="ethnicity">
+            Which ethnicity best describes you?{" "}
+            <Select
+              values={ethnicities}
+              name="ethnicity"
+              selectedValue={ethnicity}
+              handleSelected={this.handleInput}
+            />
+          </div>
+          <br />
+          <div className="religion">
+            What is your religion?{" "}
+            <Select
+              values={religions}
+              name="religion"
+              selectedValue={religion}
+              handleSelected={this.handleInput}
+            />
+          </div>
+          <input
+            className="surveyBtn"
+            type="submit"
+            value="Submit"
+            onClick={this.renderSurvey}
+          />
+        </form>
+      </div>
+    );
+  }
+}
+export default NewUserSurvey;
