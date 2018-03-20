@@ -32,9 +32,21 @@ class UserProfile extends React.Component {
     };
   }
 
+fixUser = ()=>{
+  const {username, user}=this.state
+  console.log('user:' , user, 'username:' , username)
+  if (!username){
+    this.setState({
+      username:this.state.user
+    })
+  }
+}
+
+
   getUserInfo = () => {
-    const { username } = this.state;
-    console.log("get user info");
+    const {username, user}=this.state
+    console.log('user:' , user, 'username:' , username)
+    // console.log("get user info"), console.log("this is the username", username);
     axios
       .get(`/users/userAttributes/${this.props.user.username}`)
       .then(res => {
@@ -70,11 +82,13 @@ class UserProfile extends React.Component {
         console.log(err);
       });
   };
-  // componentWillMount(){
-  //   this.fixUser();
-  // }
+  componentWillMount(){
+    this.fixUser()
+  }
+
   componentDidMount() {
     console.log("component mounted!");
+    // this.fixUser();
     this.getUserInfo();
   }
 
