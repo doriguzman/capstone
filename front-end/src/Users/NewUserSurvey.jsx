@@ -82,7 +82,6 @@ class NewUserSurvey extends React.Component {
     };
   }
   renderSurvey = e => {
-    console.log('submitting survey')
     e.preventDefault()
     axios
       .post("/users/survey", {

@@ -188,9 +188,8 @@ fixUser = ()=>{
           </div>
                 <div onClick={this.handleClickTrips}>Trips
             {toggleTripsBtn ? <button onClick={this.handleClickAddTrip}>Add trips</button> : ""}
-      
+
         </div>
-      </div>
       </div>
     );
   }
