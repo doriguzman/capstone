@@ -27,8 +27,19 @@ class App extends React.Component {
   };
 
   logOutUser = () => {
-    this.setState({ user: null });
+    axios
+      .get("/users/logout")
+      .then(res => {
+        this.setState({
+          user: null,
+          active: false
+        });
+      })
+      .catch(err => {
+        console.log(`you have a logout err`,err);
+      });
   };
+ 
 
   isActive = () => {
     this.setState({
@@ -40,15 +51,18 @@ class App extends React.Component {
 
   //do we just want the user to be logged out on click ????
   renderLogin = () => {
-    return <LoginUser setUser={this.setUser} />
+    return <LoginUser setUser={this.setUser} active={this.isActive} />
   }
 
+  
   renderLogOutUser = () => {
+    console.log(`before`,this.state.user)
     return <LogOutUser logOutUser={this.logOutUser} active={this.isActive} />
   }
 
   renderNewUser = () => {
     const { user, active} = this.state
+    console.log(this.state)
     if(active === false) {
       return <NewUser setUser={this.setUser} active={this.isActive} />;
     } else {
@@ -58,8 +72,8 @@ class App extends React.Component {
 
   renderSurvey = () => {
     const { user, active} = this.state;
-    if (user){
-      return <NewUserSurvey username={user.user} />;
+    console.log(this.state)
+      return <NewUserSurvey setUser={this.setUser} username={user} active={active} />;
   };
 }
 
@@ -101,9 +115,12 @@ class App extends React.Component {
 }
   
   render() {
-    const {user} = this.state
-    console.log(this.state)
-
+    const {user, active} = this.state
+    // if(user){
+    //   const username=user.username
+    // }
+    console.log('USER: ', user)
+    //nav bar holds 
     return (
       <div className="App">
       {/* NAV BAR GOES HERE */}

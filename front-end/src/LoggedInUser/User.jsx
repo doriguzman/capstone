@@ -21,7 +21,6 @@ class User extends Component {
       night_owl: "",
       clubbing: "",
       spontaneous: "",
-      active: "",
       sightseeing: "",
       foodie: "",
       relax: "",
@@ -70,7 +69,7 @@ class User extends Component {
 
   render() {
       const  {user}=this.state
-    console.log("The state:", this.state);
+    console.log("The profile ...... state :", this.state);
 
     return (
       <div>

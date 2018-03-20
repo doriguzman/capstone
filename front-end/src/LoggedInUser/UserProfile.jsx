@@ -91,7 +91,6 @@ class UserProfile extends React.Component {
       night_owl,
       clubbing,
       spontaneous,
-      active,
       sightseeing,
       foodie,
       relax,
