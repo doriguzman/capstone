@@ -121,7 +121,9 @@ class App extends React.Component {
   };
 
   render() {
-    const { user, active, username } = this.state;
+
+    const {user, active,username} = this.state
+
     // if(user){
     //   const username=user.username
     // }
@@ -134,7 +136,6 @@ class App extends React.Component {
         <div className="top-nav-bar">
           <div className="top-nav-bar-left">logo icon goes here</div>
 
-  
           <div className='top-nav-bar-right'>
           <Link to ='/users/aboutus'>How it Works</Link>
            {' '}
