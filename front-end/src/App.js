@@ -17,7 +17,6 @@ class App extends React.Component {
     super();
     this.state = {
       user: null,
-
       active: false,
       username:null
     };
@@ -137,7 +136,6 @@ class App extends React.Component {
         <div className="top-nav-bar">
           <div className="top-nav-bar-left">logo icon goes here</div>
 
-
           <div className='top-nav-bar-right'>
           <Link to ='/users/aboutus'>How it Works</Link>
            {' '}
@@ -156,7 +154,6 @@ class App extends React.Component {
           </div> 
 
            </div>
-
         {/* logo  and how it works and login functionality  */}
         <div>
           <Switch>
