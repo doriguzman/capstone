@@ -19,6 +19,7 @@ function registerUser(req, res, next) {
       return next();
     })
     .catch(err => {
+      // if/else statements for different errors
       res.status(500).send("Error registering new user!");
     });
 }
@@ -85,22 +86,10 @@ function getAllUsers(req, res, next) {
     });
 }
 
-// // Get a user's basic id
-// function getUserId(req, res, next) {
-//   db.any("SELECT id FROM users").then(data => {
-//     res.status(200).send(da1ta);
-//   });
-// }
 
 // Get a user's attributes
 function getUserAttributes(req, res, next) {
   db
-    //     .any(
-    //       `SELECT first_name, age, my_location, bio, pic, ethnicity, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks
-    //       FROM users
-    //       JOIN attributes ON users.id=attributes.user_id
-    //       WHERE users.username=${username};`,
-
     .one(
       "SELECT first_name, age, my_location, bio, pic, ethnicity, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks FROM users JOIN attributes ON users.id=attributes.user_id WHERE users.username=${username};",
 
@@ -125,16 +114,28 @@ function getMatches(req, res, next) {
 // Add a trip to the trips table
 function addTrip(req, res, next) {
   // startDate and endDate have to be in the following format: 'YYYY-MM-DD'
-  console.log(`res.user: `, req.user);
   db
     .none(
-      "INSERT INTO trips VALUES (DEFAULT, ${id}, ${username}, ${destination}, ${startDate}, ${endDate})",
+      "INSERT INTO trips VALUES (DEFAULT, ${id}, ${username}, ${destination}, ${startDate}, ${endDate}, ${earlyBird}, ${nightOwl}, ${clubbing}, ${spontaneous}, ${active}, ${sightseeing}, ${foodie}, ${relax}, ${nature}, ${extroverted}, ${smokes}, ${drinks}, ${todos})",
       {
         id: req.user.id,
         username: req.user.username,
         destination: req.body.destination,
         startDate: req.body.startDate,
-        endDate: req.body.endDate
+				endDate: req.body.endDate,
+				earlyBird: req.body.earlyBird,
+        nightOwl: req.body.nightOwl,
+        clubbing: req.body.clubbing,
+        spontaneous: req.body.spontaneous,
+        active: req.body.actieve,
+        sightseeing: req.body.sightseeing,
+        foodie: req.body.foodie,
+        relax: req.body.relax,
+        nature: req.body.nature,
+        extroverted: req.body.extroverted,
+        smokes: req.body.smokes,
+				drinks: req.body.drinks,
+				todos: req.body.todos // should be a string
       }
     )
     .then(() => {
@@ -149,6 +150,16 @@ function addTrip(req, res, next) {
     .catch(err => {
       res.status(500).send(`error adding new trip!`);
     });
+}
+
+function getOneTrip(req, res, next) {
+  db.one(
+    "SELECT * FROM trips WHERE username=${username} AND id=${tripId});",
+    {
+			username: req.user.username,
+			tripId: req.body.tripId
+		}
+  );
 }
 
 // Get all trips for a user
@@ -187,13 +198,15 @@ function logoutUser(req, res, next) {
 }
 
 module.exports = {
-  registerUser: registerUser,
-  userSurvey: userSurvey,
-  getAllUsers: getAllUsers,
-  getUser: getUser,
-  getUserAttributes: getUserAttributes,
-  addTrip: addTrip,
-  getAllTrips: getAllTrips,
-  removeTrip: removeTrip,
-  logoutUser: logoutUser
+
+  registerUser,
+  userSurvey,
+  getAllUsers,
+  getUserAttributes,
+  addTrip,
+  getAllTrips,
+  removeTrip,
+  logoutUser, 
+  getUser
+
 };
