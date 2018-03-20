@@ -26,7 +26,6 @@ function registerUser(req, res, next) {
 
 // Set user attributes from registration survey
 function userSurvey(req, res, next) {
-  // console.log(req.user.id)
   db
     .none(
       "INSERT INTO attributes VALUES (DEFAULT, ${user_id}, ${firstName}, ${age}, ${location}, ${bio}, ${pic}, ${ethnicity}, ${earlyBird}, ${nightOwl}, ${clubbing}, ${spontaneous}, ${active}, ${sightseeing}, ${foodie}, ${relax}, ${nature}, ${extroverted}, ${smokes}, ${drinks});",
@@ -61,6 +60,15 @@ function userSurvey(req, res, next) {
     });
 }
 
+function getUser(req, res, next) {
+  db
+    .one("SELECT * FROM users WHERE username=${username}", {
+      username: req.user.username
+    })
+    .then(data => {
+      res.status(200).json({ user: data });
+    });
+}
 // Information on all users
 function getAllUsers(req, res, next) {
   db
@@ -78,11 +86,13 @@ function getAllUsers(req, res, next) {
     });
 }
 
+
 // Get a user's attributes
 function getUserAttributes(req, res, next) {
   db
     .one(
       "SELECT first_name, age, my_location, bio, pic, ethnicity, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks FROM users JOIN attributes ON users.id=attributes.user_id WHERE users.username=${username};",
+
       { username: req.params.username }
     )
     .then(data => {
@@ -188,6 +198,7 @@ function logoutUser(req, res, next) {
 }
 
 module.exports = {
+
   registerUser,
   userSurvey,
   getAllUsers,
@@ -195,5 +206,7 @@ module.exports = {
   addTrip,
   getAllTrips,
   removeTrip,
-  logoutUser
+  logoutUser, 
+  getUser
+
 };

@@ -12,22 +12,14 @@ class LogOutUser extends Component {
 
   //on Click on the link we are automatically logging out
   componentDidMount() {
-    axios
-      .get("/users/logout")
-      .then(res => {
-        console.log("logout response", res);
-        this.props.logOutUser()
-        this.setState({
-          loggedOut: true
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.props.logOutUser();
+    this.setState({
+      loggedOut: true
+    });
   }
 
   render() {
-      console.log(this.state)
+    console.log(this.state);
     const { loggedOut } = this.state;
     return loggedOut ? <div> you are logged out </div> : "";
   }

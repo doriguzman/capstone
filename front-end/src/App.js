@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import { Route, Link, Switch } from "react-router-dom";
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import { Route, Link, Switch, Redirect } from "react-router-dom";
+import axios from 'axios'
+
 
 import './App.css';
 import NewUser from './Users/NewUser'
@@ -9,44 +11,88 @@ import LoginUser from './Users/LoginUser'
 import MatchedBuddies from './LoggedInUser/FEED/MatchedBuddies'
 import LogOutUser from './Users/LogOutUser'
 import AboutUs from './Users/AboutUs'
+import User from './LoggedInUser/User'
+import UserProfile from "./LoggedInUser/UserProfile";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       user: null,
+      active: false,
     };
   }
 
   setUser = user => {
-    this.setState({ user: user })
-  }
+    this.setState({ user: user });
+  };
 
   logOutUser = () => {
-    this.setState({ user: null })
+    axios
+      .get("/users/logout")
+      .then(res => {
+        this.setState({
+          user: null,
+          active: false
+        });
+      })
+      .catch(err => {
+        console.log(`you have a logout err`,err);
+      });
+  };
+ 
+
+  isActive = () => {
+    this.setState({
+      active: !this.state.active
+    })
   }
 
 
 
   //do we just want the user to be logged out on click ????
   renderLogin = () => {
-    return <LoginUser setUser={this.setUser} />
+    return <LoginUser setUser={this.setUser} active={this.isActive} />
   }
 
+  
   renderLogOutUser = () => {
-    return <LogOutUser logOutUser={this.logOutUser} />
+    console.log(`before`,this.state.user)
+    return <LogOutUser logOutUser={this.logOutUser} active={this.isActive} />
   }
 
   renderNewUser = () => {
-    return <NewUser setUser={this.setUser} />
-  }
+    const { user, active} = this.state
+    console.log(this.state)
+    if(active === false) {
+      return <NewUser setUser={this.setUser} active={this.isActive} />;
+    } else {
+        return <Redirect to="/users/signup/survey" />
+    }
+  };
 
-  renderSurvey =() =>{
-    const {user}=this.state
-    if(user){
-    return <NewUserSurvey username={user.username}/>
-  }
-  }
+  renderSurvey = () => {
+    const { user, active} = this.state;
+    console.log(this.state)
+      return <NewUserSurvey setUser={this.setUser} username={user} active={active} />;
+  };
+
+
+  componentDidMount() {
+    const { user, active } = this.state;
+    axios
+      .get("/users/getUser")
+      .then(res => {
+        console.log("THIS IS A RESPONSE test" , res)
+        this.setState({
+          user: res.data.user,
+          active: true
+        });
+      })
+      .catch(err => {
+        console.log(`errrr`, err);
+      });
+  } 
 
   // Home is the feed screen
   renderFeed = () => {
@@ -61,17 +107,25 @@ class App extends React.Component {
   renderAboutUs =()=>{
     return <AboutUs/>
   }
+
+  renderMyProfile =()=>{
+    const {user}=this.state
+    console.log(`newton asked for this`, user)
+    if(user){
+      return <User user={user} setUser={this.setUser} />
+  }
+}
   
   render() {
-    const {user} = this.state
+    const {user, active} = this.state
     // if(user){
     //   const username=user.username
     // }
-    console.log(this.state)
+    console.log('USER: ', user)
     //nav bar holds 
     return (
       <div className="App">
-      {/* NAV BAR GOES HERE ????*/}
+      {/* NAV BAR GOES HERE */}
 
       <div className = 'top-nav-bar'>
           <div className ='top-nav-bar-left'>
@@ -105,6 +159,7 @@ class App extends React.Component {
           <Route path='/users/logout' render={this.renderLogOutUser} />
           <Route path='/users/feed' render={this.renderFeed} />
           <Route path='/users/aboutus' render={this.renderAboutUs}/>
+          <Route path='/users/me/:username' render={this.renderMyProfile}/>
         </Switch>
         </div>
       </div>
