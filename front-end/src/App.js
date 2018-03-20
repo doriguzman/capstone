@@ -20,11 +20,20 @@ class App extends React.Component {
     this.state = {
       user: null,
       active: false,
+      username:null
     };
   }
 
   setUser = user => {
-    this.setState({ user: user });
+    this.setState({ 
+      user: user, 
+      
+    });
+    if(!user.username){
+      this.setState({
+        username:user
+      })
+    }
   };
 
   logOutUser = () => {
@@ -117,7 +126,7 @@ class App extends React.Component {
 }
   
   render() {
-    const {user, active} = this.state
+    const {user, active,username} = this.state
     // if(user){
     //   const username=user.username
     // }
@@ -142,7 +151,9 @@ class App extends React.Component {
            {user ? <Link to ='/users/bffs'>BFFs</Link>:
           <Link to ='/users/login'>Log In</Link>}
           {' '}
-          {user ? <Link to= {`/users/me/:${user.username}`}>Profile</Link> :''}
+          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile</Link> : ''}
+          {' '}
+          {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
           {' '}
           {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 
