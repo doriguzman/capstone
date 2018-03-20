@@ -32,9 +32,21 @@ class UserProfile extends React.Component {
     };
   }
 
+fixUser = ()=>{
+  const {username, user}=this.state
+  console.log('user:' , user, 'username:' , username)
+  if (!username){
+    this.setState({
+      username:this.state.user
+    })
+  }
+}
+
+
   getUserInfo = () => {
-    const { username } = this.state;
-    console.log("get user info")
+    const {username, user}=this.state
+    console.log('user:' , user, 'username:' , username)
+    // console.log("get user info"), console.log("this is the username", username);
     axios
       .get(`/users/userAttributes/${username}`)
       .then(res => {
@@ -70,9 +82,13 @@ class UserProfile extends React.Component {
         console.log(err);
       });
   };
+  componentWillMount(){
+    this.fixUser()
+  }
 
   componentDidMount() {
     console.log("component mounted!");
+    // this.fixUser();
     this.getUserInfo();
   }
 
@@ -99,7 +115,7 @@ class UserProfile extends React.Component {
       smokes,
       drinks
     } = this.state;
-    console.log('THE STATE IS' , this.state)
+    console.log("THE STATE IS", this.state);
     console.log("USER_id IS ", user_id);
     console.log(this.state);
     console.log("this is userprofile");
@@ -119,11 +135,19 @@ class UserProfile extends React.Component {
           <div>About me:{bio}</div>
           Ethnicity: {ethnicity}
           <div>
-            As a traveller, I am an early bird: {this.state["early_bird"] ? "yes" : "no"} {" "}
-            a night owl: {this.state["night_owl"] ? "yes" : "no"}, like clubbing: {this.state["clubbing"] ? "yes" : "no"}, am spontaneous:
-            {this.state["spontaneous"] ? "yes" : "no"}, active: {this.state["active"] ? "yes" : "no"}, like sightseeing: {this.state["sightseeing"] ? "yes" : "no"}, am
-            a foodie: {this.state["foodie"] ? "yes" : "no"}, relax: {this.state["relax"] ? "yes" : "no"}, enjoy nature: {this.state["nature"] ? "yes": "no"}, am
-            extroverted: {this.state["extroverted"] ? "yes" : "no"}, smoke: {this.state["smokes"] ? "yes" : "no"}, drink: {this.state["drinks"] ? "yes" : "no"}
+            As a traveller, I am an early bird:{" "}
+            {this.state["early_bird"] ? "yes" : "no"} a night owl:{" "}
+            {this.state["night_owl"] ? "yes" : "no"}, like clubbing:{" "}
+            {this.state["clubbing"] ? "yes" : "no"}, am spontaneous:
+            {this.state["spontaneous"] ? "yes" : "no"}, active:{" "}
+            {this.state["active"] ? "yes" : "no"}, like sightseeing:{" "}
+            {this.state["sightseeing"] ? "yes" : "no"}, am a foodie:{" "}
+            {this.state["foodie"] ? "yes" : "no"}, relax:{" "}
+            {this.state["relax"] ? "yes" : "no"}, enjoy nature:{" "}
+            {this.state["nature"] ? "yes" : "no"}, am extroverted:{" "}
+            {this.state["extroverted"] ? "yes" : "no"}, smoke:{" "}
+            {this.state["smokes"] ? "yes" : "no"}, drink:{" "}
+            {this.state["drinks"] ? "yes" : "no"}
           </div>
         </div>
       </div>

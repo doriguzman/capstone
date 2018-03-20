@@ -12,6 +12,7 @@ import MatchedBuddies from './LoggedInUser/FEED/MatchedBuddies'
 import LogOutUser from './Users/LogOutUser'
 import AboutUs from './Users/AboutUs'
 import User from './LoggedInUser/User'
+import UserProfile from "./LoggedInUser/UserProfile";
 
 class App extends React.Component {
   constructor() {
@@ -75,7 +76,7 @@ class App extends React.Component {
     console.log(this.state)
       return <NewUserSurvey setUser={this.setUser} username={user} active={active} />;
   };
-}
+
 
   componentDidMount() {
     const { user, active } = this.state;
@@ -109,8 +110,9 @@ class App extends React.Component {
 
   renderMyProfile =()=>{
     const {user}=this.state
+    console.log(`newton asked for this`, user)
     if(user){
-      return <User user={user} />
+      return <User user={user} setUser={this.setUser} />
   }
 }
   
