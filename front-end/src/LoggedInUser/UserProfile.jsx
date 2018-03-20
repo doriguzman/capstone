@@ -48,7 +48,7 @@ fixUser = ()=>{
     console.log('user:' , user, 'username:' , username)
     // console.log("get user info"), console.log("this is the username", username);
     axios
-      .get(`/users/userAttributes/${this.props.user.username}`)
+      .get(`/users/userAttributes/${this.state.username}`)
       .then(res => {
         let UserInfo = res.data;
         console.log("res.data", res.data);
