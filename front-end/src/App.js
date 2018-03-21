@@ -25,6 +25,7 @@ class App extends React.Component {
   setUser = user => {
     this.setState({ 
       user: user, 
+      username:user.username
       
     });
     if(!user.username){
@@ -40,6 +41,7 @@ class App extends React.Component {
       .then(res => {
         this.setState({
           user: null,
+          username:null,
           active: false
         });
       })
@@ -84,6 +86,7 @@ class App extends React.Component {
 
   componentWillMount() {
     const { user, active, username } = this.state;
+    console.log('HIIIII')
     axios
       .get("/users/getUser")
       .then(res => {
@@ -147,7 +150,9 @@ class App extends React.Component {
            {user ? <Link to ='/users/bffs'>BFFs</Link>:
           <Link to ='/users/login'>Log In</Link>}
           {' '}
-          {user ? <Link to={`/users/me/${username}`}>Profile</Link> :''}
+          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile</Link> : ''}
+          {' '}
+          {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
           {' '}
           {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 
@@ -170,7 +175,7 @@ class App extends React.Component {
             <Route path="/users/aboutus" render={this.renderAboutUs} />
 
             
-            <Route path={`/users/me/${this.state.username}`} render={this.renderMyProfile} />
+            <Route path={`/users/me/${username}`} render={this.renderMyProfile} />
           </Switch>
         </div>
       </div>
