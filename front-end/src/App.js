@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import { Route, Link, Switch } from "react-router-dom";
-
+import './stylesheets/navbar.css';
 import './App.css';
 import NewUser from './Users/NewUser'
 import NewUserSurvey from './Users/NewUserSurvey'

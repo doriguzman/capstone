@@ -1,28 +1,71 @@
+/*
+#DAECF3 white
+#FE424D coral red
+#1AA6B7 light blue
+#022D41  dark blue
+
+*/
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body{
+  background-color: #022D41;
+  background-image: url(
+  "https://images.unsplash.com/photo-1507612869432-28bf856d0818?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4df7f7fca1c8449cfa5aec9932c9469c&auto=format&fit=crop&w=1500&q=80"
+  );
+}
+
 .App {
   text-align: center;
+  font-size: 35px;
+  font-family: 'Roboto', sans-serif;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+#navLogoName{
+  height: 30px;
+  color: #DAECF3;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.registerBox{
+  background-color: #DAECF3;
+  opacity: 0.9;
+  height: 50px;
+  border-radius: 5px;
+  font-size: 20px;
 }
 
-.App-title {
-  font-size: 1.5em;
+.usernameBox{
+ padding: 5px;
+ margin: 10px 5px 5px 5px;
+ opacity: 1;
+ border-radius: 5px;
+ font-size: 15px;
+}
+.emailBox {
+  padding: 5px;
+  margin: 10px 5px 5px 5px;
+  opacity: 1;
+  border-radius: 5px;
+  font-size: 15px;
 }
 
-.App-intro {
-  font-size: large;
+.passwordBox{
+  padding: 5px;
+  margin: 10px 5px 5px 5px;
+  opacity: 1;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.loginBtn{
+  background-color: #FE424D;
+  color: #DAECF3;
+  padding: 5px;
+  margin: 10px 5px 5px 5px;
+  opacity: 1;
+  border-radius: 5px;
+  font-size: 15px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+
+
+
+
