@@ -245,10 +245,10 @@ function editTrip(req, res, next) {
         nature: req.body.nature,
         extroverted: req.body.extroverted,
         smokes: req.body.smokes,
-				drinks: req.body.drinks,
-				todos: req.body.todos,
-				id: req.user.id,
-				tripId: req.body.tripId
+        drinks: req.body.drinks,
+        todos: req.body.todos,
+        id: req.user.id,
+        tripId: req.body.tripId
       }
     )
     .then(() =>
@@ -261,6 +261,47 @@ function editTrip(req, res, next) {
     );
 }
 
+// ------------------ BFF functions ------------------ //
+function getAllBffs(req, res, next) {
+  db
+    .any("SELECT bff FROM bffs WHERE user_id=$1", [req.user.id])
+    .then(data => {
+      if (data === []) {
+        res.status(200).send("You haven't added any BFFs yet :(");
+      } else res.status(200).send(data);
+    })
+    .catch(err => {
+      res.status(500).send("There's an error getting your BFFs. ", err);
+    });
+}
+
+function addBff(req, res, next) {
+	if (req.params.username === req.user.username) {
+		res.status(500).send("Sorry, you can't add yourself as a BFF...")
+		return;
+	}
+  db
+    .none("INSERT INTO bffs VALUES (DEFAULT, ${id}, ${bff})", {
+      id: req.user.id,
+      bff: req.params.username
+    })
+    .then(() => res.status(200).send("Successfully added new BFF!"))
+    .catch(err =>
+      res.status(500).send("Sorry, we couldn't add a new BFF. ", err)
+    );
+}
+
+function removeBff(req, res, next) {
+	db.none("DELETE FROM bffs WHERE user_id=${id} AND bff=${bff}", {
+		id: req.user.id,
+		bff: req.params.username
+	})
+	.then(() => res.status(200).send("Successfully removed BFF."))
+	.catch(err =>
+		res.status(500).send("Sorry, we couldn't remove this BFF. ", err)
+	);
+}
+
 module.exports = {
   registerUser,
   userSurvey,
@@ -271,6 +312,9 @@ module.exports = {
   removeTrip,
   logoutUser,
   getUser,
-	editAttributes,
-	editTrip
+  editAttributes,
+  editTrip,
+	getAllBffs,
+	addBff,
+	removeBff
 };

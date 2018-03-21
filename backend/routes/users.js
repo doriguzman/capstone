@@ -9,13 +9,16 @@ router.get("/", db.getAllUsers);
 router.get("/getUser", loginRequired, db.getUser);
 router.get("/userAttributes/:username", loginRequired, db.getUserAttributes);
 router.get("/allTrips/:username", loginRequired, db.getAllTrips)
+router.get("/allBffs", loginRequired, db.getAllBffs)
+router.get("/addBff/:username", loginRequired, db.addBff) // adds a BFF by username
 
 // POST routes
 router.post("/survey", db.userSurvey); // sets user attributes after user survey is submitted
 router.post("/addTrip", loginRequired, db.addTrip);
 
 // DELETE routes
-router.delete("/remove/:id", loginRequired, db.removeTrip); // removes a trip by trip ID
+router.delete("/removeTrip/:id", loginRequired, db.removeTrip); // removes a trip by trip ID
+router.delete("/removeBff/:username", loginRequired, db.removeBff) // removes a BFF by username
 
 // PUT routes
 router.put("/edit/attributes", loginRequired, db.editAttributes)
