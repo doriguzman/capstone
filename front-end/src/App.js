@@ -146,8 +146,8 @@ class App extends React.Component {
            {user ? <Link to ='/users/bffs'>BFFs</Link>:
           <Link to ='/users/login'>Log In</Link>}
           {' '}
-         <Link to='/users/me/'>Profile</Link>
-   
+          {user ? <Link to='/users/me/:username'>Profile</Link> :''}
+          {' '}
           {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 
 
@@ -168,6 +168,7 @@ class App extends React.Component {
             <Route path="/users/feed" render={this.renderFeed} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
             <Route path='/users/me/' render={this.renderMyProfile} />
+            <Route path='/users/me/:username/trips/add' render={this.renderAddTrips} />
           </Switch>
         </div>
       </div>
