@@ -124,7 +124,6 @@ class App extends React.Component {
   render() {
 
     const {user, active,username} = this.state
-    console.log('this should work')
 
     // if(user){
     //   const username=user.username
