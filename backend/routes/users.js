@@ -11,10 +11,14 @@ router.get("/userAttributes/:username", loginRequired, db.getUserAttributes);
 router.get("/allTrips/:username", loginRequired, db.getAllTrips)
 router.get("/allBffs", loginRequired, db.getAllBffs)
 router.get("/addBff/:username", loginRequired, db.addBff) // adds a BFF by username
+router.get("/getAllThreads", loginRequired, db.getAllThreads)
+router.get("/addThread/:username", loginRequired, db.addThread)
+router.get("/getMessages/:threadId", loginRequired, db.getMessages)
 
 // POST routes
 router.post("/survey", db.userSurvey); // sets user attributes after user survey is submitted
 router.post("/addTrip", loginRequired, db.addTrip);
+router.post("/addMessage", loginRequired, db.addMessage);
 
 // DELETE routes
 router.delete("/removeTrip/:id", loginRequired, db.removeTrip); // removes a trip by trip ID
