@@ -147,9 +147,7 @@ class App extends React.Component {
            {user ? <Link to ='/users/bffs'>BFFs</Link>:
           <Link to ='/users/login'>Log In</Link>}
           {' '}
-          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile</Link> : ''}
-          {' '}
-          {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
+          {user ? <Link to={`/users/me/${username}`}>Profile</Link> :''}
           {' '}
           {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 
