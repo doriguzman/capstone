@@ -83,13 +83,14 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    const { user, active } = this.state;
+    const { user, active, username } = this.state;
     axios
       .get("/users/getUser")
       .then(res => {
         console.log("THIS IS A RESPONSE test", res);
         this.setState({
           user: res.data.user,
+          username:res.data.user.username, 
           active: true
         });
       })
@@ -113,20 +114,21 @@ class App extends React.Component {
   };
 
   renderMyProfile = () => {
-    const {user} = this.state
+    const { user } = this.state;
+    console.log(`newton asked for this`, user);
     if (user) {
       return <User user={user} setUser={this.setUser} />;
-    } else {
-      return <Redirect to="/" />;
     }
   };
 
   render() {
-    const { user, active, username } = this.state;
+
+    const {user, active,username} = this.state
+
     // if(user){
     //   const username=user.username
     // }
-    console.log("USER: ", user);
+    console.log("USER: ", user, 'USERNAME: ' , username, 'ACTIVE' , active);
     //nav bar holds
     return (
       <div className="App">
@@ -135,7 +137,6 @@ class App extends React.Component {
         <div className="top-nav-bar">
           <div className="top-nav-bar-left">logo icon goes here</div>
 
-  
           <div className='top-nav-bar-right'>
           <Link to ='/users/aboutus'>How it Works</Link>
            {' '}
@@ -146,8 +147,10 @@ class App extends React.Component {
            {user ? <Link to ='/users/bffs'>BFFs</Link>:
           <Link to ='/users/login'>Log In</Link>}
           {' '}
-         <Link to='/users/me/'>Profile</Link>
-   
+          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile</Link> : ''}
+          {' '}
+          {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
+          {' '}
           {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 
 
@@ -167,12 +170,13 @@ class App extends React.Component {
             <Route path="/users/logout" render={this.renderLogOutUser} />
             <Route path="/users/feed" render={this.renderFeed} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
-            <Route path='/users/me/' render={this.renderMyProfile} />
+
+            
+            <Route path={`/users/me/${this.state.username}`} render={this.renderMyProfile} />
           </Switch>
         </div>
       </div>
     );
   }
 }
-
 export default App;
