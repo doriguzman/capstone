@@ -68,15 +68,32 @@ class User extends Component {
 //     return <EditUserProfile user={user} />;
 //   };
 
+  renderMyProfileInfo = () =>{
+    const {user}=this.state
+    return(
+      <UserProfile user={user}/>
+    )
+  }
+
+  renderAddTrips = ()=>{
+    const {user}= this.state
+    return(
+      <AddTrips user={user}/>
+    )
+  }
+
   render() {
-      const  {user}=this.state
+      const  {user, username}=this.state
     console.log("The profile ...... state :", this.state);
 
     return (
       <div>
-       <UserProfile user={user}/>
+        <Switch>
+                  <Route exact path={`/users/me/${username}`} render={this.renderMyProfileInfo} />
+            <Route exact path = {`/users/me/${username}/trips/add`} Component= {AddTrips}/>
         {/* <Route path="users/me/:myusername/edit" render={this.editUserProfile} />
         <Route path="users/me/:myusername/likes" render={this.renderLikes} /> */}
+     </Switch>
       </div>
     );
   }

@@ -6,6 +6,7 @@ import axios from "axios";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // this is the default style sheet for react-tabs
 import "react-tabs/style/react-tabs.css";
+import AddTrips from './AddTrips'
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -98,9 +99,11 @@ class UserProfile extends React.Component {
 
   handleClickAddTrip = e => {
       e.preventDefault()
-    const { username } = this.state;
+    const { username, user } = this.state;
     console.log("this is handle click add trip");
-    window.location.href = `http://localhost:3000/users/me/${username}/trips/add`;
+    console.log('please redirect fam')
+  //  return <Redirect to = '/'/>
+   return( window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
   };
 
   render() {
