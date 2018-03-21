@@ -3,6 +3,9 @@ import { Route, Link, Switch, Redirect } from "react-router-dom";
 // import './profile.css';
 import axios from "axios";
 // import Bffs from "./Bffs";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+// this is the default style sheet for react-tabs
+import "react-tabs/style/react-tabs.css";
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -28,27 +31,23 @@ class UserProfile extends React.Component {
       nature: "",
       extroverted: "",
       smokes: "",
-      drinks: "",
-      toggleTripsBtn: false,
-      toggleAboutBtn: false
+      drinks: ""
     };
   }
 
-fixUser = ()=>{
-  const {username, user}=this.state
-  console.log('user:' , user, 'username:' , username)
-  if (!username){
-    this.setState({
-      username:this.state.user
-    })
-  }
-}
-
+  fixUser = () => {
+    const { username, user } = this.state;
+    console.log("user:", user, "username:", username);
+    if (!username) {
+      this.setState({
+        username: this.state.user
+      });
+    }
+  };
 
   getUserInfo = () => {
-
-    const {username, user}=this.state
-    console.log('user:' , user, 'username:' , username)
+    const { username, user } = this.state;
+    console.log("user:", user, "username:", username);
     // console.log("get user info"), console.log("this is the username", username);
 
     axios
@@ -86,8 +85,9 @@ fixUser = ()=>{
         console.log(err);
       });
   };
-  componentWillMount(){
-    this.fixUser()
+
+  componentWillMount() {
+    this.fixUser();
   }
 
   componentDidMount() {
@@ -97,17 +97,11 @@ fixUser = ()=>{
   }
 
   handleClickAddTrip = e => {
+      e.preventDefault()
     const { username } = this.state;
-    window.location = `/users/me/${username}/trips/add`;
+    console.log("this is handle click add trip");
+    window.location.href = `http://localhost:3000/users/me/${username}/trips/add`;
   };
-
-  handleClickTrips = e => {
-    const { username } = this.state;
-    window.location = `/users/me/${username}/trips`;
-    this.setState({
-        toggleTripsBtn: true
-    })   
-  }
 
   render() {
     const {
@@ -130,9 +124,7 @@ fixUser = ()=>{
       nature,
       extroverted,
       smokes,
-      drinks,
-      toggleTripsBtn,
-      toggleAboutBtn
+      drinks
     } = this.state;
     console.log("THE STATE IS", this.state);
     console.log("USER_id IS ", user_id);
@@ -146,51 +138,53 @@ fixUser = ()=>{
         </div>
         <div>
           <div>
-            Name:{" "}{first_name}, Age:{" "}{age}
+            Name: {first_name}, Age: {age}
           </div>
 
-           <div>@{username}</div>
-          <div>Location:{" "} {my_location}</div>
+          <div>@{username}</div>
+          <div>Location: {my_location}</div>
         </div>
-        <div>
-          <div >About</div>
-          <div>About me:{" "}{bio}</div>
-          Ethnicity: {" "}{ethnicity}
-          <div>
-            <pre>
-              <b>As a traveller: </b>
-              <br />
-              <br /> I am an early bird:{" "}
-              {this.state["early_bird"] ? "yes" : "no"} ,
-              <br /> A night owl: {" "}
-              {this.state["night_owl"] ? "yes" : "no"},
-              <br /> Like clubbing: {" "}
-              {this.state["clubbing"] ? "yes" : "no"},
-              <br /> I am spontaneous:{" "}
-              {this.state["spontaneous"] ? "yes" : "no"}, 
-              <br /> I am active: {" "}
-              {this.state["active"] ? "yes" : "no"},
-              <br />  I like sightseeing:{" "}
-              {this.state["sightseeing"] ? "yes" : "no"}, 
-              <br /> I am a foodie:{" "}
-               {this.state["foodie"] ? "yes" : "no"}, 
-              <br /> Relax:{" "}
-               {this.state["relax"] ? "yes" : "no"}, 
-              <br /> Enjoy nature:{" "}
-              {this.state["nature"] ? "yes" : "no"}, 
-              <br /> I am extroverted:{" "}
-               {this.state["extroverted"] ? "yes" : "no"}, 
-              <br /> Smoke:{" "}
-               {this.state["smokes"] ? "yes" : "no"},
-              <br /> Drink:{" "}
-               {this.state["drinks"] ? "yes" : "no"}
-            </pre>
-          </div>
-                <div onClick={this.handleClickTrips}>Trips
-            {toggleTripsBtn ? <button onClick={this.handleClickAddTrip}>Add trips</button> : ""}
-      
-        </div>
-      </div>
+        <Tabs>
+          <TabList>
+            <Tab>About</Tab>
+            <Tab>Trips</Tab>
+          </TabList>
+          <TabPanel>
+            <div>
+              <div>
+                <h3>About me: {bio} </h3>
+              </div>
+              Ethnicity: {ethnicity}
+              <div>
+                <pre>
+                  <b>As a traveller: </b>
+                  <br />
+                  <br /> I am an early bird:{" "}
+                  {this.state["early_bird"] ? "yes" : "no"} ,
+                  <br /> A night owl: {this.state["night_owl"] ? "yes" : "no"},
+                  <br /> Like clubbing: {this.state["clubbing"] ? "yes" : "no"},
+                  <br /> I am spontaneous:{" "}
+                  {this.state["spontaneous"] ? "yes" : "no"},
+                  <br /> I am active: {this.state["active"] ? "yes" : "no"},
+                  <br /> I like sightseeing:{" "}
+                  {this.state["sightseeing"] ? "yes" : "no"},
+                  <br /> I am a foodie: {this.state["foodie"] ? "yes" : "no"},
+                  <br /> Relax: {this.state["relax"] ? "yes" : "no"},
+                  <br /> Enjoy nature: {this.state["nature"] ? "yes" : "no"},
+                  <br /> I am extroverted:{" "}
+                  {this.state["extroverted"] ? "yes" : "no"},
+                  <br /> Smoke: {this.state["smokes"] ? "yes" : "no"},
+                  <br /> Drink: {this.state["drinks"] ? "yes" : "no"}
+                </pre>
+              </div>
+            </div>
+          </TabPanel>
+          <TabPanel>
+            <div>
+              <button onClick={this.handleClickAddTrip}>Add Trips</button>
+            </div>
+          </TabPanel>
+        </Tabs>
       </div>
     );
   }

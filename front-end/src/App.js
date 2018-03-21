@@ -11,6 +11,7 @@ import LogOutUser from "./Users/LogOutUser";
 import AboutUs from "./Users/AboutUs";
 import User from "./LoggedInUser/User";
 import UserProfile from "./LoggedInUser/UserProfile";
+import AddTrips from "./LoggedInUser/AddTrips";
 
 class App extends React.Component {
   constructor() {
@@ -121,6 +122,13 @@ class App extends React.Component {
     }
   };
 
+  renderAddTrips = () => {
+    const { user } = this.state;
+    if (user) {
+      return <AddTrips user={user} setUser={this.setUser}/>
+    }
+  }
+
   render() {
 
     const {user, active,username} = this.state
@@ -169,7 +177,7 @@ class App extends React.Component {
             <Route path="/users/feed" render={this.renderFeed} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
 
-            
+            <Route path="/users/me/:username/trips/add" render={this.renderAddTrips} />
             <Route path={`/users/me/${this.state.username}`} render={this.renderMyProfile} />
           </Switch>
         </div>

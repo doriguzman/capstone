@@ -3,6 +3,7 @@ import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import UserProfile from "./UserProfile";
 // import EditUserProfile from './EditUserProfile'
+import AddTrips from "./AddTrips";
 
 class User extends Component {
   constructor(props) {
