@@ -10,11 +10,12 @@ class AddTrips extends Component {
     this.state = {
       user: this.props.user,
       user_id: this.props.user.id,
-      username: this.props.user.username,
+      username: this.props.user.username
     };
   }
 
   render() {
+      console.log("this is add trips")
     return <div>this is where you add trips</div>;
   }
 }

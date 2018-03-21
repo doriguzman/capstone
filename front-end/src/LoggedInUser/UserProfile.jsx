@@ -97,8 +97,9 @@ class UserProfile extends React.Component {
   }
 
   handleClickAddTrip = e => {
+      e.preventDefault()
     const { username } = this.state;
-    console.log("this is add trip");
+    console.log("this is handle click add trip");
     window.location.href = `http://localhost:3000/users/me/${username}/trips/add`;
   };
 

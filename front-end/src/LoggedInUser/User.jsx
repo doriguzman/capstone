@@ -68,11 +68,6 @@ class User extends Component {
 //     return <EditUserProfile user={user} />;
 //   };
 
-renderAddTrips = () => {
-    const { user } = this.state;
-    return <AddTrips user={user} />
-}
-
   render() {
       const  {user}=this.state
     console.log("The profile ...... state :", this.state);
@@ -82,7 +77,6 @@ renderAddTrips = () => {
        <UserProfile user={user}/>
         {/* <Route path="users/me/:myusername/edit" render={this.editUserProfile} />
         <Route path="users/me/:myusername/likes" render={this.renderLikes} /> */}
-        <Route path="/users/me/:username/trips/add" render={this.renderAddTrips} />
       </div>
     );
   }
