@@ -11,6 +11,7 @@ import LogOutUser from "./Users/LogOutUser";
 import AboutUs from "./Users/AboutUs";
 import User from "./LoggedInUser/User";
 import UserProfile from "./LoggedInUser/UserProfile";
+import AddTrips from "./LoggedInUser/AddTrips";
 
 class App extends React.Component {
   constructor() {
@@ -124,6 +125,13 @@ class App extends React.Component {
     }
   };
 
+  renderAddTrips = () => {
+    const { user } = this.state;
+    if (user) {
+      return <AddTrips user={user} />
+    }
+  }
+
   render() {
 
     const {user, active,username} = this.state
@@ -173,9 +181,8 @@ class App extends React.Component {
             <Route path="/users/logout" render={this.renderLogOutUser} />
             <Route path="/users/feed" render={this.renderFeed} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
-
-            
-            <Route path={`/users/me/${username}`} render={this.renderMyProfile} />
+            <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
+            <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
           </Switch>
         </div>
       </div>
