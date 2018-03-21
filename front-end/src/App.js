@@ -168,7 +168,6 @@ class App extends React.Component {
             <Route path="/users/feed" render={this.renderFeed} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
             <Route path='/users/me/' render={this.renderMyProfile} />
-            <Route path='/users/me/:username/trips/add' render={this.renderAddTrips} />
           </Switch>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import UserProfile from "./UserProfile";
 // import EditUserProfile from './EditUserProfile'
+import AddTrips from "./AddTrips";
 
 class User extends Component {
   constructor(props) {
@@ -67,6 +68,11 @@ class User extends Component {
 //     return <EditUserProfile user={user} />;
 //   };
 
+renderAddTrips = () => {
+    const { user } = this.state;
+    return <AddTrips user={user} />
+}
+
   render() {
       const  {user}=this.state
     console.log("The profile ...... state :", this.state);
@@ -76,6 +82,7 @@ class User extends Component {
        <UserProfile user={user}/>
         {/* <Route path="users/me/:myusername/edit" render={this.editUserProfile} />
         <Route path="users/me/:myusername/likes" render={this.renderLikes} /> */}
+        <Route path="/users/me/:username/trips/add" render={this.renderAddTrips} />
       </div>
     );
   }

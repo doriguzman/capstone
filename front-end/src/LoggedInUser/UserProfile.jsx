@@ -85,6 +85,7 @@ class UserProfile extends React.Component {
         console.log(err);
       });
   };
+
   componentWillMount() {
     this.fixUser();
   }
@@ -98,7 +99,7 @@ class UserProfile extends React.Component {
   handleClickAddTrip = e => {
     const { username } = this.state;
     console.log("this is add trip");
-    window.location = `/users/me/${username}/trips/add`;
+    window.location.href = `http://localhost:3000/users/me/${username}/trips/add`;
   };
 
   render() {
@@ -179,10 +180,7 @@ class UserProfile extends React.Component {
           </TabPanel>
           <TabPanel>
             <div>
-              <a href="http://localhost:3000/users/me/:username/trips/add">
-                Add Trips
-              </a>
-              {/* <button onClick={this.handleClickAddTrip}>Add trips</button> */}
+              <button onClick={this.handleClickAddTrip}>Add Trips</button>
             </div>
           </TabPanel>
         </Tabs>
