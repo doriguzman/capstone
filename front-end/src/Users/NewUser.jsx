@@ -13,7 +13,8 @@ class NewUser extends React.Component {
             validEmail:false, 
             message:'', 
             registered:false,
-            loggedIn:false
+            loggedIn:false,
+ 
         }
     }
 
@@ -46,10 +47,15 @@ class NewUser extends React.Component {
               });
             }
             if (username && password) {
-              if (password.length < 6) {
+              if (username.length<6) {
                 return this.setState({
-                  message: "Password must be at least 6 characters"
+                  message: "Username must be at least 6 characters"
                 });
+              }
+              if (username.length< 6){
+                return this.setState({
+                  message:'Password must be at least 6 characters'
+                })
               }
               axios.get("/users").then(response => {
                 console.log("RESPONSE FOR GET REQUEST", response.data.data);
@@ -62,7 +68,8 @@ class NewUser extends React.Component {
                     })
                     .then(res => {
                       console.log(res.data);
-                      this.props.setUser(res.data)
+                      this.props.setUser(res.data);
+                      this.props.active();
                       this.setState({
                         message: "Registered user",
                         registered:true,
@@ -151,6 +158,7 @@ class NewUser extends React.Component {
                 {message}
                 
             </div>
+          
         )
     }
 }
