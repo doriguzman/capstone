@@ -82,7 +82,7 @@ class App extends React.Component {
     );
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const { user, active, username } = this.state;
     axios
       .get("/users/getUser")
