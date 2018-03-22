@@ -7,6 +7,7 @@ import NewUser from "./Users/NewUser";
 import NewUserSurvey from "./Users/NewUserSurvey";
 import LoginUser from "./Users/LoginUser";
 import MatchedBuddies from "./LoggedInUser/FEED/MatchedBuddies";
+import AllBuddies from "./LoggedInUser/FEED/AllBuddies";
 import LogOutUser from "./Users/LogOutUser";
 import AboutUs from "./Users/AboutUs";
 import User from "./LoggedInUser/User";
@@ -107,7 +108,7 @@ class App extends React.Component {
   renderFeed = () => {
     const { user } = this.state;
     if (user) {
-      return <MatchedBuddies user={user} />;
+      return <AllBuddies user={user} />;
     } else {
       return this.renderLogin();
     }
