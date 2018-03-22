@@ -32,7 +32,34 @@ class User extends Component {
     };
   }
 
-  
+
+  fixUser =()=>{
+    const {user, username, user_id}= this.state
+    if(!this.state.username){
+      this.setState({
+        username:this.state.user
+      })
+    if(!this.state.user_id){
+      axios.get("/users").then(response => {
+        console.log("RESPONSE FOR GET REQUEST", response.data.data);
+        if (response.data.data.find(n => n.username === this.state.user)) {
+          console.log('this is the username' , this.state.user )
+            axios.get('/users/getUser')
+            .then(response=>{
+              console.log('this is getting one user:' , response )
+            this.setState({
+              user_id:response.data.user.id
+            })
+            })
+    }
+    })
+  }
+}
+  }
+
+  componentWillMount(){
+    this.fixUser();
+  }
 
   // Render the user's profile based on user ID
 //   renderUserProfile = () => {
@@ -69,9 +96,11 @@ class User extends Component {
 //   };
 
   renderMyProfileInfo = () =>{
-    const {user}=this.state
+    const {user, username, user_id}=this.state
+    console.log('im seeing if these things are passed correctly', 
+  user, username, user_id)
     return(
-      <UserProfile user={user}/>
+      <UserProfile user={user} username={username} />
     )
   }
 
