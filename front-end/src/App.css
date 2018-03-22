@@ -1,28 +1,90 @@
+/*
+#DAECF3 white
+#FE424D coral red
+#1AA6B7 light blue
+#022D41  dark blue
+
+*/
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400i');
+@import url('https://fonts.googleapis.com/css?family=Armata');
+
+html {
+  height: 100%;
+}
+body{
+  background-color: #DAECF3;
+  background-image: url(
+  "./frontPage.gif"
+  );
+  background-size: cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center; 
+}
+
 .App {
-  text-align: center;
+  font-size: 16px;
+  font-family: 'Armata', sans-serif;
+  color: #022D41;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.register-survey-container{
+  background-color: #DAECF3;
+  border-radius: 5px;
+  padding: 1em;
+  opacity: .9;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.login-user-container{
+  background-color: #DAECF3;
+  border-radius: 5px;
+  padding: 1em;
+  opacity: .9;
 }
 
-.App-title {
-  font-size: 1.5em;
+.surveyBtn{
+  background-color: #FE424D;
+  color: #DAECF3;
+  padding: 1px;
+  margin: 7px 7px 7px 7px;
+  opacity: 0.9; 
+  border: 10px solid #DAECF3;
+  border-radius: 5px;
+  font-size: 15px;
 }
 
-.App-intro {
-  font-size: large;
+@media screen and (max-width: 932px) {
+  .login-box {
+      transform: scale(0.7);
+  }
+  .registerBox {
+      transform: scale(0.7);
+  }
+  body{
+    background-color: #DAECF3;
+  }
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@media screen and (max-width: 632px) {
+  .register-survey-container{
+      margin-bottom: 0px;
+  }
+  #navLogoName{
+      transform: scale(0.7);   
+  }
+  body{
+    background-color: #DAECF3;
+  }  
+}
+
+@media screen and (max-width: 480px) {
+  .register-survey-container{
+      height: 100%;
+  }
+  #navLogoName{
+      transform: scale(0.7);   
+  }
+  body{
+    background-color: #DAECF3;
+  }
 }
