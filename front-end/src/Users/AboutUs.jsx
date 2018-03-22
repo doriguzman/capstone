@@ -1,26 +1,75 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
+const AboutUs = () => {
+  const places = [
+    "see the ruins of Machu Picchu in Peru",
+    "climb to the peaks of Mount Everest",
+    "relax on a sandy beach in Greece",
+    "test the waters of the Pacific in Southern California",
+    "taste all the cheeses Wisconsin has to offer",
+    "get your skin scrubbed baby-soft at a spa in South Korea",
+    "party like it's 1999 in Berlin",
+    "go whale watching in Seattle",
+    "go for a long walk on the Great Wall in China",
+    "see the pyramids up close in Egypt",
+    "adopt a pet spider from Australia",
+    "discover Hobbiton in New Zealand",
+    "find out if dragons are real in Gaztelugatxe"
+  ];
+  const randomPlace = arr => arr[Math.floor(Math.random() * arr.length)];
 
-const AboutUs =()=>{
-
-    return (
-       
-        <div> 
-            <p>
-            Bacon ipsum dolor amet cupim rump pork chop ribeye prosciutto ham. Tri-tip buffalo pork, cupim kevin leberkas landjaeger ham hock. Sausage venison rump hamburger corned beef shoulder bresaola kevin jerky. Jowl kevin chicken sausage tongue swine beef ribs burgdoggen short loin cupim shank ribeye. Kevin leberkas jowl, picanha ham spare ribs pork belly ribeye cupim biltong.
-
-Short ribs pig capicola filet mignon. Pork belly fatback ham hock t-bone flank, burgdoggen spare ribs. Salami capicola ham hock spare ribs leberkas brisket shankle buffalo. Tail chicken ham hock ball tip pork chop bacon. Pancetta ground round jowl, tenderloin corned beef bacon jerky doner swine porchetta chuck turkey pork chop. Buffalo corned beef pork loin pork chop swine, ball tip pork venison flank.
-
-Corned beef boudin porchetta flank venison hamburger. Corned beef picanha sirloin kielbasa brisket pig. Salami landjaeger tail biltong, kevin doner beef burgdoggen pig filet mignon swine bacon kielbasa chuck shank. Pastrami chicken biltong jerky short loin, fatback bresaola tongue landjaeger buffalo andouille. Strip steak tenderloin rump leberkas.
-
-Shoulder fatback t-bone spare ribs. Doner chicken pastrami boudin strip steak meatball ground round tri-tip ham hock buffalo pig picanha burgdoggen corned beef. Kevin boudin jowl, corned beef meatball pork loin meatloaf short loin ball tip ham hock chicken tenderloin. Brisket tenderloin doner, chicken tri-tip biltong strip steak spare ribs bacon shankle.
-
-Ball tip drumstick porchetta shankle venison. T-bone tail turducken shankle pork belly ball tip burgdoggen alcatra meatball shoulder ham hock jowl. Beef burgdoggen short loin, swine tongue prosciutto meatloaf drumstick. Turducken ribeye sirloin bacon ball tip frankfurter tri-tip. Corned beef pancetta kielbasa tenderloin bresaola, fatback chuck leberkas.
-
-Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!
-                </p>
-            </div> 
-    )
-}
+  return (
+    <div>
+      <div>
+        <div className="about-us-header-div"> Who You Are </div>
+        <div>
+          <p className="about-us-p">
+            You're an independent woman just dying to {randomPlace(places)}, but
+            your girlfriends are all busy or broke.
+            <br />
+            Or maybe you're a cautious woman, and would prefer not to travel
+            alone to avoid some potentially dangerous situations.
+            <br />
+            Well, you're not alone.
+          </p>
+        </div>
+        <div className="about-us-header-div"> Who We Are </div>
+        <div>
+          <p className="about-us-p">
+            At feathers, we aim to connect solo female travellers with others
+            just like them. <br />
+            We'll match you with other women based on a variety of things
+            including:<br />
+            <span className="features">Destination</span>
+            <br />
+            <span className="features">Trip dates</span>
+            <br />
+            <span className="features">Compatibility</span>
+            <br />
+          </p>
+          <p className="about-us-p">
+            Message, favorite, or simply browse through other members' profiles,
+            trips, or send them a message to start discussing your next trip.
+          </p>
+          <p className="about-us-p">Are you ready for your next adventure?</p>
+          <Link to="/users/register">Join Us Now!</Link>
+        </div>
+      </div>
+      <div className="about-us-disclaimer">
+				<p>Disclaimer:</p>
+        <p>
+					You must be 18 years or older to use feathers.com. All members are
+					expected to complete their profile and upload a photo. Once you have
+					connected with another member and agreed upon a trip, exchange contact
+					info via messaging in-app to wrap-up your final plans. <br />
+					We strong recommend our members to set-up a video call prior to meeting
+					with other members. Practice a common sense approach when meeting anyone
+					you meet online for the first time.
+				</p>
+      </div>
+    </div>
+  );
+};
 
 export default AboutUs;
