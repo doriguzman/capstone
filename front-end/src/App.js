@@ -9,10 +9,12 @@ import NewUser from "./Users/NewUser";
 import NewUserSurvey from "./Users/NewUserSurvey";
 import LoginUser from "./Users/LoginUser";
 import MatchedBuddies from "./LoggedInUser/FEED/MatchedBuddies";
+import AllBuddies from "./LoggedInUser/FEED/AllBuddies";
 import LogOutUser from "./Users/LogOutUser";
 import AboutUs from "./Users/AboutUs";
 import User from "./LoggedInUser/User";
 import UserProfile from "./LoggedInUser/UserProfile";
+import AddTrips from "./LoggedInUser/AddTrips";
 
 class App extends React.Component {
   constructor() {
@@ -27,6 +29,7 @@ class App extends React.Component {
   setUser = user => {
     this.setState({ 
       user: user, 
+      username:user.username
       
     });
     if(!user.username){
@@ -42,6 +45,7 @@ class App extends React.Component {
       .then(res => {
         this.setState({
           user: null,
+          username:null,
           active: false
         });
       })
@@ -84,8 +88,9 @@ class App extends React.Component {
     );
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const { user, active, username } = this.state;
+    console.log('HIIIII')
     axios
       .get("/users/getUser")
       .then(res => {
@@ -105,7 +110,7 @@ class App extends React.Component {
   renderFeed = () => {
     const { user } = this.state;
     if (user) {
-      return <MatchedBuddies user={user} />;
+      return <AllBuddies user={user} />;
     } else {
       return this.renderLogin();
     }
@@ -123,10 +128,16 @@ class App extends React.Component {
     }
   };
 
+  renderAddTrips = () => {
+    const { user } = this.state;
+    if (user) {
+      return <AddTrips user={user} />
+    }
+  }
+
   render() {
 
     const {user, active,username} = this.state
-    console.log('this should work')
 
     // if(user){
     //   const username=user.username
@@ -173,9 +184,8 @@ class App extends React.Component {
             <Route path="/users/logout" render={this.renderLogOutUser} />
             <Route path="/users/feed" render={this.renderFeed} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
-
-            
-            <Route path={`/users/me/${this.state.username}`} render={this.renderMyProfile} />
+            <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
+            <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
           </Switch>
         </div>
       </div>

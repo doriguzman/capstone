@@ -37,6 +37,7 @@ function userSurvey(req, res, next) {
         bio: req.body.bio,
         pic: req.body.pic,
         ethnicity: req.body.ethnicity,
+        religion: req.body.religion,
         earlyBird: req.body.earlyBird,
         nightOwl: req.body.nightOwl,
         clubbing: req.body.clubbing,
@@ -105,10 +106,18 @@ function getUserAttributes(req, res, next) {
     });
 }
 
+// ------------------ Get all photo URLs ------------------ //
+// function getPics(req, res, next) {
+//   db
+//     .any(
+//       "SELECT pic FROM attributes"
+//     )
+// }
+
 // Get matches by attributes
-function getMatches(req, res, next) {
-  db.any();
-}
+// function getMatches(req, res, next) {
+//   db.any();
+// }
 
 // ------------------ ADD A TRIP TO trips TABLE ------------------ //
 function addTrip(req, res, next) {
@@ -126,7 +135,7 @@ function addTrip(req, res, next) {
         nightOwl: req.body.nightOwl,
         clubbing: req.body.clubbing,
         spontaneous: req.body.spontaneous,
-        active: req.body.actieve,
+        active: req.body.active,
         sightseeing: req.body.sightseeing,
         foodie: req.body.foodie,
         relax: req.body.relax,
@@ -199,6 +208,7 @@ function editAttributes(req, res, next) {
         bio: req.body.bio,
         pic: req.body.pic,
         ethnicity: req.body.ethnicity,
+        religion: req.body.religion,
         earlyBird: req.body.earlyBird,
         nightOwl: req.body.nightOwl,
         clubbing: req.body.clubbing,
@@ -276,10 +286,10 @@ function getAllBffs(req, res, next) {
 }
 
 function addBff(req, res, next) {
-	if (req.params.username === req.user.username) {
-		res.status(500).send("Sorry, you can't add yourself as a BFF...")
-		return;
-	}
+  if (req.params.username === req.user.username) {
+    res.status(500).send("Sorry, you can't add yourself as a BFF...");
+    return;
+  }
   db
     .none("INSERT INTO bffs VALUES (DEFAULT, ${id}, ${bff})", {
       id: req.user.id,
@@ -292,14 +302,86 @@ function addBff(req, res, next) {
 }
 
 function removeBff(req, res, next) {
-	db.none("DELETE FROM bffs WHERE user_id=${id} AND bff=${bff}", {
-		id: req.user.id,
-		bff: req.params.username
-	})
-	.then(() => res.status(200).send("Successfully removed BFF."))
-	.catch(err =>
-		res.status(500).send("Sorry, we couldn't remove this BFF. ", err)
-	);
+  db
+    .none("DELETE FROM bffs WHERE user_id=${id} AND bff=${bff}", {
+      id: req.user.id,
+      bff: req.params.username
+    })
+    .then(() => res.status(200).send("Successfully removed BFF."))
+    .catch(err =>
+      res.status(500).send("Sorry, we couldn't remove this BFF. ", err)
+    );
+}
+
+// ------------------ THREAD functions ------------------ //
+function getAllThreads(req, res, next) {
+  db
+    .any(
+      "SELECT threads.id, user_a, user_b FROM threads JOIN users ON threads.user_a=users.username OR threads.user_b=users.username WHERE users.id=${id};",
+      { id: req.user.id }
+    )
+    .then(data => {
+      res.status(200).send(data);
+    })
+    .catch(err => {
+      res.status(500).send("no threads to retrieve");
+    });
+}
+
+function addThread(req, res, next) {
+  db
+    .none("INSERT INTO threads VALUES (DEFAULT, ${user}, ${username})", {
+      user: req.user.username,
+      username: req.params.username
+    })
+    .then(() =>
+      res
+        .status(200)
+        .send(`successfully added a new thread for ${req.user.username} and ${req.params.username}`)
+    )
+    .catch(err => res.status(500).send(`could not add new thread`));
+}
+
+// ---- I'm commenting out this removeThread function because if I remove the thread, it will
+// ---- be removed from the entire database for both parties
+// function removeThread(req, res, next) {
+// 	db
+// 		.none(
+// 			"DELETE FROM threads WHERE (user_a=${user} AND user_b={username}) OR (user_a={username} AND user_b={user})",
+// 			{
+// 				user: req.user.username,
+// 				username: req.params.username
+// 			}
+// 		)
+// 		.then(() => res.status(200).send(`successfully deleted thread for ${req.user.username} and ${req.params.username}`))
+// }
+
+// ------------------ MESSAGE functions ------------------ //
+function addMessage(req, res, next) {
+  const date = new Date();
+  db
+    .none(
+      "INSERT INTO messages VALUES (DEFAULT, ${user}, ${threadId}, ${body}, ${timestamp})",
+      {
+        user: req.user.username,
+        threadId: req.body.threadId,
+        body: req.body.body,
+        timestamp: date
+      }
+    )
+    .then(() =>
+      res.status(200).send(`Added a message for ${req.user.username}`)
+    )
+    .catch(err => res.status(500).send(`error adding message: `, err));
+}
+
+function getMessages(req, res, next) {
+  db
+    .any("SELECT username, body, timestamp FROM messages WHERE thread_id=${threadId}", {
+      threadId: req.params.threadId
+    })
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send("error fetching messages: ", err));
 }
 
 module.exports = {
@@ -314,7 +396,12 @@ module.exports = {
   getUser,
   editAttributes,
   editTrip,
-	getAllBffs,
-	addBff,
-	removeBff
+  getAllBffs,
+  addBff,
+  removeBff,
+  getAllThreads,
+	addThread,
+	// removeThread,
+	addMessage,
+	getMessages
 };
