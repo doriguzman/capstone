@@ -85,7 +85,7 @@ class App extends React.Component {
     const { user, active } = this.state;
     console.log(this.state);
     return (
-      <NewUserSurvey setUser={this.setUser} username={user} active={this.isActive} />
+      <NewUserSurvey setUser={this.setUser} username={user} active={active} />
     );
   };
 
