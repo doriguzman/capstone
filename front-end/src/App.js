@@ -15,6 +15,7 @@ import AboutUs from "./Users/AboutUs";
 import User from "./LoggedInUser/User";
 import UserProfile from "./LoggedInUser/UserProfile";
 import AddTrips from "./LoggedInUser/AddTrips";
+import EditUserProfile from "./LoggedInUser/EditUserProfile";
 
 class App extends React.Component {
   constructor() {
@@ -135,6 +136,13 @@ class App extends React.Component {
     }
   }
 
+  renderEditUserProfile = () => {
+    const { user, active } = this.state;
+    if (user) {
+      return <EditUserProfile user={user} setUser={this.setUser} active={active} />
+    }
+  }
+
   render() {
 
     const {user, active,username} = this.state
@@ -186,6 +194,7 @@ class App extends React.Component {
             <Route path="/users/aboutus" render={this.renderAboutUs} />
             <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
             <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
+            <Route path = {`/users/me/${username}/editprofile`} render={this.renderEditUserProfile} />
           </Switch>
         </div>
       </div>
