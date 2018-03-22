@@ -59,15 +59,15 @@ const AboutUs = () => {
         </div>
       </div>
       <div className="about-us-disclaimer">
-				<p>Disclaimer:</p>
+				<p>Terms & Disclaimer:</p>
         <p>
-					You must be 18 years or older to use feathers.com. All members are
+					Anyone that identifies as a woman is welcome to register and become a member. You must be 18 years or older to use feathers.com. All members are
 					expected to complete their profile and upload a photo. Once you have
 					connected with another member and agreed upon a trip, exchange contact
-					info via messaging in-app to wrap-up your final plans. <br />
-					We strong recommend our members to set-up a video call prior to meeting
-					with other members. Practice a common sense approach when meeting anyone
-					you meet online for the first time.
+					info via our in-app messaging to wrap-up your final plans. <br />
+					We strongly recommend our members to set-up a video call prior to meeting
+					with other members. Practice a common sense approach when meeting up with anyone
+					you met online for the first time.
 				</p>
       </div>
     </div>
