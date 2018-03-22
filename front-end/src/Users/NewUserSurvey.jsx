@@ -92,6 +92,7 @@ class NewUserSurvey extends React.Component {
         bio: this.state.bio,
         pic: this.state.pic,
         ethnicity: this.state.ethnicity,
+        religion:this.state.religion,
         earlyBird: this.state["Early Bird"],
         nightOwl: this.state["Night Owl"],
         clubbing: this.state.Clubbing,
