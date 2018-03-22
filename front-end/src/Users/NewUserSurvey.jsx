@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import MatchedBuddies from "../LoggedInUser/FEED/MatchedBuddies";
+import "../App.css";
+import "../Stylesheets/Navbar.css";
+import "../Stylesheets/Login.css";
 
 class Select extends React.Component {
   render() {
@@ -63,6 +66,7 @@ class NewUserSurvey extends React.Component {
       age: "",
       location: "",
       bio: "",
+      pic: "",
       Clubbing: false,
       "Night Owl": false,
       "Early Bird": false,
@@ -81,6 +85,7 @@ class NewUserSurvey extends React.Component {
       USERLOGGED:this.props.active
     };
   }
+
   renderSurvey = e => {
     console.log('submitting survey')
     e.preventDefault()
@@ -157,6 +162,7 @@ class NewUserSurvey extends React.Component {
       age,
       location,
       bio,
+      pic,
       ethnicity,
       religion,
       submitted
@@ -168,7 +174,7 @@ class NewUserSurvey extends React.Component {
     }
     return (
       <div className="register-survey-container">
-        <h2>Tell Us About Yourself</h2>
+        <h2 id="navLogoName">Tell Us About Yourself</h2>
         <hr />
         <form>
           First Name <br />
@@ -203,13 +209,22 @@ class NewUserSurvey extends React.Component {
           Bio <br />
           <input
             className="bio"
-            placeholder="Bio"
+            placeholder="Tell us a little bit about yourself :)"
             type="textarea"
             name="bio"
             value={bio}
             onChange={this.handleInput}
           />
           <br />
+          Photo <br />
+          <input
+            className="pic"
+            placeholder="URL"
+            type="text"
+            name="pic"
+            value={pic}
+            onChange={this.handleInput}
+          />
           {/*  now we are going to start radio buttons here */}
           <br />
           <div className="checkBoxes">
