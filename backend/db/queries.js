@@ -61,6 +61,7 @@ function userSurvey(req, res, next) {
     });
 }
 
+
 function getUser(req, res, next) {
   db
     .one("SELECT * FROM users WHERE username=${username}", {
@@ -386,7 +387,7 @@ function getMessages(req, res, next) {
 
 module.exports = {
   registerUser,
-  userSurvey,
+  userSurvey, 
   getAllUsers,
   getUserAttributes,
   addTrip,

@@ -14,13 +14,14 @@ class UserProfile extends React.Component {
     this.state = {
       user: this.props.user,
       user_id: this.props.user.id,
-      username: this.props.user.username,
+      username: this.props.username,
       userImageURL: "",
       first_name: "",
       my_location: "",
       age: "",
       bio: "",
       ethnicity: "",
+      religion:'', 
       early_bird: "",
       night_owl: "",
       clubbing: "",
@@ -32,19 +33,34 @@ class UserProfile extends React.Component {
       nature: "",
       extroverted: "",
       smokes: "",
-      drinks: ""
+      drinks: "", 
+      trips:''
     };
   }
 
   fixUser = () => {
-    const { username, user } = this.state;
-    console.log("user:", user, "username:", username);
-    if (!username) {
+    const {user, username, user_id}= this.state
+    if(!this.state.username){
       this.setState({
-        username: this.state.user
-      });
+        username:this.state.user
+      })
+    if(!this.state.user_id){
+      axios.get("/users").then(response => {
+        console.log("RESPONSE FOR GET REQUEST", response.data.data);
+        if (response.data.data.find(n => n.username === this.state.user)) {
+          console.log('this is the username' , this.state.user )
+            axios.get('/users/getUser')
+            .then(response=>{
+              console.log('this is getting one user:' , response )
+            this.setState({
+              user_id:response.data.user.id
+            })
+            })
     }
-  };
+    })
+  }
+}
+  }
 
   getUserInfo = () => {
     const { username, user } = this.state;
@@ -65,6 +81,7 @@ class UserProfile extends React.Component {
           age: UserInfo.age,
           bio: UserInfo.bio,
           ethnicity: UserInfo.ethnicity,
+          religion:UserInfo.religion, 
           early_bird: UserInfo.early_bird,
           night_owl: UserInfo.night_owl,
           clubbing: UserInfo.clubbing,
@@ -87,14 +104,29 @@ class UserProfile extends React.Component {
       });
   };
 
+  getUserTrips=()=>{
+    const {trips}=this.state
+    axios
+    .get(`/users/allTrips/${this.state.username}`)
+    .then(res => {
+      let UserInfo = res.data;
+      console.log("res.data", res.data);
+      this.setState({
+        trips:res.data, 
+      })
+  })
+}
+
   componentWillMount() {
     this.fixUser();
+    this.getUserTrips();
   }
 
   componentDidMount() {
     console.log("component mounted!");
     // this.fixUser();
     this.getUserInfo();
+    // this.getUserTrips();
   }
 
   handleClickAddTrip = e => {
@@ -117,6 +149,7 @@ class UserProfile extends React.Component {
       age,
       bio,
       ethnicity,
+      relgiion,
       early_bird,
       night_owl,
       clubbing,
@@ -127,7 +160,8 @@ class UserProfile extends React.Component {
       nature,
       extroverted,
       smokes,
-      drinks
+      drinks, 
+      trips
     } = this.state;
     console.log("THE STATE IS", this.state);
     console.log("USER_id IS ", user_id);
@@ -159,6 +193,11 @@ class UserProfile extends React.Component {
               </div>
               Ethnicity: {ethnicity}
               <div>
+                <br/>
+                <div> 
+                  Religion:{religion}
+                  </div>
+                  <br/>
                 <pre>
                   <b>As a traveller: </b>
                   <br />
@@ -184,6 +223,26 @@ class UserProfile extends React.Component {
           </TabPanel>
           <TabPanel>
             <div>
+              
+              {trips ? trips.map(trip => (
+                <div> 
+                  <h3> Destination: {trip.destination}
+                    </h3>
+                    <h4>
+                      Starting Date:{trip.start_date}
+                      <br/>
+                      Ending Date:{trip.end_date}
+                      <br/>
+                      Planned Activities: {trip.todos}
+                      <br/>
+                       </h4>
+                    
+                  </div>
+                  )
+              ) : ""}
+
+
+
               <button onClick={this.handleClickAddTrip}>Add Trips</button>
             </div>
           </TabPanel>
