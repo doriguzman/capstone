@@ -14,7 +14,7 @@ class UserProfile extends React.Component {
     this.state = {
       user: this.props.user,
       user_id: this.props.user.id,
-      username: this.props.user.username,
+      username: this.props.username,
       userImageURL: "",
       first_name: "",
       my_location: "",
@@ -37,14 +37,28 @@ class UserProfile extends React.Component {
   }
 
   fixUser = () => {
-    const { username, user } = this.state;
-    console.log("user:", user, "username:", username);
-    if (!username) {
+    const {user, username, user_id}= this.state
+    if(!this.state.username){
       this.setState({
-        username: this.state.user
-      });
+        username:this.state.user
+      })
+    if(!this.state.user_id){
+      axios.get("/users").then(response => {
+        console.log("RESPONSE FOR GET REQUEST", response.data.data);
+        if (response.data.data.find(n => n.username === this.state.user)) {
+          console.log('this is the username' , this.state.user )
+            axios.get('/users/getUser')
+            .then(response=>{
+              console.log('this is getting one user:' , response )
+            this.setState({
+              user_id:response.data.user.id
+            })
+            })
     }
-  };
+    })
+  }
+}
+  }
 
   getUserInfo = () => {
     const { username, user } = this.state;

@@ -60,6 +60,35 @@ function userSurvey(req, res, next) {
     });
 }
 
+function userPreferences(req, res, next) {
+  db
+    .none(
+      "INSERT INTO preferences VALUES (DEFAULT, ${user_id},  ${earlyBird}, ${nightOwl}, ${clubbing}, ${spontaneous}, ${active}, ${sightseeing}, ${foodie}, ${relax}, ${nature}, ${extroverted}, ${smokes}, ${drinks});",
+      {
+        user_id: req.user.id,
+        earlyBird: req.body.earlyBird,
+        nightOwl: req.body.nightOwl,
+        clubbing: req.body.clubbing,
+        spontaneous: req.body.spontaneous,
+        active: req.body.active,
+        sightseeing: req.body.sightseeing,
+        foodie: req.body.foodie,
+        relax: req.body.relax,
+        nature: req.body.nature,
+        extroverted: req.body.extroverted,
+        smokes: req.body.smokes,
+        drinks: req.body.drinks
+      }
+    )
+    .then(() => {
+      res.status(200).send("added user preferences into database");
+    })
+    .catch(err => {
+      console.log(`error adding user preferences: `, err);
+      // res.status(500).send("error adding user attributes: ", err);
+    });
+}
+
 function getUser(req, res, next) {
   db
     .one("SELECT * FROM users WHERE username=${username}", {
@@ -377,6 +406,7 @@ function getMessages(req, res, next) {
 module.exports = {
   registerUser,
   userSurvey,
+  userPreferences, 
   getAllUsers,
   getUserAttributes,
   addTrip,

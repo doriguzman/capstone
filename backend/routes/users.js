@@ -19,6 +19,7 @@ router.get("/getMessages/:threadId", loginRequired, db.getMessages)
 router.post("/survey", db.userSurvey); // sets user attributes after user survey is submitted
 router.post("/addTrip", loginRequired, db.addTrip);
 router.post("/addMessage", loginRequired, db.addMessage);
+router.post('/userPreferences', loginRequired,db.userPreferences);
 
 // DELETE routes
 router.delete("/removeTrip/:id", loginRequired, db.removeTrip); // removes a trip by trip ID
