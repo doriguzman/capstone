@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import "../App.css";
+import "../Stylesheets/Navbar.css";
+import "../Stylesheets/Login.css";
 
 
 const AboutUs =()=>{
 
     return (
        
-        <div> 
+        <div className='login-user-container'>
             <p>
             Bacon ipsum dolor amet cupim rump pork chop ribeye prosciutto ham. Tri-tip buffalo pork, cupim kevin leberkas landjaeger ham hock. Sausage venison rump hamburger corned beef shoulder bresaola kevin jerky. Jowl kevin chicken sausage tongue swine beef ribs burgdoggen short loin cupim shank ribeye. Kevin leberkas jowl, picanha ham spare ribs pork belly ribeye cupim biltong.
 

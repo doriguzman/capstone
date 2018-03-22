@@ -3,6 +3,8 @@ import logo from "./logo.svg";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
+import "./Stylesheets/Navbar.css";
+import "./Stylesheets/Login.css";
 import NewUser from "./Users/NewUser";
 import NewUserSurvey from "./Users/NewUserSurvey";
 import LoginUser from "./Users/LoginUser";
@@ -136,22 +138,22 @@ class App extends React.Component {
         {/* NAV BAR GOES HERE */}
 
         <div className="top-nav-bar">
-          <div className="top-nav-bar-left">logo icon goes here</div>
+          <div className="top-nav-bar-left"><img src="https://preview.ibb.co/n47C2x/70logo.gif" /> </div>
 
           <div className='top-nav-bar-right'>
           <Link to ='/users/aboutus'>How it Works</Link>
-           {' '}
+           {' '}|{' '}
 
            {user ? <Link to ='/users/feed'>Feed</Link>: 
           <Link to ='/users/register'>Register</Link>}
-          {' '}
+          {' '}|{' '}
            {user ? <Link to ='/users/bffs'>BFFs</Link>:
           <Link to ='/users/login'>Log In</Link>}
-          {' '}
+          {' '}|{' '}
           {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile</Link> : ''}
-          {' '}
+          {' '}{' '}
           {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
-          {' '}
+          {' '}{' '}
           {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 
 

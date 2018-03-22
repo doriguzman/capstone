@@ -6,66 +6,85 @@
 
 */
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400i');
+@import url('https://fonts.googleapis.com/css?family=Armata');
 
+html {
+  height: 100%;
+}
 body{
-  background-color: #022D41;
+  background-color: #DAECF3;
   background-image: url(
-  "https://images.unsplash.com/photo-1507612869432-28bf856d0818?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4df7f7fca1c8449cfa5aec9932c9469c&auto=format&fit=crop&w=1500&q=80"
+  "./frontPage.gif"
   );
+  background-size: cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center; 
 }
 
 .App {
-  text-align: center;
-  font-size: 35px;
-  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-family: 'Armata', sans-serif;
+  color: #022D41;
 }
 
-#navLogoName{
-  height: 30px;
-  color: #DAECF3;
-}
-
-.registerBox{
+.register-survey-container{
   background-color: #DAECF3;
-  opacity: 0.9;
-  height: 50px;
   border-radius: 5px;
-  font-size: 20px;
+  padding: 1em;
+  opacity: .9;
 }
 
-.usernameBox{
- padding: 5px;
- margin: 10px 5px 5px 5px;
- opacity: 1;
- border-radius: 5px;
- font-size: 15px;
-}
-.emailBox {
-  padding: 5px;
-  margin: 10px 5px 5px 5px;
-  opacity: 1;
+.login-user-container{
+  background-color: #DAECF3;
   border-radius: 5px;
-  font-size: 15px;
+  padding: 1em;
+  opacity: .9;
 }
 
-.passwordBox{
-  padding: 5px;
-  margin: 10px 5px 5px 5px;
-  opacity: 1;
-  border-radius: 5px;
-  font-size: 15px;
-}
-.loginBtn{
+.surveyBtn{
   background-color: #FE424D;
   color: #DAECF3;
-  padding: 5px;
-  margin: 10px 5px 5px 5px;
-  opacity: 1;
+  padding: 1px;
+  margin: 7px 7px 7px 7px;
+  opacity: 0.9; 
+  border: 10px solid #DAECF3;
   border-radius: 5px;
   font-size: 15px;
 }
 
+@media screen and (max-width: 932px) {
+  .login-box {
+      transform: scale(0.7);
+  }
+  .registerBox {
+      transform: scale(0.7);
+  }
+  body{
+    background-color: #DAECF3;
+  }
+}
 
+@media screen and (max-width: 632px) {
+  .register-survey-container{
+      margin-bottom: 0px;
+  }
+  #navLogoName{
+      transform: scale(0.7);   
+  }
+  body{
+    background-color: #DAECF3;
+  }  
+}
 
-
-
+@media screen and (max-width: 480px) {
+  .register-survey-container{
+      height: 100%;
+  }
+  #navLogoName{
+      transform: scale(0.7);   
+  }
+  body{
+    background-color: #DAECF3;
+  }
+}

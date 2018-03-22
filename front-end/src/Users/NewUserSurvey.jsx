@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import MatchedBuddies from "../LoggedInUser/FEED/MatchedBuddies";
+import "../App.css";
+import "../Stylesheets/Navbar.css";
+import "../Stylesheets/Login.css";
 
 class Select extends React.Component {
   render() {
@@ -167,7 +170,7 @@ class NewUserSurvey extends React.Component {
     }
     return (
       <div className="register-survey-container">
-        <h2>Tell Us About Yourself</h2>
+        <h2 id="navLogoName">Tell Us About Yourself</h2>
         <hr />
         <form>
           First Name <br />
