@@ -20,20 +20,19 @@ class App extends React.Component {
     this.state = {
       user: null,
       active: false,
-      username:null
+      username: null
     };
   }
 
   setUser = user => {
-    this.setState({ 
-      user: user, 
-      username:user.username
-      
+    this.setState({
+      user: user,
+      username: user.username
     });
-    if(!user.username){
+    if (!user.username) {
       this.setState({
-        username:user
-      })
+        username: user
+      });
     }
   };
 
@@ -43,7 +42,7 @@ class App extends React.Component {
       .then(res => {
         this.setState({
           user: null,
-          username:null,
+          username: null,
           active: false
         });
       })
@@ -82,20 +81,20 @@ class App extends React.Component {
     const { user, active } = this.state;
     console.log(this.state);
     return (
-      <NewUserSurvey setUser={this.setUser} username={user} active={this.isActive} />
+      <NewUserSurvey setUser={this.setUser} username={user} active={active} />
     );
   };
 
   componentWillMount() {
     const { user, active, username } = this.state;
-    console.log('HIIIII')
+    console.log("HIIIII");
     axios
       .get("/users/getUser")
       .then(res => {
         console.log("THIS IS A RESPONSE test", res);
         this.setState({
           user: res.data.user,
-          username:res.data.user.username, 
+          username: res.data.user.username,
           active: true
         });
       })
@@ -129,25 +128,26 @@ class App extends React.Component {
   renderAddTrips = () => {
     const { user } = this.state;
     if (user) {
-      return <AddTrips user={user} />
+      return <AddTrips user={user} />;
     }
-  }
+  };
 
   renderEditUserProfile = () => {
     const { user, active } = this.state;
     if (user) {
-      return <EditUserProfile user={user} setUser={this.setUser} active={this.isActive} />
+      return (
+        <EditUserProfile user={user} setUser={this.setUser} active={active} />
+      );
     }
-  }
+  };
 
   render() {
-
-    const {user, active,username} = this.state
+    const { user, active, username } = this.state;
 
     // if(user){
     //   const username=user.username
     // }
-    console.log("USER: ", user, 'USERNAME: ' , username, 'ACTIVE' , active);
+    console.log("USER: ", user, "USERNAME: ", username, "ACTIVE", active);
     //nav bar holds
     return (
       <div className="App">
@@ -156,24 +156,27 @@ class App extends React.Component {
         <div className="top-nav-bar">
           <div className="top-nav-bar-left">logo icon goes here</div>
 
-          <div className='top-nav-bar-right'>
-          <Link to ='/users/aboutus'>How it Works</Link>
-           {' '}
-
-           {user ? <Link to ='/users/feed'>Feed</Link>: 
-          <Link to ='/users/register'>Register</Link>}
-          {' '}
-           {user ? <Link to ='/users/bffs'>BFFs</Link>:
-          <Link to ='/users/login'>Log In</Link>}
-          {' '}
-          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile</Link> : ''}
-          {' '}
-          {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
-          {' '}
-          {user ? <Link to='/users/logout'>Logout</Link>:''}
-          </div> 
-
-           </div>
+          <div className="top-nav-bar-right">
+            <Link to="/users/aboutus">How it Works</Link>{" "}
+            {user ? (
+              <Link to="/users/feed">Feed</Link>
+            ) : (
+              <Link to="/users/register">Register</Link>
+            )}{" "}
+            {user ? (
+              <Link to="/users/bffs">BFFs</Link>
+            ) : (
+              <Link to="/users/login">Log In</Link>
+            )}{" "}
+            {user && !username ? (
+              <Link to={`/users/me/${user.username}`}>Profile</Link>
+            ) : (
+              ""
+            )}{" "}
+            {username ? <Link to={`/users/me/${username}`}>Profile</Link> : ""}{" "}
+            {user ? <Link to="/users/logout">Logout</Link> : ""}
+          </div>
+        </div>
         {/* logo  and how it works and login functionality  */}
         <div>
           <Switch>
@@ -189,9 +192,20 @@ class App extends React.Component {
             <Route path="/users/logout" render={this.renderLogOutUser} />
             <Route path="/users/feed" render={this.renderFeed} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
-            <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
-            <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
-            <Route path = {`/users/me/${username}/editprofile`} render={this.renderEditUserProfile} />
+            <Route
+              exact
+              path={`/users/me/${username}`}
+              render={this.renderMyProfile}
+            />
+            <Route
+              exact
+              path={`/users/me/${username}/trips/add`}
+              render={this.renderAddTrips}
+            />
+            <Route
+              path={`/users/me/${username}/editprofile`}
+              render={this.renderEditUserProfile}
+            />
           </Switch>
         </div>
       </div>
