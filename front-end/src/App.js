@@ -139,7 +139,7 @@ class App extends React.Component {
   renderEditUserProfile = () => {
     const { user, active } = this.state;
     if (user) {
-      return <EditUserProfile user={user} setUser={this.setUser} active={this.isActive} />
+      return <EditUserProfile user={user} setUser={this.setUser} active={active} />
     }
   }
 
