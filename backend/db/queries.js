@@ -88,7 +88,7 @@ function getAllUsers(req, res, next) {
     });
 }
 
-// ------------------ Get a user's attributes ------------------ //
+// ------------------ GET a user's attributes ------------------ //
 function getUserAttributes(req, res, next) {
   db
     .one(
@@ -107,13 +107,15 @@ function getUserAttributes(req, res, next) {
     });
 }
 
-// ------------------ Get all photo URLs ------------------ //
-// function getPics(req, res, next) {
-//   db
-//     .any(
-//       "SELECT pic FROM attributes"
-//     )
-// }
+// ------------------ GET all photo URLs ------------------ //
+function getPics(req, res, next) {
+  db
+    .any(
+      "SELECT users.username, first_name, age, my_location, pic, destination, start_date, end_date FROM attributes JOIN users ON attributes.user_id=users.id FULL OUTER JOIN trips ON trips.user_id=users.id"
+    )
+    .then(data => { res.status(200).send(data) })
+    .catch(err => res.status(500).send("error fetching pictures for all users"))
+}
 
 // Get matches by attributes
 // function getMatches(req, res, next) {
@@ -390,6 +392,7 @@ module.exports = {
   userSurvey, 
   getAllUsers,
   getUserAttributes,
+  getPics,
   addTrip,
   getAllTrips,
   removeTrip,
