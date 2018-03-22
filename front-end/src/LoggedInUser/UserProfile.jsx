@@ -70,7 +70,7 @@ class UserProfile extends React.Component {
     axios
       .get(`/users/userAttributes/${this.state.username}`)
       .then(res => {
-        let userInfo = res.data;
+        let UserInfo = res.data;
         console.log("res.data", res.data);
 
         this.setState({
@@ -96,7 +96,7 @@ class UserProfile extends React.Component {
           smokes: UserInfo.smokes,
           drinks: UserInfo.drinks
         });
-        console.log("UserINFO: ", userInfo);
+        console.log("UserINFO: ", UserInfo);
 
         // this.getUserLikes();
       })
