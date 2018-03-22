@@ -3,7 +3,7 @@ CREATE DATABASE feathers;
 
 \c feathers;
 
-DROP TABLE IF EXISTS users, likes, trips, attributes, preferences, thread, messages;
+DROP TABLE IF EXISTS users, bffs, trips, attributes, threads, messages;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -72,9 +72,9 @@ CREATE TABLE threads (
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     username VARCHAR REFERENCES users(username),
-    thread_id INT NOT NULL REFERENCES threads(id),
-    body VARCHAR NOT NULL,
-    timestamp TIMESTAMP NOT NULL
+    thread_id INT REFERENCES threads(id),
+    body VARCHAR   
+    -- timestamp TIMESTAMP NOT NULL
 );
 
 -- INSERT INTO users (username, password_digest, hobbies)
@@ -97,3 +97,23 @@ INSERT INTO attributes (user_id, first_name, age, my_location, bio, pic, ethnici
            (5, 'princess', 25, 'san diego', 'i am princess', 'pictureofprincess', 'asian', FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
            (6, 'elon', 19, 'new jersey', 'i am elon', 'pictureofelon', 'black/african', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
            (7, 'sergina', 30, 'texas', 'i am sergina', 'pictureofsergina', 'latin/hispanic', FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE);
+
+
+INSERT INTO threads (user_a, user_b)
+    VALUES ('janedoe', 'meganfox'),
+           ('DoriG', 'meganfox' ),
+           ('janedoe', 'ElonJ' ),
+           ('michelle', 'meganfox' ),
+           ('ElonJ', 'meganfox' ),
+           ('Sergina', 'meganfox' ),
+           ('janedoe', 'Sergina' );
+
+INSERT INTO messages (username, thread_id, body)
+    VALUES ('janedoe', 1, 'hey how are you '),
+           ('meganfox', 2, 'good, hey how are you '),
+           ('DoriG', 3, 'hey how are you '),
+           ('michelle', 4, 'hey how are you '),
+           ('Princess', 5, 'hey how are you '),
+           ('ElonJ', 6, 'hey how are you '),
+           ('Sergina', 7, 'hey how are you ');                  
+

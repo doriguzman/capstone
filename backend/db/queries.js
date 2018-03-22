@@ -105,6 +105,19 @@ function getUserAttributes(req, res, next) {
     });
 }
 
+// ---------------- Get user's messages ------------------------//
+function getMessages(req,res,next) {
+  db
+  .one(`SELECT *
+  FROM messages
+  WHERE thread_id = ${thread_id}`, {
+    username: req.user.username
+  })
+  .then(data => {
+    res.status(200).json({ user: data });
+  });
+}
+
 // Get matches by attributes
 function getMatches(req, res, next) {
   db.any();

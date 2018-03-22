@@ -12,6 +12,7 @@ import AboutUs from "./Users/AboutUs";
 import User from "./LoggedInUser/User";
 import UserProfile from "./LoggedInUser/UserProfile";
 import AddTrips from "./LoggedInUser/AddTrips";
+import ChatApp from "./LoggedInUser/React-Chat/react-instant-chat/src/components/ChatApp";
 
 class App extends React.Component {
   constructor() {
@@ -117,6 +118,16 @@ class App extends React.Component {
     return <AboutUs />;
   };
 
+  renderMessaging = () => {
+    const { user } = this.state;
+    if (user) {
+      return <ChatApp user={user} />;
+    } else {
+      return this.renderLogin();
+    }
+  };
+
+
   renderMyProfile = () => {
     const { user } = this.state;
     console.log(`newton asked for this`, user);
@@ -162,6 +173,8 @@ class App extends React.Component {
           {' '}
           {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
           {' '}
+          {user ? <Link to= {`/users/messaging`}>Messages</Link> : ''}
+          {' '}
           {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 
 
@@ -181,6 +194,7 @@ class App extends React.Component {
             <Route path="/users/logout" render={this.renderLogOutUser} />
             <Route path="/users/feed" render={this.renderFeed} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
+            <Route path="/users/messaging" render={this.renderMessaging} />
             <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
             <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
           </Switch>
