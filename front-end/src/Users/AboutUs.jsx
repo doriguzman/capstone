@@ -52,8 +52,10 @@ const AboutUs = () => {
             Message, favorite, or simply browse through other members' profiles,
             trips, or send them a message to start discussing your next trip.
           </p>
-          <p className="about-us-p">Are you ready for your next adventure?</p>
-          <Link to="/users/register">Join Us Now!</Link>
+          <p className="about-us-p">
+	    Are you ready for your next adventure?
+            <Link to="/users/register">Join Us Now!</Link>
+	  </p>
         </div>
       </div>
       <div className="about-us-disclaimer">
