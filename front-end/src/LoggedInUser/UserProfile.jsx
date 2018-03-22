@@ -21,6 +21,7 @@ class UserProfile extends React.Component {
       age: "",
       bio: "",
       ethnicity: "",
+      religion:'', 
       early_bird: "",
       night_owl: "",
       clubbing: "",
@@ -80,6 +81,7 @@ class UserProfile extends React.Component {
           age: UserInfo.age,
           bio: UserInfo.bio,
           ethnicity: UserInfo.ethnicity,
+          religion:UserInfo.religion, 
           early_bird: UserInfo.early_bird,
           night_owl: UserInfo.night_owl,
           clubbing: UserInfo.clubbing,
@@ -147,6 +149,7 @@ class UserProfile extends React.Component {
       age,
       bio,
       ethnicity,
+      relgiion,
       early_bird,
       night_owl,
       clubbing,
@@ -190,6 +193,11 @@ class UserProfile extends React.Component {
               </div>
               Ethnicity: {ethnicity}
               <div>
+                <br/>
+                <div> 
+                  Religion:{religion}
+                  </div>
+                  <br/>
                 <pre>
                   <b>As a traveller: </b>
                   <br />
