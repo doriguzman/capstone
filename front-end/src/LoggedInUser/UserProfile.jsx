@@ -6,7 +6,7 @@ import axios from "axios";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // this is the default style sheet for react-tabs
 import "react-tabs/style/react-tabs.css";
-import AddTrips from './AddTrips'
+import AddTrips from "./AddTrips";
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class UserProfile extends React.Component {
       user: this.props.user,
       user_id: this.props.user.id,
       username: this.props.user.username,
+      active: this.props.user.active,
       userImageURL: "",
       first_name: "",
       my_location: "",
@@ -54,31 +55,31 @@ class UserProfile extends React.Component {
     axios
       .get(`/users/userAttributes/${this.state.username}`)
       .then(res => {
-        let UserInfo = res.data;
+        let userInfo = res.data;
         console.log("res.data", res.data);
 
         this.setState({
-          user: UserInfo,
-          userImageURL: UserInfo.pic,
-          first_name: UserInfo.first_name,
-          my_location: UserInfo.my_location,
-          age: UserInfo.age,
-          bio: UserInfo.bio,
-          ethnicity: UserInfo.ethnicity,
-          early_bird: UserInfo.early_bird,
-          night_owl: UserInfo.night_owl,
-          clubbing: UserInfo.clubbing,
-          spontaneous: UserInfo.spontaneous,
-          active: UserInfo.active,
-          sightseeing: UserInfo.sightseeing,
-          foodie: UserInfo.foodie,
-          relax: UserInfo.relax,
-          nature: UserInfo.nature,
-          extroverted: UserInfo.extroverted,
-          smokes: UserInfo.smokes,
-          drinks: UserInfo.drinks
+          user: userInfo,
+          userImageURL: userInfo.pic,
+          first_name: userInfo.first_name,
+          my_location: userInfo.my_location,
+          age: userInfo.age,
+          bio: userInfo.bio,
+          ethnicity: userInfo.ethnicity,
+          early_bird: userInfo.early_bird,
+          night_owl: userInfo.night_owl,
+          clubbing: userInfo.clubbing,
+          spontaneous: userInfo.spontaneous,
+          active: userInfo.active,
+          sightseeing: userInfo.sightseeing,
+          foodie: userInfo.foodie,
+          relax: userInfo.relax,
+          nature: userInfo.nature,
+          extroverted: userInfo.extroverted,
+          smokes: userInfo.smokes,
+          drinks: userInfo.drinks
         });
-        console.log("UserINFO: ", UserInfo);
+        console.log("UserINFO: ", userInfo);
 
         // this.getUserLikes();
       })
@@ -98,12 +99,12 @@ class UserProfile extends React.Component {
   }
 
   handleClickAddTrip = e => {
-      e.preventDefault()
+    e.preventDefault();
     const { username, user } = this.state;
     console.log("this is handle click add trip");
-    console.log('please redirect fam')
-  //  return <Redirect to = '/'/>
-   return( window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
+    console.log("please redirect fam");
+    //  return <Redirect to = '/'/>
+    return (window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
   };
 
   render() {
@@ -154,6 +155,9 @@ class UserProfile extends React.Component {
           </TabList>
           <TabPanel>
             <div>
+              <div>
+                <Link to={`/users/me/${username}/editprofile`}><i className="far fa-edit fa-2x" /></Link>
+              </div>
               <div>
                 <h3>About me: {bio} </h3>
               </div>
