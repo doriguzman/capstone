@@ -7,11 +7,12 @@ class AllBuddies extends Component {
     this.state = {
 			user: null,
 			allUsers: [],
-			errorMsg: ""
+			errorMsg: "",
+			photoURLs: []
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
 		axios
 			.get("/users/")
 			.then(response => {
@@ -29,13 +30,10 @@ class AllBuddies extends Component {
 				})
 			});
 	}
-	
-	componentDidMount() {
-		
-	}
 
   render() {
-		console.log(this.state.allUsers)
+		console.log("all users: ", this.state.allUsers)
+		console.log("photo urls: ", this.state.photoURLs)
     return <div />;
   }
 }
