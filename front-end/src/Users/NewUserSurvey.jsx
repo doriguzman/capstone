@@ -63,6 +63,7 @@ class NewUserSurvey extends React.Component {
       age: "",
       location: "",
       bio: "",
+      pic: "",
       Clubbing: false,
       "Night Owl": false,
       "Early Bird": false,
@@ -81,6 +82,7 @@ class NewUserSurvey extends React.Component {
       USERLOGGED:this.props.active
     };
   }
+
   renderSurvey = e => {
     console.log('submitting survey')
     e.preventDefault()
@@ -156,6 +158,7 @@ class NewUserSurvey extends React.Component {
       age,
       location,
       bio,
+      pic,
       ethnicity,
       religion,
       submitted
@@ -202,13 +205,22 @@ class NewUserSurvey extends React.Component {
           Bio <br />
           <input
             className="bio"
-            placeholder="Bio"
+            placeholder="Tell us a little bit about yourself :)"
             type="textarea"
             name="bio"
             value={bio}
             onChange={this.handleInput}
           />
           <br />
+          Photo <br />
+          <input
+            className="pic"
+            placeholder="URL"
+            type="text"
+            name="pic"
+            value={pic}
+            onChange={this.handleInput}
+          />
           {/*  now we are going to start radio buttons here */}
           <br />
           <div className="checkBoxes">
