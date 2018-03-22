@@ -32,7 +32,8 @@ class UserProfile extends React.Component {
       nature: "",
       extroverted: "",
       smokes: "",
-      drinks: ""
+      drinks: "", 
+      trips:''
     };
   }
 
@@ -101,14 +102,29 @@ class UserProfile extends React.Component {
       });
   };
 
+  getUserTrips=()=>{
+    const {trips}=this.state
+    axios
+    .get(`/users/allTrips/${this.state.username}`)
+    .then(res => {
+      let UserInfo = res.data;
+      console.log("res.data", res.data);
+      this.setState({
+        trips:res.data, 
+      })
+  })
+}
+
   componentWillMount() {
     this.fixUser();
+    this.getUserTrips();
   }
 
   componentDidMount() {
     console.log("component mounted!");
     // this.fixUser();
     this.getUserInfo();
+    // this.getUserTrips();
   }
 
   handleClickAddTrip = e => {
@@ -141,7 +157,8 @@ class UserProfile extends React.Component {
       nature,
       extroverted,
       smokes,
-      drinks
+      drinks, 
+      trips
     } = this.state;
     console.log("THE STATE IS", this.state);
     console.log("USER_id IS ", user_id);
@@ -198,6 +215,26 @@ class UserProfile extends React.Component {
           </TabPanel>
           <TabPanel>
             <div>
+              
+              {trips ? trips.map(trip => (
+                <div> 
+                  <h3> Destination: {trip.destination}
+                    </h3>
+                    <h4>
+                      Starting Date:{trip.start_date}
+                      <br/>
+                      Ending Date:{trip.end_date}
+                      <br/>
+                      Planned Activities: {trip.todos}
+                      <br/>
+                       </h4>
+                    
+                  </div>
+                  )
+              ) : ""}
+
+
+
               <button onClick={this.handleClickAddTrip}>Add Trips</button>
             </div>
           </TabPanel>

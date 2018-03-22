@@ -142,6 +142,7 @@ class AddTrips extends React.Component {
           submitted: true,
           message: "trip added!"
         });
+        
       })
       .catch(err => {
         console.log("err sending post req in NewUserSurvey", err);
@@ -156,7 +157,7 @@ class AddTrips extends React.Component {
   // }
 
   render() {
-    const { start_date, end_date, message, todos } = this.state;
+    const { start_date, end_date, message, todos, username } = this.state;
     const { attributes } = this;
     console.log(this.state);
 
@@ -170,6 +171,10 @@ class AddTrips extends React.Component {
       input: "search-input",
       autocompleteContainer: "autocomplete-container"
     };
+
+    if (message) {
+      return <Redirect to={`/users/me/${username}`} />;
+    }
 
     return (
       <div className="add-Trip-form">
