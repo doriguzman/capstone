@@ -1,0 +1,95 @@
+/*
+This handles not only the login css but also the register css
+*/
+
+#navLogoName{
+    height: 10px;
+    color: #022D41;
+    text-align: center;
+    font-family: 'Libre Baskerville', serif;
+}
+
+.sitefont{
+    height: 10px;
+    color: #022D41;
+    text-align: center;
+}
+
+.login-box{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.registerBox{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.usernameBox{
+    padding: 5px;
+    margin: 7px 7px 7px 7px;
+    opacity: 0.9; 
+    border: 10px solid #DAECF3;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.emailBox {
+    padding: 5px;
+    margin: 7px 7px 7px 7px;
+    opacity: 0.9; 
+    border: 10px solid #DAECF3;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.passwordBox{
+    padding: 5px;
+    margin: 7px 7px 7px 7px;
+    opacity: 0.9; 
+    border: 10px solid #DAECF3;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.loginBtn{
+    background-color: #FE424D;
+    color: #DAECF3;
+    padding: 5px;
+    margin: 7px 7px 7px 7px;
+    opacity: 0.9; 
+    border: 10px solid #DAECF3;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+
+  
+@media screen and (max-width: 932px) {
+    .login-box {
+        transform: scale(0.7);
+    }
+    .registerBox {
+        transform: scale(0.7);
+    }
+}
+
+@media screen and (max-width: 632px) {
+    .navbar {
+        margin-bottom: 0px;
+    }
+    #navLogoName{
+        transform: scale(0.7);   
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .navbar {
+        height: 60px;
+    }
+    #navLogoName{
+        transform: scale(0.7);   
+    }
+}

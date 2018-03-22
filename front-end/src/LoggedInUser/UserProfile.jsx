@@ -14,14 +14,14 @@ class UserProfile extends React.Component {
     this.state = {
       user: this.props.user,
       user_id: this.props.user.id,
-      username: this.props.user.username,
-      active: this.props.user.active,
+      username: this.props.username,
       userImageURL: "",
       first_name: "",
       my_location: "",
       age: "",
       bio: "",
       ethnicity: "",
+      religion:'', 
       early_bird: "",
       night_owl: "",
       clubbing: "",
@@ -33,19 +33,34 @@ class UserProfile extends React.Component {
       nature: "",
       extroverted: "",
       smokes: "",
-      drinks: ""
+      drinks: "", 
+      trips:''
     };
   }
 
   fixUser = () => {
-    const { username, user } = this.state;
-    console.log("user:", user, "username:", username);
-    if (!username) {
+    const {user, username, user_id}= this.state
+    if(!this.state.username){
       this.setState({
-        username: this.state.user
-      });
+        username:this.state.user
+      })
+    if(!this.state.user_id){
+      axios.get("/users").then(response => {
+        console.log("RESPONSE FOR GET REQUEST", response.data.data);
+        if (response.data.data.find(n => n.username === this.state.user)) {
+          console.log('this is the username' , this.state.user )
+            axios.get('/users/getUser')
+            .then(response=>{
+              console.log('this is getting one user:' , response )
+            this.setState({
+              user_id:response.data.user.id
+            })
+            })
     }
-  };
+    })
+  }
+}
+  }
 
   getUserInfo = () => {
     const { username, user } = this.state;
@@ -59,25 +74,27 @@ class UserProfile extends React.Component {
         console.log("res.data", res.data);
 
         this.setState({
-          user: userInfo,
-          userImageURL: userInfo.pic,
-          first_name: userInfo.first_name,
-          my_location: userInfo.my_location,
-          age: userInfo.age,
-          bio: userInfo.bio,
-          ethnicity: userInfo.ethnicity,
-          early_bird: userInfo.early_bird,
-          night_owl: userInfo.night_owl,
-          clubbing: userInfo.clubbing,
-          spontaneous: userInfo.spontaneous,
-          active: userInfo.active,
-          sightseeing: userInfo.sightseeing,
-          foodie: userInfo.foodie,
-          relax: userInfo.relax,
-          nature: userInfo.nature,
-          extroverted: userInfo.extroverted,
-          smokes: userInfo.smokes,
-          drinks: userInfo.drinks
+
+          user: UserInfo,
+          userImageURL: UserInfo.pic,
+          first_name: UserInfo.first_name,
+          my_location: UserInfo.my_location,
+          age: UserInfo.age,
+          bio: UserInfo.bio,
+          ethnicity: UserInfo.ethnicity,
+          religion:UserInfo.religion, 
+          early_bird: UserInfo.early_bird,
+          night_owl: UserInfo.night_owl,
+          clubbing: UserInfo.clubbing,
+          spontaneous: UserInfo.spontaneous,
+          active: UserInfo.active,
+          sightseeing: UserInfo.sightseeing,
+          foodie: UserInfo.foodie,
+          relax: UserInfo.relax,
+          nature: UserInfo.nature,
+          extroverted: UserInfo.extroverted,
+          smokes: UserInfo.smokes,
+          drinks: UserInfo.drinks
         });
         console.log("UserINFO: ", userInfo);
 
@@ -88,14 +105,29 @@ class UserProfile extends React.Component {
       });
   };
 
+  getUserTrips=()=>{
+    const {trips}=this.state
+    axios
+    .get(`/users/allTrips/${this.state.username}`)
+    .then(res => {
+      let UserInfo = res.data;
+      console.log("res.data", res.data);
+      this.setState({
+        trips:res.data, 
+      })
+  })
+}
+
   componentWillMount() {
     this.fixUser();
+    this.getUserTrips();
   }
 
   componentDidMount() {
     console.log("component mounted!");
     // this.fixUser();
     this.getUserInfo();
+    // this.getUserTrips();
   }
 
   handleClickAddTrip = e => {
@@ -118,6 +150,7 @@ class UserProfile extends React.Component {
       age,
       bio,
       ethnicity,
+      religion,
       early_bird,
       night_owl,
       clubbing,
@@ -128,7 +161,8 @@ class UserProfile extends React.Component {
       nature,
       extroverted,
       smokes,
-      drinks
+      drinks, 
+      trips
     } = this.state;
     console.log("THE STATE IS", this.state);
     console.log("USER_id IS ", user_id);
@@ -163,6 +197,11 @@ class UserProfile extends React.Component {
               </div>
               Ethnicity: {ethnicity}
               <div>
+                <br/>
+                <div> 
+                  Religion:{religion}
+                  </div>
+                  <br/>
                 <pre>
                   <b>As a traveller: </b>
                   <br />
@@ -188,6 +227,26 @@ class UserProfile extends React.Component {
           </TabPanel>
           <TabPanel>
             <div>
+              
+              {trips ? trips.map(trip => (
+                <div> 
+                  <h3> Destination: {trip.destination}
+                    </h3>
+                    <h4>
+                      Starting Date:{trip.start_date}
+                      <br/>
+                      Ending Date:{trip.end_date}
+                      <br/>
+                      Planned Activities: {trip.todos}
+                      <br/>
+                       </h4>
+                    
+                  </div>
+                  )
+              ) : ""}
+
+
+
               <button onClick={this.handleClickAddTrip}>Add Trips</button>
             </div>
           </TabPanel>

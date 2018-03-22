@@ -70,12 +70,13 @@ class LoginUser extends React.Component {
 //  nav bar goes here @SERGE
 
       <div className='login-user-container'>
-    <h1 className='sitefont'>Drift Together</h1>
+    <h2 id="navLogoName"> D R I F T &nbsp;&nbsp;  T O G E T H E R</h2>
         <div className='login-box'>
 
 
           <form onSubmit={this.submitForm}>
             <input
+              className="usernameBox"
               placeholder='Username'
               type='text'
               name='usernameInput'
@@ -83,13 +84,14 @@ class LoginUser extends React.Component {
               onChange={this.handleInput}
               required />
             <input
+              className="passwordBox"
               placeholder='Password'
               type='password'
               name='passwordInput'
               value={passwordInput}
               onChange={this.handleInput}
               required />
-            <input type='submit' value='Log in' />
+            <input className="loginBtn" type='submit' value='Log in' />
 
           </form>
 

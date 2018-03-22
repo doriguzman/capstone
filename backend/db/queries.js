@@ -37,6 +37,7 @@ function userSurvey(req, res, next) {
         bio: req.body.bio,
         pic: req.body.pic,
         ethnicity: req.body.ethnicity,
+        religion: req.body.religion,
         earlyBird: req.body.earlyBird,
         nightOwl: req.body.nightOwl,
         clubbing: req.body.clubbing,
@@ -59,6 +60,7 @@ function userSurvey(req, res, next) {
       // res.status(500).send("error adding user attributes: ", err);
     });
 }
+
 
 function getUser(req, res, next) {
   db
@@ -105,10 +107,18 @@ function getUserAttributes(req, res, next) {
     });
 }
 
+// ------------------ Get all photo URLs ------------------ //
+// function getPics(req, res, next) {
+//   db
+//     .any(
+//       "SELECT pic FROM attributes"
+//     )
+// }
+
 // Get matches by attributes
-function getMatches(req, res, next) {
-  db.any();
-}
+// function getMatches(req, res, next) {
+//   db.any();
+// }
 
 // ------------------ ADD A TRIP TO trips TABLE ------------------ //
 function addTrip(req, res, next) {
@@ -126,7 +136,7 @@ function addTrip(req, res, next) {
         nightOwl: req.body.nightOwl,
         clubbing: req.body.clubbing,
         spontaneous: req.body.spontaneous,
-        active: req.body.actieve,
+        active: req.body.active,
         sightseeing: req.body.sightseeing,
         foodie: req.body.foodie,
         relax: req.body.relax,
@@ -199,6 +209,7 @@ function editAttributes(req, res, next) {
         bio: req.body.bio,
         pic: req.body.pic,
         ethnicity: req.body.ethnicity,
+        religion: req.body.religion,
         earlyBird: req.body.earlyBird,
         nightOwl: req.body.nightOwl,
         clubbing: req.body.clubbing,
@@ -376,7 +387,7 @@ function getMessages(req, res, next) {
 
 module.exports = {
   registerUser,
-  userSurvey,
+  userSurvey, 
   getAllUsers,
   getUserAttributes,
   addTrip,
