@@ -15,7 +15,7 @@ html {
 body{
   background-color: #DAECF3;
   background-image: url(
-  "./frontPage.gif"
+  "./Images/frontPage.gif"
   );
   background-size: cover;                      /* <------ */
   background-repeat:   no-repeat;

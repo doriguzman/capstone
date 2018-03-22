@@ -149,7 +149,7 @@ class UserProfile extends React.Component {
       age,
       bio,
       ethnicity,
-      relgiion,
+      religion,
       early_bird,
       night_owl,
       clubbing,
