@@ -24,7 +24,7 @@ class User extends Component {
     getUserInfo = () => {
         const username = this.props.match.params.username
         axios
-            .get(`/userAttributes${username}`)
+            .get(`/users/userAttributes${username}`)
             .then(res => {
                 let user = res.data
                 this.setState({
@@ -168,10 +168,11 @@ class User extends Component {
 
     render() {
         console.log(this.state)
+        console.log('this is the other user component')
 
         return (
             <div>
-                <Route path="/u/:username/profile" render={this.getUserInfo} />
+                <Route path="/users/u/:username/profile" render={this.getUserInfo} />
 
             </div>
         )

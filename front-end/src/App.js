@@ -197,7 +197,7 @@ class App extends React.Component {
             <Route exact path={`/me/${username}`} render={this.renderMyProfile} />
             <Route exact path = {`/me/${username}/trips/add`} render={this.renderAddTrips} />
             <Route exact path = {`/me/${username}/editprofile`} render={this.renderEditUserProfile} />
-            <Route path="/u/:username" render={(props) => <otherUser user={user} active={active} {...props} />} />
+            <Route exact path="/u/:username/profile" component={otherUser} />
           </Switch>
         </div>
       </div>
@@ -205,3 +205,6 @@ class App extends React.Component {
   }
 }
 export default App;
+
+
+// (props) => <otherUser user={user} active={active} {...props} />}
