@@ -17,6 +17,7 @@ import UserProfile from "./LoggedInUser/UserProfile";
 import AddTrips from "./LoggedInUser/AddTrips";
 import Chatroom from "./LoggedInUser/Chat/ChatRoom";
 import EditUserProfile from "./LoggedInUser/EditUserProfile";
+import otherUser from './LoggedInUser/otherUser'
 
 class App extends React.Component {
   constructor() {
@@ -110,9 +111,9 @@ class App extends React.Component {
 
   // Home is the feed screen
   renderFeed = () => {
-    const { user } = this.state;
+    const { user, username } = this.state;
     if (user) {
-      return <AllBuddies user={user} />;
+      return <AllBuddies user={user} username={username}/>;
     } else {
       return this.renderLogin();
     }
@@ -154,6 +155,7 @@ class App extends React.Component {
     }
   }
 
+
   render() {
 
     const {user, active,username} = this.state
@@ -180,7 +182,7 @@ class App extends React.Component {
            {user ? <Link to ='/users/bffs'>BFFs</Link>:
           <Link to ='/users/login'>Log In</Link>}
           {' '}|{' '}
-          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile</Link> : ''}
+          {user &&!username ? <Link to= {`/users//me/${user.username}`}>Profile</Link> : ''}
           {' '}{' '}
           {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
           {' '}
@@ -208,7 +210,8 @@ class App extends React.Component {
             <Route path="/users/messaging" render={this.renderMessaging} />
             <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
             <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
-            <Route path = {`/users/me/${username}/editprofile`} render={this.renderEditUserProfile} />
+            <Route exact path = {`/users/me/${username}/editprofile`} render={this.renderEditUserProfile} />
+            <Route exact path="/users/u/:username/profile" component={otherUser} />
           </Switch>
         </div>
       </div>
@@ -216,3 +219,6 @@ class App extends React.Component {
   }
 }
 export default App;
+
+
+// (props) => <otherUser user={user} active={active} {...props} />}

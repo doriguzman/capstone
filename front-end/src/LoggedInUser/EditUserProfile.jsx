@@ -391,7 +391,7 @@ class EditUserProfile extends Component {
                 />
               </form>
             </div>
-            {editing && <Redirect to={`/users/me/${username}`} />}
+            {editing && <Redirect to={`/me/${username}`} />}
           </div>
         </div>
       

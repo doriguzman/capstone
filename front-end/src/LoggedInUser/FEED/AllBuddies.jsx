@@ -1,26 +1,30 @@
 import React, { Component } from "react";
 import axios from "axios";
+import UserProfileCards from './UserProfileCards'
 
 class AllBuddies extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-			user: null,
+			user: this.props.user,
+			username:this.props.username,
 			allUsers: [],
 			errorMsg: "",
 			photoURLs: []
+
+
     };
   }
 
-  componentDidMount() {
-		axios
-			.get("/users/")
-			.then(response => {
-				console.log(response)
-				let usernames = response.data.data.map(userObj => userObj.username)
 
+getUserPics =()=>{
+		axios
+			.get("/users/getPics")
+			.then(response => {
+				const filteredUsers = response.data.filter(user => user.username !==this.state.username);
+				console.log('filteredUsers', filteredUsers)
 				this.setState({
-					allUsers: usernames
+					allUsers: filteredUsers
 				})
 			})
 			.catch(err => {
@@ -31,10 +35,25 @@ class AllBuddies extends Component {
 			});
 	}
 
+	componentWillMount(){
+		this.getUserPics();
+	}
+
+
   render() {
+		const {allUsers}=this.state
 		console.log("all users: ", this.state.allUsers)
 		console.log("photo urls: ", this.state.photoURLs)
-    return <div />;
+
+		console.log(this.state.allUsers[0])
+		
+    return (
+			<div>
+			{allUsers[0] ? <UserProfileCards allUsers={allUsers} /> : 'nothing to show!' }
+			
+				</div>
+		)
+		
   }
 }
 
