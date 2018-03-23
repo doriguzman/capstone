@@ -75,7 +75,7 @@ CREATE TABLE messages (
     username VARCHAR REFERENCES users(username),
     thread_id INT NOT NULL REFERENCES threads(id),
     body VARCHAR NOT NULL,
-    timestamp TIMESTAMP NOT NULL
+    timestamp VARCHAR NOT NULL
 );
 
 -- INSERT INTO users (username, password_digest, hobbies)
