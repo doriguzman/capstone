@@ -39,11 +39,11 @@ class User extends Component {
         username:this.state.user
       })
     if(!this.state.user_id){
-      axios.get("/users").then(response => {
+      axios.get("/").then(response => {
         console.log("RESPONSE FOR GET REQUEST", response.data.data);
         if (response.data.data.find(n => n.username === this.state.user)) {
           console.log('this is the username' , this.state.user )
-            axios.get('/users/getUser')
+            axios.get('/getUser')
             .then(response=>{
               console.log('this is getting one user:' , response )
             this.setState({
@@ -118,7 +118,7 @@ class User extends Component {
         <Switch>
           <Route
             exact
-            path={`/users/me/${username}`}
+            path={`/me/${username}`}
             render={this.renderMyProfileInfo}
           />
           {/* <Route

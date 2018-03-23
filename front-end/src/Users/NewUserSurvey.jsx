@@ -90,7 +90,7 @@ class NewUserSurvey extends React.Component {
     console.log('submitting survey')
     e.preventDefault()
     axios
-      .post("/users/survey", {
+      .post("/survey", {
         firstName: this.state.firstName,
         age: this.state.age,
         location: this.state.location,
@@ -170,7 +170,7 @@ class NewUserSurvey extends React.Component {
     const { attributes, ethnicities, religions } = this;
     console.log(this.state);
     if (submitted) {
-      return <Redirect to="/users/feed" />;
+      return <Redirect to="/feed" />;
     }
     return (
       <div className="register-survey-container">

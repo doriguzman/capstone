@@ -30,7 +30,7 @@ class NewUser extends React.Component {
             e.preventDefault();
             const { username, email, password} = this.state;
             if (email) {
-              axios.get("/users").then(response => {
+              axios.get("/").then(response => {
                 console.log("RESPONSE FOR GET REQUEST", response.data.data);
                 console.log(email);
         
@@ -57,11 +57,11 @@ class NewUser extends React.Component {
                   message:'Password must be at least 6 characters'
                 })
               }
-              axios.get("/users").then(response => {
+              axios.get("/").then(response => {
                 console.log("RESPONSE FOR GET REQUEST", response.data.data);
                 if (!response.data.data.find(n => n.username === username)) {
                   axios
-                    .post("/users/register", {
+                    .post("/register", {
                       username: username,
                       email: email,
                       password: password
@@ -108,7 +108,7 @@ class NewUser extends React.Component {
 
         if (registered)
           return (<Redirect to={{
-            pathname: '/users/signup/survey',
+            pathname: '/signup/survey',
             state: { referrer: this.state.username }
         }} />)
 

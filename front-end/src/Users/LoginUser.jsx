@@ -32,7 +32,7 @@ class LoginUser extends React.Component {
       })
     } else {
       axios
-        .post('/users/login', {
+        .post('/login', {
           username: usernameInput,
           password: passwordInput
         })
@@ -63,7 +63,7 @@ class LoginUser extends React.Component {
     console.log(this.state)
 
     if (loggedIn) {
-      return <Redirect to='/users/feed' />
+      return <Redirect to='/feed' />
     }
 
     return (
