@@ -16,6 +16,7 @@ import User from "./LoggedInUser/User";
 import UserProfile from "./LoggedInUser/UserProfile";
 import AddTrips from "./LoggedInUser/AddTrips";
 import EditUserProfile from "./LoggedInUser/EditUserProfile";
+import otherUser from './LoggedInUser/otherUser'
 
 class App extends React.Component {
   constructor() {
@@ -143,6 +144,7 @@ class App extends React.Component {
     }
   }
 
+
   render() {
 
     const {user, active,username} = this.state
@@ -194,7 +196,8 @@ class App extends React.Component {
             <Route path="/aboutus" render={this.renderAboutUs} />
             <Route exact path={`/me/${username}`} render={this.renderMyProfile} />
             <Route exact path = {`/me/${username}/trips/add`} render={this.renderAddTrips} />
-            <Route path = {`/me/${username}/editprofile`} render={this.renderEditUserProfile} />
+            <Route exact path = {`/me/${username}/editprofile`} render={this.renderEditUserProfile} />
+            <Route path="/u/:username" render={(props) => <otherUser user={user} active={active} {...props} />} />
           </Switch>
         </div>
       </div>

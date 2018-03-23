@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Route, Link, Switch, Redirect } from "react-router-dom";
+
 import "./Feed.css"
 
 // class UserProfileCards extends React.Component{
@@ -27,7 +29,7 @@ const UserProfileCards =({allUsers})=>{
     <div className='card'>
         <br/>
         <img className='pic'src={user.pic} alt="profile picture" height="230" width="260"/>
-    <div className='userName'> Username: {user.username} </div>
+    <div className='userName'> Username: <Link to={`/u/${user.username}/profile`}>{user.username}</Link> </div>
     <div className='firstName'> First Name: {user.first_name} </div>
      <div className='age'> Age: {user.age}</div>
      <div className= 'location'> Location: {user.my_location}</div>

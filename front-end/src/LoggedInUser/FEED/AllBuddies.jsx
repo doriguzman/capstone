@@ -50,6 +50,7 @@ getUserPics =()=>{
     return (
 			<div>
 			{allUsers[0] ? <UserProfileCards allUsers={allUsers} /> : 'nothing to show!' }
+			
 				</div>
 		)
 		
