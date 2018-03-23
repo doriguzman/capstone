@@ -50,7 +50,7 @@ getUserPics =()=>{
 		
     return (
 			<div>
-				<div><FilterSidebar /></div>
+				<div><FilterSidebar allUsers={allUsers}/></div>
 			{allUsers[0] ? <UserProfileCards allUsers={allUsers} /> : 'nothing to show!' }
 			
 				</div>
