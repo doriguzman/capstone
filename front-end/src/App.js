@@ -15,7 +15,7 @@ import AboutUs from "./Users/AboutUs";
 import User from "./LoggedInUser/User";
 import UserProfile from "./LoggedInUser/UserProfile";
 import AddTrips from "./LoggedInUser/AddTrips";
-import ChatApp from "./LoggedInUser/React-Chat/react-instant-chat/src/components/ChatApp";
+import Chatroom from "./LoggedInUser/Chat/ChatRoom";
 
 class App extends React.Component {
   constructor() {
@@ -124,7 +124,7 @@ class App extends React.Component {
   renderMessaging = () => {
     const { user } = this.state;
     if (user) {
-      return <ChatApp user={user} />;
+      return <Chatroom user={user} />;
     } else {
       return this.renderLogin();
     }
@@ -176,7 +176,7 @@ class App extends React.Component {
           {' '}{' '}
           {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
           {' '}
-          {user ? <Link to= {`/users/messaging`}>Messages</Link> : ''}
+          {username ? <Link to= {`/users/messaging`}>Messages</Link> : ''}
           {' '}
           {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 

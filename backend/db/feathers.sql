@@ -74,7 +74,7 @@ CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     username VARCHAR REFERENCES users(username),
     thread_id INT REFERENCES threads(id),
-    body VARCHAR   
+    content VARCHAR   
     -- timestamp TIMESTAMP NOT NULL
 );
 
@@ -111,7 +111,7 @@ INSERT INTO threads (user_a, user_b)
            ('Sergina', 'meganfox' ),
            ('janedoe', 'Sergina' );
 
-INSERT INTO messages (username, thread_id, body)
+INSERT INTO messages (username, thread_id, content)
     VALUES ('janedoe', 1, 'hey how are you '),
            ('meganfox', 2, 'good, hey how are you '),
            ('DoriG', 3, 'hey how are you '),
