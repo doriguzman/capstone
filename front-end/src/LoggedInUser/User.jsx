@@ -17,6 +17,7 @@ class User extends Component {
       age: "",
       bio: "",
       ethnicity: "",
+      religion:'',
       early_bird: "",
       night_owl: "",
       clubbing: "",
