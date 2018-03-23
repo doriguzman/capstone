@@ -1,18 +1,22 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import logo from "./Images/logo.svg";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
+import "./Stylesheets/Navbar.css";
+import "./Stylesheets/Login.css";
 import NewUser from "./Users/NewUser";
 import NewUserSurvey from "./Users/NewUserSurvey";
 import LoginUser from "./Users/LoginUser";
 import MatchedBuddies from "./LoggedInUser/FEED/MatchedBuddies";
+import AllBuddies from "./LoggedInUser/FEED/AllBuddies";
 import LogOutUser from "./Users/LogOutUser";
 import AboutUs from "./Users/AboutUs";
 import User from "./LoggedInUser/User";
 import UserProfile from "./LoggedInUser/UserProfile";
 import AddTrips from "./LoggedInUser/AddTrips";
 import EditUserProfile from "./LoggedInUser/EditUserProfile";
+import otherUser from './LoggedInUser/otherUser'
 
 class App extends React.Component {
   constructor() {
@@ -38,7 +42,7 @@ class App extends React.Component {
 
   logOutUser = () => {
     axios
-      .get("/users/logout")
+      .get("/logout")
       .then(res => {
         this.setState({
           user: null,
@@ -73,7 +77,7 @@ class App extends React.Component {
     if (active === false) {
       return <NewUser setUser={this.setUser} active={this.isActive} />;
     } else {
-      return <Redirect to="/users/signup/survey" />;
+      return <Redirect to="/signup/survey" />;
     }
   };
 
@@ -89,7 +93,7 @@ class App extends React.Component {
     const { user, active, username } = this.state;
     console.log("HIIIII");
     axios
-      .get("/users/getUser")
+      .get("/getUser")
       .then(res => {
         console.log("THIS IS A RESPONSE test", res);
         this.setState({
@@ -105,9 +109,9 @@ class App extends React.Component {
 
   // Home is the feed screen
   renderFeed = () => {
-    const { user } = this.state;
+    const { user, username } = this.state;
     if (user) {
-      return <MatchedBuddies user={user} />;
+      return <AllBuddies user={user} username={username}/>;
     } else {
       return this.renderLogin();
     }
@@ -135,11 +139,10 @@ class App extends React.Component {
   renderEditUserProfile = () => {
     const { user, active } = this.state;
     if (user) {
-      return (
-        <EditUserProfile user={user} setUser={this.setUser} active={active} />
-      );
+      return <EditUserProfile user={user} setUser={this.setUser} active={active} />
     }
   };
+
 
   render() {
     const { user, active, username } = this.state;
@@ -154,58 +157,45 @@ class App extends React.Component {
         {/* NAV BAR GOES HERE */}
 
         <div className="top-nav-bar">
-          <div className="top-nav-bar-left">logo icon goes here</div>
+          <div className="top-nav-bar-left"><img src="https://preview.ibb.co/n47C2x/70logo.gif" /> </div>
 
-          <div className="top-nav-bar-right">
-            <Link to="/users/aboutus">How it Works</Link>{" "}
-            {user ? (
-              <Link to="/users/feed">Feed</Link>
-            ) : (
-              <Link to="/users/register">Register</Link>
-            )}{" "}
-            {user ? (
-              <Link to="/users/bffs">BFFs</Link>
-            ) : (
-              <Link to="/users/login">Log In</Link>
-            )}{" "}
-            {user && !username ? (
-              <Link to={`/users/me/${user.username}`}>Profile</Link>
-            ) : (
-              ""
-            )}{" "}
-            {username ? <Link to={`/users/me/${username}`}>Profile</Link> : ""}{" "}
-            {user ? <Link to="/users/logout">Logout</Link> : ""}
-          </div>
-        </div>
+          <div className='top-nav-bar-right'>
+          <Link to ='/aboutus'>How it Works</Link>
+           {' '}|{' '}
+
+           {user ? <Link to ='/feed'>Feed</Link>: 
+          <Link to ='/register'>Register</Link>}
+          {' '}|{' '}
+           {user ? <Link to ='/bffs'>BFFs</Link>:
+          <Link to ='/login'>Log In</Link>}
+          {' '}|{' '}
+          {user &&!username ? <Link to= {`/me/${user.username}`}>Profile</Link> : ''}
+          {' '}{' '}
+          {username ? <Link to= {`/me/${username}`}>Profile</Link> : ''}
+          {' '}{' '}
+          {user ? <Link to='/logout'>Logout</Link>:''}
+          </div> 
+
+           </div>
         {/* logo  and how it works and login functionality  */}
         <div>
           <Switch>
             <Route exact path="/" render={this.renderNewUser} />
-            <Route exact path="/users" render={this.renderNewUser} />
-            <Route exact path="/users/register" render={this.renderNewUser} />
+            <Route exact path="/" render={this.renderNewUser} />
+            <Route exact path="/register" render={this.renderNewUser} />
             <Route
               exact
-              path="/users/signup/survey"
+              path="/signup/survey"
               render={this.renderSurvey}
             />
-            <Route path="/users/login" render={this.renderLogin} />
-            <Route path="/users/logout" render={this.renderLogOutUser} />
-            <Route path="/users/feed" render={this.renderFeed} />
-            <Route path="/users/aboutus" render={this.renderAboutUs} />
-            <Route
-              exact
-              path={`/users/me/${username}`}
-              render={this.renderMyProfile}
-            />
-            <Route
-              exact
-              path={`/users/me/${username}/trips/add`}
-              render={this.renderAddTrips}
-            />
-            <Route
-              path={`/users/me/${username}/editprofile`}
-              render={this.renderEditUserProfile}
-            />
+            <Route path="/login" render={this.renderLogin} />
+            <Route path="/logout" render={this.renderLogOutUser} />
+            <Route path="/feed" render={this.renderFeed} />
+            <Route path="/aboutus" render={this.renderAboutUs} />
+            <Route exact path={`/me/${username}`} render={this.renderMyProfile} />
+            <Route exact path = {`/me/${username}/trips/add`} render={this.renderAddTrips} />
+            <Route exact path = {`/me/${username}/editprofile`} render={this.renderEditUserProfile} />
+            <Route path="/u/:username" render={(props) => <otherUser user={user} active={active} {...props} />} />
           </Switch>
         </div>
       </div>

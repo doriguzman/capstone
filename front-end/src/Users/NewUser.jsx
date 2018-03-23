@@ -30,7 +30,7 @@ class NewUser extends React.Component {
             e.preventDefault();
             const { username, email, password} = this.state;
             if (email) {
-              axios.get("/users").then(response => {
+              axios.get("/").then(response => {
                 console.log("RESPONSE FOR GET REQUEST", response.data.data);
                 console.log(email);
         
@@ -57,11 +57,11 @@ class NewUser extends React.Component {
                   message:'Password must be at least 6 characters'
                 })
               }
-              axios.get("/users").then(response => {
+              axios.get("/").then(response => {
                 console.log("RESPONSE FOR GET REQUEST", response.data.data);
                 if (!response.data.data.find(n => n.username === username)) {
                   axios
-                    .post("/users/register", {
+                    .post("/register", {
                       username: username,
                       email: email,
                       password: password
@@ -108,18 +108,20 @@ class NewUser extends React.Component {
 
         if (registered)
           return (<Redirect to={{
-            pathname: '/users/signup/survey',
+            pathname: '/signup/survey',
             state: { referrer: this.state.username }
         }} />)
 
         return (
             <div className="register-user-container">
-            
-            <h2> Drift Together </h2>
-                <div className="registerBox">
+                {/* nav bar goes here  */}
+
+            <h2 id="navLogoName"> D R I F T &nbsp;&nbsp;  T O G E T H E R </h2>
+                <div className="registerBox" class="registerBox">
 
                     <form onSubmit={this.submitForm}>
                         <input
+ 
                             className="usernameBox"
                             placeholder="Username"
                             type="text"
@@ -129,6 +131,7 @@ class NewUser extends React.Component {
                         />
                     
                         <input
+
                             className="emailBox"
                             placeholder="Email"
                             type="email"
@@ -139,6 +142,7 @@ class NewUser extends React.Component {
                       
 
                         <input
+
                             className="passwordBox"
                             placeholder="Password"
                             type="password"

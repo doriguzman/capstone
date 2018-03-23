@@ -37,6 +37,7 @@ function userSurvey(req, res, next) {
         bio: req.body.bio,
         pic: req.body.pic,
         ethnicity: req.body.ethnicity,
+        religion: req.body.religion,
         earlyBird: req.body.earlyBird,
         nightOwl: req.body.nightOwl,
         clubbing: req.body.clubbing,
@@ -59,6 +60,7 @@ function userSurvey(req, res, next) {
       // res.status(500).send("error adding user attributes: ", err);
     });
 }
+
 
 function getUser(req, res, next) {
   db
@@ -86,7 +88,7 @@ function getAllUsers(req, res, next) {
     });
 }
 
-// ------------------ Get a user's attributes ------------------ //
+// ------------------ GET a user's attributes ------------------ //
 function getUserAttributes(req, res, next) {
   db
     .one(
@@ -105,10 +107,20 @@ function getUserAttributes(req, res, next) {
     });
 }
 
-// Get matches by attributes
-function getMatches(req, res, next) {
-  db.any();
+// ------------------ GET all photo URLs ------------------ //
+function getPics(req, res, next) {
+  db
+    .any(
+      "SELECT users.username, first_name, age, my_location, pic, destination, start_date, end_date FROM attributes JOIN users ON attributes.user_id=users.id FULL OUTER JOIN trips ON trips.user_id=users.id"
+    )
+    .then(data => { res.status(200).send(data) })
+    .catch(err => res.status(500).send("error fetching pictures for all users"))
 }
+
+// Get matches by attributes
+// function getMatches(req, res, next) {
+//   db.any();
+// }
 
 // ------------------ ADD A TRIP TO trips TABLE ------------------ //
 function addTrip(req, res, next) {
@@ -126,7 +138,7 @@ function addTrip(req, res, next) {
         nightOwl: req.body.nightOwl,
         clubbing: req.body.clubbing,
         spontaneous: req.body.spontaneous,
-        active: req.body.actieve,
+        active: req.body.active,
         sightseeing: req.body.sightseeing,
         foodie: req.body.foodie,
         relax: req.body.relax,
@@ -199,6 +211,7 @@ function editAttributes(req, res, next) {
         bio: req.body.bio,
         pic: req.body.pic,
         ethnicity: req.body.ethnicity,
+        religion: req.body.religion,
         earlyBird: req.body.earlyBird,
         nightOwl: req.body.nightOwl,
         clubbing: req.body.clubbing,
@@ -376,9 +389,10 @@ function getMessages(req, res, next) {
 
 module.exports = {
   registerUser,
-  userSurvey,
+  userSurvey, 
   getAllUsers,
   getUserAttributes,
+  getPics,
   addTrip,
   getAllTrips,
   removeTrip,
