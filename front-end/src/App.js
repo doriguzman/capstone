@@ -77,7 +77,7 @@ class App extends React.Component {
     if (active === false) {
       return <NewUser setUser={this.setUser} active={this.isActive} />;
     } else {
-      return <Redirect to="/signup/survey" />;
+      return <Redirect to="/users/signup/survey" />;
     }
   };
 
@@ -199,3 +199,6 @@ class App extends React.Component {
   }
 }
 export default App;
+
+
+// (props) => <otherUser user={user} active={active} {...props} />}

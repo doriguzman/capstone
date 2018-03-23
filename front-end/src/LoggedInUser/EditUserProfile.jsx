@@ -69,6 +69,7 @@ class EditUserProfile extends Component {
       age: "",
       bio: "",
       ethnicity: "",
+      religion:'',
       early_bird: "",
       night_owl: "",
       clubbing: "",
@@ -91,7 +92,7 @@ class EditUserProfile extends Component {
     // console.log("get user info"), console.log("this is the username", username);
 
     axios
-      .get(`/userAttributes/${this.state.username}`)
+      .get(`/users/userAttributes/${this.state.username}`)
       .then(res => {
         let UserInfo = res.data;
         console.log("res.data", res.data);
@@ -104,6 +105,7 @@ class EditUserProfile extends Component {
           age: UserInfo.age,
           bio: UserInfo.bio,
           ethnicity: UserInfo.ethnicity,
+          religion: UserInfo.religion,
           earlyBird: UserInfo.early_bird,
           nightOwl: UserInfo.night_owl,
           clubbing: UserInfo.clubbing,
@@ -168,6 +170,7 @@ class EditUserProfile extends Component {
       age,
       bio,
       ethnicity,
+      religion,
       earlyBird,
       nightOwl,
       clubbing,
@@ -191,7 +194,7 @@ class EditUserProfile extends Component {
     console.log("id", this.props.user.user_id);
 
     axios
-      .put(`/edit/attributes`)
+      .put(`/users/edit/attributes`)
       .then(res => {
         let UserInfo = res.data;
         console.log("res.data", res.data);

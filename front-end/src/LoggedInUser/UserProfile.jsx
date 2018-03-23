@@ -45,11 +45,11 @@ class UserProfile extends React.Component {
         username:this.state.user
       })
     if(!this.state.user_id){
-      axios.get("/").then(response => {
+      axios.get("/users").then(response => {
         console.log("RESPONSE FOR GET REQUEST", response.data.data);
         if (response.data.data.find(n => n.username === this.state.user)) {
           console.log('this is the username' , this.state.user )
-            axios.get('/getUser')
+            axios.get('/users/getUser')
             .then(response=>{
               console.log('this is getting one user:' , response )
             this.setState({
@@ -68,7 +68,7 @@ class UserProfile extends React.Component {
     // console.log("get user info"), console.log("this is the username", username);
 
     axios
-      .get(`/userAttributes/${this.state.username}`)
+      .get(`/users/userAttributes/${this.state.username}`)
       .then(res => {
         let UserInfo = res.data;
         console.log("res.data", res.data);
@@ -108,7 +108,7 @@ class UserProfile extends React.Component {
   getUserTrips=()=>{
     const {trips}=this.state
     axios
-    .get(`/allTrips/${this.state.username}`)
+    .get(`/users/allTrips/${this.state.username}`)
     .then(res => {
       let UserInfo = res.data;
       console.log("res.data", res.data);
@@ -136,7 +136,7 @@ class UserProfile extends React.Component {
     console.log("this is handle click add trip");
     console.log("please redirect fam");
     //  return <Redirect to = '/'/>
-    return (window.location.href = `http://localhost:3000/me/${username}/trips/add`);
+    return (window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
   };
 
   render() {
@@ -190,7 +190,7 @@ class UserProfile extends React.Component {
           <TabPanel>
             <div>
               <div>
-                <Link to={`/me/${username}/editprofile`}><i className="far fa-edit fa-2x" /></Link>
+                <Link to={`/users/me/${username}/editprofile`}><i className="far fa-edit fa-2x" /></Link>
               </div>
               <div>
                 <h3>About me: {bio} </h3>
