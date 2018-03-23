@@ -24,7 +24,8 @@ class App extends React.Component {
     this.state = {
       user: null,
       active: false,
-      username:null
+      username:null, 
+      bffs:''
     };
   }
 
@@ -144,6 +145,22 @@ class App extends React.Component {
     }
   }
 
+  renderBFFs=() =>{
+    const {user}=this.state;
+    console.log('getting the user for bffs', user)
+    axios
+    .get("/users/allBffs")
+    .then(res => {
+      this.setState({
+        
+      })
+      console.log("gettings the user BFFS", res.data);
+    })
+
+return (<div>  hiiiiii
+  </div>)
+  }
+
 
   render() {
 
@@ -194,10 +211,12 @@ class App extends React.Component {
             <Route path="/users/logout" render={this.renderLogOutUser} />
             <Route path="/users/feed" render={this.renderFeed} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
+            
             <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
             <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
             <Route exact path = {`/users/me/${username}/editprofile`} render={this.renderEditUserProfile} />
             {user ? <Route path="/users/u/:username/profile" render={(props) => <OtherUser user={user} active={active} {...props} />} />   :''}          {/* <Route  path="/users/u/:username" component={OtherUser} /> */}
+            <Route exact path = '/users/bffs' render = {this.renderBFFs}/>
 
           </Switch>
         </div>
