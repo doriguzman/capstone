@@ -116,7 +116,7 @@ class AddTrips extends React.Component {
 
   
     axios
-      .post("/users/addTrip", {
+      .post("/addTrip", {
         id: this.state.user_id,
         username: this.state.username,
         destination: this.state.address,

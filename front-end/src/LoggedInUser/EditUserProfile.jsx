@@ -91,7 +91,7 @@ class EditUserProfile extends Component {
     // console.log("get user info"), console.log("this is the username", username);
 
     axios
-      .get(`/users/userAttributes/${this.state.username}`)
+      .get(`/userAttributes/${this.state.username}`)
       .then(res => {
         let UserInfo = res.data;
         console.log("res.data", res.data);
@@ -191,7 +191,7 @@ class EditUserProfile extends Component {
     console.log("id", this.props.user.user_id);
 
     axios
-      .put(`/users/edit/attributes`)
+      .put(`/edit/attributes`)
       .then(res => {
         let UserInfo = res.data;
         console.log("res.data", res.data);
@@ -391,7 +391,7 @@ class EditUserProfile extends Component {
                 />
               </form>
             </div>
-            {editing && <Redirect to={`/users/me/${username}`} />}
+            {editing && <Redirect to={`/me/${username}`} />}
           </div>
         </div>
       

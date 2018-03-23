@@ -58,7 +58,7 @@ const AboutUs = () => {
           </p>
           <p className="about-us-p">
 	    Are you ready for your next adventure?
-            <Link to="/users/register">Join Us Now!</Link>
+            <Link to="/register">Join Us Now!</Link>
 	  </p>
         </div>
       </div>
