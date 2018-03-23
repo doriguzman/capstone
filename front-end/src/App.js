@@ -42,7 +42,7 @@ class App extends React.Component {
 
   logOutUser = () => {
     axios
-      .get("/logout")
+      .get("/users/logout")
       .then(res => {
         this.setState({
           user: null,
@@ -93,7 +93,7 @@ class App extends React.Component {
     const { user, active, username } = this.state;
     console.log("HIIIII");
     axios
-      .get("/getUser")
+      .get("/users/getUser")
       .then(res => {
         console.log("THIS IS A RESPONSE test", res);
         this.setState({
@@ -160,20 +160,20 @@ class App extends React.Component {
           <div className="top-nav-bar-left"><img src="https://preview.ibb.co/n47C2x/70logo.gif" /> </div>
 
           <div className='top-nav-bar-right'>
-          <Link to ='/aboutus'>How it Works</Link>
+          <Link to ='/users/aboutus'>How it Works</Link>
            {' '}|{' '}
 
-           {user ? <Link to ='/feed'>Feed</Link>: 
-          <Link to ='/register'>Register</Link>}
+           {user ? <Link to ='/users/feed'>Feed</Link>: 
+          <Link to ='/users/register'>Register</Link>}
           {' '}|{' '}
-           {user ? <Link to ='/bffs'>BFFs</Link>:
-          <Link to ='/login'>Log In</Link>}
+           {user ? <Link to ='/users/bffs'>BFFs</Link>:
+          <Link to ='/users/login'>Log In</Link>}
           {' '}|{' '}
-          {user &&!username ? <Link to= {`/me/${user.username}`}>Profile</Link> : ''}
+          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile</Link> : ''}
           {' '}{' '}
-          {username ? <Link to= {`/me/${username}`}>Profile</Link> : ''}
+          {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
           {' '}{' '}
-          {user ? <Link to='/logout'>Logout</Link>:''}
+          {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 
 
            </div>
@@ -181,21 +181,17 @@ class App extends React.Component {
         <div>
           <Switch>
             <Route exact path="/" render={this.renderNewUser} />
-            <Route exact path="/" render={this.renderNewUser} />
-            <Route exact path="/register" render={this.renderNewUser} />
-            <Route
-              exact
-              path="/signup/survey"
-              render={this.renderSurvey}
-            />
-            <Route path="/login" render={this.renderLogin} />
-            <Route path="/logout" render={this.renderLogOutUser} />
-            <Route path="/feed" render={this.renderFeed} />
-            <Route path="/aboutus" render={this.renderAboutUs} />
-            <Route exact path={`/me/${username}`} render={this.renderMyProfile} />
-            <Route exact path = {`/me/${username}/trips/add`} render={this.renderAddTrips} />
-            <Route exact path = {`/me/${username}/editprofile`} render={this.renderEditUserProfile} />
-            <Route path="/u/:username" render={(props) => <otherUser user={user} active={active} {...props} />} />
+            <Route exact path="/users/" render={this.renderNewUser} />
+            <Route exact path="/users/register" render={this.renderNewUser} />
+            <Route exact path="/users/signup/survey" render={this.renderSurvey} Q/>
+            <Route path="/users/login" render={this.renderLogin} />
+            <Route path="/users/logout" render={this.renderLogOutUser} />
+            <Route path="/users/feed" render={this.renderFeed} />
+            <Route path="/users/aboutus" render={this.renderAboutUs} />
+            <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
+            <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
+            <Route exact path = {`/users/me/${username}/editprofile`} render={this.renderEditUserProfile} />
+            <Route path="/users/u/:username" render={(props) => <otherUser user={user} active={active} {...props} />} />
           </Switch>
         </div>
       </div>
