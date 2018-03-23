@@ -15,7 +15,7 @@ import PlacesAutocomplete, {
   getLatLng
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
-import "../CSS files/AddTrips.css";
+import '../Stylesheets/AddTrips.css'
 
 //AIzaSyDXrD14HzNu5D-8-apQ9TLJpDhaHwC4IAk <--- googleAPI KEY
 //start_date and end_date are the ones that will go into the sql tables
@@ -27,8 +27,6 @@ class AddTrips extends React.Component {
       user: this.props.user,
       user_id: this.props.user.id,
       username: this.props.user.username,
-      start_date: null,
-      end_date: null,
       Clubbing: false,
       "Night Owl": false,
       "Early Bird": false,
@@ -49,7 +47,7 @@ class AddTrips extends React.Component {
       start_date: "",
       end_date: "",
       address: "",
-      todos: ""
+      todos: "",
     };
 
     this.attributes = [
@@ -107,11 +105,13 @@ class AddTrips extends React.Component {
     e.preventDefault();
     // const {start_date, end_date}=this.state
     console.log('resetting the state')
-    this.setState({
-      start_date:dateFormat(this.state.startDate._d, "mmmm dS, yyyy"),
-      end_date: dateFormat(this.state.endDate._d, "mmmm dS, yyyy"),
-    })
-    console.log(this.state)
+
+    /// tried to format the date, but it wouldnt push into the sql table;
+    // this.setState({
+    //   start_date:dateFormat(this.state.startDate._d, "mmmm dS, yyyy"),
+    //   end_date: dateFormat(this.state.endDate._d, "mmmm dS, yyyy"),
+    // })
+    // console.log(this.state)
     console.log("submitting survey");
 
   
@@ -120,8 +120,8 @@ class AddTrips extends React.Component {
         id: this.state.user_id,
         username: this.state.username,
         destination: this.state.address,
-        // startDate: this.state.start_date,
-        // endDate: this.state.end_date,
+        startDate: this.state.startDate._d,
+        endDate: this.state.endDate._d,
         earlyBird: this.state["Early Bird"],
         nightOwl: this.state["Night Owl"],
         clubbing: this.state.Clubbing,
@@ -157,10 +157,12 @@ class AddTrips extends React.Component {
   // }
 
   render() {
-    const { start_date, end_date, message, todos, username } = this.state;
+    const { start_date, end_date, message, todos, username , submitted} = this.state;
     const { attributes } = this;
     console.log(this.state);
-
+if (submitted ){
+  console.log('this is the start date' ,this.state.start_date)
+}
     const AddressInputProps = {
       value: this.state.address,
       onChange: this.inputChange
@@ -172,9 +174,9 @@ class AddTrips extends React.Component {
       autocompleteContainer: "autocomplete-container"
     };
 
-    if (message) {
-      return <Redirect to={`/users/me/${username}`} />;
-    }
+    // if (message) {
+    //   return <Redirect to={`/users/me/${username}`} />;
+    // }
 
     return (
       <div className="add-Trip-form">

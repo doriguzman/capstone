@@ -6,7 +6,7 @@ import axios from "axios";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // this is the default style sheet for react-tabs
 import "react-tabs/style/react-tabs.css";
-import AddTrips from './AddTrips'
+import AddTrips from "./AddTrips";
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -74,6 +74,7 @@ class UserProfile extends React.Component {
         console.log("res.data", res.data);
 
         this.setState({
+
           user: UserInfo,
           userImageURL: UserInfo.pic,
           first_name: UserInfo.first_name,
@@ -130,12 +131,12 @@ class UserProfile extends React.Component {
   }
 
   handleClickAddTrip = e => {
-      e.preventDefault()
+    e.preventDefault();
     const { username, user } = this.state;
     console.log("this is handle click add trip");
-    console.log('please redirect fam')
-  //  return <Redirect to = '/'/>
-   return( window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
+    console.log("please redirect fam");
+    //  return <Redirect to = '/'/>
+    return (window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
   };
 
   render() {
@@ -188,6 +189,9 @@ class UserProfile extends React.Component {
           </TabList>
           <TabPanel>
             <div>
+              <div>
+                <Link to={`/users/me/${username}/editprofile`}><i className="far fa-edit fa-2x" /></Link>
+              </div>
               <div>
                 <h3>About me: {bio} </h3>
               </div>
