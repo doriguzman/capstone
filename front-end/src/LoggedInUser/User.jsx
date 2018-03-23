@@ -11,6 +11,7 @@ class User extends Component {
       user: this.props.user,
       user_id: this.props.user.id,
       username: this.props.user.username,
+      active:this.props.active,
       userImageURL: "",
       first_name: "",
       my_location: "",
@@ -97,11 +98,11 @@ class User extends Component {
 
 
   renderMyProfileInfo = () =>{
-    const {user, username, user_id}=this.state
+    const {user, username, user_id, active}=this.state
     console.log('im seeing if these things are passed correctly', 
   user, username, user_id)
     return(
-      <UserProfile user={user} username={username} />
+      <UserProfile user={user} username={username} active={active}/>
     )
   }
 

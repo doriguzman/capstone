@@ -16,7 +16,7 @@ import User from "./LoggedInUser/User";
 import UserProfile from "./LoggedInUser/UserProfile";
 import AddTrips from "./LoggedInUser/AddTrips";
 import EditUserProfile from "./LoggedInUser/EditUserProfile";
-import otherUser from './LoggedInUser/otherUser'
+import OtherUser from './LoggedInUser/OtherUser'
 
 class App extends React.Component {
   constructor() {
@@ -123,10 +123,10 @@ class App extends React.Component {
   };
 
   renderMyProfile = () => {
-    const { user } = this.state;
+    const { user, active } = this.state;
     console.log(`newton asked for this`, user);
     if (user) {
-      return <User user={user} setUser={this.setUser} />;
+      return <User user={user} setUser={this.setUser} active={active}/>;
     }
   };
 
@@ -197,7 +197,8 @@ class App extends React.Component {
             <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
             <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
             <Route exact path = {`/users/me/${username}/editprofile`} render={this.renderEditUserProfile} />
-            <Route exact path="/users/u/:username/profile" component={otherUser} />
+            {user ? <Route path="/users/u/:username/profile" render={(props) => <OtherUser user={user} active={active} {...props} />} />   :''}          {/* <Route  path="/users/u/:username" component={OtherUser} /> */}
+
           </Switch>
         </div>
       </div>

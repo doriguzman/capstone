@@ -15,6 +15,7 @@ class UserProfile extends React.Component {
       user: this.props.user,
       user_id: this.props.user.id,
       username: this.props.username,
+      activeUser:this.props.active,
       userImageURL: "",
       first_name: "",
       my_location: "",
@@ -144,6 +145,7 @@ class UserProfile extends React.Component {
       user,
       user_id,
       username,
+      activeUser,
       userImageURL,
       first_name,
       my_location,
@@ -190,7 +192,7 @@ class UserProfile extends React.Component {
           <TabPanel>
             <div>
               <div>
-                <Link to={`/users/me/${username}/editprofile`}><i className="far fa-edit fa-2x" /></Link>
+               {activeUser ? <Link to={`/users/me/${username}/editprofile`}><i className="far fa-edit fa-2x" /></Link>  :''} 
               </div>
               <div>
                 <h3>About me: {bio} </h3>
@@ -247,7 +249,7 @@ class UserProfile extends React.Component {
 
 
 
-              <button onClick={this.handleClickAddTrip}>Add Trips</button>
+              {activeUser ? <button onClick={this.handleClickAddTrip}>Add Trips</button> :''}
             </div>
           </TabPanel>
         </Tabs>
