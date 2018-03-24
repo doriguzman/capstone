@@ -97,7 +97,7 @@ class NewUserSurvey extends React.Component {
         bio: this.state.bio,
         pic: this.state.pic,
         ethnicity: this.state.ethnicity,
-        religion:this.state.religion,
+        religion: this.state.religion,
         earlyBird: this.state["Early Bird"],
         nightOwl: this.state["Night Owl"],
         clubbing: this.state.Clubbing,
@@ -168,7 +168,7 @@ class NewUserSurvey extends React.Component {
       submitted
     } = this.state;
     const { attributes, ethnicities, religions } = this;
-    console.log(this.state);
+    console.log("NewUserSurvey", this.state);
     if (submitted) {
       return <Redirect to="/users/feed" />;
     }

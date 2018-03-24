@@ -201,7 +201,7 @@ class UserProfile extends React.Component {
               <div>
                 <br/>
                 <div> 
-                  Religion:{religion}
+                  Religion: {religion}
                   </div>
                   <br/>
                 <pre>
