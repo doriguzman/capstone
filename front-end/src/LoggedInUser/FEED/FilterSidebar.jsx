@@ -21,9 +21,12 @@ class FilterSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.props.user,
-      username: this.props.username,
-      userFilter: []
+      allUsers: this.props.allUsers,
+      userFilter: [],
+      start_date: "",
+      end_date: "",
+      address: "",
+      location: ""
     };
   }
 
@@ -33,14 +36,18 @@ class FilterSidebar extends React.Component {
     });
   };
 
+  //adds the chosen filter to the array userFilter
+  addToUserFilter
+
   render() {
     const {
       start_date,
       end_date,
       message,
       todos,
-      username,
-      submitted
+      submitted,
+      allUsers,
+      userFilter
     } = this.state;
     console.log(this.state);
     if (submitted) {
@@ -66,6 +73,7 @@ class FilterSidebar extends React.Component {
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
           />
+          <button onClick={this.addToUserFilter}>Submit</button>
         </div>
         <br />
         <div className-travel-calendar>
@@ -86,14 +94,17 @@ class FilterSidebar extends React.Component {
         <br />
         <div>
           Enter your location:{"  "}
-          <PlacesAutocomplete
+          <input
+          type="text"
+          />
+          {/* <PlacesAutocomplete
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
-          />
+          /> */}
         </div>
-        <div>
+        <div >
           Age:
-          <div>18-21</div>
+          <div onClick={this.addToUserFilter}>18-21</div>
           <div>22-25</div>
           <div>26-30</div>
           <div>31-35</div>
@@ -105,6 +116,7 @@ class FilterSidebar extends React.Component {
           <div>61-65</div>
           <div>66-70</div>
         </div>
+        <div>Your filters:{userFilter}</div>
       </div>
     );
   }

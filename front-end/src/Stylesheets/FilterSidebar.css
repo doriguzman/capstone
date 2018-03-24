@@ -1,6 +1,6 @@
 .sidebar {
     position: relative;
-    font-size: 20px;
+    font-size: 14px;
     /* z-index: 1; */
     top: 25%;
     left: 0;
@@ -12,11 +12,7 @@
     padding-top: 20px;
 }
 
-/* .sidenav a {
-    padding: 20px 20px 20px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: black;
-    display: block;
-} */
+.cursor {
+    cursor: pointer;
+}
 
