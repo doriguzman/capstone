@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import UserProfile from "./UserProfile";
+import UserProfileCards from "./FEED/UserProfileCards";
 
 class BffFeed extends React.Component {
   constructor(props) {
@@ -7,68 +9,73 @@ class BffFeed extends React.Component {
     this.state = {
       user: this.props.user,
       arrayOfbffs: "",
-      BffsInfo:[]
+      BffsInfo: [],
+      allUsers: ""
     };
   }
 
   componentWillMount() {
     this.renderBFFsArray();
   }
-//   componentDidMount(){
-//     this.renderBFFsInfo()
-//   }
 
   renderBFFsArray = () => {
-    const { user, bffs, arrayOfbffs } = this.state;
+    const { user, bffs, arrayOfbffs, BffsInfo, allUsers } = this.state;
     console.log("getting the user for bffs", user);
     if (user) {
+      //getting all the bffs of this user
       axios.get("/users/allBffs").then(res => {
         this.setState({
-          arrayOfbffs: res.data.map(obj=>obj.bff)
+          arrayOfbffs: res.data.map(obj => obj.bff)
         });
-        console.log('set the state_', this.state.arrayOfbffs)
+        console.log("set the state_", this.state.arrayOfbffs);
         // console.log("gettings the user BFFS", arrayOfbffs);
       });
-    //   if (arrayOfbffs){
-          console.log('second axios call')
-        axios.get("/users/getPics")
-        .then(response=>{
-            console.log(response.data)
-            const filteredBffs=response.data
-        })
-     //response.fata.filter(user=>user.username === arrayOfbffs.map)
-    // }
-
+      //   if (arrayOfbffs){
+      console.log("second axios call");
+      //getting all the users in the system
+      axios.get("/users/getPics").then(response => {
+        console.log(response.data);
+        console.log("arraybffs", arrayOfbffs);
+        this.setState({
+          allUsers: response.data
+        });
+        this.renderFilter();
+      });
+    }
   };
-}
 
-
-
-//   renderBFFsInfo=()=>{
-//       console.log('hiiiiiiiii')
-//       const {arrayOfbffs}= this.state
-//       if (arrayOfbffs){
-//           axios.get("/users/getPics")
-//           .then(response=>{
-//               console.log(response.data)
-//               const filteredBffs=response.data
-//           })
-
-//       }
-//   }
-
-  //router.get("/userAttributes/:username", loginRequired, db.getUserAttributes);
-
-
-
-  //arrayOfbffs:
-  //having an array of objects with a key of bffs
-
-
-
+  renderFilter() {
+    console.log("rendering filter function");
+    const { arrayOfbffs, allUsers, BffsInfo } = this.state;
+    if (arrayOfbffs) {
+      const filteredBFFS = arrayOfbffs.map(elem =>
+        allUsers.filter(obj => obj.username === elem)
+      );
+      var merged = [].concat.apply([], filteredBFFS);
+      console.log(filteredBFFS);
+      console.log("merged", merged);
+      console.log("hiii");
+      this.setState({
+        BffsInfo: [...merged]
+      });
+    }
+  }
 
   render() {
-    return <div>hiiiii</div>;
+    const { arrayOfbffs, BffsInfo } = this.state;
+    console.log(
+      "rendering the state after the component will mount ",
+      this.state
+    );
+    return (
+      <div>
+        {arrayOfbffs ? (
+          <UserProfileCards allUsers={BffsInfo} />
+        ) : (
+          `You have no bffs yet!`
+        )}
+      </div>
+    );
   }
 }
 
