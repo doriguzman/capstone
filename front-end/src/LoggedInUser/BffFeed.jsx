@@ -10,7 +10,8 @@ class BffFeed extends React.Component {
       user: this.props.user,
       arrayOfbffs: "",
       BffsInfo: [],
-      allUsers: ""
+      allUsers: "", 
+      message: ''
     };
   }
 
@@ -37,7 +38,8 @@ class BffFeed extends React.Component {
         console.log(response.data);
         console.log("arraybffs", arrayOfbffs);
         this.setState({
-          allUsers: response.data
+          allUsers: response.data,
+    
         });
         this.renderFilter();
       });
@@ -56,24 +58,33 @@ class BffFeed extends React.Component {
       console.log("merged", merged);
       console.log("hiii");
       this.setState({
-        BffsInfo: [...merged]
+        BffsInfo: [...merged], 
       });
+    }
+    else{
+      this.setState({
+        message:`you haven't added any bffs!`
+      })
     }
   }
 
   render() {
-    const { arrayOfbffs, BffsInfo } = this.state;
+    const { arrayOfbffs, BffsInfo, message } = this.state;
     console.log(
       "rendering the state after the component will mount ",
       this.state
     );
     return (
       <div>
-        {arrayOfbffs ? (
+        {BffsInfo ? (
           <UserProfileCards allUsers={BffsInfo} />
         ) : (
-          `You have no bffs yet!`
+          ''
         )}
+
+        {message}
+
+
       </div>
     );
   }
