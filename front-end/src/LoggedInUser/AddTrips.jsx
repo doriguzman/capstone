@@ -278,7 +278,7 @@ if (submitted ){
           />
         </form>
 
-        {message ? <h3> {message} </h3> : ""}
+        {message ? <Redirect to={`/users/me/${username}`} />  : ""}
       </div>
     );
   }

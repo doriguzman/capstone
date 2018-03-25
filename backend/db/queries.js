@@ -289,10 +289,10 @@ function getAllBffs(req, res, next) {
 }
 
 function addBff(req, res, next) {
-  if (req.params.username === req.user.username) {
-    res.status(500).send("Sorry, you can't add yourself as a BFF...");
-    return;
-  }
+  // if (req.params.username === req.user.username) {
+  //   res.status(500).send("Sorry, you can't add yourself as a BFF...");
+  //   return;
+  // }
   db
     .none("INSERT INTO bffs VALUES (DEFAULT, ${id}, ${bff})", {
       id: req.user.id,
