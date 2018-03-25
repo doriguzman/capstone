@@ -7,6 +7,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // this is the default style sheet for react-tabs
 import "react-tabs/style/react-tabs.css";
 import AddTrips from "./AddTrips";
+import dateFormat from "dateformat";
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -230,14 +231,20 @@ class UserProfile extends React.Component {
           <TabPanel>
             <div>
               
+{/*    
+    //   start_date:dateFormat(this.state.startDate._d, "mmmm dS, yyyy"),
+    //   end_date: dateFormat(this.state.endDate._d, "mmmm dS, yyyy"), */}
+
+              
               {trips ? trips.map(trip => (
                 <div> 
                   <h3> Destination: {trip.destination}
                     </h3>
                     <h4>
-                      Starting Date:{trip.start_date}
+                      Starting Date:{dateFormat(trip.start_date, 'mmmm dS, yyyy')}
                       <br/>
-                      Ending Date:{trip.end_date}
+                      Ending Date: {dateFormat(trip.end_date, 'mmmm dS, yyyy')}
+                      
                       <br/>
                       Planned Activities: {trip.todos}
                       <br/>

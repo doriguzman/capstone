@@ -103,18 +103,9 @@ class AddTrips extends React.Component {
 
   renderSurvey = e => {
     e.preventDefault();
-    // const {start_date, end_date}=this.state
-    console.log('resetting the state')
-
-    /// tried to format the date, but it wouldnt push into the sql table;
-    // this.setState({
-    //   start_date:dateFormat(this.state.startDate._d, "mmmm dS, yyyy"),
-    //   end_date: dateFormat(this.state.endDate._d, "mmmm dS, yyyy"),
-    // })
-    // console.log(this.state)
     console.log("submitting survey");
 
-  
+
     axios
       .post("/users/addTrip", {
         id: this.state.user_id,
