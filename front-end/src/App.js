@@ -12,11 +12,13 @@ import MatchedBuddies from "./LoggedInUser/FEED/MatchedBuddies";
 import AllBuddies from "./LoggedInUser/FEED/AllBuddies";
 import LogOutUser from "./Users/LogOutUser";
 import AboutUs from "./Users/AboutUs";
+import Messages from "./LoggedInUser/Messages";
 import User from "./LoggedInUser/User";
 import UserProfile from "./LoggedInUser/UserProfile";
 import AddTrips from "./LoggedInUser/AddTrips";
 import EditUserProfile from "./LoggedInUser/EditUserProfile";
-import otherUser from './LoggedInUser/otherUser'
+import OtherUser from './LoggedInUser/OtherUser'
+import BffFeed from './LoggedInUser/BffFeed'
 
 class App extends React.Component {
   constructor() {
@@ -24,7 +26,8 @@ class App extends React.Component {
     this.state = {
       user: null,
       active: false,
-      username: null
+      username:null, 
+      bffs:null
     };
   }
 
@@ -77,7 +80,7 @@ class App extends React.Component {
     if (active === false) {
       return <NewUser setUser={this.setUser} active={this.isActive} />;
     } else {
-      return <Redirect to="/users/signup/survey" />;
+      return <Redirect to="/users/feed" />;
     }
   };
 
@@ -121,11 +124,15 @@ class App extends React.Component {
     return <AboutUs />;
   };
 
+  renderMessages = () => {
+    return <Messages user={this.state.user} />
+  };
+
   renderMyProfile = () => {
-    const { user } = this.state;
+    const { user, active } = this.state;
     console.log(`newton asked for this`, user);
     if (user) {
-      return <User user={user} setUser={this.setUser} />;
+      return <User user={user} setUser={this.setUser} active={active}/>;
     }
   };
 
@@ -142,6 +149,15 @@ class App extends React.Component {
       return <EditUserProfile user={user} setUser={this.setUser} active={active} />
     }
   };
+
+  renderMyBFFS =()=>{
+    const {user}=this.state
+    if (user){
+      return <BffFeed user={user}/>
+    }
+  }
+
+
 
 
   render() {
@@ -161,18 +177,21 @@ class App extends React.Component {
 
           <div className='top-nav-bar-right'>
           <Link to ='/users/aboutus'>How it Works</Link>
-           {' '}|{' '}
 
+           {' '}|{' '}
            {user ? <Link to ='/users/feed'>Feed</Link>: 
           <Link to ='/users/register'>Register</Link>}
           {' '}|{' '}
-           {user ? <Link to ='/users/bffs'>BFFs</Link>:
+           {user ? <Link to ='/users/me/bffs'>BFFs</Link>:
           <Link to ='/users/login'>Log In</Link>}
           {' '}|{' '}
-          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile</Link> : ''}
-          {' '}{' '}
-          {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
-          {' '}{' '}
+           
+          {/* I might refactor these ternaries to be less confusing. -Michelle */}
+          {user ? <Link to ='/users/feed'>Feed</Link> : <Link to ='/users/register'>Register</Link>} {' '}|{' '}
+          {user ? <Link to ='/users/bffs'>BFFs |</Link> : <Link to ='/users/login'>Log In</Link>} {' '}
+          {user ? <Link to='/users/messages'>Messages |</Link> : ""} {" "}
+          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile |</Link> : ''} {' '}{' '}
+          {username ? <Link to= {`/users/me/${username}`}>Profile |</Link> : ''} {' '}{' '}
           {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 
 
@@ -188,10 +207,13 @@ class App extends React.Component {
             <Route path="/users/logout" render={this.renderLogOutUser} />
             <Route path="/users/feed" render={this.renderFeed} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
+            <Route path="/users/messages" render={this.renderMessages} />
             <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
             <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
             <Route exact path = {`/users/me/${username}/editprofile`} render={this.renderEditUserProfile} />
-            <Route path="/users/u/:username" render={(props) => <otherUser user={user} active={active} {...props} />} />
+            {user ? <Route path="/users/u/:username/profile" render={(props) => <OtherUser user={user} active={active} {...props} />} />   :''}          {/* <Route  path="/users/u/:username" component={OtherUser} /> */}
+            <Route exact path = '/users/me/bffs' render = {this.renderMyBFFS}/>
+
           </Switch>
         </div>
       </div>
