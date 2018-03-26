@@ -28,7 +28,7 @@ function registerUser(req, res, next) {
 function userSurvey(req, res, next) {
   db
     .none(
-      "INSERT INTO attributes VALUES (DEFAULT, ${user_id}, ${firstName}, ${age}, ${location}, ${bio}, ${pic}, ${ethnicity}, ${earlyBird}, ${nightOwl}, ${clubbing}, ${spontaneous}, ${active}, ${sightseeing}, ${foodie}, ${relax}, ${nature}, ${extroverted}, ${smokes}, ${drinks});",
+      "INSERT INTO attributes VALUES (DEFAULT, ${user_id}, ${firstName}, ${age}, ${location}, ${bio}, ${pic}, ${ethnicity}, ${religion}, ${earlyBird}, ${nightOwl}, ${clubbing}, ${spontaneous}, ${active}, ${sightseeing}, ${foodie}, ${relax}, ${nature}, ${extroverted}, ${smokes}, ${drinks});",
       {
         user_id: req.user.id,
         firstName: req.body.firstName,
@@ -92,7 +92,7 @@ function getAllUsers(req, res, next) {
 function getUserAttributes(req, res, next) {
   db
     .one(
-      "SELECT first_name, age, my_location, bio, pic, ethnicity, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks FROM users JOIN attributes ON users.id=attributes.user_id WHERE users.username=${username};",
+      "SELECT first_name, age, my_location, bio, pic, ethnicity, religion, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks FROM users JOIN attributes ON users.id=attributes.user_id WHERE users.username=${username};",
 
       { username: req.params.username }
     )
@@ -216,7 +216,7 @@ function editAttributes(req, res, next) {
   console.log(`attempting to edit attributes. user id: `, req.user.id);
   db
     .none(
-      "UPDATE attributes SET first_name=${firstName}, age=${age}, my_location=${location}, bio=${bio}, pic=${pic}, ethnicity=${ethnicity}, early_bird=${earlyBird}, night_owl=${nightOwl}, clubbing=${clubbing}, spontaneous=${spontaneous}, active=${active}, sightseeing=${sightseeing}, foodie=${foodie}, relax=${relax}, nature=${nature}, extroverted=${extroverted}, smokes=${smokes}, drinks=${drinks} WHERE user_id=${id}",
+      "UPDATE attributes SET first_name=${firstName}, age=${age}, my_location=${location}, bio=${bio}, pic=${pic}, ethnicity=${ethnicity}, religion=${religion}, early_bird=${earlyBird}, night_owl=${nightOwl}, clubbing=${clubbing}, spontaneous=${spontaneous}, active=${active}, sightseeing=${sightseeing}, foodie=${foodie}, relax=${relax}, nature=${nature}, extroverted=${extroverted}, smokes=${smokes}, drinks=${drinks} WHERE user_id=${id}",
       {
         firstName: req.body.firstName,
         age: req.body.age,
@@ -302,10 +302,10 @@ function getAllBffs(req, res, next) {
 }
 
 function addBff(req, res, next) {
-  if (req.params.username === req.user.username) {
-    res.status(500).send("Sorry, you can't add yourself as a BFF...");
-    return;
-  }
+  // if (req.params.username === req.user.username) {
+  //   res.status(500).send("Sorry, you can't add yourself as a BFF...");
+  //   return;
+  // }
   db
     .none("INSERT INTO bffs VALUES (DEFAULT, ${id}, ${bff})", {
       id: req.user.id,

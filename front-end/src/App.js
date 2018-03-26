@@ -15,9 +15,9 @@ import AboutUs from "./Users/AboutUs";
 import User from "./LoggedInUser/User";
 import UserProfile from "./LoggedInUser/UserProfile";
 import AddTrips from "./LoggedInUser/AddTrips";
-import Chatroom from "./LoggedInUser/Chat/ChatRoom";
 import EditUserProfile from "./LoggedInUser/EditUserProfile";
-import otherUser from './LoggedInUser/otherUser'
+import OtherUser from './LoggedInUser/OtherUser'
+import BffFeed from './LoggedInUser/BffFeed'
 
 class App extends React.Component {
   constructor() {
@@ -25,20 +25,20 @@ class App extends React.Component {
     this.state = {
       user: null,
       active: false,
-      username:null
+      username:null, 
+      bffs:null
     };
   }
 
   setUser = user => {
-    this.setState({ 
-      user: user, 
-      username:user.username
-      
+    this.setState({
+      user: user,
+      username: user.username
     });
-    if(!user.username){
+    if (!user.username) {
       this.setState({
-        username:user
-      })
+        username: user
+      });
     }
   };
 
@@ -48,7 +48,7 @@ class App extends React.Component {
       .then(res => {
         this.setState({
           user: null,
-          username:null,
+          username: null,
           active: false
         });
       })
@@ -79,7 +79,7 @@ class App extends React.Component {
     if (active === false) {
       return <NewUser setUser={this.setUser} active={this.isActive} />;
     } else {
-      return <Redirect to="/users/signup/survey" />;
+      return <Redirect to="/users/feed" />;
     }
   };
 
@@ -93,14 +93,14 @@ class App extends React.Component {
 
   componentWillMount() {
     const { user, active, username } = this.state;
-    console.log('HIIIII')
+    console.log("HIIIII");
     axios
       .get("/users/getUser")
       .then(res => {
         console.log("THIS IS A RESPONSE test", res);
         this.setState({
           user: res.data.user,
-          username:res.data.user.username, 
+          username: res.data.user.username,
           active: true
         });
       })
@@ -123,47 +123,46 @@ class App extends React.Component {
     return <AboutUs />;
   };
 
-  renderMessaging = () => {
-    const { user } = this.state;
-    if (user) {
-      return <Chatroom user={user} />;
-    } else {
-      return this.renderLogin();
-    }
-  };
-
 
   renderMyProfile = () => {
-    const { user } = this.state;
+    const { user, active } = this.state;
     console.log(`newton asked for this`, user);
     if (user) {
-      return <User user={user} setUser={this.setUser} />;
+      return <User user={user} setUser={this.setUser} active={active}/>;
     }
   };
 
   renderAddTrips = () => {
     const { user } = this.state;
     if (user) {
-      return <AddTrips user={user} />
+      return <AddTrips user={user} />;
     }
-  }
+  };
 
   renderEditUserProfile = () => {
     const { user, active } = this.state;
     if (user) {
       return <EditUserProfile user={user} setUser={this.setUser} active={active} />
     }
+  };
+
+  renderMyBFFS =()=>{
+    const {user}=this.state
+    if (user){
+      return <BffFeed user={user}/>
+    }
   }
 
 
-  render() {
 
-    const {user, active,username} = this.state
+
+  render() {
+    const { user, active, username } = this.state;
 
     // if(user){
     //   const username=user.username
     // }
-    console.log("USER: ", user, 'USERNAME: ' , username, 'ACTIVE' , active);
+    console.log("USER: ", user, "USERNAME: ", username, "ACTIVE", active);
     //nav bar holds
     return (
       <div className="App">
@@ -179,10 +178,10 @@ class App extends React.Component {
            {user ? <Link to ='/users/feed'>Feed</Link>: 
           <Link to ='/users/register'>Register</Link>}
           {' '}|{' '}
-           {user ? <Link to ='/users/bffs'>BFFs</Link>:
+           {user ? <Link to ='/users/me/bffs'>BFFs</Link>:
           <Link to ='/users/login'>Log In</Link>}
           {' '}|{' '}
-          {user &&!username ? <Link to= {`/users//me/${user.username}`}>Profile</Link> : ''}
+          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile</Link> : ''}
           {' '}{' '}
           {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
           {' '}
@@ -196,22 +195,20 @@ class App extends React.Component {
         <div>
           <Switch>
             <Route exact path="/" render={this.renderNewUser} />
-            <Route exact path="/users" render={this.renderNewUser} />
+            <Route exact path="/users/" render={this.renderNewUser} />
             <Route exact path="/users/register" render={this.renderNewUser} />
-            <Route
-              exact
-              path="/users/signup/survey"
-              render={this.renderSurvey}
-            />
+            <Route exact path="/users/signup/survey" render={this.renderSurvey} Q/>
             <Route path="/users/login" render={this.renderLogin} />
             <Route path="/users/logout" render={this.renderLogOutUser} />
             <Route path="/users/feed" render={this.renderFeed} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
-            <Route path="/users/messaging" render={this.renderMessaging} />
+            
             <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
             <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
             <Route exact path = {`/users/me/${username}/editprofile`} render={this.renderEditUserProfile} />
-            <Route exact path="/users/u/:username/profile" component={otherUser} />
+            {user ? <Route path="/users/u/:username/profile" render={(props) => <OtherUser user={user} active={active} {...props} />} />   :''}          {/* <Route  path="/users/u/:username" component={OtherUser} /> */}
+            <Route exact path = '/users/me/bffs' render = {this.renderMyBFFS}/>
+
           </Switch>
         </div>
       </div>
