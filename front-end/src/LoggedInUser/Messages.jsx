@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import axios from 'axios';
 
+import "../Stylesheets/messages.css";
+
 class Messages extends Component {
 	constructor(props) {
 		super(props);
@@ -11,7 +13,8 @@ class Messages extends Component {
 			activeThreadUsername: "",
 			activeThreadId: "",
 			messages: [],
-			newMessage: ""
+			newMessage: "",
+			submitted: ""
 		}
 	}
 
@@ -19,23 +22,23 @@ class Messages extends Component {
 		axios
 			.get("/users/getAllThreads")
 			.then(response => {
-				// console.log(`response.data: `,response.data)
 				this.setState({
 					threads: response.data
 				})
 			})	
 			.catch(err => {
-				console.log("Oh no! There was an error retrieving your threads.")
+				console.log("Oh no! There was an error retrieving your threads. Try refreshing.")
 			})
 	}
 
+	// Sets the active thread based on username clicked
 	handleThreadClick = e => {
-		console.log(`threads: `, this.state.threads)
+		// Filters through the threads for the one with self and the username clicked
 		let activeId = this.state.threads.filter(thread => {
 			return thread.user_b === e.target.innerText || thread.user_a === e.target.innerText
 		})
-		e.persist()
-		console.log("active id: ", activeId)
+		e.persist() // Persists the event so we can set state in axios call below
+
 		axios
 			.get(`/users/getMessages/${activeId[0].id}`)
 			.then(response => {
@@ -52,60 +55,83 @@ class Messages extends Component {
 	}
 
 	handleFormSubmit = e => {
-		const { activeThreadId, newMessage } = this.state;
+		const { activeThreadId, activeThreadUsername, newMessage } = this.state;
 		axios
 			.post("/users/addMessage", { threadId: activeThreadId, body: newMessage })
 			.then(() => {
 				this.setState({
-					newMessage: ""
+					newMessage: "",
+					submitted: `Your message has been sent to ${activeThreadUsername}!`
 				})
 			})
 	}
 
 
 	render() {
-		const { threads, activeThreadUsername, messages, newMessage } = this.state;
-		console.log(this.state)
+		const { threads, activeThreadUsername, messages, newMessage, submitted } = this.state;
 
 		return(
-			<div>
-				<h1>My Messages</h1>
-				<div>
-					{threads.map(thread => (
-						<div onClick={this.handleThreadClick} value={thread.user_a === this.props.user.username ? thread.user_b : thread.user_a}>
-							{thread.user_a === this.props.user.username ? thread.user_b : thread.user_a}
+			<div className="messages-parent-container">
+				<h1 className="messages-header">{activeThreadUsername ? activeThreadUsername : "My Messages"}</h1>
+
+				<div className="messages-threads-container">
+					<div className="messages-threads-list">
+						{threads.map(thread => (
+							<div
+								className="messages-single-thread"
+								onClick={this.handleThreadClick}
+								value={thread.user_a === this.props.user.username ?
+									thread.user_b : thread.user_a}
+							>
+								{thread.user_a === this.props.user.username ? thread.user_b : thread.user_a}
+							</div>
+						))}
+					</div>
+
+					<div className="messages-thread-content">
+						{activeThreadUsername ? "" : "Adventure waits for now one... Click one someone to continue chatting!"}
+						<div className="messages-thread-body">
+							{messages.map(message => {
+								if (message.username === activeThreadUsername) {
+									return (
+										<div className="messages-other-user">
+											{/* <span className="bold">{activeThreadUsername}</span>: */}
+											{message.body}
+											<br />
+											<span className="timestamp">({message.timestamp.slice(0, 21)}) </span>
+										</div>
+									)
+								} else {
+									return (
+										<div className="messages-self">
+											{/* <span className="bold"> {this.props.user.username}</span>:  */}
+											{message.body}
+											<br />
+											<span className="timestamp"> ({message.timestamp.slice(0, 21)})</span> 
+										</div>
+									)
+								}
+							})}
 						</div>
-					))}
-				</div>
-				<hr />
-				<div>
-					{messages.map(message => {
-						if (message.username === activeThreadUsername) {
-							return (
-								<div className="messages-other-user">
-									{activeThreadUsername}: {message.body}
-								</div>
-							)
-						} else {
-							return (
-								<div className="messages-self">
-									{this.props.user.username}: {message.body}
-								</div>
-							)
-						}
-					})}
-				</div>
-				<div>
-					<form onSubmit={this.handleFormSubmit}>
-						<input
-							type="text"
-							name="newMessage"
-							value={newMessage}
-							onChange={this.handleInput}
-							placeholder="Enter your message here..."
-						/>
-						<input type="submit" value="Go" />
-					</form>
+
+						<div className="messages-thread-form">
+							{activeThreadUsername
+								? (
+									<form onSubmit={this.handleFormSubmit}>
+										<input
+											type="text"
+											name="newMessage"
+											value={newMessage}
+											onChange={this.handleInput}
+											placeholder="Enter your message here..."
+											className="messages-input"
+										/>
+										<input type="submit" value="Go" className="messages-submit" />
+								</form>
+								) : ""}
+							{submitted}
+						</div>
+					</div>
 				</div>
 			</div>
 		)
