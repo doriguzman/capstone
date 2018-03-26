@@ -3,6 +3,7 @@ import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import UserProfile from "./UserProfile";
 // import AddTrips from "./AddTrips";
+// import BffFeed from './LoggedInUser/BffFeed'
 
 class User extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class User extends Component {
       user: this.props.user,
       user_id: this.props.user.id,
       username: this.props.user.username,
+      active:this.props.active,
       userImageURL: "",
       firstName: "",
       location: "",
@@ -61,54 +63,14 @@ class User extends Component {
     this.fixUser();
   }
 
-  // Render the user's profile based on user ID
-  //   renderUserProfile = () => {
-  //     const { user } = this.state;
-  //     console.log("trying to get userprofile")
-  //     if (user) {
-  //       return <UserProfile user={user} />;
-  //     } else {
-  //       return <h1>Must be logged in</h1>;
-  //     }
-  //   };
-
-  //   getUserLikes = () => {
-  //     const { userID } = this.state;
-  //     const id = userID;
-  //     console.log("we about to call axios");
-  //     axios.get(`/users/u/${id}/likes`).then(res => {
-  //       let Following = res.data.data;
-  //       console.log(Following);
-  //       this.setState({
-  //         bffs: bffs
-  //       });
-  //     });
-  //   };
-
-  //   renderLikes = () => {
-  //     const { bffs } = this.state;
-  //     return <Bffs bffs={bffs} />;
-  //   };
-
-  //   editUserProfile = () => {
-  //     const { user } = this.state;
-  //     return <EditUserProfile user={user} />;
-  //   };
-
-
   renderMyProfileInfo = () =>{
-    const {user, username, user_id}=this.state
+    const {user, username, user_id, active}=this.state
     console.log('im seeing if these things are passed correctly', 
   user, username, user_id)
     return(
-      <UserProfile user={user} username={username} user_id={user_id}/>
+      <UserProfile user={user} username={username} user_id={user_id} active={active} />
     )
   }
-
-//   renderAddTrips = () => {
-//     const { user } = this.state;
-//     return <AddTrips user={user} />;
-//   };
 
   render() {
     const { user, username, user_id } = this.state;
@@ -122,13 +84,6 @@ class User extends Component {
             path={`/users/me/${username}`}
             render={this.renderMyProfileInfo}
           />
-          {/* <Route
-            exact
-            path={`/users/me/${username}/trips/add`}
-            Component={AddTrips}
-          /> */}
-          {/* <Route path="users/me/:myusername/edit" render={this.editUserProfile} />
-        <Route path="users/me/:myusername/likes" render={this.renderLikes} /> */}
         </Switch>
       </div>
     );
