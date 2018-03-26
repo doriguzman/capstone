@@ -8,6 +8,8 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import AddTrips from "./AddTrips";
 import dateFormat from "dateformat";
+import ListedTrips from './ListedTrips'
+
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -111,6 +113,8 @@ class UserProfile extends React.Component {
   //getting all the trips for the user we click on 
   getUserTrips=()=>{
     const {trips}=this.state
+      //getting the current Date;
+      const dateNow= new Date()
     axios
     .get(`/users/allTrips/${this.state.username}`)
     .then(res => {
@@ -119,8 +123,16 @@ class UserProfile extends React.Component {
       this.setState({
         trips:res.data, 
       })
-  })
-}
+     //have to create a date object bc its originally a string
+      // comparing date objects with date objects 
+      const pastTrips= this.state.trips.filter(trip=> new Date(trip.end_date)< dateNow)
+      const openTrips= this.state.trips.filter(trip=> new Date(trip.end_date)> dateNow)
+      this.setState({
+        pastTrips:pastTrips, 
+        openTrips:openTrips
+      })
+    });
+  };
 
 // 
 
@@ -169,7 +181,9 @@ class UserProfile extends React.Component {
       extroverted,
       smokes,
       drinks, 
-      trips
+      trips, 
+      openTrips, 
+      pastTrips
     } = this.state;
     console.log("THE STATE IS", this.state);
     console.log("USER_id IS ", user_id);
@@ -235,27 +249,14 @@ class UserProfile extends React.Component {
           <TabPanel>
             <div>
               
-              {trips ? trips.map(trip => (
-                <div> 
-                  <h3> Destination: {trip.destination}
-                    </h3>
-                    <h4>
-                      Starting Date:{dateFormat(trip.start_date, 'mmmm dS, yyyy')}
-                      <br/>
-                      Ending Date: {dateFormat(trip.end_date, 'mmmm dS, yyyy')}
-                      
-                      <br/>
-                      Planned Activities: {trip.todos}
-                      <br/>
-                       </h4>
-                    
-                  </div>
-                  )
-              ) : ""}
-
-
-
+            <h2> Current Trips</h2>
+              {openTrips
+                ? <ListedTrips trips={openTrips} />
+                : ""}
               {activeUser ? <button onClick={this.handleClickAddTrip}>Add Trips</button> :''}
+
+
+
             </div>
           </TabPanel>
         </Tabs>
