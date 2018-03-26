@@ -178,14 +178,7 @@ class App extends React.Component {
           <div className='top-nav-bar-right'>
           <Link to ='/users/aboutus'>How it Works</Link>
 
-           {' '}|{' '}
-           {user ? <Link to ='/users/feed'>Feed</Link>: 
-          <Link to ='/users/register'>Register</Link>}
-          {' '}|{' '}
-           {user ? <Link to ='/users/me/bffs'>BFFs</Link>:
-          <Link to ='/users/login'>Log In</Link>}
-          {' '}|{' '}
-           
+           {' '}|{' '} 
           {/* I might refactor these ternaries to be less confusing. -Michelle */}
           {user ? <Link to ='/users/feed'>Feed</Link> : <Link to ='/users/register'>Register</Link>} {' '}|{' '}
           {user ? <Link to ='/users/bffs'>BFFs |</Link> : <Link to ='/users/login'>Log In</Link>} {' '}
