@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from "./UserProfileCards";
 import FilterSidebar from "./FilterSidebar";
+import MatchedBuddies from './MatchedBuddies';
+        
 import DatePicker from "react-datepicker";
 import "react-dates/initialize";
 import {
@@ -62,6 +64,11 @@ class AllBuddies extends Component {
 
   componentDidMount() {
     this.getUserPics();
+  }
+
+  renderMatchedBuddies = () => {
+    console.log(`youre now in renderMatchedBuddies`)
+    return <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
   }
 
   //starting the filter functionality
@@ -141,6 +148,7 @@ console.log('users' , allUsers)
 
     return (
       <div>
+
         <div className="sidebar">
           <h3>Filter</h3>
           <br />
@@ -207,6 +215,7 @@ console.log('users' , allUsers)
         ) : (
           <UserProfileCards allUsers={allUsers} />
         )}
+        
       </div>
     );
   }
