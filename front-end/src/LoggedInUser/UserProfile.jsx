@@ -36,7 +36,10 @@ class UserProfile extends React.Component {
       extroverted: "",
       smokes: "",
       drinks: "", 
-      trips:''
+      trips:'', 
+      openTrips:'', 
+      pastTrips:'', 
+
     };
   }
 
@@ -67,8 +70,6 @@ class UserProfile extends React.Component {
   getUserInfo = () => {
     const { username, user } = this.state;
     console.log("user:", user, "username:", username);
-    // console.log("get user info"), console.log("this is the username", username);
-
     axios
       .get(`/users/userAttributes/${this.state.username}`)
       .then(res => {
@@ -107,18 +108,21 @@ class UserProfile extends React.Component {
       });
   };
 
+  //getting all the trips for the user we click on 
   getUserTrips=()=>{
     const {trips}=this.state
     axios
     .get(`/users/allTrips/${this.state.username}`)
     .then(res => {
       let UserInfo = res.data;
-      console.log("res.data", res.data);
+      console.log("fetching all the trips", res.data);
       this.setState({
         trips:res.data, 
       })
   })
 }
+
+// 
 
   componentWillMount() {
     this.fixUser();
@@ -230,11 +234,6 @@ class UserProfile extends React.Component {
           </TabPanel>
           <TabPanel>
             <div>
-              
-{/*    
-    //   start_date:dateFormat(this.state.startDate._d, "mmmm dS, yyyy"),
-    //   end_date: dateFormat(this.state.endDate._d, "mmmm dS, yyyy"), */}
-
               
               {trips ? trips.map(trip => (
                 <div> 

@@ -51,7 +51,7 @@ class BffFeed extends React.Component {
     const { arrayOfbffs, allUsers, BffsInfo } = this.state;
     if (arrayOfbffs) {
       const filteredBFFS = arrayOfbffs.map(elem =>
-        allUsers.filter(obj => obj.username === elem)
+        allUsers.find(obj => obj.username === elem)
       );
       var merged = [].concat.apply([], filteredBFFS);
       console.log(filteredBFFS);
