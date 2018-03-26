@@ -7,6 +7,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // this is the default style sheet for react-tabs
 import "react-tabs/style/react-tabs.css";
 import AddTrips from "./AddTrips";
+import dateFormat from "dateformat";
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class UserProfile extends React.Component {
       user: this.props.user,
       user_id: this.props.user.id,
       username: this.props.username,
+      activeUser:this.props.active,
       userImageURL: "",
       first_name: "",
       my_location: "",
@@ -144,6 +146,7 @@ class UserProfile extends React.Component {
       user,
       user_id,
       username,
+      activeUser,
       userImageURL,
       first_name,
       my_location,
@@ -190,7 +193,7 @@ class UserProfile extends React.Component {
           <TabPanel>
             <div>
               <div>
-                <Link to={`/users/me/${username}/editprofile`}><i className="far fa-edit fa-2x" /></Link>
+               {activeUser ? <Link to={`/users/me/${username}/editprofile`}><i className="far fa-edit fa-2x" /></Link>  :''} 
               </div>
               <div>
                 <h3>About me: {bio} </h3>
@@ -199,7 +202,7 @@ class UserProfile extends React.Component {
               <div>
                 <br/>
                 <div> 
-                  Religion:{religion}
+                  Religion: {religion}
                   </div>
                   <br/>
                 <pre>
@@ -228,14 +231,20 @@ class UserProfile extends React.Component {
           <TabPanel>
             <div>
               
+{/*    
+    //   start_date:dateFormat(this.state.startDate._d, "mmmm dS, yyyy"),
+    //   end_date: dateFormat(this.state.endDate._d, "mmmm dS, yyyy"), */}
+
+              
               {trips ? trips.map(trip => (
                 <div> 
                   <h3> Destination: {trip.destination}
                     </h3>
                     <h4>
-                      Starting Date:{trip.start_date}
+                      Starting Date:{dateFormat(trip.start_date, 'mmmm dS, yyyy')}
                       <br/>
-                      Ending Date:{trip.end_date}
+                      Ending Date: {dateFormat(trip.end_date, 'mmmm dS, yyyy')}
+                      
                       <br/>
                       Planned Activities: {trip.todos}
                       <br/>
@@ -247,7 +256,7 @@ class UserProfile extends React.Component {
 
 
 
-              <button onClick={this.handleClickAddTrip}>Add Trips</button>
+              {activeUser ? <button onClick={this.handleClickAddTrip}>Add Trips</button> :''}
             </div>
           </TabPanel>
         </Tabs>
