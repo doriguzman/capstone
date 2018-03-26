@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from './UserProfileCards';
 import FilterSidebar from './FilterSidebar';
+import MatchedBuddies from './MatchedBuddies';
 
 class AllBuddies extends Component {
   constructor(props) {
@@ -38,6 +39,11 @@ class AllBuddies extends Component {
     this.getUserPics();
   }
 
+  renderMatchedBuddies = () => {
+    console.log(`youre now in renderMatchedBuddies`)
+    return <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
+  }
+
   render() {
     const { allUsers } = this.state;
 
@@ -48,6 +54,8 @@ class AllBuddies extends Component {
 					: 
           ""
         }
+        {/* <h1> TESTING MATCHED BUDDIES YALL </h1>
+        {this.renderMatchedBuddies()} */}
       </div>
     );
   }
