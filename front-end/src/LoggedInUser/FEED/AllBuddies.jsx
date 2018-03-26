@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import UserProfileCards from "./UserProfileCards";
+
+import UserProfileCards from './UserProfileCards';
+import FilterSidebar from './FilterSidebar';
+
+
 
 class AllBuddies extends Component {
   constructor(props) {
@@ -42,6 +46,7 @@ class AllBuddies extends Component {
 
     return (
       <div>
+        	<div><FilterSidebar allUsers={allUsers} /></div>
         {allUsers[0] ? <UserProfileCards allUsers={allUsers} />
 					: 
           ""

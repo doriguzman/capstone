@@ -89,6 +89,9 @@ class NewUserSurvey extends React.Component {
   renderSurvey = e => {
     console.log('submitting survey')
     e.preventDefault()
+    this.setState({
+      message:"Fill everything in"
+    })
     axios
       .post("/users/survey", {
         firstName: this.state.firstName,
@@ -185,6 +188,7 @@ class NewUserSurvey extends React.Component {
             name="firstName"
             value={firstName}
             onChange={this.handleInput}
+            required="required"
           />
           <br />
           Age <br />

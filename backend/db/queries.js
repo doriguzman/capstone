@@ -382,7 +382,7 @@ function addMessage(req, res, next) {
         user: req.user.username,
         threadId: req.body.threadId,
         body: req.body.body,
-        timestamp: date
+        timestamp: date.toString()
       }
     )
     .then(() =>
