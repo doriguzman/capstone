@@ -14,14 +14,14 @@ class User extends Component {
       username: this.props.user.username,
       active:this.props.active,
       userImageURL: "",
-      first_name: "",
-      my_location: "",
+      firstName: "",
+      location: "",
       age: "",
       bio: "",
       ethnicity: "",
       religion:'',
-      early_bird: "",
-      night_owl: "",
+      earlyBird: "",
+      nightOwl: "",
       clubbing: "",
       spontaneous: "",
       sightseeing: "",
@@ -68,21 +68,14 @@ class User extends Component {
     console.log('im seeing if these things are passed correctly', 
   user, username, user_id)
     return(
-      <UserProfile user={user} username={username} active={active}/>
+      <UserProfile user={user} username={username} user_id={user_id} active={active} />
     )
   }
 
-  
-
-//   renderAddTrips = () => {
-//     const { user } = this.state;
-//     return <AddTrips user={user} />;
-//   };
-
   render() {
-    const { user, username } = this.state;
+    const { user, username, user_id } = this.state;
     console.log("The profile ...... state :", this.state);
-
+    
     return (
       <div>
         <Switch>
