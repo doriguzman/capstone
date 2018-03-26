@@ -21,6 +21,7 @@ class FilterSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: this.props.user,
       allUsers: this.props.allUsers,
       userFilter: [],
       start_date: "",
@@ -37,7 +38,29 @@ class FilterSidebar extends React.Component {
   };
 
   //adds the chosen filter to the array userFilter
-  addToUserFilter
+
+//   renderFilteredUserPics = () => {
+//     axios
+//       .get("/users/getPics")
+//       .then(response => {
+//         const filteredUserPics = response.data.filter(user => user.destination === this.state.address);
+//         console.log("filteredUsers", filteredUserPics);
+//         this.setState({
+//           allUsers: filteredUserPics
+//         });
+//       })
+//       .catch(err => {
+//         console.log(err);
+//         this.setState({
+//           errorMsg: "Sorry, there's something wrong with your feed."
+//         });
+//       });
+//   };
+
+renderFilteredUserPics = ({allUsers}) => {
+    const {user} = this.state
+    const filteredUserPics = allUsers.filter(user.destination === this.state.address)
+}
 
   render() {
     const {
@@ -67,56 +90,60 @@ class FilterSidebar extends React.Component {
       <div className="sidebar">
         <h3>Filter</h3>
         <br />
-        <div>
-          Please enter a destination:{" "}
-          <PlacesAutocomplete
-            classNames={addressCSSClasses}
-            inputProps={AddressInputProps}
-          />
-          <button onClick={this.addToUserFilter}>Submit</button>
-        </div>
-        <br />
-        <div className-travel-calendar>
-          Please Select Travel Dates:
+        <form>
+          <div>
+            Please enter a destination:{" "}
+            <PlacesAutocomplete
+              classNames={addressCSSClasses}
+              inputProps={AddressInputProps}
+            />
+          </div>
           <br />
-          <DateRangePicker
-            startDate={this.state.startDate}
-            endDate={this.state.endDate}
-            onDatesChange={({ startDate, endDate }) => {
-              this.setState({ startDate, endDate });
-            }}
-            focusedInput={this.state.focusedInput}
-            onFocusChange={focusedInput => {
-              this.setState({ focusedInput });
-            }}
-          />
-        </div>
-        <br />
-        <div>
-          Enter your location:{"  "}
-          <input
-          type="text"
-          />
-          {/* <PlacesAutocomplete
+          <div className-travel-calendar>
+            Please Select Travel Dates:
+            <br />
+            <DateRangePicker
+              startDate={this.state.startDate}
+              endDate={this.state.endDate}
+              onDatesChange={({ startDate, endDate }) => {
+                this.setState({ startDate, endDate });
+              }}
+              focusedInput={this.state.focusedInput}
+              onFocusChange={focusedInput => {
+                this.setState({ focusedInput });
+              }}
+            />
+          </div>
+          <br />
+          <div>
+            Enter your location:{"  "}
+            <input type="text" />
+            {/* <PlacesAutocomplete
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
           /> */}
-        </div>
-        <div >
-          Age:
-          <div onClick={this.addToUserFilter}>18-21</div>
-          <div>22-25</div>
-          <div>26-30</div>
-          <div>31-35</div>
-          <div>36-40</div>
-          <div>41-45</div>
-          <div>46-50</div>
-          <div>51-55</div>
-          <div>56-60</div>
-          <div>61-65</div>
-          <div>66-70</div>
-        </div>
-        <div>Your filters:{userFilter}</div>
+          </div>
+          <div>
+            Age:
+            <div>18-21</div>
+            <div>22-25</div>
+            <div>26-30</div>
+            <div>31-35</div>
+            <div>36-40</div>
+            <div>41-45</div>
+            <div>46-50</div>
+            <div>51-55</div>
+            <div>56-60</div>
+            <div>61-65</div>
+            <div>66-70+</div>
+          </div>
+          <input
+            className="filterBtn"
+            type="submit"
+            value="Add Filters"
+            onClick={this.renderFilteredUserPics}
+          />
+        </form>
       </div>
     );
   }
