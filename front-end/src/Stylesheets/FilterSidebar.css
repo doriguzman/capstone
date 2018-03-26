@@ -1,18 +1,24 @@
 .sidebar {
-    position: relative;
-    font-size: 14px;
-    /* z-index: 1; */
-    top: 25%;
-    left: 0;
-    width: 20%;
-    height: 100%;
-    /* overflow-x: hidden; */
-    border: 3px solid darkblue;
-    background-color: rgb(217, 238, 217);
-    padding-top: 20px;
+  position: relative;
+  font-size: 14px;
+  /* z-index: 1; */
+  top: 25%;
+  left: 0;
+  width: 20%;
+  height: 100%;
+  /* overflow-x: hidden; */
+  border: 3px solid darkblue;
+  background-color: rgb(217, 238, 217);
+  padding-top: 20px;
 }
 
 .cursor {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.ages {
+  border: 1px solid darkblue;
+  width: 20%;
+  text-align: center;
 }
 
