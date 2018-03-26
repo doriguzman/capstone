@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-
 import UserProfileCards from './UserProfileCards';
 import FilterSidebar from './FilterSidebar';
-
-
 
 class AllBuddies extends Component {
   constructor(props) {

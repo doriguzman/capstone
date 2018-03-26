@@ -5,6 +5,10 @@ import MatchedBuddies from "../LoggedInUser/FEED/MatchedBuddies";
 import "../App.css";
 import "../Stylesheets/Navbar.css";
 import "../Stylesheets/Login.css";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng
+} from "react-places-autocomplete";
 
 class Select extends React.Component {
   render() {
@@ -86,11 +90,18 @@ class NewUserSurvey extends React.Component {
     };
   }
 
+
+  inputChange = address => {
+    this.setState({
+      address: address
+    });
+  };
+
   renderSurvey = e => {
     console.log('submitting survey')
     e.preventDefault()
     this.setState({
-      message:"Fill everything in"
+      message: 'Please fill in all inputs'
     })
     axios
       .post("/users/survey", {
@@ -168,13 +179,24 @@ class NewUserSurvey extends React.Component {
       pic,
       ethnicity,
       religion,
-      submitted
+      submitted, message
     } = this.state;
     const { attributes, ethnicities, religions } = this;
     console.log("NewUserSurvey", this.state);
     if (submitted) {
       return <Redirect to="/users/feed" />;
     }
+
+    const AddressInputProps = {
+      value: this.state.address,
+      onChange: this.inputChange
+    };
+
+    const addressCSSClasses = {
+      root: "form-group",
+      input: "search-input",
+      autocompleteContainer: "autocomplete-container"
+    };
     return (
       <div className="register-survey-container">
         <h2 id="navLogoName">Tell Us About Yourself</h2>
@@ -188,7 +210,7 @@ class NewUserSurvey extends React.Component {
             name="firstName"
             value={firstName}
             onChange={this.handleInput}
-            required="required"
+            required= 'required'
           />
           <br />
           Age <br />
@@ -198,17 +220,19 @@ class NewUserSurvey extends React.Component {
             type="text"
             name="age"
             onChange={this.handleInput}
+            required='required'
           />
           <br />
-          Location <br />
-          <input
-            className="location"
-            placeholder="location"
-            type="text"
-            name="location"
-            value={location}
-            onChange={this.handleInput}
+          Location: <br />
+
+              Destination:{" "}
+          <PlacesAutocomplete
+            classNames={addressCSSClasses}
+            inputProps={AddressInputProps}
+            required='required'
           />
+        
+          
           <br />
           Bio <br />
           <input
@@ -257,6 +281,7 @@ class NewUserSurvey extends React.Component {
                   name="smokes"
                   value={value}
                   onChange={this.handleSmokes}
+                  required='required'
                 />{" "}
                 {value}{" "}
               </span>
@@ -274,6 +299,7 @@ class NewUserSurvey extends React.Component {
                   name="drinks"
                   value={value}
                   onChange={this.handleDrinks}
+                  required='required'
                 />{" "}
                 {value}{" "}
               </span>
@@ -306,6 +332,8 @@ class NewUserSurvey extends React.Component {
             onClick={this.renderSurvey}
           />
         </form>
+
+        {message ? <h2> {message} </h2> :''}
       </div>
     );
   }
