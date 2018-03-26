@@ -15,6 +15,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
 import "../../Stylesheets/AddTrips.css";
+import "../../Stylesheets/FilterSidebar.css";
 
 class FilterSidebar extends React.Component {
   constructor(props) {
@@ -56,8 +57,8 @@ class FilterSidebar extends React.Component {
       autocompleteContainer: "autocomplete-container"
     };
     return (
-      <div>
-        this is FilterSidebar
+      <div className="sidebar">
+        <h3>Filter</h3>
         <br />
         <div>
           Please enter a destination:{" "}

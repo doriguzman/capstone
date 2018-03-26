@@ -1,0 +1,22 @@
+.sidebar {
+    position: relative;
+    font-size: 20px;
+    /* z-index: 1; */
+    top: 25%;
+    left: 0;
+    width: 20%;
+    height: 100%;
+    /* overflow-x: hidden; */
+    border: 3px solid darkblue;
+    background-color: rgb(217, 238, 217);
+    padding-top: 20px;
+}
+
+/* .sidenav a {
+    padding: 20px 20px 20px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+} */
+
