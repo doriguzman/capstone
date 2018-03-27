@@ -78,7 +78,7 @@ class AllBuddies extends Component {
 
     //get request for all trips;
     axios.get(`/users/allTrips/${username}`).then(res => {
-      console.log("fetching all the trips", username, res.data);
+//       console.log("fetching all the trips", username, res.data);
       this.setState({
         userTrips: res.data
       });
@@ -141,15 +141,15 @@ class AllBuddies extends Component {
 		e.preventDefault();
 		console.log("submitting the survey for filter");		
     const filteredUserProfiles = this.state.allUsers.filter(user => { 
-			console.log("================>")  
-			console.log("destinationAdd", this.state.userFilter.destinationAdd)
-			console.log(this.state.userFilter)
-			console.log("user", user)
-			console.log("result", user.destination === this.state.userFilter.destinationAdd)
+// 			console.log("================>")  
+// 			console.log("destinationAdd", this.state.userFilter.destinationAdd)
+// 			console.log(this.state.userFilter)
+// 			console.log("user", user)
+// 			console.log("result", user.destination === this.state.userFilter.destinationAdd)
 				return user.destination === this.state.userFilter.destinationAdd || user.my_location === this.state.userFilter.locationAdd
 			});
-		console.log("this is destination add", this.state.destinationAdd)
-		console.log(this.state.allUsers)
+// 		console.log("this is destination add", this.state.destinationAdd)
+// 		console.log(this.state.allUsers)
     console.log("what filters we use", this.state.userFilter);
     console.log("filtered users", filteredUserProfiles);
     this.setState({
@@ -170,10 +170,10 @@ class AllBuddies extends Component {
 			age
     } = this.state;
 
-    console.log(this.state);
-    console.log("destinationAdd", destinationAdd);
-    console.log("userfilters", userFilter);
-    console.log("users", allUsers);
+//     console.log(this.state);
+//     console.log("destinationAdd", destinationAdd);
+//     console.log("userfilters", userFilter);
+//     console.log("users", allUsers);
     
     // console.log("address in state: ", address)
     const { ages } = this;
