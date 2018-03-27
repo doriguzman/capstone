@@ -37,99 +37,103 @@ class MatchedBuddies extends Component {
 			.catch(err => console.log("Error retrieving all User attributes."))
 	}
 
-	checkDestination = () => {
+	matchingAlgorithm = () => {
 		const { myTrips, allUsersTrips, allUsersAttributes } = this.state;
-		console.log("youre in the check destination function : ", allUsersTrips)
 
 		allUsersTrips.forEach(tripObj => {
 			// Give points for same trip destination
 			if (myTrips) {
 				if (tripObj.destination === myTrips.destination) {
 					tripObj = { ...tripObj, points: 40 }
-					// console.log(tripObj)
 				} else {
 					tripObj = { ...tripObj, points: 0 }
-					// console.log(tripObj)
 				}
 			}
 
 			// Check for trip dates overlap -- MAX(MIN(end1,end2)-MAX(start1,start2)+1,0)
 			if (tripObj.start_date) { 
-				const minOfDates = (ed1, ed2) => ed1 < ed2 ? ed1 : ed2
-				const maxOfDates = (sd1, sd2) => sd1 > sd2 ? sd1 : sd2
-				const msToDays = ms => Math.floor(ms / (24*60*60*1000))
+				const minOfDates = (ed1, ed2) => ed1 < ed2 ? ed1 : ed2;
+				const maxOfDates = (sd1, sd2) => sd1 > sd2 ? sd1 : sd2;
+				const msToDays = ms => Math.floor(ms / (24*60*60*1000));
 
 				const overlap = (data1, data2) => { 
-					let sdate1 = new Date(data1.start_date)
-					let sdate2 = new Date(data2.start_date)
-					let edate1 = new Date(data1.end_date)
-					let edate2 = new Date(data2.end_date)
+					let sdate1 = new Date(data1.start_date);
+					let sdate2 = new Date(data2.start_date);
+					let edate1 = new Date(data1.end_date);
+					let edate2 = new Date(data2.end_date);
 
 					const minOfEndDates = minOfDates(edate1, edate2);
 					const maxOfStartDates = maxOfDates(sdate1, sdate2); 
-					const msOverlap = Math.max(minOfEndDates - maxOfStartDates + 1, 0)
-					// console.log("msOverlap: ", msOverlap, typeof msOverlap)
-					return msToDays(msOverlap)
+					const msOverlap = Math.max(minOfEndDates - maxOfStartDates + 1, 0);
+					return msToDays(msOverlap);
 				}
 
-				let numOverlap = overlap(tripObj, myTrips) // this is a pos or neg num
-				// console.log("numOverlap: ", numOverlap)
-				// console.log("typeof end date: ", typeof myTrips.end_date)
+				let numOverlap = overlap(tripObj, myTrips) // this is either a positive or neg num
 
 				const overlapPoints = (numDaysOverlap) => {
-					let pts = numOverlap / (msToDays(parseInt(new Date(myTrips.end_date) - new Date(myTrips.start_date)))) * 24
-					console.log("pts: ", pts)
-					// console.log("typeof end date: ", typeof myTrips.end_date)
+					let pts = numOverlap / (msToDays(parseInt(new Date(myTrips.end_date) - new Date(myTrips.start_date)))) * 24;
 
 					if (pts > 0) {
-						tripObj.points += pts
-						console.log("trip points total: ", tripObj.points)
+						tripObj.points += pts;
 					}
 				}
 				overlapPoints();
-
-
 			}
+
+			// Check for matching between active user's preferences and other user's attributes
+			allUsersAttributes.forEach(user => {
+				// Only check for those that have trips entered in the database
+				if (user.username === tripObj.username) {
+					if (user.active === tripObj.active) {
+						tripObj.points += 3
+					}
+					if (user.clubbing === tripObj.clubbing) {
+						tripObj.points += 3
+					}
+					if (user.drinks === tripObj.drinks) {
+						tripObj.points += 3
+					}
+					if (user.early_bird === tripObj.early_bird) {
+						tripObj.points += 3
+					}
+					if (user.extroverted === tripObj.extroverted) {
+						tripObj.points += 3
+					}
+					if (user.foodie === tripObj.foodie) {
+						tripObj.points += 3
+					}
+					if (user.nature === tripObj.nature) {
+						tripObj.points += 3
+					}
+					if (user.night_owl === tripObj.night_owl) {
+						tripObj.points += 3
+					}
+					if (user.relax === tripObj.relax) {
+						tripObj.points += 3
+					}
+					if (user.sightseeing === tripObj.sightseeing) {
+						tripObj.points += 3
+					}
+					if (user.smokes === tripObj.smokes) {
+						tripObj.points += 3
+					}
+					if (user.spontaneous === tripObj.spontaneous) {
+						tripObj.points += 3
+					}
+				}
+			})
 		})
 	}
 
 	componentDidUpdate() {
-		this.checkDestination();
+		this.matchingAlgorithm();
 	}
-	
-
-	// myTrips returns an array with a trip object.
-	// each obj looks like: 
-	 /* active false
-			clubbing: false
-			destination: "China"
-			drinks: false
-			early_bird: false
-			end_date: "2018-04-14T16:00:00.000Z"
-			extroverted: false
-			foodie:	true
-			id: 1 
-			nature: true
-			night_owl: true
-			relax: true
-			sightseeing: false
-			smokes: false
-			spontaneous: true
-			start_date: "2018-04-08T16:00:00.000Z"
-			todos: ""
-			user_id: 4
-			username: "michelle" */
-
-	
 
   render() {
 		const { myTrips, allUsersTrips, allUsersAttributes } = this.state;
 		const { user, allUsers } = this.props;
 
 		console.log("MICHELLE'S TRIPS: ", myTrips)
-		// console.log("my trip dest: ", myTrips.destination)
-		// console.log("ALL DE TRIPS: ", allUsersTrips)
-		// console.log("ALL DE ATTRIBUTES: ", allUsersAttributes)
 		
     return (
       <div>
