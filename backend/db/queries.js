@@ -3,7 +3,7 @@ const db = pgp("postgres://localhost/feathers");
 const authHelpers = require("../auth/helpers");
 const passport = require("../auth/local");
 
-// ------------------ Add a new user to the database ------------------ //
+// -------- Add a new user to the database -------- //
 function registerUser(req, res, next) {
   const hash = authHelpers.createHash(req.body.password);
   db
@@ -24,7 +24,7 @@ function registerUser(req, res, next) {
     });
 }
 
-// ------------------ Set user attributes from registration survey ------------------ //
+// -------- Set user attributes from registration survey -------- //
 function userSurvey(req, res, next) {
   db
     .none(
@@ -71,7 +71,7 @@ function getUser(req, res, next) {
       res.status(200).json({ user: data });
     });
 }
-// ------------------ Information on all users ------------------ //
+// -------- Information on all users -------- //
 function getAllUsers(req, res, next) {
   db
     .any("SELECT id, username, email FROM users")
@@ -88,12 +88,11 @@ function getAllUsers(req, res, next) {
     });
 }
 
-// ------------------ GET a user's attributes ------------------ //
+// -------- GET a user's attributes -------- //
 function getUserAttributes(req, res, next) {
   db
     .one(
       "SELECT first_name, age, my_location, bio, pic, ethnicity, religion, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks FROM users JOIN attributes ON users.id=attributes.user_id WHERE users.username=${username};",
-
       { username: req.params.username }
     )
     .then(data => {
@@ -107,14 +106,31 @@ function getUserAttributes(req, res, next) {
     });
 }
 
-// ------------------ GET all photo URLs ------------------ //
+// -------- GET ALL users' attributes (minus logged in user) -------- //
+function getAllUsersAttributes(req, res, next) {
+  db
+    .any(
+      "SELECT user_id, username, first_name, age, my_location, bio, pic, ethnicity, religion, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks FROM attributes JOIN users ON attributes.user_id=users.id WHERE username!=${username}",
+      { username: req.user.username }
+    )
+    .then(data => {
+      console.log("req username: ", req.user.username)
+      res.status(200).send(data)
+    })
+    .catch(err => {
+      res.status(500).send("Error retrieivng all users attributes.")
+    })
+}
+
+
+// -------- GET ALL photo URLs -------- //
 function getPics(req, res, next) {
   db
     .any(
       "SELECT users.username, first_name, age, my_location, pic, destination, start_date, end_date FROM attributes JOIN users ON attributes.user_id=users.id FULL OUTER JOIN trips ON trips.user_id=users.id"
     )
     .then(data => { res.status(200).send(data) })
-    .catch(err => res.status(500).send("error fetching pictures for all users"))
+    .catch(err => res.status(500).send("Error fetching pictures for all users."))
 }
 
 // Get matches by attributes
@@ -122,7 +138,7 @@ function getPics(req, res, next) {
 //   db.any();
 // }
 
-// ------------------ ADD A TRIP TO trips TABLE ------------------ //
+// -------- ADD A TRIP TO trips TABLE -------- //
 function addTrip(req, res, next) {
   // startDate and endDate have to be in the following format: 'YYYY-MM-DD'
   db
@@ -153,9 +169,7 @@ function addTrip(req, res, next) {
       res
         .status(200)
         .send(
-          `added a new trip for user_id: ${req.user.id}, username: ${
-            req.user.username
-          }`
+          `added a new trip for user_id: ${req.user.id}, username: ${req.user.username}`
         );
     })
     .catch(err => {
@@ -163,8 +177,18 @@ function addTrip(req, res, next) {
     });
 }
 
-// ------------------ Get all trips for a user ------------------ //
+// -------- GET ALL TRIPS (minus logged in user) -------- //
 function getAllTrips(req, res, next) {
+  db
+    .any("SELECT * FROM trips WHERE username!=${username}", 
+      { username: req.user.username }
+    )
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send("error retrieving all trips from database"))
+}
+
+// -------- Get trips for a single user -------- //
+function getTripsByUsername(req, res, next) {
   db
     .any("SELECT * FROM trips WHERE username=${username}", {
       username: req.params.username
@@ -177,7 +201,7 @@ function getAllTrips(req, res, next) {
     });
 }
 
-// ------------------ REMOVES ONE TRIP ------------------ //
+// -------- REMOVES ONE TRIP -------- //
 function removeTrip(req, res, next) {
   // *** Need to figure out if we're using req.body or req.params for the trip id ***
   console.log("attempting to remove trip...");
@@ -198,7 +222,7 @@ function logoutUser(req, res, next) {
   res.status(200).json("log out success");
 }
 
-// ------------------ EDIT FUNCTIONS ------------------ //
+// -------- EDIT FUNCTIONS -------- //
 function editAttributes(req, res, next) {
   console.log(`attempting to edit attributes. user id: `, req.user.id);
   db
@@ -274,7 +298,7 @@ function editTrip(req, res, next) {
     );
 }
 
-// ------------------ BFF functions ------------------ //
+// -------- BFF functions -------- //
 function getAllBffs(req, res, next) {
   db
     .any("SELECT bff FROM bffs WHERE user_id=$1", [req.user.id])
@@ -316,7 +340,7 @@ function removeBff(req, res, next) {
     );
 }
 
-// ------------------ THREAD functions ------------------ //
+// -------- THREAD functions -------- //
 function getAllThreads(req, res, next) {
   db
     .any(
@@ -359,7 +383,7 @@ function addThread(req, res, next) {
 // 		.then(() => res.status(200).send(`successfully deleted thread for ${req.user.username} and ${req.params.username}`))
 // }
 
-// ------------------ MESSAGE functions ------------------ //
+// -------- MESSAGE functions -------- //
 function addMessage(req, res, next) {
   const date = new Date();
   db
@@ -392,9 +416,11 @@ module.exports = {
   userSurvey, 
   getAllUsers,
   getUserAttributes,
+  getAllUsersAttributes,
   getPics,
   addTrip,
   getAllTrips,
+  getTripsByUsername,
   removeTrip,
   logoutUser,
   getUser,
