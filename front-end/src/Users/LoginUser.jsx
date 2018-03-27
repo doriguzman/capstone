@@ -98,7 +98,7 @@ class LoginUser extends React.Component {
         </div> {/* End login-box */}
 
         <div className='smaller-box'>
-          <p>Don't have an account?<Link to="/users"> Sign up!</Link></p>
+          <p><span>Don't have an account?<Link to="/users"> Sign up!</Link></span></p>
         </div> {/* End smaller-box */}
 
       </div>

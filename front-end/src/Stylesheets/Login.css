@@ -54,6 +54,9 @@ This handles not only the login css but also the register css
     color: #022D41;
     text-align: center;
     font-family: 'Libre Baskerville', serif;
+    text-shadow: 0px 2px 3px rgb(255, 255, 255),
+    0px 4px 13px rgba(0,0,0,0.1),
+    0px 9px 23px rgba(0,0,0,0.1);
 }
 
 .sitefont{
@@ -122,8 +125,14 @@ This handles not only the login css but also the register css
 
   .smaller-box{
     color: #022D41;
+    font-size: 16px;
     text-align: center;
     font-family: 'Libre Baskerville', serif;
+    opacity: 0.9;
+    border-radius: 5px;
+  }
+  .smaller-box span{
+    background-color: #DAECF3;
   }
 
   
@@ -134,6 +143,18 @@ This handles not only the login css but also the register css
       .login-user-container{
         height: 600px;  
       }
+      .usernameBox{
+        width: 80%;
+    }
+    .emailBox{
+        width:80%;
+    }
+    .passwordBox{
+        width:80%;
+    }
+    .loginBtn{
+        width:80%;
+    }
 }
 
 @media screen and (max-width: 632px) {
@@ -148,13 +169,25 @@ This handles not only the login css but also the register css
         display: flex;
         flex-direction: column;
     }
+    .usernameBox{
+        width: 80%;
+    }
+    .emailBox{
+        width:80%;
+    }
+    .passwordBox{
+        width:80%;
+    }
+    .loginBtn{
+        width:80%;
+    }
 }
 
 @media screen and (max-width: 480px) {
     .register-user-container{
         height: 500px;  
       }
-      .login-user-container{
+    .login-user-container{
         height: 500px;  
       }
       form{
