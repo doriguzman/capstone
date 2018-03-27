@@ -20,25 +20,35 @@ import dateFormat from "dateformat";
 
 class AllBuddies extends Component {
   constructor(props) {
-		super(props);
-		this.ages = [
-			"18-21",
-			"22-25",
-			"26-30",
-			"31-35", "36-40", "41-45", "46-50", "51-55", "56-60", "61-65", "66-70+"
-		]
+    super(props);
+    this.ages = [
+      "18-21",
+      "22-25",
+      "26-30",
+      "31-35",
+      "36-40",
+      "41-45",
+      "46-50",
+      "51-55",
+      "56-60",
+      "61-65",
+      "66-70+"
+    ];
     this.state = {
       user: this.props.user,
       username: this.props.username,
       allUsers: [],
+      dateNow: new Date(),
+      userTrips: "",
+      mostRecentUserTrip: "",
       errorMsg: "",
       //starting states for the filter functionality
       userFilter: {destinationAdd: "", locationAdd: ""},
       start_date: "",
       end_date: "",
-			destinationAdd: "",
-			locationAdd: "",
-			age: []
+      destinationAdd: "",
+      locationAdd: "",
+      age: []
     };
   }
 
@@ -62,8 +72,45 @@ class AllBuddies extends Component {
       });
   };
 
+  getUserTrips = () => {
+    const { trips, username, userTrips, dateNow } = this.state;
+
+    //get request for all trips;
+    axios.get(`/users/allTrips/${username}`).then(res => {
+      console.log("fetching all the trips", username, res.data);
+      this.setState({
+        userTrips: res.data
+      });
+      // this is getting the open trips 
+      const currentTrips = res.data.filter(
+        trip => new Date(trip.end_date) > dateNow
+      );
+     
+      // getting the most recently upcoming trip
+      if (currentTrips.length >= 2) {
+        console.log("going thru if statement", currentTrips);
+        const nearest = currentTrips.reduce((acc, curr) => {
+          if (acc.start_date < curr.start_date) {
+            return acc;
+          } else {
+            return curr;
+          }
+        });
+        this.setState({
+          mostRecentUserTrip: nearest
+        });
+        // if theres only one
+      } else if (currentTrips.length ===1){
+        this.setState({
+          mostRecentUserTrip: currentTrips
+        });
+      }
+    });
+  };
+
   componentDidMount() {
     this.getUserPics();
+    this.getUserTrips();
   }
 
   renderMatchedBuddies = () => {
@@ -73,16 +120,16 @@ class AllBuddies extends Component {
 
   //starting the filter functionality
   inputChange = destinationAdd => {
-		console.log(destinationAdd);
-		const {userFilter}= this.state
+    console.log(destinationAdd);
+    const { userFilter } = this.state;
     this.setState({
 			destinationAdd: destinationAdd,
 			// userFilter:[...userFilter, destinationAdd]
 			userFilter:{destinationAdd: destinationAdd}
     });
-	};
-	
-	inputChangeLoc = locationAdd => {
+  };
+
+  inputChangeLoc = locationAdd => {
     console.log(locationAdd);
     this.setState((prevState) => {
 			return {locationAdd: locationAdd,
@@ -108,9 +155,8 @@ class AllBuddies extends Component {
     console.log("filtered users", filteredUserPics);
     this.setState({
       allUsers: filteredUserPics
-		});
-
-}
+    });
+  };
 
   render() {
     const {
@@ -124,11 +170,13 @@ class AllBuddies extends Component {
 			userFilter,
 			age
     } = this.state;
-console.log('destinationAdd', destinationAdd)
-console.log('userfilters' , userFilter)
-console.log('users' , allUsers)
-		// console.log("address in state: ", address)
-		const {ages} = this
+
+    console.log(this.state);
+    console.log("destinationAdd", destinationAdd);
+    console.log("userfilters", userFilter);
+    console.log("users", allUsers);
+    // console.log("address in state: ", address)
+    const { ages } = this;
 
     if (submitted) {
       console.log("this is the start date", this.state.start_date);
@@ -136,9 +184,9 @@ console.log('users' , allUsers)
     const AddressInputProps = {
       value: this.state.destinationAdd,
       onChange: this.inputChange
-		};
-		
-		const AddressInputProps2 = {
+    };
+
+    const AddressInputProps2 = {
       value: this.state.locationAdd,
       onChange: this.inputChangeLoc
     };
@@ -184,25 +232,25 @@ console.log('users' , allUsers)
               Enter your location:{"  "}
               {/* <input type="text" /> */}
               <PlacesAutocomplete
-            classNames={addressCSSClasses}
-            inputProps={AddressInputProps2}
-          />
+                classNames={addressCSSClasses}
+                inputProps={AddressInputProps2}
+              />
             </div>
             <div>
               Age:
-							<br />
+              <br />
               {ages.map(value => (
-              <span>
-                <input
-                  type="checkbox"
-                  name={value}
-                  value={value}
-                  onChange={this.handleCheckBoxChange}
-                />{" "}
-                {value}
-                <br />
-              </span>
-            ))}
+                <span>
+                  <input
+                    type="checkbox"
+                    name={value}
+                    value={value}
+                    onChange={this.handleCheckBoxChange}
+                  />{" "}
+                  {value}
+                  <br />
+                </span>
+              ))}
             </div>
             <input
               className="filterBtn"
