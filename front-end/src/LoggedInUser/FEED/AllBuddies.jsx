@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from "./UserProfileCards";
 import FilterSidebar from "./FilterSidebar";
+import MatchedBuddies from './MatchedBuddies';
+        
 import DatePicker from "react-datepicker";
 import "react-dates/initialize";
 import {
@@ -41,7 +43,7 @@ class AllBuddies extends Component {
       mostRecentUserTrip: "",
       errorMsg: "",
       //starting states for the filter functionality
-      userFilter: [],
+      userFilter: {destinationAdd: "", locationAdd: ""},
       start_date: "",
       end_date: "",
       destinationAdd: "",
@@ -111,34 +113,44 @@ class AllBuddies extends Component {
     this.getUserTrips();
   }
 
+  renderMatchedBuddies = () => {
+    console.log(`youre now in renderMatchedBuddies`)
+    return <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
+  }
+
   //starting the filter functionality
   inputChange = destinationAdd => {
     console.log(destinationAdd);
     const { userFilter } = this.state;
     this.setState({
-      destinationAdd: destinationAdd
-      // userFilter:[...userFilter, destinationAdd]
+			destinationAdd: destinationAdd,
+			// userFilter:[...userFilter, destinationAdd]
+			userFilter:{destinationAdd: destinationAdd}
     });
   };
 
   inputChangeLoc = locationAdd => {
     console.log(locationAdd);
-    this.setState({
-      locationAdd: locationAdd
-    });
+    this.setState((prevState) => {
+			return {locationAdd: locationAdd,
+			userFilter: {...prevState.userFilter, locationAdd: locationAdd}}
+		});
   };
 
   renderFilteredUserPics = e => {
-    e.preventDefault();
-    console.log("submitting the survey for filter");
-    const { user, allUsers, userFilter, destinationAdd } = this.state;
-    this.setState({
-      userFilter: [...userFilter, destinationAdd]
-    });
-
-    const filteredUserPics = allUsers.filter(
-      user => user.destination === this.state.userFilter[0]
-    );
+		e.preventDefault();
+		console.log("submitting the survey for filter");
+		
+    const filteredUserPics = this.state.allUsers.filter(user => { 
+			console.log("================>")  
+			console.log("destinationAdd", this.state.userFilter.destinationAdd)
+			console.log(this.state.userFilter)
+			console.log("user", user)
+			console.log("result", user.destination === this.state.userFilter.destinationAdd)
+				return user.destination === this.state.userFilter.destinationAdd || user.my_location === this.state.userFilter.locationAdd
+			});
+		console.log("this is destination add", this.state.destinationAdd)
+		console.log(this.state.allUsers)
     console.log("what filters we use", this.state.userFilter);
     console.log("filtered users", filteredUserPics);
     this.setState({
@@ -152,12 +164,11 @@ class AllBuddies extends Component {
       user,
       start_date,
       end_date,
-      message,
-      todos,
       submitted,
-      destinationAdd,
-      locationAdd,
-      userFilter
+			destinationAdd,
+			locationAdd,
+			userFilter,
+			age
     } = this.state;
 
     console.log(this.state);
@@ -188,6 +199,7 @@ class AllBuddies extends Component {
 
     return (
       <div>
+
         <div className="sidebar">
           <h3>Filter</h3>
           <br />
@@ -254,6 +266,7 @@ class AllBuddies extends Component {
         ) : (
           <UserProfileCards allUsers={allUsers} />
         )}
+        
       </div>
     );
   }
