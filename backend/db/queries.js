@@ -93,7 +93,6 @@ function getUserAttributes(req, res, next) {
   db
     .one(
       "SELECT first_name, age, my_location, bio, pic, ethnicity, religion, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks FROM users JOIN attributes ON users.id=attributes.user_id WHERE users.username=${username};",
-
       { username: req.params.username }
     )
     .then(data => {
@@ -107,6 +106,23 @@ function getUserAttributes(req, res, next) {
     });
 }
 
+// ------------------ GET ALL users' attributes ------------------ //
+function getAllUsersAttributes(req, res, next) {
+  db
+    .any(
+      "SELECT user_id, username, first_name, age, my_location, bio, pic, ethnicity, religion, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks FROM attributes JOIN users ON attributes.user_id=users.id WHERE username!=${username}",
+      { username: req.user.username }
+    )
+    .then(data => {
+      console.log("req username: ", req.user.username)
+      res.status(200).send(data)
+    })
+    .catch(err => {
+      res.status(500).send("Error retrieivng all users attributes.")
+    })
+}
+
+
 // ------------------ GET all photo URLs ------------------ //
 function getPics(req, res, next) {
   db
@@ -114,7 +130,7 @@ function getPics(req, res, next) {
       "SELECT users.username, first_name, age, my_location, pic, destination, start_date, end_date FROM attributes JOIN users ON attributes.user_id=users.id FULL OUTER JOIN trips ON trips.user_id=users.id"
     )
     .then(data => { res.status(200).send(data) })
-    .catch(err => res.status(500).send("error fetching pictures for all users"))
+    .catch(err => res.status(500).send("Error fetching pictures for all users."))
 }
 
 // Get matches by attributes
@@ -164,7 +180,7 @@ function addTrip(req, res, next) {
 }
 
 // ------------------ GET ALL TRIPS IN DATABASE ------------------ //
-function getTrips(req, res, next) {
+function getAllTrips(req, res, next) {
   db
     .any("SELECT * FROM trips")
     .then(data => res.status(200).send(data))
@@ -172,7 +188,7 @@ function getTrips(req, res, next) {
 }
 
 // ------------------ Get all trips for a user ------------------ //
-function getAllTrips(req, res, next) {
+function getTripsByUsername(req, res, next) {
   db
     .any("SELECT * FROM trips WHERE username=${username}", {
       username: req.params.username
@@ -400,10 +416,11 @@ module.exports = {
   userSurvey, 
   getAllUsers,
   getUserAttributes,
+  getAllUsersAttributes,
   getPics,
   addTrip,
-  getTrips,
   getAllTrips,
+  getTripsByUsername,
   removeTrip,
   logoutUser,
   getUser,
