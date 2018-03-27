@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
-import "./Feed.css";
+
 
 const UserProfileCards = ({ allUsers, bffs }) => {
 

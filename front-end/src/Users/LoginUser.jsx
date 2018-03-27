@@ -1,7 +1,9 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { Redirect } from "react-router";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react'
+import axios from 'axios'
+import { Redirect } from 'react-router'
+import { Link } from 'react-router-dom'
+import "../Stylesheets/Login.css";
+
 
 class LoginUser extends React.Component {
   constructor() {
@@ -91,15 +93,14 @@ class LoginUser extends React.Component {
             <input className="loginBtn" type="submit" value="Log in" />
           </form>
 
-          {message}
-        </div>{" "}
-        {/* End login-box */}
-        <div className="smaller-box">
-          <p>
-            Don't have an account?<Link to="/users"> Sign up</Link>
-          </p>
-        </div>{" "}
-        {/* End smaller-box */}
+        {message}
+
+        </div> {/* End login-box */}
+
+        <div className='smaller-box'>
+          <p><span>Don't have an account?<Link to="/users"> Sign up!</Link></span></p>
+        </div> {/* End smaller-box */}
+
       </div>
     );
   }

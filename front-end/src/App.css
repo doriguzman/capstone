@@ -12,79 +12,46 @@
 html {
   height: 100%;
 }
+
 body{
-  background-color: #DAECF3;
-  background-image: url(
-  "./Images/frontPage.gif"
-  );
-  background-size: cover;                      /* <------ */
-  background-repeat:   no-repeat;
-  background-position: center center; 
+  background-color: rgb(255, 255, 255);
 }
 
 .App {
+  width:95%;
+  margin:auto;
   font-size: 16px;
   font-family: 'Armata', sans-serif;
   color: #022D41;
-}
 
-.register-survey-container{
+
+}
+.info{
+  padding: 20px;
   background-color: #DAECF3;
-  border-radius: 5px;
+  background-color: #DAECF3;
   padding: 1em;
   opacity: .9;
+  border: 1px solid rgba(2, 45, 65, 0.5);
+  border-radius: 0px 0px 5px 5px;
 }
 
-.login-user-container{
-  background-color: #DAECF3;
-  border-radius: 5px;
-  padding: 1em;
-  opacity: .9;
-}
 
-.surveyBtn{
-  background-color: #FE424D;
-  color: #DAECF3;
-  padding: 1px;
-  margin: 7px 7px 7px 7px;
-  opacity: 0.9; 
-  border: 10px solid #DAECF3;
-  border-radius: 5px;
-  font-size: 15px;
-}
 
 @media screen and (max-width: 932px) {
-  .login-box {
-      transform: scale(0.7);
-  }
-  .registerBox {
-      transform: scale(0.7);
-  }
-  body{
-    background-color: #DAECF3;
+  .App {
+    font-size: 16px;
   }
 }
 
 @media screen and (max-width: 632px) {
-  .register-survey-container{
-      margin-bottom: 0px;
+  .App {
+    font-size: 14px;
   }
-  #navLogoName{
-      transform: scale(0.7);   
-  }
-  body{
-    background-color: #DAECF3;
-  }  
 }
 
 @media screen and (max-width: 480px) {
-  .register-survey-container{
-      height: 100%;
-  }
-  #navLogoName{
-      transform: scale(0.7);   
-  }
-  body{
-    background-color: #DAECF3;
+  .App {
+    font-size: 14px;
   }
 }
