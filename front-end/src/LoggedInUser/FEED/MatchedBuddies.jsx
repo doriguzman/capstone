@@ -11,46 +11,34 @@ class MatchedBuddies extends Component {
     };
 	}
 
-	getUserTrips = () => {
+	componentWillMount() {
 		axios
 			.get(`/users/allTrips/${this.props.user.username}`)
 			.then(res => {
-				console.log(`all trips for ${this.props.user.username}: `, res.data)
-				this.setState({
-					userTrips: res.data
-				})
+				this.setState({ userTrips: res.data })
 			})
 			.catch(err => console.log("Error retrieving trips for user."));
-	}
 
-	getAllTrips = () => {
 		axios
-		.get("/users/getTrips")
-		.then(res => {
-			this.setState({
-				allTrips: res.data
+			.get("/users/getAllTrips")
+			.then(res => {
+				this.setState({ allTrips: res.data })
 			})
-		})
+			.catch(err => console.log("Error retrieving all the trips."))
 	}
-	
-	componentWillMount() {
-		let usersTrips = this.getUserTrips()
-		let allTrips = this.getAllTrips()
 
-		const getMatches = () => {
+	getMatches = () => {
+	}
+
+	componentDidMount() {
+			// let usersTrips = this.getUserTrips()
+			// let allTrips = this.getAllTrips()
 			// let userDest = this.state.userTrips[0].destination
 			// let pointsForDest = this.props.allUsers.map(user => {
 			// 	if (user.destination === this.state.userTrips[0].destination) {
 			// 		console.log("wow finally")
 			// 	}
 			// })
-			console.log(this.state.userTrips)
-			console.log("user trips at 0: ", this.state.userTrips[0])
-			// do we want to return all the usernames from trips that have the same destination?
-			// or do we want to go through all the users, grab their username, then compare the arrays of usernames?
-		}
-
-		getMatches()
 	}
 
 	// userTrips returns an array with a trip object.
@@ -80,6 +68,10 @@ class MatchedBuddies extends Component {
   render() {
 		const { userTrips } = this.state;
 		const { user, allUsers } = this.props;
+
+		console.log("MICHELLE'S TRIPS: ", this.state.userTrips)
+		console.log("ALL DE TRIPS: ", this.state.allTrips)
+		console.log(allUsers)
 		
     return (
       <div>

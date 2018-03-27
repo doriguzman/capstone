@@ -49,7 +49,7 @@ class AllBuddies extends Component {
         const filteredUsers = response.data.filter(
           user => user.username !== this.state.username
         );
-        console.log("filteredUsers", filteredUsers);
+        // console.log("filteredUsers", filteredUsers);
         this.setState({
           allUsers: filteredUsers
         });
@@ -82,7 +82,7 @@ class AllBuddies extends Component {
 	};
 	
 	inputChangeLoc = locationAdd => {
-    console.log(locationAdd);
+    // console.log(locationAdd);
     this.setState({
       locationAdd: locationAdd
     });
@@ -90,7 +90,7 @@ class AllBuddies extends Component {
 
   renderFilteredUserPics = e => {
 		e.preventDefault();
-		console.log("submitting the survey for filter");
+		// console.log("submitting the survey for filter");
 		const { user, allUsers, userFilter, destinationAdd } = this.state;
 		this.setState({
 			userFilter:[...userFilter, destinationAdd]
@@ -99,8 +99,8 @@ class AllBuddies extends Component {
     const filteredUserPics = allUsers.filter(
       user => user.destination === this.state.userFilter[0]
     );
-    console.log("what filters we use", this.state.userFilter);
-    console.log("filtered users", filteredUserPics);
+    // console.log("what filters we use", this.state.userFilter);
+    // console.log("filtered users", filteredUserPics);
     this.setState({
       allUsers: filteredUserPics
 		});
@@ -120,14 +120,14 @@ class AllBuddies extends Component {
 			locationAdd,
       userFilter
     } = this.state;
-console.log('destinationAdd', destinationAdd)
-console.log('userfilters' , userFilter)
-console.log('users' , allUsers)
+// console.log('destinationAdd', destinationAdd)
+// console.log('userfilters' , userFilter)
+// console.log('users' , allUsers)
 		// console.log("address in state: ", address)
 		const {ages} = this
 
     if (submitted) {
-      console.log("this is the start date", this.state.start_date);
+      // console.log("this is the start date", this.state.start_date);
     }
     const AddressInputProps = {
       value: this.state.destinationAdd,
@@ -216,7 +216,7 @@ console.log('users' , allUsers)
         )}
 
         {/* TESTING BEGINS FOR MATCHING BUDDIES */}
-        {/* {this.renderMatchedBuddies()} */}
+        {this.renderMatchedBuddies()}
         {/* TESTING ENDS FOR MATCHING BUDDIES */}
       </div>
     );
