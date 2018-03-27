@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
+import "../Stylesheets/Login.css";
 
 
 class LoginUser extends React.Component {
@@ -72,8 +73,6 @@ class LoginUser extends React.Component {
       <div className='login-user-container'>
     <h2 id="navLogoName"> D R I F T &nbsp;&nbsp;  T O G E T H E R</h2>
         <div className='login-box'>
-
-
           <form onSubmit={this.submitForm}>
             <input
               className="usernameBox"
@@ -100,7 +99,7 @@ class LoginUser extends React.Component {
         </div> {/* End login-box */}
 
         <div className='smaller-box'>
-          <p>Don't have an account?<Link to="/users"> Sign up</Link></p>
+          <p>Don't have an account?<Link to="/users"> Sign up!</Link></p>
         </div> {/* End smaller-box */}
 
       </div>

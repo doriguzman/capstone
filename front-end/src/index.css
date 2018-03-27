@@ -1,6 +1,26 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
 }
 
+a:link {
+  color:#022D41;
+  text-decoration: none;
+  background: #FE424D;
+
+}
+
+a:visited {
+  color: #DAECF3;
+  background: #FE424D;
+}
+
+a:hover {
+  color: #DAECF3;
+  background: #FE424D;
+}
+
+a:active {
+  color: #1AA6B7;
+  background: #FE424D;
+}

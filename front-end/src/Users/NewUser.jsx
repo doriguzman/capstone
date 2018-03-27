@@ -151,7 +151,7 @@ class NewUser extends React.Component {
                             onChange={this.handleInput}
                         />
 
-                        <input className="loginBtn" type="submit" value="Join Us" onClick={this.renderSurvey}/>
+                        <input className="loginBtn" type="submit" value="Join Us!" onClick={this.renderSurvey}/>
 
                     </form>
                 </div>

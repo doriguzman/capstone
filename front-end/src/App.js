@@ -3,8 +3,8 @@ import logo from "./Images/logo.svg";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
+import "./index.css";
 import "./Stylesheets/Navbar.css";
-import "./Stylesheets/Login.css";
 import NewUser from "./Users/NewUser";
 import NewUserSurvey from "./Users/NewUserSurvey";
 import LoginUser from "./Users/LoginUser";
@@ -173,19 +173,11 @@ class App extends React.Component {
         {/* NAV BAR GOES HERE */}
 
         <div className="top-nav-bar">
-          <div className="top-nav-bar-left"><img src="https://preview.ibb.co/n47C2x/70logo.gif" /> </div>
-
+          <div className="top-nav-bar-left"><Link to ='/users/feed'> <img src="https://image.ibb.co/cMFWn7/justLogo.png" alt="feathers logo" /> </Link></div>
+          <div className="top-nav-bar-left2"><Link to ='/users/feed'><img src="https://image.ibb.co/gVMSc7/feathers.png" alt="drift togeather" /> </Link></div>
           <div className='top-nav-bar-right'>
-          <Link to ='/users/aboutus'>How it Works</Link>
-
+          <Link to ='/users/aboutus'>Info</Link>
            {' '}|{' '}
-           {user ? <Link to ='/users/feed'>Feed</Link>: 
-          <Link to ='/users/register'>Register</Link>}
-          {' '}|{' '}
-           {user ? <Link to ='/users/me/bffs'>BFFs</Link>:
-          <Link to ='/users/login'>Log In</Link>}
-          {' '}|{' '}
-           
           {/* I might refactor these ternaries to be less confusing. -Michelle */}
           {user ? <Link to ='/users/feed'>Feed</Link> : <Link to ='/users/register'>Register</Link>} {' '}|{' '}
           {user ? <Link to ='/users/bffs'>BFFs |</Link> : <Link to ='/users/login'>Log In</Link>} {' '}
