@@ -5,6 +5,10 @@ import MatchedBuddies from "../LoggedInUser/FEED/MatchedBuddies";
 import "../App.css";
 import "../Stylesheets/Navbar.css";
 import "../Stylesheets/Login.css";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng
+} from "react-places-autocomplete";
 
 class Select extends React.Component {
   render() {
@@ -64,7 +68,7 @@ class NewUserSurvey extends React.Component {
       username: this.props.username,
       firstName: "",
       age: "",
-      location: "",
+      address: "",
       bio: "",
       pic: "",
       Clubbing: false,
@@ -77,23 +81,31 @@ class NewUserSurvey extends React.Component {
       "Likes sightseeing": false,
       Spontaneous: false,
       Extroverted: false,
-      smokes: false,
-      drinks: false,
+      smokes: '',
+      drinks: '',
       ethnicity: "",
       religion: "",
       submitted: false,
-      USERLOGGED:this.props.active
+      USERLOGGED:this.props.active, 
+      message: 'Please fill out all inputs'
     };
   }
 
+
+  inputChange = address => {
+    this.setState({
+      address: address
+    });
+  };
+
   renderSurvey = e => {
+    e.preventDefault();
     console.log('submitting survey')
-    e.preventDefault()
     axios
       .post("/users/survey", {
         firstName: this.state.firstName,
         age: this.state.age,
-        location: this.state.location,
+        location: this.state['address'],
         bio: this.state.bio,
         pic: this.state.pic,
         ethnicity: this.state.ethnicity,
@@ -121,7 +133,9 @@ class NewUserSurvey extends React.Component {
         console.log("err sending post req in NewUserSurvey", err);
       });
    
-  };
+
+  }
+  
 
 
   handleInput = e => {
@@ -160,18 +174,32 @@ class NewUserSurvey extends React.Component {
       username,
       firstName,
       age,
-      location,
+      address,
       bio,
       pic,
       ethnicity,
       religion,
-      submitted
+      submitted,
+       message,
+     smokes, 
+     drinks
     } = this.state;
     const { attributes, ethnicities, religions } = this;
     console.log("NewUserSurvey", this.state);
     if (submitted) {
       return <Redirect to="/users/feed" />;
     }
+
+    const AddressInputProps = {
+      value: this.state.address,
+      onChange: this.inputChange
+    };
+
+    const addressCSSClasses = {
+      root: "form-group",
+      input: "search-input",
+      autocompleteContainer: "autocomplete-container"
+    };
     return (
       <div className="register-survey-container">
         <h2 id="navLogoName">Tell Us About Yourself</h2>
@@ -185,6 +213,7 @@ class NewUserSurvey extends React.Component {
             name="firstName"
             value={firstName}
             onChange={this.handleInput}
+            required= 'required'
           />
           <br />
           Age <br />
@@ -194,17 +223,17 @@ class NewUserSurvey extends React.Component {
             type="text"
             name="age"
             onChange={this.handleInput}
+            required='required'
           />
           <br />
-          Location <br />
-          <input
-            className="location"
-            placeholder="location"
-            type="text"
-            name="location"
-            value={location}
-            onChange={this.handleInput}
+          Location: 
+          <br/>
+          <PlacesAutocomplete
+            classNames={addressCSSClasses}
+            inputProps={AddressInputProps}
           />
+        
+          
           <br />
           Bio <br />
           <input
@@ -253,6 +282,7 @@ class NewUserSurvey extends React.Component {
                   name="smokes"
                   value={value}
                   onChange={this.handleSmokes}
+                  required='required'
                 />{" "}
                 {value}{" "}
               </span>
@@ -270,6 +300,7 @@ class NewUserSurvey extends React.Component {
                   name="drinks"
                   value={value}
                   onChange={this.handleDrinks}
+                  required='required'
                 />{" "}
                 {value}{" "}
               </span>
@@ -300,8 +331,11 @@ class NewUserSurvey extends React.Component {
             type="submit"
             value="Submit"
             onClick={this.renderSurvey}
+            disabled= {!address || smokes==='' ||drinks===''}
           />
         </form>
+
+        {message ? <h2> {message} </h2> :''}
       </div>
     );
   }

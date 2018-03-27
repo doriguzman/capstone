@@ -51,7 +51,7 @@ class BffFeed extends React.Component {
     const { arrayOfbffs, allUsers, BffsInfo } = this.state;
     if (arrayOfbffs) {
       const filteredBFFS = arrayOfbffs.map(elem =>
-        allUsers.filter(obj => obj.username === elem)
+        allUsers.find(obj => obj.username === elem)
       );
       var merged = [].concat.apply([], filteredBFFS);
       console.log(filteredBFFS);
@@ -77,7 +77,9 @@ class BffFeed extends React.Component {
     return (
       <div>
         {BffsInfo ? (
-          <UserProfileCards allUsers={BffsInfo} />
+          //passing in bff just to know that its the bffs feed, which
+          //doesnt show the dates of detination 
+          <UserProfileCards allUsers={BffsInfo} bffs={BffsInfo}/>
         ) : (
           ''
         )}

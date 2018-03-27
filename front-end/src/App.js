@@ -80,7 +80,7 @@ class App extends React.Component {
     if (active === false) {
       return <NewUser setUser={this.setUser} active={this.isActive} />;
     } else {
-      return <Redirect to="/users/feed" />;
+      return <Redirect to="/users/signup/survey" />;
     }
   };
 
@@ -151,6 +151,7 @@ class App extends React.Component {
   };
 
   renderMyBFFS =()=>{
+    console.log('rendering bffs')
     const {user}=this.state
     if (user){
       return <BffFeed user={user}/>
@@ -180,7 +181,7 @@ class App extends React.Component {
            {' '}|{' '}
           {/* I might refactor these ternaries to be less confusing. -Michelle */}
           {user ? <Link to ='/users/feed'>Feed</Link> : <Link to ='/users/register'>Register</Link>} {' '}|{' '}
-          {user ? <Link to ='/users/bffs'>BFFs |</Link> : <Link to ='/users/login'>Log In</Link>} {' '}
+          {user ? <Link to ='/users/me/bffs'>BFFs |</Link> : <Link to ='/users/login'>Log In</Link>} {' '}
           {user ? <Link to='/users/messages'>Messages |</Link> : ""} {" "}
           {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile |</Link> : ''} {' '}{' '}
           {username ? <Link to= {`/users/me/${username}`}>Profile |</Link> : ''} {' '}{' '}

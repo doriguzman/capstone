@@ -6,6 +6,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // this is the default style sheet for react-tabs
 import "react-tabs/style/react-tabs.css";
 import AddTrips from "./AddTrips";
+import ListedTrips from "./ListedTrips";
 
 class OtherUser extends Component {
   constructor(props) {
@@ -36,6 +37,8 @@ class OtherUser extends Component {
       smokes: "",
       drinks: "",
       trips: "",
+      openTrips: "",
+      pastTrips: "",
       userbffs: "",
       bffle: ""
     };
@@ -87,16 +90,30 @@ class OtherUser extends Component {
 
   getUserTrips = () => {
     const { trips } = this.state;
+    //getting the current Date;
+    const dateNow = new Date();
+
+    //get request for all trips;
     axios.get(`/users/allTrips/${this.state.username}`).then(res => {
-      let UserInfo = res.data;
-      console.log("res.data", res.data);
+      console.log("fetching all the trips", res.data);
       this.setState({
         trips: res.data
       });
+
+      //have to create a date object bc its originally a string
+      // comparing date objects with date objects
+      const pastTrips = this.state.trips.filter(
+        trip => new Date(trip.end_date) < dateNow
+      );
+      const openTrips = this.state.trips.filter(
+        trip => new Date(trip.end_date) > dateNow
+      );
+      this.setState({
+        pastTrips: pastTrips,
+        openTrips: openTrips
+      });
     });
   };
-
-  // router.get("/allBffs", loginRequired, db.getAllBffs)
 
   getUserBFFS = () => {
     const { userbffs, username, bffle } = this.state;
@@ -155,7 +172,6 @@ class OtherUser extends Component {
       user,
       user_id,
       username,
-      activeUser,
       userImageURL,
       first_name,
       my_location,
@@ -175,12 +191,16 @@ class OtherUser extends Component {
       smokes,
       drinks,
       trips,
+      openTrips,
+      pastTrips,
       bffle
     } = this.state;
+    console.log("this is userprofile");
+    console.log("open Trips", openTrips);
+    console.log("past trips", pastTrips);
     console.log("THE STATE IS", this.state);
     console.log("USER_id IS ", user_id);
     console.log(this.state);
-    console.log("this is userprofile");
 
     return (
       <div>
@@ -210,15 +230,7 @@ class OtherUser extends Component {
           </TabList>
           <TabPanel>
             <div>
-              <div>
-                {activeUser ? (
-                  <Link to={`/users/me/${username}/editprofile`}>
-                    <i className="far fa-edit fa-2x" />
-                  </Link>
-                ) : (
-                  ""
-                )}
-              </div>
+              <div />
               <div>
                 <h3>About me: {bio} </h3>
               </div>
@@ -252,24 +264,14 @@ class OtherUser extends Component {
           </TabPanel>
           <TabPanel>
             <div>
-              {trips
-                ? trips.map(trip => (
-                    <div>
-                      <h3> Destination: {trip.destination}</h3>
-                      <h4>
-                        Starting Date:{trip.start_date}
-                        <br />
-                        Ending Date:{trip.end_date}
-                        <br />
-                        Planned Activities: {trip.todos}
-                        <br />
-                      </h4>
-                    </div>
-                  ))
-                : ""}
+              <h2> Current Trips</h2>
+              {openTrips ? <ListedTrips trips={openTrips} /> : ""}
 
-              {activeUser ? (
-                <button onClick={this.handleClickAddTrip}>Add Trips</button>
+              {pastTrips[0] ? (
+                <div>
+                  <h2> Past Trips </h2>
+                  <ListedTrips trips={openTrips} />
+                </div>
               ) : (
                 ""
               )}

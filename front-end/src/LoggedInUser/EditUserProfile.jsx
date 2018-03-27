@@ -89,7 +89,6 @@ class EditUserProfile extends Component {
   getUserInfo = () => {
     const { username, user } = this.state;
     console.log("user:", user, "username:", username);
-    // console.log("get user info"), console.log("this is the username", username);
 
     axios
       .get(`/users/userAttributes/${this.state.username}`)
@@ -141,7 +140,6 @@ class EditUserProfile extends Component {
   }
 
   componentDidMount() {
-    console.log("component mounted!");
     this.getUserInfo();
   }
 
@@ -280,7 +278,6 @@ class EditUserProfile extends Component {
                 First Name <br />
                 <input
                   className="firstName"
-                //   placeholder="First name"
                   type="text"
                   name="firstName"
                   value={firstName}
@@ -290,7 +287,6 @@ class EditUserProfile extends Component {
                 Age <br />
                 <input
                   className="age"
-                //   placeholder="Age"
                   value={age}
                   type="text"
                   name="age"
