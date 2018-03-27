@@ -68,7 +68,7 @@ class NewUserSurvey extends React.Component {
       username: this.props.username,
       firstName: "",
       age: "",
-      location: "",
+      address: "",
       bio: "",
       pic: "",
       Clubbing: false,
@@ -81,12 +81,13 @@ class NewUserSurvey extends React.Component {
       "Likes sightseeing": false,
       Spontaneous: false,
       Extroverted: false,
-      smokes: false,
-      drinks: false,
+      smokes: '',
+      drinks: '',
       ethnicity: "",
       religion: "",
       submitted: false,
-      USERLOGGED:this.props.active
+      USERLOGGED:this.props.active, 
+      message: 'Please fill out all inputs'
     };
   }
 
@@ -98,16 +99,13 @@ class NewUserSurvey extends React.Component {
   };
 
   renderSurvey = e => {
+    e.preventDefault();
     console.log('submitting survey')
-    e.preventDefault()
-    this.setState({
-      message: 'Please fill in all inputs'
-    })
     axios
       .post("/users/survey", {
         firstName: this.state.firstName,
         age: this.state.age,
-        location: this.state.location,
+        location: this.state['address'],
         bio: this.state.bio,
         pic: this.state.pic,
         ethnicity: this.state.ethnicity,
@@ -135,7 +133,9 @@ class NewUserSurvey extends React.Component {
         console.log("err sending post req in NewUserSurvey", err);
       });
    
-  };
+
+  }
+  
 
 
   handleInput = e => {
@@ -174,12 +174,15 @@ class NewUserSurvey extends React.Component {
       username,
       firstName,
       age,
-      location,
+      address,
       bio,
       pic,
       ethnicity,
       religion,
-      submitted, message
+      submitted,
+       message,
+     smokes, 
+     drinks
     } = this.state;
     const { attributes, ethnicities, religions } = this;
     console.log("NewUserSurvey", this.state);
@@ -223,13 +226,11 @@ class NewUserSurvey extends React.Component {
             required='required'
           />
           <br />
-          Location: <br />
-
-              Destination:{" "}
+          Location: 
+          <br/>
           <PlacesAutocomplete
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
-            required='required'
           />
         
           
@@ -330,6 +331,7 @@ class NewUserSurvey extends React.Component {
             type="submit"
             value="Submit"
             onClick={this.renderSurvey}
+            disabled= {!address || smokes==='' ||drinks===''}
           />
         </form>
 
