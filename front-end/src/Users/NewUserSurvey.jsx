@@ -86,7 +86,8 @@ class NewUserSurvey extends React.Component {
       ethnicity: "",
       religion: "",
       submitted: false,
-      USERLOGGED:this.props.active
+      USERLOGGED:this.props.active, 
+      message: 'Please fill out all inputs'
     };
   }
 
@@ -100,8 +101,6 @@ class NewUserSurvey extends React.Component {
   renderSurvey = e => {
     e.preventDefault();
     console.log('submitting survey')
-    const {firstName, age, address, smokes, drinks}=this.state
-    if (firstName && address && age && (smokes===true || smokes ===false) && (drinks ===true || drinks===false)){
     axios
       .post("/users/survey", {
         firstName: this.state.firstName,
@@ -134,11 +133,7 @@ class NewUserSurvey extends React.Component {
         console.log("err sending post req in NewUserSurvey", err);
       });
    
-  }else{
-    this.setState({
-        message: 'Please fill in all inputs'
-      })
-    }
+
   }
   
 
@@ -179,12 +174,15 @@ class NewUserSurvey extends React.Component {
       username,
       firstName,
       age,
-      location,
+      address,
       bio,
       pic,
       ethnicity,
       religion,
-      submitted, message
+      submitted,
+       message,
+     smokes, 
+     drinks
     } = this.state;
     const { attributes, ethnicities, religions } = this;
     console.log("NewUserSurvey", this.state);
@@ -333,6 +331,7 @@ class NewUserSurvey extends React.Component {
             type="submit"
             value="Submit"
             onClick={this.renderSurvey}
+            disabled= {!address || smokes==='' ||drinks===''}
           />
         </form>
 
