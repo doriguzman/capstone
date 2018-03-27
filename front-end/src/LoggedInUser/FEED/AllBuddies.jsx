@@ -46,7 +46,7 @@ class AllBuddies extends Component {
       userFilter: {destinationAdd: "", locationAdd: ""},
       start_date: "",
       end_date: "",
-      destinationAdd: "",
+      address:'', 
       locationAdd: "",
       age: []
     };
