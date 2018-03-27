@@ -72,7 +72,7 @@ class Messages extends Component {
 
 		return(
 			<div className="messages-parent-container">
-				<h1 className="messages-header">{activeThreadUsername ? activeThreadUsername : "My Messages"}</h1>
+				<h1 className="messages-header">{activeThreadUsername ? activeThreadUsername : "Inbox"}</h1>
 
 				<div className="messages-threads-container">
 					<div className="messages-threads-list">

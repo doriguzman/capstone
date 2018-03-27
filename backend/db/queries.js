@@ -163,6 +163,14 @@ function addTrip(req, res, next) {
     });
 }
 
+// ------------------ GET ALL TRIPS IN DATABASE ------------------ //
+function getTrips(req, res, next) {
+  db
+    .any("SELECT * FROM trips")
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send("error retrieving all trips from database"))
+}
+
 // ------------------ Get all trips for a user ------------------ //
 function getAllTrips(req, res, next) {
   db
@@ -394,6 +402,7 @@ module.exports = {
   getUserAttributes,
   getPics,
   addTrip,
+  getTrips,
   getAllTrips,
   removeTrip,
   logoutUser,

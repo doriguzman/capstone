@@ -34,17 +34,17 @@
     width: 20%;
     height: fit-content;
     padding: 5px;
-    color: #FE424D;
+    color: #DAECF3;
 }
 .messages-single-thread {
-    background-color: #DAECF3;
     padding: 5px;
     margin: 5px;
-    overflow: hidden
+    overflow: hidden;
+    text-align: center;
 }
 .messages-single-thread:hover {
-    background-color: #1AA6B7;
-    color: #DAECF3;
+    color: #FE424D;
+    transition: 0.5s;
 }
 
 

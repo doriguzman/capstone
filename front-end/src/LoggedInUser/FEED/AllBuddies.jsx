@@ -67,7 +67,6 @@ class AllBuddies extends Component {
   }
 
   renderMatchedBuddies = () => {
-    console.log(`youre now in renderMatchedBuddies`)
     return <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
   }
 
@@ -215,7 +214,10 @@ console.log('users' , allUsers)
         ) : (
           <UserProfileCards allUsers={allUsers} />
         )}
-        
+
+        {/* TESTING BEGINS FOR MATCHING BUDDIES */}
+        {/* {this.renderMatchedBuddies()} */}
+        {/* TESTING ENDS FOR MATCHING BUDDIES */}
       </div>
     );
   }

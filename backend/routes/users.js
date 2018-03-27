@@ -4,12 +4,13 @@ var router = express.Router();
 const { loginRequired } = require("../auth/helpers");
 const passport = require("../auth/local");
 
-// GET routes
+// GET routes -- need to refactor some of the names
 router.get("/", db.getAllUsers);
 router.get("/getUser", loginRequired, db.getUser);
 router.get("/userAttributes/:username", loginRequired, db.getUserAttributes);
 router.get("/getPics", loginRequired, db.getPics); // gets some user info for feed
-router.get("/allTrips/:username", loginRequired, db.getAllTrips)
+router.get("/getTrips", loginRequired, db.getTrips) // gets ALL the trips
+router.get("/allTrips/:username", loginRequired, db.getAllTrips) // gets trip by username
 router.get("/allBffs", loginRequired, db.getAllBffs)
 router.get("/addBff/:username", loginRequired, db.addBff) // adds a BFF by username
 router.get("/getAllThreads", loginRequired, db.getAllThreads)
