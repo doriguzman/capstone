@@ -91,7 +91,7 @@ renderFilteredUserPics = ({allUsers}) => {
         <h3>Filter</h3>
         <br />
         <form>
-          <div>
+          <div className="destination">
             Please enter a destination:{" "}
             <PlacesAutocomplete
               classNames={addressCSSClasses}
@@ -99,7 +99,7 @@ renderFilteredUserPics = ({allUsers}) => {
             />
           </div>
           <br />
-          <div className-travel-calendar>
+          <div className-travel-calendar className="dates">
             Please Select Travel Dates:
             <br />
             <DateRangePicker
@@ -115,7 +115,7 @@ renderFilteredUserPics = ({allUsers}) => {
             />
           </div>
           <br />
-          <div>
+          <div className="location">
             Enter your location:{"  "}
             <input type="text" />
             {/* <PlacesAutocomplete
@@ -123,7 +123,7 @@ renderFilteredUserPics = ({allUsers}) => {
             inputProps={AddressInputProps}
           /> */}
           </div>
-          <div>
+          <div className="ages">
             Age:
             <div>18-21</div>
             <div>22-25</div>

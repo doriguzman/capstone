@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
-import "../App.css";
-import "../Stylesheets/Navbar.css";
-import "../Stylesheets/Login.css";
 
 
 const AboutUs = () => {
@@ -24,7 +21,7 @@ const AboutUs = () => {
   const randomPlace = arr => arr[Math.floor(Math.random() * arr.length)];
 
   return (
-    <div>
+    <div className="info">
       <div>
         <div className="about-us-header-div"> Who You Are </div>
         <div>
