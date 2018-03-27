@@ -15,10 +15,9 @@ import PlacesAutocomplete, {
   getLatLng
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
-import '../Stylesheets/AddTrips.css'
+import "../Stylesheets/AddTrips.css";
 
 //AIzaSyDXrD14HzNu5D-8-apQ9TLJpDhaHwC4IAk <--- googleAPI KEY
-//start_date and end_date are the ones that will go into the sql tables
 
 class AddTrips extends React.Component {
   constructor(props) {
@@ -47,7 +46,7 @@ class AddTrips extends React.Component {
       start_date: "",
       end_date: "",
       address: "",
-      todos: "",
+      todos: ""
     };
 
     this.attributes = [
@@ -105,7 +104,6 @@ class AddTrips extends React.Component {
     e.preventDefault();
     console.log("submitting survey");
 
-
     axios
       .post("/users/addTrip", {
         id: this.state.user_id,
@@ -125,7 +123,7 @@ class AddTrips extends React.Component {
         extroverted: this.state.Extroverted,
         smokes: this.state.smokes,
         drinks: this.state.drinks,
-        todos:this.state.todos, 
+        todos: this.state.todos
       })
       .then(res => {
         console.log(res);
@@ -133,27 +131,26 @@ class AddTrips extends React.Component {
           submitted: true,
           message: "trip added!"
         });
-        
       })
       .catch(err => {
         console.log("err sending post req in NewUserSurvey", err);
       });
   };
-  // renderSurvey = e =>{
-  //   e.preventDefault()
-  //   this.setState({
-  //     start_date: dateFormat(this.state.startDate._d, 'mmmm dS, yyyy'),
-  //     end_date: dateFormat(this.state.endDate._d, 'mmmm dS, yyyy'),
-  //   })
-  // }
 
   render() {
-    const { start_date, end_date, message, todos, username , submitted} = this.state;
+    const {
+      start_date,
+      end_date,
+      message,
+      todos,
+      username,
+      submitted
+    } = this.state;
     const { attributes } = this;
     console.log(this.state);
-if (submitted ){
-  console.log('this is the start date' ,this.state.start_date)
-}
+    if (submitted) {
+      console.log("this is the start date", this.state.start_date);
+    }
     const AddressInputProps = {
       value: this.state.address,
       onChange: this.inputChange
@@ -164,10 +161,6 @@ if (submitted ){
       input: "search-input",
       autocompleteContainer: "autocomplete-container"
     };
-
-    // if (message) {
-    //   return <Redirect to={`/users/me/${username}`} />;
-    // }
 
     return (
       <div className="add-Trip-form">
@@ -246,19 +239,16 @@ if (submitted ){
               </span>
             ))}
           </div>
-
-          <br/>
+          <br />
           <div className="todos">
             Planned Activites:
-            <input 
-            type="text" 
-            placeholder="todos" 
-            name="todos" 
-            value={todos}
-            onChange={this.handleInput}
-
+            <input
+              type="text"
+              placeholder="todos"
+              name="todos"
+              value={todos}
+              onChange={this.handleInput}
             />
-
           </div>
           <br />
           <input
@@ -269,7 +259,7 @@ if (submitted ){
           />
         </form>
 
-        {message ? <Redirect to={`/users/me/${username}`} />  : ""}
+        {message ? <Redirect to={`/users/me/${username}`} /> : ""}
       </div>
     );
   }

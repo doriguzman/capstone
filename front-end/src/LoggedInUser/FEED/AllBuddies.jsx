@@ -65,7 +65,6 @@ class AllBuddies extends Component {
         // const currentTrips = filteredUsers.filter(
         //   trip => new Date(trip.end_date) > this.state.dateNow
         // );
-        console.log("filteredUsers", filteredUsers);
         this.setState({
           allUsers: filteredUsers
         });
@@ -143,11 +142,11 @@ class AllBuddies extends Component {
 		});
   };
 
-  renderFilteredUserPics = e => {
+  renderFilteredUserProfiles = e => {
 		e.preventDefault();
 		console.log("submitting the survey for filter");
 		
-    const filteredUserPics = this.state.allUsers.filter(user => { 
+    const filteredUserProfiles = this.state.allUsers.filter(user => { 
 			console.log("================>")  
 			console.log("destinationAdd", this.state.userFilter.destinationAdd)
 			console.log(this.state.userFilter)
@@ -158,9 +157,9 @@ class AllBuddies extends Component {
 		console.log("this is destination add", this.state.destinationAdd)
 		console.log(this.state.allUsers)
     console.log("what filters we use", this.state.userFilter);
-    console.log("filtered users", filteredUserPics);
+    console.log("filtered users", filteredUserProfiles);
     this.setState({
-      allUsers: filteredUserPics
+      allUsers: filteredUserProfiles
     });
   };
 

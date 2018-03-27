@@ -12,14 +12,14 @@ class User extends Component {
       user: this.props.user,
       user_id: this.props.user.id,
       username: this.props.user.username,
-      active:this.props.active,
+      active: this.props.active,
       userImageURL: "",
       firstName: "",
       location: "",
       age: "",
       bio: "",
       ethnicity: "",
-      religion:'',
+      religion: "",
       earlyBird: "",
       nightOwl: "",
       clubbing: "",
@@ -34,48 +34,55 @@ class User extends Component {
     };
   }
 
-
-  fixUser =()=>{
-    const {user, username, user_id}= this.state
-    if(!this.state.username){
+  fixUser = () => {
+    const { user, username, user_id } = this.state;
+    if (!this.state.username) {
       this.setState({
-        username:this.state.user
-      })
-    if(!this.state.user_id){
-      axios.get("/users").then(response => {
-        console.log("RESPONSE FOR GET REQUEST", response.data.data);
-        if (response.data.data.find(n => n.username === this.state.user)) {
-          console.log('this is the username' , this.state.user )
-            axios.get('/users/getUser')
-            .then(response=>{
-              console.log('this is getting one user:' , response )
-            this.setState({
-              user_id:response.data.user.id
-            })
-            })
+        username: this.state.user
+      });
+      if (!this.state.user_id) {
+        axios.get("/users").then(response => {
+          console.log("RESPONSE FOR GET REQUEST", response.data.data);
+          if (response.data.data.find(n => n.username === this.state.user)) {
+            console.log("this is the username", this.state.user);
+            axios.get("/users/getUser").then(response => {
+              console.log("this is getting one user:", response);
+              this.setState({
+                user_id: response.data.user.id
+              });
+            });
+          }
+        });
+      }
     }
-    })
-  }
-}
-  }
+  };
 
-  componentWillMount(){
+  componentWillMount() {
     this.fixUser();
   }
 
-  renderMyProfileInfo = () =>{
-    const {user, username, user_id, active}=this.state
-    console.log('im seeing if these things are passed correctly', 
-  user, username, user_id)
-    return(
-      <UserProfile user={user} username={username} user_id={user_id} active={active} />
-    )
-  }
+  renderMyProfileInfo = () => {
+    const { user, username, user_id, active } = this.state;
+    console.log(
+      "im seeing if these things are passed correctly",
+      user,
+      username,
+      user_id
+    );
+    return (
+      <UserProfile
+        user={user}
+        username={username}
+        user_id={user_id}
+        active={active}
+      />
+    );
+  };
 
   render() {
     const { user, username, user_id } = this.state;
     console.log("The profile ...... state :", this.state);
-    
+
     return (
       <div>
         <Switch>
