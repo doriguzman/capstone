@@ -6,7 +6,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // this is the default style sheet for react-tabs
 import "react-tabs/style/react-tabs.css";
 import AddTrips from "./AddTrips";
-import ListedTrips from './ListedTrips'
+import ListedTrips from "./ListedTrips";
 
 class OtherUser extends Component {
   constructor(props) {
@@ -37,8 +37,8 @@ class OtherUser extends Component {
       smokes: "",
       drinks: "",
       trips: "",
-      openTrips:'', 
-      pastTrips:'', 
+      openTrips: "",
+      pastTrips: "",
       userbffs: "",
       bffle: ""
     };
@@ -89,29 +89,31 @@ class OtherUser extends Component {
   };
 
   getUserTrips = () => {
-    const { trips } = this.state;;
+    const { trips } = this.state;
     //getting the current Date;
-    const dateNow= new Date()
+    const dateNow = new Date();
 
-    //get request for all trips; 
-    axios.get(`/users/allTrips/${this.state.username}`)
-    .then(res => {
+    //get request for all trips;
+    axios.get(`/users/allTrips/${this.state.username}`).then(res => {
       console.log("fetching all the trips", res.data);
       this.setState({
         trips: res.data
       });
 
       //have to create a date object bc its originally a string
-      // comparing date objects with date objects 
-      const pastTrips= this.state.trips.filter(trip=> new Date(trip.end_date)< dateNow)
-      const openTrips= this.state.trips.filter(trip=> new Date(trip.end_date)> dateNow)
+      // comparing date objects with date objects
+      const pastTrips = this.state.trips.filter(
+        trip => new Date(trip.end_date) < dateNow
+      );
+      const openTrips = this.state.trips.filter(
+        trip => new Date(trip.end_date) > dateNow
+      );
       this.setState({
-        pastTrips:pastTrips, 
-        openTrips:openTrips
-      })
+        pastTrips: pastTrips,
+        openTrips: openTrips
+      });
     });
   };
-
 
   getUserBFFS = () => {
     const { userbffs, username, bffle } = this.state;
@@ -190,16 +192,15 @@ class OtherUser extends Component {
       drinks,
       trips,
       openTrips,
-      pastTrips, 
+      pastTrips,
       bffle
     } = this.state;
     console.log("this is userprofile");
-    console.log('open Trips', openTrips)
-    console.log('past trips', pastTrips)
+    console.log("open Trips", openTrips);
+    console.log("past trips", pastTrips);
     console.log("THE STATE IS", this.state);
     console.log("USER_id IS ", user_id);
     console.log(this.state);
-   
 
     return (
       <div>
@@ -229,9 +230,7 @@ class OtherUser extends Component {
           </TabList>
           <TabPanel>
             <div>
-              <div>
-            
-              </div>
+              <div />
               <div>
                 <h3>About me: {bio} </h3>
               </div>
@@ -266,18 +265,16 @@ class OtherUser extends Component {
           <TabPanel>
             <div>
               <h2> Current Trips</h2>
-              {openTrips
-                ? <ListedTrips trips={openTrips} />
-                : ""}
+              {openTrips ? <ListedTrips trips={openTrips} /> : ""}
 
-                {pastTrips[0] ? 
+              {pastTrips[0] ? (
                 <div>
-                  <h2> Past Trips </h2><ListedTrips trips ={openTrips}/>
-                  </div>
-                :""}
-
-               
-
+                  <h2> Past Trips </h2>
+                  <ListedTrips trips={openTrips} />
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </TabPanel>
         </Tabs>

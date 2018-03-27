@@ -35,3 +35,4 @@ feathers was built using Express on the back-end and React on the front-end. We 
 * [Reed Gaines](https://github.com/crymall)
 * [Newton Brooks](https://github.com/newton-brooks)
 * [David Shin](https://github.com/davidyshin)
+* [Alejandro Franco](https://github.com/alejo4373)

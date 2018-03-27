@@ -68,7 +68,7 @@ class NewUserSurvey extends React.Component {
       username: this.props.username,
       firstName: "",
       age: "",
-      location: "",
+      address: "",
       bio: "",
       pic: "",
       Clubbing: false,
@@ -86,7 +86,8 @@ class NewUserSurvey extends React.Component {
       ethnicity: "",
       religion: "",
       submitted: false,
-      USERLOGGED: this.props.active
+      USERLOGGED:this.props.active, 
+      message: 'Please fill out all inputs'
     };
   }
 
@@ -99,9 +100,6 @@ class NewUserSurvey extends React.Component {
   renderSurvey = e => {
     console.log("submitting survey");
     e.preventDefault();
-    this.setState({
-      message: "Please fill in all inputs"
-    });
     axios
       .post("/users/survey", {
         firstName: this.state.firstName,
@@ -133,7 +131,10 @@ class NewUserSurvey extends React.Component {
       .catch(err => {
         console.log("err sending post req in NewUserSurvey", err);
       });
-  };
+   
+
+  }
+  
 
   handleInput = e => {
     this.setState({
@@ -179,13 +180,15 @@ class NewUserSurvey extends React.Component {
       username,
       firstName,
       age,
-      location,
+      address,
       bio,
       pic,
       ethnicity,
       religion,
       submitted,
-      message
+       message,
+     smokes, 
+     drinks
     } = this.state;
     const { attributes, ethnicities, religions } = this;
     console.log("NewUserSurvey", this.state);
@@ -229,13 +232,11 @@ class NewUserSurvey extends React.Component {
             required
           />
           <br />
-          {/* Location: <br /> */}
-          Location:{" "}
+          Location: 
+          <br/>
           <PlacesAutocomplete
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
-            value={location}
-            required
           />
           <br />
           Bio <br />
@@ -335,6 +336,7 @@ class NewUserSurvey extends React.Component {
             value="Submit"
              disabled={!this.state.address || this.state.smokes === '' || !this.state.drinks === '' }
             onClick={this.renderSurvey}
+            disabled= {!address || smokes==='' ||drinks===''}
           />
         </form>
 

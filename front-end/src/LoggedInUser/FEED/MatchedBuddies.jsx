@@ -1,27 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
+class MatchedBuddies extends Component {
+  constructor(props) {
+		super(props); // user (has id and username), allUsers
+    this.state = {
+    };
+	}
+	
+	
 
-
-class MatchedBuddies extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-            user:this.props.user
-
-        }
-    }
-
-render(){
-    console.log(this.state)
-    return(
-        <div>
-
-
-            <h2> hi </h2>
-            </div>
-    )
-}
-
+  render() {
+		// console.log(this.state);
+		// console.log(this.props);
+    return (
+      <div>
+        <h1> </h1>
+      </div>
+    );
+  }
 }
 
 export default MatchedBuddies;
