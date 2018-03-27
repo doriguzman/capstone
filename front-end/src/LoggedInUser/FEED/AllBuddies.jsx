@@ -52,13 +52,19 @@ class AllBuddies extends Component {
     };
   }
 
-  getUserPics = () => {
+  getAllUsers = () => {
     axios
       .get("/users/getPics")
       .then(response => {
+        //filtering out the logged in user from feed
         const filteredUsers = response.data.filter(
           user => user.username !== this.state.username
         );
+        //filtering for open trips;? or should we just have the feed for all users regardless of if they have a date picked 
+
+        // const currentTrips = filteredUsers.filter(
+        //   trip => new Date(trip.end_date) > this.state.dateNow
+        // );
         console.log("filteredUsers", filteredUsers);
         this.setState({
           allUsers: filteredUsers
@@ -109,7 +115,7 @@ class AllBuddies extends Component {
   };
 
   componentDidMount() {
-    this.getUserPics();
+    this.getAllUsers();
     this.getUserTrips();
   }
 
@@ -175,6 +181,7 @@ class AllBuddies extends Component {
     console.log("destinationAdd", destinationAdd);
     console.log("userfilters", userFilter);
     console.log("users", allUsers);
+    
     // console.log("address in state: ", address)
     const { ages } = this;
 
