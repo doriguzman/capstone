@@ -33,7 +33,7 @@ class AllBuddies extends Component {
       allUsers: [],
       errorMsg: "",
       //starting states for the filter functionality
-      userFilter: [],
+      userFilter: {destinationAdd: "", locationAdd: ""},
       start_date: "",
       end_date: "",
 			destinationAdd: "",
@@ -78,28 +78,32 @@ class AllBuddies extends Component {
     this.setState({
 			destinationAdd: destinationAdd,
 			// userFilter:[...userFilter, destinationAdd]
-
+			userFilter:{destinationAdd: destinationAdd}
     });
 	};
 	
 	inputChangeLoc = locationAdd => {
     console.log(locationAdd);
-    this.setState({
-      locationAdd: locationAdd
-    });
+    this.setState((prevState) => {
+			return {locationAdd: locationAdd,
+			userFilter: {...prevState.userFilter, locationAdd: locationAdd}}
+		});
   };
 
   renderFilteredUserPics = e => {
 		e.preventDefault();
 		console.log("submitting the survey for filter");
-		const { user, allUsers, userFilter, destinationAdd } = this.state;
-		this.setState({
-			userFilter:[...userFilter, destinationAdd]
-		})
-
-    const filteredUserPics = allUsers.filter(
-      user => user.destination === this.state.userFilter[0]
-    );
+		
+    const filteredUserPics = this.state.allUsers.filter(user => { 
+			console.log("================>")  
+			console.log("destinationAdd", this.state.userFilter.destinationAdd)
+			console.log(this.state.userFilter)
+			console.log("user", user)
+			console.log("result", user.destination === this.state.userFilter.destinationAdd)
+				return user.destination === this.state.userFilter.destinationAdd || user.my_location === this.state.userFilter.locationAdd
+			});
+		console.log("this is destination add", this.state.destinationAdd)
+		console.log(this.state.allUsers)
     console.log("what filters we use", this.state.userFilter);
     console.log("filtered users", filteredUserPics);
     this.setState({
@@ -114,12 +118,11 @@ class AllBuddies extends Component {
       user,
       start_date,
       end_date,
-      message,
-      todos,
       submitted,
 			destinationAdd,
 			locationAdd,
-      userFilter
+			userFilter,
+			age
     } = this.state;
 console.log('destinationAdd', destinationAdd)
 console.log('userfilters' , userFilter)
