@@ -68,7 +68,7 @@ class NewUserSurvey extends React.Component {
       username: this.props.username,
       firstName: "",
       age: "",
-      location: "",
+      address: "",
       bio: "",
       pic: "",
       Clubbing: false,
@@ -81,8 +81,8 @@ class NewUserSurvey extends React.Component {
       "Likes sightseeing": false,
       Spontaneous: false,
       Extroverted: false,
-      smokes: false,
-      drinks: false,
+      smokes: '',
+      drinks: '',
       ethnicity: "",
       religion: "",
       submitted: false,
@@ -98,16 +98,15 @@ class NewUserSurvey extends React.Component {
   };
 
   renderSurvey = e => {
+    e.preventDefault();
     console.log('submitting survey')
-    e.preventDefault()
-    this.setState({
-      message: 'Please fill in all inputs'
-    })
+    const {firstName, age, address, smokes, drinks}=this.state
+    if (firstName && address && age && (smokes===true || smokes ===false) && (drinks ===true || drinks===false)){
     axios
       .post("/users/survey", {
         firstName: this.state.firstName,
         age: this.state.age,
-        location: this.state.location,
+        location: this.state['address'],
         bio: this.state.bio,
         pic: this.state.pic,
         ethnicity: this.state.ethnicity,
@@ -135,7 +134,13 @@ class NewUserSurvey extends React.Component {
         console.log("err sending post req in NewUserSurvey", err);
       });
    
-  };
+  }else{
+    this.setState({
+        message: 'Please fill in all inputs'
+      })
+    }
+  }
+  
 
 
   handleInput = e => {
@@ -223,13 +228,11 @@ class NewUserSurvey extends React.Component {
             required='required'
           />
           <br />
-          Location: <br />
-
-              Destination:{" "}
+          Location: 
+          <br/>
           <PlacesAutocomplete
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
-            required='required'
           />
         
           
