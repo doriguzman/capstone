@@ -81,15 +81,14 @@ class NewUserSurvey extends React.Component {
       "Likes sightseeing": false,
       Spontaneous: false,
       Extroverted: false,
-      smokes: false,
-      drinks: false,
+      smokes: '',
+      drinks: '',
       ethnicity: "",
       religion: "",
       submitted: false,
-      USERLOGGED:this.props.active
+      USERLOGGED: this.props.active
     };
   }
-
 
   inputChange = address => {
     this.setState({
@@ -98,16 +97,16 @@ class NewUserSurvey extends React.Component {
   };
 
   renderSurvey = e => {
-    console.log('submitting survey')
-    e.preventDefault()
+    console.log("submitting survey");
+    e.preventDefault();
     this.setState({
-      message: 'Please fill in all inputs'
-    })
+      message: "Please fill in all inputs"
+    });
     axios
       .post("/users/survey", {
         firstName: this.state.firstName,
         age: this.state.age,
-        location: this.state.location,
+        location: this.state['address'],
         bio: this.state.bio,
         pic: this.state.pic,
         ethnicity: this.state.ethnicity,
@@ -134,9 +133,7 @@ class NewUserSurvey extends React.Component {
       .catch(err => {
         console.log("err sending post req in NewUserSurvey", err);
       });
-   
   };
-
 
   handleInput = e => {
     this.setState({
@@ -145,9 +142,11 @@ class NewUserSurvey extends React.Component {
   };
 
   handleCheckBoxChange = e => {
+
     this.setState({
       [e.target.name]: e.target.checked
     });
+    
   };
 
   handleSmokes = e => {
@@ -168,6 +167,12 @@ class NewUserSurvey extends React.Component {
       this.setState({ drinks: true });
     }
   };
+  
+  // handleCheckboxes = () => {
+  //   const { } = this.state
+  //   return !this.state.address || !this.state.smokes || !this.state.drinks && !clubbing || !
+  // }
+
 
   render() {
     const {
@@ -179,7 +184,8 @@ class NewUserSurvey extends React.Component {
       pic,
       ethnicity,
       religion,
-      submitted, message
+      submitted,
+      message
     } = this.state;
     const { attributes, ethnicities, religions } = this;
     console.log("NewUserSurvey", this.state);
@@ -201,7 +207,7 @@ class NewUserSurvey extends React.Component {
       <div className="register-survey-container">
         <h2 id="navLogoName">Tell Us About Yourself</h2>
         <hr />
-        <form>
+        <form >
           First Name <br />
           <input
             className="firstName"
@@ -210,7 +216,7 @@ class NewUserSurvey extends React.Component {
             name="firstName"
             value={firstName}
             onChange={this.handleInput}
-            required= 'required'
+            required
           />
           <br />
           Age <br />
@@ -220,19 +226,17 @@ class NewUserSurvey extends React.Component {
             type="text"
             name="age"
             onChange={this.handleInput}
-            required='required'
+            required
           />
           <br />
-          Location: <br />
-
-              Destination:{" "}
+          {/* Location: <br /> */}
+          Location:{" "}
           <PlacesAutocomplete
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
-            required='required'
+            value={location}
+            required
           />
-        
-          
           <br />
           Bio <br />
           <input
@@ -255,7 +259,7 @@ class NewUserSurvey extends React.Component {
           />
           {/*  now we are going to start radio buttons here */}
           <br />
-          <div className="checkBoxes">
+          <div className="checkBoxes"  >
             What are you like on vacation? <br />
             {attributes.map(value => (
               <span>
@@ -263,7 +267,7 @@ class NewUserSurvey extends React.Component {
                   type="checkbox"
                   name={value}
                   value={value}
-                  onChange={this.handleCheckBoxChange}
+                  onChange={this.handleCheckBoxChange} 
                 />{" "}
                 {value}
                 <br />
@@ -281,7 +285,7 @@ class NewUserSurvey extends React.Component {
                   name="smokes"
                   value={value}
                   onChange={this.handleSmokes}
-                  required='required'
+                  // required="true"
                 />{" "}
                 {value}{" "}
               </span>
@@ -299,7 +303,7 @@ class NewUserSurvey extends React.Component {
                   name="drinks"
                   value={value}
                   onChange={this.handleDrinks}
-                  required='required'
+                  // required
                 />{" "}
                 {value}{" "}
               </span>
@@ -329,11 +333,12 @@ class NewUserSurvey extends React.Component {
             className="surveyBtn"
             type="submit"
             value="Submit"
+             disabled={!this.state.address || this.state.smokes === '' || !this.state.drinks === '' }
             onClick={this.renderSurvey}
           />
         </form>
 
-        {message ? <h2> {message} </h2> :''}
+        {message ? <h2> {message} </h2> : ""}
       </div>
     );
   }
