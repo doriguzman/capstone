@@ -19,15 +19,15 @@ import PlacesAutocomplete, {
 import dateFormat from "dateformat";
 
 const isThereOverlap = (sdate1, edate1, sdate2, edate2) => {
-  const minOfDates = (ed1, ed2) => ed1 < ed2 ? ed1 : ed2;
-  const maxOfDates = (sd1, sd2) => sd1 > sd2 ? sd1 : sd2;
+  const minOfDates = (ed1, ed2) => (ed1 < ed2 ? ed1 : ed2);
+  const maxOfDates = (sd1, sd2) => (sd1 > sd2 ? sd1 : sd2);
   const msToDays = ms => Math.floor(ms / (24 * 60 * 60 * 1000));
 
   const minOfEndDates = minOfDates(edate1, edate2);
-  const maxOfStartDates = maxOfDates(sdate1, sdate2); 
+  const maxOfStartDates = maxOfDates(sdate1, sdate2);
   const msOverlap = Math.max(minOfEndDates - maxOfStartDates + 1, 0);
   return msToDays(msOverlap) >= 1;
-}
+};
 
 class AllBuddies extends Component {
   constructor(props) {
@@ -149,18 +149,18 @@ class AllBuddies extends Component {
 
   handleStartAgeInput = e => {
     const { userFilter, start_age } = this.state;
-    const newStartAge = e.target.value ? Number(e.target.value) : "" 
+    const newStartAge = e.target.value ? Number(e.target.value) : "";
     this.setState({
       start_age: newStartAge
     });
     this.setState({
-      userFilter: { ...userFilter, start_age: newStartAge}
+      userFilter: { ...userFilter, start_age: newStartAge }
     });
   };
 
   handleEndAgeInput = e => {
     const { userFilter, end_age } = this.state;
-    const newEndAge = e.target.value ? Number(e.target.value) : "" 
+    const newEndAge = e.target.value ? Number(e.target.value) : "";
     this.setState({
       end_age: newEndAge
     });
@@ -176,26 +176,28 @@ class AllBuddies extends Component {
     //have to set the state of the calendar dates in the survey (onClick)
 
     console.log("submitting the survey for filter");
- 
+
     const filteredUsers = allUsers.filter(user => {
       let matchArr = [];
-      if(startDate && endDate){
-        if (!user.start_date || !user.end_date ){
-          return false
+      if (startDate && endDate) {
+        if (!user.start_date || !user.end_date) {
+          return false;
         } else {
-          const matchingDates=isThereOverlap(new Date(startDate._d), new Date(endDate._d), new Date(user.start_date), new Date(user.end_date) )
-          matchArr.push(matchingDates )
+          const matchingDates = isThereOverlap(
+            new Date(startDate._d),
+            new Date(endDate._d),
+            new Date(user.start_date),
+            new Date(user.end_date)
+          );
+          matchArr.push(matchingDates);
         }
+      }
+      if(userFilter.destinationAdd){
+        matchArr.push(user.destination === userFilter.destinationAdd)
       }
       if (userFilter.locationAdd) {
         matchArr.push(user.my_location === userFilter.locationAdd);
       }
-      // if (userFilter.start_date && userFilter.end_date) {
-      //   matchArr.push(
-      //     user.start_date >= userFilter.start_date &&
-      //       user.end_date <= userFilter.end_date
-      //   );
-      // }
       if (userFilter.start_age) {
         matchArr.push(user.age >= userFilter.start_age);
       }
@@ -319,10 +321,10 @@ class AllBuddies extends Component {
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
                 onDatesChange={({ startDate, endDate }) => {
-                  console.log('date changes' , startDate, endDate)
+                  console.log("date changes", startDate, endDate);
                   this.setState({
                     startDate,
-                    endDate, 
+                    endDate
                     // userFilter:{ ...userFilter, start_date:startDate._d, end_date: endDate._d }
                   });
                 }}
