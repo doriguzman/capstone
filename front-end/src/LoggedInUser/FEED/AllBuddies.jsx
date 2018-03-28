@@ -53,12 +53,16 @@ class AllBuddies extends Component {
     };
   }
 
-  getAllUsers = () => {
+  getUserPics = () => {
     axios
-      .get("/getAllTrips")
+      .get("/users/getPics")
       .then(response => {
+        const filteredUsers = response.data.filter(
+          user => user.username !== this.state.username
+        );
+        console.log("filteredUsers", filteredUsers);
         this.setState({
-          allUsers: response.data
+          allUsers: filteredUsers
         });
       })
       .catch(err => {
@@ -106,7 +110,7 @@ class AllBuddies extends Component {
   };
 
   componentDidMount() {
-    this.getAllUsers();
+    this.getUserPics();
     this.getUserTrips();
   }
 
@@ -143,10 +147,17 @@ class AllBuddies extends Component {
   }
 
   renderFilteredUserPics = e => {
-    const {allUsers, userFilter}= this.state
+    console.log('submitting for filters')
+    const {endDate, startDate, allUsers, userFilter}= this.state;
+        this.setState({
+                      userFilter:{...userFilter,
+                      start_date:new Date(startDate._d), 
+                      end_date:new Date(endDate._d)}
+                   })
     e.preventDefault();
     console.log("submitting the survey for filter");
-
+//theres a bug with this filter; have to click on the button twice in order
+//for it to render 
     const filteredUserPics = allUsers.filter(user => {
       console.log("================>");
       console.log("destinationAdd", this.state.userFilter.destinationAdd);
@@ -169,6 +180,31 @@ class AllBuddies extends Component {
     });
   };
 
+  // handleCheckBoxChange = e => {
+  //   const { ageRange, userFilter } = this.state;
+  //    this.setState({
+  //    ageRange: { ...ageRange, [e.target.name]: e.target.value }
+  //    ageRange: {...prevState.ageRange, ageRange: e.target.value},
+  //    userFilter:	{ ...userFilter, ageRange: {...ageRange, [e.target.name]: (e.target.value)}}
+	// 	// });
+	// 	const ageKey = e.target.name
+  //   const newAgeRange = { ...ageRange, [ageKey]: !ageRange[ageKey] };
+  //   console.log("trying to hit the key filter");
+  //   console.log("agerange ", this.state.ageRange);
+  //   var object = {};
+  //   for (var key in newAgeRange) {
+  //     if (newAgeRange[key] === true) {
+  //       object[key] = true;
+  //       console.log("object[key]", object[key], "key", key);
+  //     }
+  //   }
+  //   console.log("object", object);
+
+  //   this.setState({
+  //     ageRange: newAgeRange,
+  //     userFilter: { ...userFilter, ageRange: object }
+  //   });
+  // };
 
 
   render() {
@@ -186,12 +222,7 @@ class AllBuddies extends Component {
       end_age
     } = this.state;
 
-    console.log(this.state);
-//     console.log("destinationAdd", destinationAdd);
-//     console.log("userfilters", userFilter);
-//     console.log("users", allUsers);
-    
-    // console.log("address in state: ", address)
+console.log('final uses for the userFilter', userFilter)
     const { ages } = this;
 
     if (submitted) {
@@ -235,7 +266,9 @@ class AllBuddies extends Component {
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
                 onDatesChange={({ startDate, endDate }) => {
-                  this.setState({ startDate, endDate });
+                  this.setState({ startDate, 
+                    endDate, 
+                   });
                 }}
                 focusedInput={this.state.focusedInput}
                 onFocusChange={focusedInput => {
