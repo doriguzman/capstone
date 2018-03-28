@@ -103,8 +103,9 @@ class AddTrips extends React.Component {
   renderSurvey = e => {
     e.preventDefault();
     console.log("submitting survey");
-
+    console.log(this.state.startDate._d)
     axios
+   
       .post("/users/addTrip", {
         id: this.state.user_id,
         username: this.state.username,
