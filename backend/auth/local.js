@@ -18,7 +18,6 @@ passport.use(
       .any("SELECT * FROM users WHERE username=$1", [username])
       .then(rows => {
         const user = rows[0];
-        console.log("user: " + user);
         if (!user) {
           return done(null, false);
         }

@@ -88,38 +88,38 @@ class MatchedBuddies extends Component {
 						tripObj.points += 3
 					}
 					if (user.clubbing === tripObj.clubbing) {
-						tripObj.points += 3
-					}
-					if (user.drinks === tripObj.drinks) {
-						tripObj.points += 3
-					}
-					if (user.early_bird === tripObj.early_bird) {
-						tripObj.points += 3
-					}
-					if (user.extroverted === tripObj.extroverted) {
-						tripObj.points += 3
-					}
-					if (user.foodie === tripObj.foodie) {
-						tripObj.points += 3
-					}
-					if (user.nature === tripObj.nature) {
-						tripObj.points += 3
-					}
-					if (user.night_owl === tripObj.night_owl) {
-						tripObj.points += 3
-					}
-					if (user.relax === tripObj.relax) {
-						tripObj.points += 3
-					}
-					if (user.sightseeing === tripObj.sightseeing) {
-						tripObj.points += 3
-					}
-					if (user.smokes === tripObj.smokes) {
-						tripObj.points += 3
-					}
-					if (user.spontaneous === tripObj.spontaneous) {
-						tripObj.points += 3
-					}
+            tripObj.points += 3;
+          }
+          if (user.drinks === tripObj.drinks) {
+            tripObj.points += 3;
+          }
+          if (user.early_bird === tripObj.early_bird) {
+            tripObj.points += 3;
+          }
+          if (user.extroverted === tripObj.extroverted) {
+            tripObj.points += 3;
+          }
+          if (user.foodie === tripObj.foodie) {
+            tripObj.points += 3;
+          }
+          if (user.nature === tripObj.nature) {
+            tripObj.points += 3;
+          }
+          if (user.night_owl === tripObj.night_owl) {
+            tripObj.points += 3;
+          }
+          if (user.relax === tripObj.relax) {
+            tripObj.points += 3;
+          }
+          if (user.sightseeing === tripObj.sightseeing) {
+            tripObj.points += 3;
+          }
+          if (user.smokes === tripObj.smokes) {
+            tripObj.points += 3;
+          }
+          if (user.spontaneous === tripObj.spontaneous) {
+            tripObj.points += 3;
+          }
 				}
 			})
 		})
@@ -133,15 +133,16 @@ class MatchedBuddies extends Component {
 		const { myTrips, allUsersTrips, allUsersAttributes } = this.state;
 		const { user, allUsers } = this.props;
 
-		console.log("MICHELLE'S TRIPS: ", myTrips)
+		console.log("ALL USER TRIPS: ", allUsersTrips)
 		
     return (
       <div>
-        <h1>TESTING MATCHING BUDDIESSSSS</h1>
+        <h1>Matched Buddies Testing Starts Here</h1>
 				{this.state.myTrips
-					? "return matched buddies" // HEY YOU -- CHANGE THIS
+					? "matched buddies"// HEY YOU -- CHANGE THIS
 					: "return all buddies" // THIS TOO!
 				}
+				<h1>Matched Buddies Testing Ends Here</h1>
       </div>
     );
   }

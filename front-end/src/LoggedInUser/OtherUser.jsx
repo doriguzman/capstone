@@ -126,6 +126,8 @@ class OtherUser extends Component {
         if (res.data.find(n => n.bff === username)) {
           console.log("went to the data");
           this.setState({
+
+
             bffle: !bffle
           });
         }
@@ -221,6 +223,12 @@ class OtherUser extends Component {
             ) : (
               <button onClick={this.addBFF}> Remove BFFL </button>
             )}
+          </div>
+
+          <div>
+            <Link to={`/users/messages/${this.state.username}`}>
+              Message
+            </Link>
           </div>
         </div>
         <Tabs>

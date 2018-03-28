@@ -129,6 +129,12 @@ class App extends React.Component {
     return <Messages user={this.state.user} />
   };
 
+  renderUserThread = (props) => {
+    let username = props.match.params.username
+    console.log(username)
+    return <Messages user={this.state.user} username={username}/>
+  };
+
   renderMyProfile = () => {
     const { user, active } = this.state;
     console.log(`newton asked for this`, user);
@@ -151,9 +157,8 @@ class App extends React.Component {
     }
   };
 
-  renderMyBFFS =()=>{
-    console.log('rendering bffs')
-    const {user}=this.state
+  renderMyBFFS = () => {
+    const { user } = this.state
     if (user){
       return <BffFeed user={user}/>
     }
@@ -180,11 +185,10 @@ class App extends React.Component {
           <div className='top-nav-bar-right'>
           <Link to ='/users/aboutus'>Info</Link>
            {' '}|{' '}
-          {/* I might refactor these ternaries to be less confusing. -Michelle */}
           {user ? <Link to ='/users/feed'>Feed</Link> : <Link to ='/users/register'>Register</Link>} {' '}|{' '}
           {user ? <Link to ='/users/me/bffs'>BFFs |</Link> : <Link to ='/users/login'>Log In</Link>} {' '}
           {user ? <Link to='/users/messages'>Messages |</Link> : ""} {" "}
-          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile |</Link> : ''} {' '}{' '}
+          {user && !username ? <Link to= {`/users/me/${user.username}`}>Profile |</Link> : ''} {' '}{' '}
           {username ? <Link to= {`/users/me/${username}`}>Profile |</Link> : ''} {' '}{' '}
           {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 
@@ -201,7 +205,8 @@ class App extends React.Component {
             <Route path="/users/logout" render={this.renderLogOutUser} />
             <Route path="/users/feed" render={this.renderFeed} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
-            <Route path="/users/messages" render={this.renderMessages} />
+            <Route exact path="/users/messages" render={this.renderMessages} />
+            <Route path="/users/messages/:username" render={this.renderUserThread} />
             <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
             <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
             <Route exact path = {`/users/me/${username}/editprofile`} render={this.renderEditUserProfile} />
