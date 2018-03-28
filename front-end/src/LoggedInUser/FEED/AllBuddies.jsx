@@ -178,9 +178,9 @@ class AllBuddies extends Component {
       start_date,
       end_date,
       submitted,
-			destinationAdd,
-			locationAdd,
-			userFilter,
+      destinationAdd,
+      locationAdd,
+      userFilter,
       age, 
       start_age, 
       end_age
@@ -270,9 +270,6 @@ class AllBuddies extends Component {
             onChange={this.handleInput}
             required= 'required'
           />
-
-
-
             </div>
             <input
               className="filterBtn"
