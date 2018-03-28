@@ -21,19 +21,19 @@ import dateFormat from "dateformat";
 class AllBuddies extends Component {
   constructor(props) {
     super(props);
-    this.ages = [
-      "18-21",
-      "22-25",
-      "26-30",
-      "31-35",
-      "36-40",
-      "41-45",
-      "46-50",
-      "51-55",
-      "56-60",
-      "61-65",
-      "66-70+"
-    ];
+    // this.ages = [
+    //   "18-21",
+    //   "22-25",
+    //   "26-30",
+    //   "31-35",
+    //   "36-40",
+    //   "41-45",
+    //   "46-50",
+    //   "51-55",
+    //   "56-60",
+    //   "61-65",
+    //   "66-70+"
+    // ];
     this.state = {
       user: this.props.user,
       username: this.props.username,
@@ -48,21 +48,17 @@ class AllBuddies extends Component {
       end_date: "",
       address:'', 
       locationAdd: "",
-      age: []
+      start_age:'',
+      end_age:''
     };
   }
 
   getAllUsers = () => {
     axios
-      .get("/users/getPics")
+      .get("/getAllTrips")
       .then(response => {
-        //filtering out the logged in user from feed
-        const filteredUsers = response.data.filter(
-          user => user.username !== this.state.username
-        );
-        // console.log("filteredUsers", filteredUsers);
         this.setState({
-          allUsers: filteredUsers
+          allUsers: response.data
         });
       })
       .catch(err => {
@@ -137,9 +133,16 @@ class AllBuddies extends Component {
 		});
   };
 
+  handleInput = e =>{
+    this.setState({
+      [e.target.name]:e.target.value
+    })
+  }
+
   renderFilteredUserProfiles = e => {
 		e.preventDefault();
-		console.log("submitting the survey for filter");		
+    console.log("submitting the survey for filter");	
+    // if(destination)	
     const filteredUserProfiles = this.state.allUsers.filter(user => { 
 // 			console.log("================>")  
 // 			console.log("destinationAdd", this.state.userFilter.destinationAdd)
@@ -167,10 +170,12 @@ class AllBuddies extends Component {
 			destinationAdd,
 			locationAdd,
 			userFilter,
-			age
+      age, 
+      start_age, 
+      end_age
     } = this.state;
 
-//     console.log(this.state);
+    console.log(this.state);
 //     console.log("destinationAdd", destinationAdd);
 //     console.log("userfilters", userFilter);
 //     console.log("users", allUsers);
@@ -237,20 +242,24 @@ class AllBuddies extends Component {
               />
             </div>
             <div>
-              Age:
-              <br />
-              {ages.map(value => (
-                <span>
-                  <input
-                    type="checkbox"
-                    name={value}
-                    value={value}
-                    onChange={this.handleCheckBoxChange}
-                  />{" "}
-                  {value}
-                  <br />
-                </span>
-              ))}
+               Age range:
+              <input
+            className="start_age"
+            type="number"
+            name="start_age"
+            value={start_age}
+            onChange={this.handleInput}
+            required= 'required'
+          /> {'  '} to
+              <input
+            className="end_age"
+            type="number"
+            name="end_age"
+            // value={end_age}
+            onChange={this.handleInput}
+            required= 'required'
+          />
+
             </div>
             <input
               className="filterBtn"

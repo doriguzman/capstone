@@ -220,7 +220,7 @@ class NewUserSurvey extends React.Component {
           <input
             className="age"
             placeholder="Age"
-            type="text"
+            type="number"
             name="age"
             onChange={this.handleInput}
             required='required'
