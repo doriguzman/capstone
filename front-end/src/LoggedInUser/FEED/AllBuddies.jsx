@@ -152,10 +152,7 @@ class AllBuddies extends Component {
       console.log("destinationAdd", this.state.userFilter.destinationAdd);
       console.log(this.state.userFilter);
       console.log("user", user);
-      console.log(
-        "result",
-        user.destination === userFilter.destinationAdd
-      );
+      console.log("result", user.destination === userFilter.destinationAdd );
       return (
         user.destination === this.state.userFilter.destinationAdd ||
         user.my_location === this.state.userFilter.locationAdd ||
@@ -273,6 +270,8 @@ class AllBuddies extends Component {
             onChange={this.handleInput}
             required= 'required'
           />
+
+
 
             </div>
             <input
