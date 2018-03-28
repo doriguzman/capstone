@@ -15,7 +15,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
 import "../../Stylesheets/AddTrips.css";
-import "../../Stylesheets/FilterSidebar.css";
+// import "../../Stylesheets/FilterSidebar.css";
 
 class FilterSidebar extends React.Component {
   constructor(props) {

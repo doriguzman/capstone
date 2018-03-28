@@ -21,19 +21,19 @@ import dateFormat from "dateformat";
 class AllBuddies extends Component {
   constructor(props) {
     super(props);
-    this.ages = [
-      "18-21",
-      "22-25",
-      "26-30",
-      "31-35",
-      "36-40",
-      "41-45",
-      "46-50",
-      "51-55",
-      "56-60",
-      "61-65",
-      "66-70+"
-    ];
+    // this.ages = [
+    //   "18-21",
+    //   "22-25",
+    //   "26-30",
+    //   "31-35",
+    //   "36-40",
+    //   "41-45",
+    //   "46-50",
+    //   "51-55",
+    //   "56-60",
+    //   "61-65",
+    //   "66-70+"
+    // ];
     this.state = {
       user: this.props.user,
       username: this.props.username,
@@ -46,37 +46,21 @@ class AllBuddies extends Component {
       userFilter: { destinationAdd: "", locationAdd: "", ageRange: {} },
       start_date: "",
       end_date: "",
-      destinationAdd: "",
+      address:'', 
       locationAdd: "",
-      ageRange: {
-        "18-21": false,
-        "22-25": false,
-        "26-30": false,
-        "31-35": false,
-        "36-40": false,
-        "41-45": false,
-        "46-50": false,
-        "51-55": false,
-        "56-60": false,
-        "61-65": false,
-        "66-70+": false
-      }
 
+      start_age:'',
+      end_age:''
 
     };
   }
 
   getAllUsers = () => {
     axios
-      .get("/users/getPics")
+      .get("/getAllTrips")
       .then(response => {
-        //filtering out the logged in user from feed
-        const filteredUsers = response.data.filter(
-          user => user.username !== this.state.username
-        );
-        // console.log("filteredUsers", filteredUsers);
         this.setState({
-          allUsers: filteredUsers
+          allUsers: response.data
         });
       })
       .catch(err => {
@@ -154,6 +138,13 @@ class AllBuddies extends Component {
   };
 
 
+  handleInput = e =>{
+    this.setState({
+      [e.target.name]:e.target.value
+    })
+  }
+
+
   renderFilteredUserPics = e => {
     e.preventDefault();
     console.log("submitting the survey for filter");
@@ -170,7 +161,7 @@ class AllBuddies extends Component {
       return (
         user.destination === this.state.userFilter.destinationAdd ||
         user.my_location === this.state.userFilter.locationAdd ||
-        user.age === Number(this.state.userFilter.ageRange)
+//         user.age === Number(this.state.userFilter.ageRange)
       );
     });
     console.log("this is destination add", this.state.destinationAdd);
@@ -222,16 +213,19 @@ class AllBuddies extends Component {
       start_date,
       end_date,
       submitted,
-      destinationAdd,
-      locationAdd,
-      userFilter,
-      ageRange
+			destinationAdd,
+			locationAdd,
+			userFilter,
+      age, 
+      start_age, 
+      end_age
     } = this.state;
 
-    console.log("this is age", this.state.ageRange);
-    // console.log("destinationAdd", destinationAdd);
-    console.log("userfilters", userFilter);
-    // console.log("users", allUsers);
+    console.log(this.state);
+//     console.log("destinationAdd", destinationAdd);
+//     console.log("userfilters", userFilter);
+//     console.log("users", allUsers);
+    
 
     // console.log("address in state: ", address)
     const { ages } = this;
@@ -295,22 +289,26 @@ class AllBuddies extends Component {
               />
             </div>
             <div>
-              Age:
-              <br />
-              {ages.map(value => (
-                <span>
-                  <input
-                    type="checkbox"
-                    name={value}
+               Age range:
+              <input
+            className="start_age"
+            type="number"
+            name="start_age"
+            value={start_age}
+            onChange={this.handleInput}
+            required= 'required'
+          /> {'  '} to
+              <input
+            className="end_age"
+            type="number"
+            name="end_age"
+            // value={end_age}
+            onChange={this.handleInput}
+            required= 'required'
+          />
 
-                    value={ageRange[value]} 
 
-                    onChange={this.handleCheckBoxChange}
-                  />{" "}
-                  {value}
-                  <br />
-                </span>
-              ))}
+
             </div>
             <input
               className="filterBtn"
