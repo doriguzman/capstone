@@ -167,7 +167,7 @@ class AllBuddies extends Component {
     console.log("this is destination add", this.state.destinationAdd);
     console.log(this.state.allUsers);
     console.log("what filters we use", this.state.userFilter);
-    console.log("filtered users", filteredUserProfiles);
+    console.log("filtered users", filteredUserPics);
     this.setState({
 
       allUsers: filteredUserPics

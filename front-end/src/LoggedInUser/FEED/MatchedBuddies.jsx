@@ -54,7 +54,7 @@ class MatchedBuddies extends Component {
 			if (tripObj.start_date) { 
 				const minOfDates = (ed1, ed2) => ed1 < ed2 ? ed1 : ed2;
 				const maxOfDates = (sd1, sd2) => sd1 > sd2 ? sd1 : sd2;
-				const msToDays = ms => Math.floor(ms / (24*60*60*1000));
+				const msToDays = ms => Math.floor(ms / (24 * 60 * 60 * 1000));
 
 				const overlap = (data1, data2) => { 
 					let sdate1 = new Date(data1.start_date);
