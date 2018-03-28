@@ -43,13 +43,15 @@ class AllBuddies extends Component {
       mostRecentUserTrip: "",
       errorMsg: "",
       //starting states for the filter functionality
-      userFilter: {destinationAdd: "", locationAdd: ""},
+      userFilter: { destinationAdd: "", locationAdd: "", ageRange: {} },
       start_date: "",
       end_date: "",
       address:'', 
       locationAdd: "",
+
       start_age:'',
       end_age:''
+
     };
   }
 
@@ -119,19 +121,22 @@ class AllBuddies extends Component {
     console.log(destinationAdd);
     const { userFilter } = this.state;
     this.setState({
-			destinationAdd: destinationAdd,
-			// userFilter:[...userFilter, destinationAdd]
-			userFilter:{destinationAdd: destinationAdd}
+      destinationAdd: destinationAdd,
+      // userFilter:[...userFilter, destinationAdd]
+      userFilter: { destinationAdd: destinationAdd }
     });
   };
 
   inputChangeLoc = locationAdd => {
     console.log(locationAdd);
-    this.setState((prevState) => {
-			return {locationAdd: locationAdd,
-			userFilter: {...prevState.userFilter, locationAdd: locationAdd}}
-		});
+    this.setState(prevState => {
+      return {
+        locationAdd: locationAdd,
+        userFilter: { ...prevState.userFilter, locationAdd: locationAdd }
+      };
+    });
   };
+
 
   handleInput = e =>{
     this.setState({
@@ -139,26 +144,67 @@ class AllBuddies extends Component {
     })
   }
 
-  renderFilteredUserProfiles = e => {
-		e.preventDefault();
-    console.log("submitting the survey for filter");	
-    // if(destination)	
-    const filteredUserProfiles = this.state.allUsers.filter(user => { 
-// 			console.log("================>")  
-// 			console.log("destinationAdd", this.state.userFilter.destinationAdd)
-// 			console.log(this.state.userFilter)
-// 			console.log("user", user)
-// 			console.log("result", user.destination === this.state.userFilter.destinationAdd)
-				return user.destination === this.state.userFilter.destinationAdd || user.my_location === this.state.userFilter.locationAdd
-			});
-// 		console.log("this is destination add", this.state.destinationAdd)
-// 		console.log(this.state.allUsers)
+
+  renderFilteredUserPics = e => {
+    e.preventDefault();
+    console.log("submitting the survey for filter");
+
+    const filteredUserPics = this.state.allUsers.filter(user => {
+      console.log("================>");
+      console.log("destinationAdd", this.state.userFilter.destinationAdd);
+      console.log(this.state.userFilter);
+      console.log("user", user);
+      console.log(
+        "result",
+        user.destination === this.state.userFilter.destinationAdd
+      );
+      return (
+        user.destination === this.state.userFilter.destinationAdd ||
+        user.my_location === this.state.userFilter.locationAdd ||
+//         user.age === Number(this.state.userFilter.ageRange)
+      );
+    });
+    console.log("this is destination add", this.state.destinationAdd);
+    console.log(this.state.allUsers);
     console.log("what filters we use", this.state.userFilter);
     console.log("filtered users", filteredUserProfiles);
     this.setState({
-      allUsers: filteredUserProfiles
+
+      allUsers: filteredUserPics
     });
   };
+
+  handleCheckBoxChange = e => {
+    const { ageRange, userFilter } = this.state;
+    // this.setState({
+    //   ageRange: { ...ageRange, [e.target.name]: e.target.value }
+    //   // ageRange: {...prevState.ageRange, ageRange: e.target.value},
+    //   // userFilter:	{ ...userFilter, ageRange: {...ageRange, [e.target.name]: (e.target.value)}}
+		// });
+		const ageKey = e.target.name
+    const newAgeRange = { ...ageRange, [ageKey]: !ageRange[ageKey] };
+    console.log("trying to hit the key filter");
+    console.log("agerange ", this.state.ageRange);
+    var object = {};
+    for (var key in newAgeRange) {
+      if (newAgeRange[key] === true) {
+        object[key] = true;
+        console.log("object[key]", object[key], "key", key);
+      }
+    }
+    console.log("object", object);
+
+    this.setState({
+      ageRange: newAgeRange,
+      userFilter: { ...userFilter, ageRange: object }
+    });
+    // this.setState(prevState => {
+    // 	return {
+    // 	userFilter: { ...prevState.userFilter, ageRange: { ageRange }}
+    // }
+    // })
+  };
+
 
   render() {
     const {
@@ -180,6 +226,7 @@ class AllBuddies extends Component {
 //     console.log("userfilters", userFilter);
 //     console.log("users", allUsers);
     
+
     // console.log("address in state: ", address)
     const { ages } = this;
 
@@ -259,6 +306,8 @@ class AllBuddies extends Component {
             onChange={this.handleInput}
             required= 'required'
           />
+
+
 
             </div>
             <input
