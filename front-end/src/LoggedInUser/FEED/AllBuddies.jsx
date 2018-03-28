@@ -176,10 +176,10 @@ class AllBuddies extends Component {
 
 //   handleCheckBoxChange = e => {
 //     const { ageRange, userFilter } = this.state;
-//     // this.setState({
-//     //   ageRange: { ...ageRange, [e.target.name]: e.target.value }
-//     //   // ageRange: {...prevState.ageRange, ageRange: e.target.value},
-//     //   // userFilter:	{ ...userFilter, ageRange: {...ageRange, [e.target.name]: (e.target.value)}}
+//      this.setState({
+//      ageRange: { ...ageRange, [e.target.name]: e.target.value }
+//      ageRange: {...prevState.ageRange, ageRange: e.target.value},
+//      userFilter:	{ ...userFilter, ageRange: {...ageRange, [e.target.name]: (e.target.value)}}
 // 		// });
 // 		const ageKey = e.target.name
 //     const newAgeRange = { ...ageRange, [ageKey]: !ageRange[ageKey] };
