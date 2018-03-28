@@ -55,12 +55,16 @@ class AllBuddies extends Component {
     };
   }
 
-  getAllUsers = () => {
+  getUserPics = () => {
     axios
-      .get("/getAllTrips")
+      .get("/users/getPics")
       .then(response => {
+        const filteredUsers = response.data.filter(
+          user => user.username !== this.state.username
+        );
+        console.log("filteredUsers", filteredUsers);
         this.setState({
-          allUsers: response.data
+          allUsers: filteredUsers
         });
       })
       .catch(err => {
@@ -108,7 +112,7 @@ class AllBuddies extends Component {
   };
 
   componentDidMount() {
-    this.getAllUsers();
+    this.getUserPics();
     this.getUserTrips();
   }
 
