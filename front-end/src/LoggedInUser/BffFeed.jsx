@@ -77,7 +77,9 @@ class BffFeed extends React.Component {
     return (
       <div>
         {BffsInfo ? (
-          <UserProfileCards allUsers={BffsInfo} />
+          //passing in bff just to know that its the bffs feed, which
+          //doesnt show the dates of detination 
+          <UserProfileCards allUsers={BffsInfo} bffs={BffsInfo}/>
         ) : (
           ''
         )}

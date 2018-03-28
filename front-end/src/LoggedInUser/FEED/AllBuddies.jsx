@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from "./UserProfileCards";
 import FilterSidebar from "./FilterSidebar";
+import MatchedBuddies from './MatchedBuddies';
+        
 import DatePicker from "react-datepicker";
 import "react-dates/initialize";
 import {
@@ -36,6 +38,9 @@ class AllBuddies extends Component {
       user: this.props.user,
       username: this.props.username,
       allUsers: [],
+      dateNow: new Date(),
+      userTrips: "",
+      mostRecentUserTrip: "",
       errorMsg: "",
       //starting states for the filter functionality
       userFilter: { destinationAdd: "", locationAdd: "", ageRange: {} },
@@ -56,17 +61,20 @@ class AllBuddies extends Component {
         "61-65": false,
         "66-70+": false
       }
+
+
     };
   }
 
-  getUserPics = () => {
+  getAllUsers = () => {
     axios
       .get("/users/getPics")
       .then(response => {
+        //filtering out the logged in user from feed
         const filteredUsers = response.data.filter(
           user => user.username !== this.state.username
         );
-        console.log("filteredUsers", filteredUsers);
+        // console.log("filteredUsers", filteredUsers);
         this.setState({
           allUsers: filteredUsers
         });
@@ -79,8 +87,49 @@ class AllBuddies extends Component {
       });
   };
 
+  getUserTrips = () => {
+    const { trips, username, userTrips, dateNow } = this.state;
+
+    //get request for all trips;
+    axios.get(`/users/allTrips/${username}`).then(res => {
+//       console.log("fetching all the trips", username, res.data);
+      this.setState({
+        userTrips: res.data
+      });
+      // this is getting the open trips 
+      const currentTrips = res.data.filter(
+        trip => new Date(trip.end_date) > dateNow
+      );
+     
+      // getting the most recently upcoming trip
+      if (currentTrips.length >= 2) {
+        console.log("going thru if statement", currentTrips);
+        const nearest = currentTrips.reduce((acc, curr) => {
+          if (acc.start_date < curr.start_date) {
+            return acc;
+          } else {
+            return curr;
+          }
+        });
+        this.setState({
+          mostRecentUserTrip: nearest
+        });
+        // if theres only one
+      } else if (currentTrips.length ===1){
+        this.setState({
+          mostRecentUserTrip: currentTrips
+        });
+      }
+    });
+  };
+
   componentDidMount() {
-    this.getUserPics();
+    this.getAllUsers();
+    this.getUserTrips();
+  }
+
+  renderMatchedBuddies = () => {
+    return <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
   }
 
   //starting the filter functionality
@@ -104,6 +153,7 @@ class AllBuddies extends Component {
     });
   };
 
+
   renderFilteredUserPics = e => {
     e.preventDefault();
     console.log("submitting the survey for filter");
@@ -126,8 +176,9 @@ class AllBuddies extends Component {
     console.log("this is destination add", this.state.destinationAdd);
     console.log(this.state.allUsers);
     console.log("what filters we use", this.state.userFilter);
-    console.log("filtered users", filteredUserPics);
+    console.log("filtered users", filteredUserProfiles);
     this.setState({
+
       allUsers: filteredUserPics
     });
   };
@@ -163,6 +214,7 @@ class AllBuddies extends Component {
     // })
   };
 
+
   render() {
     const {
       allUsers,
@@ -175,15 +227,17 @@ class AllBuddies extends Component {
       userFilter,
       ageRange
     } = this.state;
+
     console.log("this is age", this.state.ageRange);
     // console.log("destinationAdd", destinationAdd);
     console.log("userfilters", userFilter);
     // console.log("users", allUsers);
+
     // console.log("address in state: ", address)
     const { ages } = this;
 
     if (submitted) {
-      console.log("this is the start date", this.state.start_date);
+      // console.log("this is the start date", this.state.start_date);
     }
     const AddressInputProps = {
       value: this.state.destinationAdd,
@@ -203,6 +257,7 @@ class AllBuddies extends Component {
 
     return (
       <div>
+
         <div className="sidebar">
           <h3>Filter</h3>
           <br />
@@ -247,7 +302,9 @@ class AllBuddies extends Component {
                   <input
                     type="checkbox"
                     name={value}
+
                     value={ageRange[value]} 
+
                     onChange={this.handleCheckBoxChange}
                   />{" "}
                   {value}
@@ -269,6 +326,10 @@ class AllBuddies extends Component {
         ) : (
           <UserProfileCards allUsers={allUsers} />
         )}
+
+        {/* TESTING BEGINS FOR MATCHING BUDDIES */}
+        {this.renderMatchedBuddies()}
+        {/* TESTING ENDS FOR MATCHING BUDDIES */}
       </div>
     );
   }
