@@ -43,15 +43,13 @@ class AllBuddies extends Component {
       mostRecentUserTrip: "",
       errorMsg: "",
       //starting states for the filter functionality
-      userFilter: { destinationAdd: "", locationAdd: "", ageRange: {} },
+      userFilter: { destinationAdd: "", locationAdd: "", start_age: "", end_age: "" },
       start_date: "",
       end_date: "",
-      address:'', 
+      address:"", 
       locationAdd: "",
-
-      start_age:'',
-      end_age:''
-
+      start_age:"",
+      end_age:""
     };
   }
 
@@ -138,11 +136,25 @@ class AllBuddies extends Component {
   };
 
 
-  handleInput = e =>{
-    this.setState({
-      [e.target.name]:e.target.value
-    })
-  }
+  handleStartAgeInput = e =>{
+		const { userFilter, start_age } = this.state
+		this.setState({
+			start_age: e.target.value,
+		})
+		this.setState({
+		userFilter: {...userFilter, start_age: e.target.value}
+		})
+	}
+
+	handleEndAgeInput = e => {
+		const { userFilter, end_age } = this.state
+		this.setState({
+			end_age: e.target.value,
+		})
+		this.setState({
+		userFilter: {...userFilter, end_age: e.target.value}
+		})
+	}
 
 
   renderFilteredUserPics = e => {
@@ -167,7 +179,7 @@ class AllBuddies extends Component {
     console.log("this is destination add", this.state.destinationAdd);
     console.log(this.state.allUsers);
     console.log("what filters we use", this.state.userFilter);
-    console.log("filtered users", filteredUserProfiles);
+    console.log("filtered users", filteredUserPics);
     this.setState({
 
       allUsers: filteredUserPics
@@ -216,9 +228,9 @@ class AllBuddies extends Component {
       end_age
     } = this.state;
 
-    console.log(this.state);
+    console.log("this is state ", this.state);
 //     console.log("destinationAdd", destinationAdd);
-//     console.log("userfilters", userFilter);
+    console.log("userfilters", userFilter);
 //     console.log("users", allUsers);
     
 
@@ -283,6 +295,7 @@ class AllBuddies extends Component {
                 inputProps={AddressInputProps2}
               />
             </div>
+						<br />
             <div>
                Age range:
               <input
@@ -290,15 +303,15 @@ class AllBuddies extends Component {
             type="number"
             name="start_age"
             value={start_age}
-            onChange={this.handleInput}
+            onChange={this.handleStartAgeInput}
             required= 'required'
           /> {'  '} to
               <input
             className="end_age"
             type="number"
             name="end_age"
-            // value={end_age}
-            onChange={this.handleInput}
+            value={end_age}
+            onChange={this.handleEndAgeInput}
             required= 'required'
           />
             </div>
