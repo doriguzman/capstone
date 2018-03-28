@@ -19,7 +19,6 @@ class MatchedBuddies extends Component {
 				this.setState({ myTrips: res.data[0] })
 			})
 			.catch(err => console.log("Error retrieving trips for user.", err));
-
 		axios // gets trips for all users minus active user
 			.get("/users/getAllTrips")
 			.then(res => {

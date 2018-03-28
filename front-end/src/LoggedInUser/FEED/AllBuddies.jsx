@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from "./UserProfileCards";
 import FilterSidebar from "./FilterSidebar";
-import MatchedBuddies from './MatchedBuddies';
-        
+import MatchedBuddies from "./MatchedBuddies";
+
 import DatePicker from "react-datepicker";
 import "react-dates/initialize";
 import {
@@ -18,22 +18,21 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
 
+const isThereOverlap = (sdate1, edate1, sdate2, edate2) => {
+  const minOfDates = (ed1, ed2) => ed1 < ed2 ? ed1 : ed2;
+  const maxOfDates = (sd1, sd2) => sd1 > sd2 ? sd1 : sd2;
+  const msToDays = ms => Math.floor(ms / (24 * 60 * 60 * 1000));
+
+  const minOfEndDates = minOfDates(edate1, edate2);
+  const maxOfStartDates = maxOfDates(sdate1, sdate2); 
+  const msOverlap = Math.max(minOfEndDates - maxOfStartDates + 1, 0);
+  return msToDays(msOverlap) >= 1;
+}
+
 class AllBuddies extends Component {
   constructor(props) {
     super(props);
-    // this.ages = [
-    //   "18-21",
-    //   "22-25",
-    //   "26-30",
-    //   "31-35",
-    //   "36-40",
-    //   "41-45",
-    //   "46-50",
-    //   "51-55",
-    //   "56-60",
-    //   "61-65",
-    //   "66-70+"
-    // ];
+
     this.state = {
       user: this.props.user,
       username: this.props.username,
@@ -43,13 +42,20 @@ class AllBuddies extends Component {
       mostRecentUserTrip: "",
       errorMsg: "",
       //starting states for the filter functionality
-      userFilter: { destinationAdd: "", locationAdd: "", start_age: "", end_age: "" },
+      userFilter: {
+        destinationAdd: "",
+        locationAdd: "",
+        start_age: "",
+        end_age: "",
+        start_date: "",
+        end_date: ""
+      },
       start_date: "",
       end_date: "",
-      address:"", 
+      address: "",
       locationAdd: "",
-      start_age:"",
-      end_age:""
+      start_age: "",
+      end_age: ""
     };
   }
 
@@ -62,7 +68,8 @@ class AllBuddies extends Component {
         );
         console.log("filteredUsers", filteredUsers);
         this.setState({
-          allUsers: filteredUsers
+          allUsers: filteredUsers,
+          filteredUsers: filteredUsers
         });
       })
       .catch(err => {
@@ -78,15 +85,15 @@ class AllBuddies extends Component {
 
     //get request for all trips;
     axios.get(`/users/allTrips/${username}`).then(res => {
-//       console.log("fetching all the trips", username, res.data);
+      //       console.log("fetching all the trips", username, res.data);
       this.setState({
         userTrips: res.data
       });
-      // this is getting the open trips 
+      // this is getting the open trips
       const currentTrips = res.data.filter(
         trip => new Date(trip.end_date) > dateNow
       );
-     
+
       // getting the most recently upcoming trip
       if (currentTrips.length >= 2) {
         console.log("going thru if statement", currentTrips);
@@ -101,7 +108,7 @@ class AllBuddies extends Component {
           mostRecentUserTrip: nearest
         });
         // if theres only one
-      } else if (currentTrips.length ===1){
+      } else if (currentTrips.length === 1) {
         this.setState({
           mostRecentUserTrip: currentTrips
         });
@@ -115,8 +122,10 @@ class AllBuddies extends Component {
   }
 
   renderMatchedBuddies = () => {
-    return <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
-  }
+    return (
+      <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
+    );
+  };
 
   //starting the filter functionality
   inputChange = destinationAdd => {
@@ -125,101 +134,133 @@ class AllBuddies extends Component {
     this.setState({
       destinationAdd: destinationAdd,
       // userFilter:[...userFilter, destinationAdd]
-      userFilter: { destinationAdd: destinationAdd }
+      userFilter: { ...userFilter, destinationAdd: destinationAdd }
     });
   };
 
   inputChangeLoc = locationAdd => {
+    const { userFilter } = this.state;
     console.log(locationAdd);
-    this.setState(prevState => {
-      return {
-        locationAdd: locationAdd,
-        userFilter: { ...prevState.userFilter, locationAdd: locationAdd }
-      };
+    this.setState({
+      locationAdd: locationAdd,
+      userFilter: { ...userFilter, locationAdd: locationAdd }
     });
   };
 
+  handleStartAgeInput = e => {
+    const { userFilter, start_age } = this.state;
+    const newStartAge = e.target.value ? Number(e.target.value) : "" 
+    this.setState({
+      start_age: newStartAge
+    });
+    this.setState({
+      userFilter: { ...userFilter, start_age: newStartAge}
+    });
+  };
 
-  handleStartAgeInput = e =>{
-		const { userFilter, start_age } = this.state
-		this.setState({
-			start_age: e.target.value,
-		})
-		this.setState({
-		userFilter: {...userFilter, start_age: e.target.value}
-		})
-	}
-
-	handleEndAgeInput = e => {
-		const { userFilter, end_age } = this.state
-		this.setState({
-			end_age: e.target.value,
-		})
-		this.setState({
-		userFilter: {...userFilter, end_age: e.target.value}
-		})
-	}
-
+  handleEndAgeInput = e => {
+    const { userFilter, end_age } = this.state;
+    const newEndAge = e.target.value ? Number(e.target.value) : "" 
+    this.setState({
+      end_age: newEndAge
+    });
+    this.setState({
+      userFilter: { ...userFilter, end_age: newEndAge }
+    });
+  };
 
   renderFilteredUserPics = e => {
     e.preventDefault();
+    console.log("submitting for filters");
+    const { endDate, startDate, allUsers, userFilter } = this.state;
+    //have to set the state of the calendar dates in the survey (onClick)
+
     console.log("submitting the survey for filter");
+ 
+    const filteredUsers = allUsers.filter(user => {
+      let matchArr = [];
+      if(startDate && endDate){
+        if (!user.start_date || !user.end_date ){
+          return false
+        } else {
+          const matchingDates=isThereOverlap(new Date(startDate._d), new Date(endDate._d), new Date(user.start_date), new Date(user.end_date) )
+          matchArr.push(matchingDates )
+        }
+      }
+      if (userFilter.locationAdd) {
+        matchArr.push(user.my_location === userFilter.locationAdd);
+      }
+      // if (userFilter.start_date && userFilter.end_date) {
+      //   matchArr.push(
+      //     user.start_date >= userFilter.start_date &&
+      //       user.end_date <= userFilter.end_date
+      //   );
+      // }
+      if (userFilter.start_age) {
+        matchArr.push(user.age >= userFilter.start_age);
+      }
+      if (userFilter.end_age) {
+        matchArr.push(user.age <= userFilter.end_age);
+      }
 
-    const filteredUserPics = this.state.allUsers.filter(user => {
-      console.log("================>");
-      console.log("destinationAdd", this.state.userFilter.destinationAdd);
-      console.log(this.state.userFilter);
-      console.log("user", user);
-      console.log(
-        "result",
-        user.destination === this.state.userFilter.destinationAdd
-      );
-      return (
-        user.destination === this.state.userFilter.destinationAdd ||
-        user.my_location === this.state.userFilter.locationAdd ||
-        user.age === Number(this.state.userFilter.ageRange)
-      );
+      return matchArr.every(elem => elem === true);
+      // if (
+      //   // userFilter.destinationAdd &&
+      //   userFilter.locationAdd
+      //   // userFilter.start_date &&
+      //   // userFilter.end_date &&
+      //   // userFilter.start_age &&
+      //   // userFilter.end_age
+      // ) {
+      //   return (
+      //     // user.destination === userFilter.destinationAdd &&
+      //     user.my_location === userFilter.locationAdd
+      //     // (user.start_date >= userFilter.start_date &&
+      //       // user.end_date <= userFilter.end_date) &&
+      //     // (user.age >= userFilter.start_age && user.age <= userFilter.end_age)
+      //   );
+      // }
     });
-    console.log("this is destination add", this.state.destinationAdd);
-    console.log(this.state.allUsers);
-    console.log("what filters we use", this.state.userFilter);
-    console.log("filtered users", filteredUserPics);
-    this.setState({
 
-      allUsers: filteredUserPics
+    console.log("filtered users", filteredUsers);
+    this.setState({
+      filteredUsers: filteredUsers
     });
   };
 
-//   handleCheckBoxChange = e => {
-//     const { ageRange, userFilter } = this.state;
-//      this.setState({
-//      ageRange: { ...ageRange, [e.target.name]: e.target.value }
-//      ageRange: {...prevState.ageRange, ageRange: e.target.value},
-//      userFilter:	{ ...userFilter, ageRange: {...ageRange, [e.target.name]: (e.target.value)}}
-// 		// });
-// 		const ageKey = e.target.name
-//     const newAgeRange = { ...ageRange, [ageKey]: !ageRange[ageKey] };
-//     console.log("trying to hit the key filter");
-//     console.log("agerange ", this.state.ageRange);
-//     var object = {};
-//     for (var key in newAgeRange) {
-//       if (newAgeRange[key] === true) {
-//         object[key] = true;
-//         console.log("object[key]", object[key], "key", key);
-//       }
-//     }
-//     console.log("object", object);
+  //  getFilteredUsers  = (user, userFilter) =>{
 
-//     this.setState({
-//       ageRange: newAgeRange,
-//       userFilter: { ...userFilter, ageRange: object }
-//     });
-//   };
+  //   if (
+  //     userFilter.destinationAdd &&
+  //     userFilter.locationAdd &&
+  //     userFilter.start_date &&
+  //     userFilter.end_date &&
+  //     userFilter.start_age &&
+  //     userFilter.end_age
+  //   ) {
+  //     return (
+  //       user.destination === userFilter.destinationAdd &&
+  //       user.my_location === userFilter.locationAdd &&
+  //       (user.start_date >= userFilter.start_date &&
+  //         user.end_date <= userFilter.end_date) &&
+  //       (user.age >= userFilter.start_age && user.age <= userFilter.end_age)
+  //     );
+  //   }
+  //   if (
+  //     userFilter.destinationAdd &&
+  //     userFilter.locationAdd &&
+  //     userFilter.start_date &&
+  //     userFilter.end_date &&
+  //     userFilter.start_age &&
+  //     userFilter.end_age
+  //   )
 
+  // }
 
   render() {
     const {
       allUsers,
+      filteredUsers,
       user,
       start_date,
       end_date,
@@ -227,16 +268,13 @@ class AllBuddies extends Component {
       destinationAdd,
       locationAdd,
       userFilter,
-      age, 
-      start_age, 
+      age,
+      start_age,
       end_age
     } = this.state;
 
     console.log("this is state ", this.state);
-//     console.log("destinationAdd", destinationAdd);
     console.log("userfilters", userFilter);
-//     console.log("users", allUsers);
-    
 
     // console.log("address in state: ", address)
     const { ages } = this;
@@ -262,7 +300,6 @@ class AllBuddies extends Component {
 
     return (
       <div>
-
         <div className="sidebar">
           <h3>Filter</h3>
           <br />
@@ -282,7 +319,12 @@ class AllBuddies extends Component {
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
                 onDatesChange={({ startDate, endDate }) => {
-                  this.setState({ startDate, endDate });
+                  console.log('date changes' , startDate, endDate)
+                  this.setState({
+                    startDate,
+                    endDate, 
+                    // userFilter:{ ...userFilter, start_date:startDate._d, end_date: endDate._d }
+                  });
                 }}
                 focusedInput={this.state.focusedInput}
                 onFocusChange={focusedInput => {
@@ -299,25 +341,26 @@ class AllBuddies extends Component {
                 inputProps={AddressInputProps2}
               />
             </div>
-						<br />
+            <br />
             <div>
-               Age range:
+              Age range:
               <input
-            className="start_age"
-            type="number"
-            name="start_age"
-            value={start_age}
-            onChange={this.handleStartAgeInput}
-            required= 'required'
-          /> {'  '} to
+                className="start_age"
+                type="number"
+                name="start_age"
+                value={start_age}
+                onChange={this.handleStartAgeInput}
+                required="required"
+              />{" "}
+              {"  "} to
               <input
-            className="end_age"
-            type="number"
-            name="end_age"
-            value={end_age}
-            onChange={this.handleEndAgeInput}
-            required= 'required'
-          />
+                className="end_age"
+                type="number"
+                name="end_age"
+                value={end_age}
+                onChange={this.handleEndAgeInput}
+                required="required"
+              />
             </div>
             <input
               className="filterBtn"
@@ -328,14 +371,13 @@ class AllBuddies extends Component {
           </form>
         </div>
 
-        {userFilter[0] ? (
-          <UserProfileCards allUsers={allUsers} />
+        {filteredUsers ? (
+          <UserProfileCards allUsers={filteredUsers} />
         ) : (
-          <UserProfileCards allUsers={allUsers} />
+          <div> no users found </div>
         )}
-
         {/* TESTING BEGINS FOR MATCHING BUDDIES */}
-        {this.renderMatchedBuddies()}
+        {/* {this.renderMatchedBuddies()} */}
         {/* TESTING ENDS FOR MATCHING BUDDIES */}
       </div>
     );
