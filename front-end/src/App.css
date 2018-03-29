@@ -14,7 +14,7 @@ html {
 }
 
 body{
-  background-color: rgb(255, 255, 255);
+  background-color:#DAECF3;
 }
 
 .App {
@@ -23,8 +23,8 @@ body{
   font-size: 16px;
   font-family: 'Armata', sans-serif;
   color: #022D41;
-
-
+  background-color:white;
+  border: 1px solid rgba(2, 45, 65, 0.5);
 }
 .info{
   padding: 20px;

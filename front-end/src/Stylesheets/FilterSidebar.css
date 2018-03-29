@@ -8,37 +8,40 @@
   height: 200px;
   background-color: #022D41;
   color: #DAECF3;
-  padding: 1em;
-  border-radius: 0px 0px 0px 0px;
   opacity: .9;
-  border: 1px solid rgba(2, 45, 65, 0.5);
-  font-size: 15px;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  flex: row;
-  overflow: none;
-}
-.destination {
-  margin-top:100px;
-  background-color: #1aa6b7;
-  height: 100px;
+  display: grid;
+  grid-template-columns: 14.25% 14.25% 14.25% 14.25% 14.25% 14.25% 14.25%;
+  grid-template-rows: 14.25% 14.25% 14.25% 14.25% 14.25% 14.25% 14.25%;
 }
 
-.dates{
-  background-color: #1aa6b7;
-  height: 100px;
+.filterText {
+  grid-column: 4/5;
+  grid-row: 1/2;
+  text-align: center;
 }
+
+.destination {
+  text-align: center;
+  grid-column: 1/3;
+  grid-row: 5/8;
+}
+
 .location{
-  background-color: #1aa6b7;
-  height: 100px;
+  text-align: center;
+  grid-column: 1/3;
+  grid-row: 2/4;
+}
+
+.travelDates{
+  grid-column: 3/6;
+  grid-row: 3/7;
+  align-self: stretch;
+  justify-self: end;
 }
 
 .ages{
-  background-color: #1aa6b7;
-  color: #DAECF3;
-  margin-left: auto;
-  height: 100px;
+  grid-column: 7/8;
+  grid-row: 2/8;
 }
 
 .cursor {
@@ -51,7 +54,24 @@
   padding: 5px;
   margin: 10px 7px 11px 7px;
   opacity: 0.9; 
-  border: 10px solid #DAECF3;
   border-radius: 5px;
   font-size: 16px;
+  grid-column: 4/5;
+  grid-row: 6/8;
+}
+
+.start_age{
+  height:25px;
+  width: 75px;
+  padding:13px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.end_age{
+  height:25px;
+  width: 75px;
+  padding:13px;
+  margin: 5px;
+  border-radius: 5px;
 }

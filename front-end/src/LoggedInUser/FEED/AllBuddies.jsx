@@ -301,20 +301,18 @@ class AllBuddies extends Component {
     };
 
     return (
-      <div>
+      <div >
         <div className="sidebar">
-          <h3>Filter</h3>
-          <br />
-          <form>
-            <div>
+          <div className="filterText">Filter</div>
+ 
+            <div className="destination">
               Please enter a destination:{" "}
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
                 inputProps={AddressInputProps}
               />
             </div>
-            <br />
-            <div className-travel-calendar>
+            <div className-travel-calendar className="travelDates">
               Please Select Travel Dates:
               <br />
               <DateRangePicker
@@ -334,8 +332,8 @@ class AllBuddies extends Component {
                 }}
               />
             </div>
-            <br />
-            <div>
+
+            <div className="location">
               Enter your location:{"  "}
               {/* <input type="text" /> */}
               <PlacesAutocomplete
@@ -343,8 +341,8 @@ class AllBuddies extends Component {
                 inputProps={AddressInputProps2}
               />
             </div>
-            <br />
-            <div>
+
+            <div className="ages">
               Age range:
               <input
                 className="start_age"
@@ -370,7 +368,7 @@ class AllBuddies extends Component {
               value="Add Filters"
               onClick={this.renderFilteredUserPics}
             />
-          </form>
+
         </div>
 
         {filteredUsers ? (

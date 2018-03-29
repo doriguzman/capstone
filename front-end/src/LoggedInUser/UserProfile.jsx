@@ -191,9 +191,9 @@ class UserProfile extends React.Component {
     console.log("this is userprofile");
 
     return (
-      <div>
+      <div className="userProfile">
         <div>
-          <img src={userImageURL} />
+          <img src={userImageURL} className="pic" />
         </div>
         <div>
           <div>

@@ -6,6 +6,7 @@ import "./App.css";
 import "./index.css";
 import "./Stylesheets/Navbar.css";
 import "./Stylesheets/Feed.css";
+import "./Stylesheets/FilterSidebar.css";
 import NewUser from "./Users/NewUser";
 import NewUserSurvey from "./Users/NewUserSurvey";
 import LoginUser from "./Users/LoginUser";
