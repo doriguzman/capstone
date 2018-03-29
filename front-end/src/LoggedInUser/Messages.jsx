@@ -17,6 +17,7 @@ class Messages extends Component {
     };
 	}
 
+	// finds the thread (has id, user_a, user_b) using a username
 	findThreadByUsername = (threads, username) => {
 		return threads.find(thread => {
 			return (
@@ -26,8 +27,40 @@ class Messages extends Component {
 		})
 	}
 
-  componentDidMount() {
+	getMessagesForThread = (threadId, threadUsername) => {
+    axios.get(`/users/getMessages/${threadId}`).then(response => {
+      this.setState({
+        activeThreadUsername: threadUsername,
+        activeThreadId: threadId,
+        messages: response.data
+      });
+		})
+		.catch(err => {
+			console.log("Oh no! There was an error retrieving your messages. Try refreshing.");
+		});
+	}
 
+	createThread = (username) => {
+		axios
+			.get(`/users/addThread/${username}`)
+			.then(() => console.log("you added a thread for: ", username))
+			.catch(err => console.log("There was an error!: ", err))
+	}
+
+	getAllThreads = () => {
+		console.log("getting all threads again")
+		axios
+			.get("/users/getAllThreads")
+			.then(response => {
+				const threads = response.data;
+				this.setState({ threads: threads });
+
+				console.log("got all the threads: ", this.state.threads)
+			})
+			.catch(err => console.log("Error retrieving all threads."))
+	}
+
+  componentDidMount() {
     axios
       .get("/users/getAllThreads")
       .then(response => {
@@ -42,6 +75,8 @@ class Messages extends Component {
 
 					if (activeThread) {
 						this.getMessagesForThread(activeThread.id, username)
+					} else {
+						this.createThread(username) // this works sigh
 					}
 				}
       })
@@ -57,19 +92,6 @@ class Messages extends Component {
 				this.getMessagesForThread(activeThread.id, nextProps.username)
 			}
 		}
-	}
-
-	getMessagesForThread = (threadId, threadUsername) => {
-    axios.get(`/users/getMessages/${threadId}`).then(response => {
-      this.setState({
-        activeThreadUsername: threadUsername,
-        activeThreadId: threadId,
-        messages: response.data
-      });
-		})
-		.catch(err => {
-			console.log("Oh no! There was an error retrieving your messages. Try refreshing.");
-		});
 	}
 
   // Sets the active thread based on username clicked
@@ -105,6 +127,12 @@ class Messages extends Component {
       messages,
       newMessage
     } = this.state;
+
+		// if (!this.props.user) {
+		// 	const redirect = window.location.href="http://localhost:3000/users/login"
+		// 	setInterval(redirect, 3000)
+		// 	return "You must be logged in. Redirecting..."
+		// }
 
     return (
       <div className="messages-parent-container">
