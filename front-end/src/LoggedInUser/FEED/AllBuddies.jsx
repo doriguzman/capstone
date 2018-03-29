@@ -41,6 +41,7 @@ class AllBuddies extends Component {
       userTrips: "",
       mostRecentUserTrip: "",
       errorMsg: "",
+      
       //starting states for the filter functionality
       userFilter: {
         destinationAdd: "",
@@ -58,6 +59,30 @@ class AllBuddies extends Component {
       end_age: ""
     };
   }
+
+  // flagUser = () => {
+  //   //  e.preventDefault()
+  //   this.setState({
+  //     flagged: true
+  //   });
+  //   console.log("You clicked the flag user");
+  //   console.log("Bitch you is flagged: ", this.state.flagged);
+  // };
+  //  flagUser = () => {
+  //    const { allUsers } = this.state
+  //   //  e.preventDefault()
+  //   this.state = {
+  //     flagged: false
+  //   };
+
+  //   console.log("You clicked to flag user : ", allUsers.map(user => (user.username)));
+  //   if('clicked'){
+  //     console.log('button clicked')
+  //   }
+  //    console.log("Bitch you is flagged: ", this.state.flagged);
+  // };
+
+
 
   getUserPics = () => {
     axios
@@ -172,7 +197,7 @@ class AllBuddies extends Component {
   renderFilteredUserPics = e => {
     e.preventDefault();
     console.log("submitting for filters");
-    const { endDate, startDate, allUsers, userFilter } = this.state;
+    const { endDate, startDate, allUsers, userFilter, flagged } = this.state;
     //have to set the state of the calendar dates in the survey (onClick)
 
     console.log("submitting the survey for filter");
@@ -192,8 +217,8 @@ class AllBuddies extends Component {
           matchArr.push(matchingDates);
         }
       }
-      if(userFilter.destinationAdd){
-        matchArr.push(user.destination === userFilter.destinationAdd)
+      if (userFilter.destinationAdd) {
+        matchArr.push(user.destination === userFilter.destinationAdd);
       }
       if (userFilter.locationAdd) {
         matchArr.push(user.my_location === userFilter.locationAdd);
@@ -264,6 +289,7 @@ class AllBuddies extends Component {
       allUsers,
       filteredUsers,
       user,
+      flagged,
       start_date,
       end_date,
       submitted,
@@ -374,7 +400,7 @@ class AllBuddies extends Component {
         </div>
 
         {filteredUsers ? (
-          <UserProfileCards allUsers={filteredUsers} />
+          <UserProfileCards allUsers={filteredUsers} user={user} />
         ) : (
           <div> no users found </div>
         )}

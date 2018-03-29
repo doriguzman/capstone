@@ -36,6 +36,9 @@ body{
   border-radius: 0px 0px 5px 5px;
 }
 
+.redflagBtn {
+  background-color: red
+}
 
 
 @media screen and (max-width: 932px) {

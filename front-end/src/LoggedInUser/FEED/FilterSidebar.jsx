@@ -123,7 +123,7 @@ renderFilteredUserPics = ({allUsers}) => {
             inputProps={AddressInputProps}
           /> */}
           </div>
-          <div className="ages">
+          {/* <div className="ages">
             Age:
             <div>18-21</div>
             <div>22-25</div>
@@ -136,7 +136,7 @@ renderFilteredUserPics = ({allUsers}) => {
             <div>56-60</div>
             <div>61-65</div>
             <div>66-70+</div>
-          </div>
+          </div> */}
           <input
             className="filterBtn"
             type="submit"
