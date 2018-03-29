@@ -303,18 +303,15 @@ class AllBuddies extends Component {
     return (
       <div >
         <div className="sidebar">
-          <div className="filterText">Filter</div>
+
  
-            <div className="destination">
-              Please enter a destination:{" "}
+            <div className="destination" placeholder=" Please enter a destination">
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
                 inputProps={AddressInputProps}
               />
             </div>
-            <div className-travel-calendar className="travelDates">
-              Please Select Travel Dates:
-              <br />
+            <div className-travel-calendar className="travelDates" placeholder=" Travel Dates">
               <DateRangePicker
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
@@ -333,8 +330,7 @@ class AllBuddies extends Component {
               />
             </div>
 
-            <div className="location">
-              Enter your location:{"  "}
+            <div className="location" placeholder="Your location">
               {/* <input type="text" /> */}
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
@@ -343,17 +339,17 @@ class AllBuddies extends Component {
             </div>
 
             <div className="ages">
-              Age range:
               <input
+              placeholder="From Age"
                 className="start_age"
                 type="number"
                 name="start_age"
                 value={start_age}
                 onChange={this.handleStartAgeInput}
                 required="required"
-              />{" "}
-              {"  "} to
+              />
               <input
+              placeholder="To Age"
                 className="end_age"
                 type="number"
                 name="end_age"

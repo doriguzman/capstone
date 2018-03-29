@@ -181,8 +181,8 @@ class App extends React.Component {
         {/* NAV BAR GOES HERE */}
 
         <div className="top-nav-bar">
-          <div className="top-nav-bar-left"><Link to ='/users/feed'> <img src="https://image.ibb.co/cMFWn7/justLogo.png" alt="feathers logo" /> </Link></div>
-          <div className="top-nav-bar-left2"><Link to ='/users/feed'><img src="https://image.ibb.co/gVMSc7/feathers.png" alt="drift togeather" /> </Link></div>
+          <div className="top-nav-bar-left"><Link to ='/users/feed'> <img src="https://image.ibb.co/fLe2h7/logo_Smallest.png" alt="feathers logo" /> </Link></div>
+          <div className="top-nav-bar-left2"><Link to ='/users/feed'><img src="https://image.ibb.co/g0rb9n/feathers_Smallest.png" alt="drift togeather" /> </Link></div>
           <div className='top-nav-bar-right'>
           <Link to ='/users/aboutus'>Info</Link>
            {' '}|{' '}

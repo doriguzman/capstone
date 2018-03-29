@@ -23,19 +23,25 @@ body{
   font-size: 16px;
   font-family: 'Armata', sans-serif;
   color: #022D41;
-  background-color:white;
-  border: 1px solid rgba(2, 45, 65, 0.5);
+  background-color:#DAECF3;
 }
+
 .info{
   padding: 20px;
-  background-color: #DAECF3;
-  background-color: #DAECF3;
+  background-color: white;
   padding: 1em;
   opacity: .9;
   border: 1px solid rgba(2, 45, 65, 0.5);
   border-radius: 0px 0px 5px 5px;
 }
-
+.userProfile{
+  padding: 20px;
+  background-color: white;
+  padding: 1em;
+  opacity: .9;
+  border: 1px solid rgba(2, 45, 65, 0.5);
+  border-radius: 0px 0px 5px 5px;
+}
 
 
 @media screen and (max-width: 932px) {
