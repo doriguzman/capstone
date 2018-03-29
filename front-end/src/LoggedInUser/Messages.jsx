@@ -17,7 +17,7 @@ class Messages extends Component {
     };
 	}
 
-	// finds the thread (has id, user_a, user_b) using a username
+	// finds the thread (has id, user_a, user_b) using a username\
 	findThreadByUsername = (threads, username) => {
 		return threads.find(thread => {
 			return (
@@ -127,12 +127,6 @@ class Messages extends Component {
       messages,
       newMessage
     } = this.state;
-
-		// if (!this.props.user) {
-		// 	const redirect = window.location.href="http://localhost:3000/users/login"
-		// 	setInterval(redirect, 3000)
-		// 	return "You must be logged in. Redirecting..."
-		// }
 
     return (
       <div className="messages-parent-container">
