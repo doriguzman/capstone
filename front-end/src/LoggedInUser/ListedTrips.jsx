@@ -8,9 +8,9 @@ const ListedTrips = ({ trips }) => {
         <div>
           <h3> Destination: {trip.destination}</h3>
           <h4>
-            Starting Date: {dateFormat (trip.start_date, "ddd, mmm, dS, yyyy")}
+            Starting Date: {dateFormat(trip.start_date, "ddd, mmm, dS, yyyy")}
             <br />
-            Ending Date:{dateFormat (trip.end_date, "ddd, mmm, dS, yyyy")}
+            Ending Date:{dateFormat(trip.end_date, "ddd, mmm, dS, yyyy")}
             <br />
             Planned Activities: {trip.todos}
             <br />

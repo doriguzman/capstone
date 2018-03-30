@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
-// import './profile.css';
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-dates/initialize";
@@ -64,6 +63,7 @@ class AddTrips extends React.Component {
     this.smokes = ["No", "Yes-occasionally", "Yes-daily"];
     this.drinks = ["Never", "Social drinker", "Moderately", "Regularly"];
   }
+
   handleInput = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -81,6 +81,7 @@ class AddTrips extends React.Component {
       [e.target.name]: e.target.checked
     });
   };
+  
   handleSmokes = e => {
     if (
       e.target.value === "Yes-occasionally" ||
@@ -102,10 +103,8 @@ class AddTrips extends React.Component {
 
   renderSurvey = e => {
     e.preventDefault();
-    console.log("submitting survey");
-    console.log(this.state.startDate._d)
     axios
-   
+
       .post("/users/addTrip", {
         id: this.state.user_id,
         username: this.state.username,
@@ -148,9 +147,7 @@ class AddTrips extends React.Component {
       submitted
     } = this.state;
     const { attributes } = this;
-    console.log(this.state);
     if (submitted) {
-      console.log("this is the start date", this.state.start_date);
     }
     const AddressInputProps = {
       value: this.state.address,

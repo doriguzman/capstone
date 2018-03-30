@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import UserProfile from "./UserProfile";
-// import AddTrips from "./AddTrips";
-// import BffFeed from './LoggedInUser/BffFeed'
 
 class User extends Component {
   constructor(props) {
@@ -63,12 +61,6 @@ class User extends Component {
 
   renderMyProfileInfo = () => {
     const { user, username, user_id, active } = this.state;
-    console.log(
-      "im seeing if these things are passed correctly",
-      user,
-      username,
-      user_id
-    );
     return (
       <UserProfile
         user={user}
@@ -81,8 +73,6 @@ class User extends Component {
 
   render() {
     const { user, username, user_id } = this.state;
-    console.log("The profile ...... state :", this.state);
-
     return (
       <div>
         <Switch>

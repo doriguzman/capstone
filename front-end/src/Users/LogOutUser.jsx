@@ -19,13 +19,9 @@ class LogOutUser extends Component {
   }
 
   render() {
-    console.log(this.state);
     const { loggedOut } = this.state;
     // return loggedOut ? <div> you are logged out </div> : "";
-    return(
-      <div>
-      {loggedOut ? <Redirect to='/users/login' />  :''}
-    </div>)
+    return <div>{loggedOut ? <Redirect to="/users/login" /> : ""}</div>;
   }
 }
 

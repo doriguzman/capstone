@@ -15,7 +15,6 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
 import "../../Stylesheets/AddTrips.css";
-// import "../../Stylesheets/FilterSidebar.css";
 
 class FilterSidebar extends React.Component {
   constructor(props) {
@@ -37,30 +36,12 @@ class FilterSidebar extends React.Component {
     });
   };
 
-  //adds the chosen filter to the array userFilter
-
-//   renderFilteredUserPics = () => {
-//     axios
-//       .get("/users/getPics")
-//       .then(response => {
-//         const filteredUserPics = response.data.filter(user => user.destination === this.state.address);
-//         console.log("filteredUsers", filteredUserPics);
-//         this.setState({
-//           allUsers: filteredUserPics
-//         });
-//       })
-//       .catch(err => {
-//         console.log(err);
-//         this.setState({
-//           errorMsg: "Sorry, there's something wrong with your feed."
-//         });
-//       });
-//   };
-
-renderFilteredUserPics = ({allUsers}) => {
-    const {user} = this.state
-    const filteredUserPics = allUsers.filter(user.destination === this.state.address)
-}
+  renderFilteredUserPics = ({ allUsers }) => {
+    const { user } = this.state;
+    const filteredUserPics = allUsers.filter(
+      user.destination === this.state.address
+    );
+  };
 
   render() {
     const {
@@ -72,9 +53,7 @@ renderFilteredUserPics = ({allUsers}) => {
       allUsers,
       userFilter
     } = this.state;
-    console.log(this.state);
     if (submitted) {
-      console.log("this is the start date", this.state.start_date);
     }
     const AddressInputProps = {
       value: this.state.address,
@@ -118,10 +97,6 @@ renderFilteredUserPics = ({allUsers}) => {
           <div className="location">
             Enter your location:{"  "}
             <input type="text" />
-            {/* <PlacesAutocomplete
-            classNames={addressCSSClasses}
-            inputProps={AddressInputProps}
-          /> */}
           </div>
           <div className="ages">
             Age:

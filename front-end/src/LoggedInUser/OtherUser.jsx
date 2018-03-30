@@ -50,7 +50,6 @@ class OtherUser extends Component {
 
   getUserInfo = () => {
     const username = this.props.match.params.username;
-    console.log("this is the props.req", username);
     axios
       .get(`/users/userAttributes/${username}`)
       .then(res => {
@@ -122,17 +121,12 @@ class OtherUser extends Component {
       .then(res => {
         console.log("gettings the user BFFS", res.data);
 
-        console.log("this is before the find ");
         if (res.data.find(n => n.bff === username)) {
-          console.log("went to the data");
           this.setState({
-
-
             bffle: !bffle
           });
         }
       })
-
       .catch(err => {
         console.log(err);
       });
@@ -164,7 +158,6 @@ class OtherUser extends Component {
   };
 
   componentDidMount() {
-    console.log("component mounted!");
     this.getUserInfo();
     // this.getUserBFFS();
   }
@@ -197,12 +190,6 @@ class OtherUser extends Component {
       pastTrips,
       bffle
     } = this.state;
-    console.log("this is userprofile");
-    console.log("open Trips", openTrips);
-    console.log("past trips", pastTrips);
-    console.log("THE STATE IS", this.state);
-    console.log("USER_id IS ", user_id);
-    console.log(this.state);
 
     return (
       <div>
@@ -213,10 +200,8 @@ class OtherUser extends Component {
           <div>
             Name: {first_name}, Age: {age}
           </div>
-
           <div>@{username}</div>
           <div>Location: {my_location}</div>
-
           <div className="addFriend">
             {!bffle ? (
               <button onClick={this.addBFF}> Add BFFL </button>
@@ -224,11 +209,8 @@ class OtherUser extends Component {
               <button onClick={this.addBFF}> Remove BFFL </button>
             )}
           </div>
-
           <div>
-            <Link to={`/users/messages/${this.state.username}`}>
-              Message
-            </Link>
+            <Link to={`/users/messages/${this.state.username}`}>Message</Link>
           </div>
         </div>
         <Tabs>
@@ -274,7 +256,6 @@ class OtherUser extends Component {
             <div>
               <h2> Current Trips</h2>
               {openTrips ? <ListedTrips trips={openTrips} /> : ""}
-
               {pastTrips[0] ? (
                 <div>
                   <h2> Past Trips </h2>

@@ -8,8 +8,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import AddTrips from "./AddTrips";
 import dateFormat from "dateformat";
-import ListedTrips from './ListedTrips'
-
+import ListedTrips from "./ListedTrips";
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -18,14 +17,14 @@ class UserProfile extends React.Component {
       user: this.props.user,
       user_id: this.props.user.id,
       username: this.props.username,
-      activeUser:this.props.active,
+      activeUser: this.props.active,
       userImageURL: "",
       first_name: "",
       my_location: "",
       age: "",
       bio: "",
       ethnicity: "",
-      religion:'', 
+      religion: "",
       early_bird: "",
       night_owl: "",
       clubbing: "",
@@ -37,49 +36,44 @@ class UserProfile extends React.Component {
       nature: "",
       extroverted: "",
       smokes: "",
-      drinks: "", 
-      trips:'', 
-      openTrips:'', 
-      pastTrips:'', 
-
+      drinks: "",
+      trips: "",
+      openTrips: "",
+      pastTrips: ""
     };
   }
 
   fixUser = () => {
-    const {user, username, user_id}= this.state
-    if(!this.state.username){
+    const { user, username, user_id } = this.state;
+    if (!this.state.username) {
       this.setState({
-        username:this.state.user
-      })
-    if(!this.state.user_id){
-      axios.get("/users").then(response => {
-        console.log("RESPONSE FOR GET REQUEST", response.data.data);
-        if (response.data.data.find(n => n.username === this.state.user)) {
-          console.log('this is the username' , this.state.user )
-            axios.get('/users/getUser')
-            .then(response=>{
-              console.log('this is getting one user:' , response )
-            this.setState({
-              user_id:response.data.user.id
-            })
-            })
+        username: this.state.user
+      });
+      if (!this.state.user_id) {
+        axios.get("/users").then(response => {
+          console.log("RESPONSE FOR GET REQUEST", response.data.data);
+          if (response.data.data.find(n => n.username === this.state.user)) {
+            console.log("this is the username", this.state.user);
+            axios.get("/users/getUser").then(response => {
+              console.log("this is getting one user:", response);
+              this.setState({
+                user_id: response.data.user.id
+              });
+            });
+          }
+        });
+      }
     }
-    })
-  }
-}
-  }
+  };
 
   getUserInfo = () => {
     const { username, user } = this.state;
-    console.log("user:", user, "username:", username);
     axios
       .get(`/users/userAttributes/${this.state.username}`)
       .then(res => {
         let UserInfo = res.data;
         console.log("res.data", res.data);
-
         this.setState({
-
           user: UserInfo,
           userImageURL: UserInfo.pic,
           first_name: UserInfo.first_name,
@@ -87,7 +81,7 @@ class UserProfile extends React.Component {
           age: UserInfo.age,
           bio: UserInfo.bio,
           ethnicity: UserInfo.ethnicity,
-          religion:UserInfo.religion, 
+          religion: UserInfo.religion,
           early_bird: UserInfo.early_bird,
           night_owl: UserInfo.night_owl,
           clubbing: UserInfo.clubbing,
@@ -102,7 +96,6 @@ class UserProfile extends React.Component {
           drinks: UserInfo.drinks
         });
         console.log("UserINFO: ", UserInfo);
-
         // this.getUserLikes();
       })
       .catch(err => {
@@ -110,31 +103,31 @@ class UserProfile extends React.Component {
       });
   };
 
-  //getting all the trips for the user we click on 
-  getUserTrips=()=>{
-    const {trips}=this.state
-      //getting the current Date;
-      const dateNow= new Date()
-    axios
-    .get(`/users/allTrips/${this.state.username}`)
-    .then(res => {
+  //getting all the trips for the user we click on
+  getUserTrips = () => {
+    const { trips } = this.state;
+    //getting the current Date;
+    const dateNow = new Date();
+    axios.get(`/users/allTrips/${this.state.username}`).then(res => {
       let UserInfo = res.data;
       console.log("fetching all the trips", res.data);
       this.setState({
-        trips:res.data, 
-      })
-     //have to create a date object bc its originally a string
-      // comparing date objects with date objects 
-      const pastTrips= this.state.trips.filter(trip=> new Date(trip.end_date)< dateNow)
-      const openTrips= this.state.trips.filter(trip=> new Date(trip.end_date)> dateNow)
+        trips: res.data
+      });
+      //have to create a date object bc its originally a string
+      // comparing date objects with date objects
+      const pastTrips = this.state.trips.filter(
+        trip => new Date(trip.end_date) < dateNow
+      );
+      const openTrips = this.state.trips.filter(
+        trip => new Date(trip.end_date) > dateNow
+      );
       this.setState({
-        pastTrips:pastTrips, 
-        openTrips:openTrips
-      })
+        pastTrips: pastTrips,
+        openTrips: openTrips
+      });
     });
   };
-
-// 
 
   componentWillMount() {
     this.fixUser();
@@ -142,7 +135,6 @@ class UserProfile extends React.Component {
   }
 
   componentDidMount() {
-    console.log("component mounted!");
     // this.fixUser();
     this.getUserInfo();
     // this.getUserTrips();
@@ -151,8 +143,6 @@ class UserProfile extends React.Component {
   handleClickAddTrip = e => {
     e.preventDefault();
     const { username, user } = this.state;
-    console.log("this is handle click add trip");
-    console.log("please redirect fam");
     //  return <Redirect to = '/'/>
     return (window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
   };
@@ -180,15 +170,11 @@ class UserProfile extends React.Component {
       nature,
       extroverted,
       smokes,
-      drinks, 
-      trips, 
-      openTrips, 
+      drinks,
+      trips,
+      openTrips,
       pastTrips
     } = this.state;
-    console.log("THE STATE IS", this.state);
-    console.log("USER_id IS ", user_id);
-    console.log(this.state);
-    console.log("this is userprofile");
 
     return (
       <div>
@@ -199,7 +185,6 @@ class UserProfile extends React.Component {
           <div>
             Name: {first_name}, Age: {age}
           </div>
-
           <div>@{username}</div>
           <div>Location: {my_location}</div>
         </div>
@@ -211,18 +196,22 @@ class UserProfile extends React.Component {
           <TabPanel>
             <div>
               <div>
-               {activeUser ? <Link to={`/users/me/${username}/editprofile`}><i className="far fa-edit fa-2x" /></Link>  :''} 
+                {activeUser ? (
+                  <Link to={`/users/me/${username}/editprofile`}>
+                    <i className="far fa-edit fa-2x" />
+                  </Link>
+                ) : (
+                  ""
+                )}
               </div>
               <div>
                 <h3>About me: {bio} </h3>
               </div>
               Ethnicity: {ethnicity}
               <div>
-                <br/>
-                <div> 
-                  Religion: {religion}
-                  </div>
-                  <br/>
+                <br />
+                <div>Religion: {religion}</div>
+                <br />
                 <pre>
                   <b>As a traveller: </b>
                   <br />
@@ -248,15 +237,13 @@ class UserProfile extends React.Component {
           </TabPanel>
           <TabPanel>
             <div>
-              
-            <h2> Current Trips</h2>
-              {openTrips
-                ? <ListedTrips trips={openTrips} />
-                : ""}
-              {activeUser ? <button onClick={this.handleClickAddTrip}>Add Trips</button> :''}
-
-
-
+              <h2> Current Trips</h2>
+              {openTrips ? <ListedTrips trips={openTrips} /> : ""}
+              {activeUser ? (
+                <button onClick={this.handleClickAddTrip}>Add Trips</button>
+              ) : (
+                ""
+              )}
             </div>
           </TabPanel>
         </Tabs>

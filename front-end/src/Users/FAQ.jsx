@@ -23,7 +23,8 @@ const FAQ = () => {
             another member if you have the permission.
           </Panel>
           <Panel header="How do you add a trip?">
-            Go to your profile, click on the Trips tab.  There you will find the Add a Trip button.
+            Go to your profile, click on the Trips tab. There you will find the
+            Add a Trip button.
           </Panel>
         </Collapse>
       </div>

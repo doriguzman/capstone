@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
 import "../Stylesheets/messages.css";
 
 class Messages extends Component {
@@ -60,7 +59,6 @@ class Messages extends Component {
             })
           })
           .then(() => {
-            console.log("alright, we're in there")
             const activeThread = this.findThreadByUsername(this.state.threads, this.props.user.username)
             console.log(activeThread)
             this.setState({
@@ -153,7 +151,6 @@ class Messages extends Component {
 							)
 						})}
           </div>
-
           <div className="messages-thread-content">
             {activeThreadUsername
               ? ""
@@ -184,7 +181,6 @@ class Messages extends Component {
                 }
               }) : ""}
             </div>
-
             <div className="messages-thread-form">
               {activeThreadUsername ? (
                 <form onSubmit={this.handleFormSubmit}>
@@ -204,12 +200,8 @@ class Messages extends Component {
             </div>
           </div>
         </div>
-
       </div>
 		);      
-		
-		
-
   }
 }
 
