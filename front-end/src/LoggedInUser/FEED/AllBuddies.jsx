@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from "./UserProfileCards";
-import FilterSidebar from "./FilterSidebar";
+// import FilterSidebar from "./FilterSidebar";
 import MatchedBuddies from "./MatchedBuddies";
 
 import DatePicker from "react-datepicker";
@@ -17,6 +17,8 @@ import PlacesAutocomplete, {
   getLatLng
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
+import "../../Stylesheets/Filter.css";
+
 
 const isThereOverlap = (sdate1, edate1, sdate2, edate2) => {
   const minOfDates = (ed1, ed2) => (ed1 < ed2 ? ed1 : ed2);
@@ -303,21 +305,20 @@ class AllBuddies extends Component {
 
     return (
       <div>
-        <div className="sidebar">
-          <h3>Filter</h3>
+				<div className="filtertitle">Filter</div>
+        <div className="topbar">  
           <br />
-          <form>
-            <div>
-              Please enter a destination:{" "}
+          {/* <div> */}
+						<div className="destination">
+              <div>Please enter a destination:</div>
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
                 inputProps={AddressInputProps}
               />
-            </div>
-            <br />
-            <div className-travel-calendar>
-              Please Select Travel Dates:
-              <br />
+						</div>
+            <div className-travel-calendar className="dates">
+              <div>Please Select Travel Dates:</div>
+              
               <DateRangePicker
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
@@ -335,9 +336,10 @@ class AllBuddies extends Component {
                 }}
               />
             </div>
+						
             <br />
-            <div>
-              Enter your location:{"  "}
+            <div className="location">
+              <div>Enter your location:</div>{"  "}
               {/* <input type="text" /> */}
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
@@ -345,8 +347,8 @@ class AllBuddies extends Component {
               />
             </div>
             <br />
-            <div>
-              Age range:
+            <div className="ages">
+              <div>Age range:</div>
               <input
                 className="start_age"
                 type="number"
@@ -365,13 +367,15 @@ class AllBuddies extends Component {
                 required="required"
               />
             </div>
+						<div className="buttondiv">
             <input
               className="filterBtn"
               type="submit"
               value="Add Filters"
               onClick={this.renderFilteredUserPics}
             />
-          </form>
+						</div>
+          {/* </div> */}
         </div>
 
         {/* {filteredUsers ? (
