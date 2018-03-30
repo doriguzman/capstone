@@ -20,51 +20,22 @@ class Messages extends Component {
 	// finds the thread (has id, user_a, user_b) using a username\
 	findThreadByUsername = (threads, username) => {
 		return threads.find(thread => {
-			return (
-				thread.user_b === username ||
-				thread.user_a === username
-			);
+			return ( thread.user_b === username || thread.user_a === username );
 		})
-	}
-
-	getMessagesForThread = (threadId, threadUsername) => {
-    axios.get(`/users/getMessages/${threadId}`).then(response => {
-      this.setState({
-        activeThreadUsername: threadUsername,
-        activeThreadId: threadId,
-        messages: response.data
-      });
-		})
-		.catch(err => {
-			console.log("Oh no! There was an error retrieving your messages. Try refreshing.");
-		});
-	}
-
-	createThread = (username) => {
-		axios
-			.get(`/users/addThread/${username}`)
-			.then(() => console.log("you added a thread for: ", username))
-			.catch(err => console.log("There was an error!: ", err))
-	}
-
-	getAllThreads = () => {
-		console.log("getting all threads again")
-		axios
-			.get("/users/getAllThreads")
-			.then(response => {
-				const threads = response.data;
-				this.setState({ threads: threads });
-
-				console.log("got all the threads: ", this.state.threads)
-			})
-			.catch(err => console.log("Error retrieving all threads."))
-	}
+  }
+  
+  createThread = (username) => {
+    axios
+      .get(`/users/addThread/${username}`)
+      .then(() => console.log(`Thread added for ${username}`))
+      .catch(err => console.log("Error adding new thread."))
+  }
 
   componentDidMount() {
     axios
       .get("/users/getAllThreads")
-      .then(response => {
-				const threads = response.data
+      .then(res => {
+				const threads = res.data
         this.setState({
           threads: threads
 				});
@@ -76,9 +47,27 @@ class Messages extends Component {
 					if (activeThread) {
 						this.getMessagesForThread(activeThread.id, username)
 					} else {
-						this.createThread(username) // this works sigh
-					}
+            this.createThread(this.props.username)
+          }
 				}
+      })
+      .then(() => {
+        axios
+          .get("/users/getAllThreads")
+          .then(res => {
+            this.setState({
+              threads: res.data
+            })
+          })
+          .then(() => {
+            console.log("alright, we're in there")
+            const activeThread = this.findThreadByUsername(this.state.threads, this.props.user.username)
+            console.log(activeThread)
+            this.setState({
+              activeThread: activeThread
+            })
+          })
+          .catch(err => console.log("Error retrieving all threads."))
       })
       .catch(err => {
         console.log("Oh no! There was an error retrieving your threads. Try refreshing.");
@@ -94,6 +83,19 @@ class Messages extends Component {
 		}
 	}
 
+	getMessagesForThread = (threadId, threadUsername) => {
+    axios.get(`/users/getMessages/${threadId}`).then(res => {
+      this.setState({
+        activeThreadUsername: threadUsername,
+        activeThreadId: threadId,
+        messages: res.data
+      });
+		})
+		.catch(err => {
+			console.log("Oh no! There was an error retrieving your messages. Try refreshing.");
+		});
+	}
+
   // Sets the active thread based on username clicked
   handleThreadClick = e => {
     // Filters through the threads for the one with self and the username clicked
@@ -103,7 +105,8 @@ class Messages extends Component {
   };
 
   handleInput = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({
+      [e.target.name]: e.target.value});
   };
 
   handleFormSubmit = e => {
@@ -128,6 +131,10 @@ class Messages extends Component {
       newMessage
     } = this.state;
 
+    if (!this.props.user) {
+      return <h3 className="please-login"> You have to <Link to="/users/login">log-in</Link> to view your messages. </h3>
+    }
+
     return (
       <div className="messages-parent-container">
         <h1 className="messages-header">
@@ -137,8 +144,8 @@ class Messages extends Component {
         <div className="messages-threads-container">
           <div className="messages-threads-list">
             {threads.map(thread => {
-							const userName = 
-								thread.user_a === this.props.user.username? thread.user_b : thread.user_a
+              const userName = thread.user_a === this.props.user.username ? thread.user_b : thread.user_a;
+            
 							return (
 								<div className="messages-single-thread">
 									<Link to={`/users/messages/${userName}`}>{userName}</Link>
@@ -152,7 +159,7 @@ class Messages extends Component {
               ? ""
               : "Adventure waits for now one... Click on someone to continue chatting!"}
             <div className="messages-thread-body">
-              {messages.map(message => {
+              {messages ? messages.map(message => {
                 if (message.username === activeThreadUsername) {
                   return (
                     <div className="messages-other-user">
@@ -175,7 +182,7 @@ class Messages extends Component {
                     </div>
                   );
                 }
-              })}
+              }) : ""}
             </div>
 
             <div className="messages-thread-form">

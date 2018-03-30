@@ -124,6 +124,7 @@ class AllBuddies extends Component {
   }
 
   renderMatchedBuddies = () => {
+    console.log(this.state.allUsers, 'jesus take the wheel');
     return (
       <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
     );
@@ -377,13 +378,13 @@ class AllBuddies extends Component {
           {/* </div> */}
         </div>
 
-        {filteredUsers ? (
+        {/* {filteredUsers ? (
           <UserProfileCards allUsers={filteredUsers} />
-        ) : (
+        ) : ( 
           <div> no users found </div>
-        )}
+        )} */}
         {/* TESTING BEGINS FOR MATCHING BUDDIES */}
-        {/* {this.renderMatchedBuddies()} */}
+        {this.renderMatchedBuddies()}
         {/* TESTING ENDS FOR MATCHING BUDDIES */}
       </div>
     );

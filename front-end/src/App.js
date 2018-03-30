@@ -188,7 +188,7 @@ class App extends React.Component {
     // if(user){
     //   const username=user.username
     // }
-    console.log("USER: ", user, "USERNAME: ", username, "ACTIVE", active);
+    console.log("USER PASSWORD: ", user);
     //nav bar holds
     return (
       <div className="App">
