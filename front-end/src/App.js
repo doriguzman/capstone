@@ -6,7 +6,6 @@ import "./App.css";
 import "./index.css";
 import "./Stylesheets/Navbar.css";
 import "./Stylesheets/Feed.css";
-
 import NewUser from "./Users/NewUser";
 import NewUserSurvey from "./Users/NewUserSurvey";
 import LoginUser from "./Users/LoginUser";
@@ -196,8 +195,8 @@ class App extends React.Component {
         {/* NAV BAR GOES HERE */}
 
         <div className="top-nav-bar">
-          <div className="top-nav-bar-left"><Link to ='/users/feed'> <img src="https://image.ibb.co/fLe2h7/logo_Smallest.png" alt="feathers logo" /> </Link></div>
-          <div className="top-nav-bar-left2"><Link to ='/users/feed'><img src="https://image.ibb.co/g0rb9n/feathers_Smallest.png" alt="drift togeather" /> </Link></div>
+          <div className="top-nav-bar-left"><Link to ='/users/feed'> <img src="https://image.ibb.co/cMFWn7/justLogo.png" alt="feathers logo" /> </Link></div>
+          <div className="top-nav-bar-left2"><Link to ='/users/feed'><img src="https://image.ibb.co/gVMSc7/feathers.png" alt="drift togeather" /> </Link></div>
           <div className='top-nav-bar-right'>
 
           {user ? <Link to ='/users/feed'>Feed</Link> : <Link to ='/users/register'>Register</Link>} {' '}|{' '}
@@ -235,13 +234,13 @@ class App extends React.Component {
           </Switch>
         </div>
         <div>
-        <footer className="footer">
-          <a href="http://localhost:3000/users/aboutus">About Us |</a>
- 
-          <a href="http://localhost:3000/users/terms">Terms and Disclaimer |</a>
-
-          <a href="http://localhost:3000/users/beforeyoufloat">Before You Float |</a>
-
+        <footer>
+          <a href="http://localhost:3000/users/aboutus">About Us</a>
+          <br/>
+          <a href="http://localhost:3000/users/terms">Terms and Disclaimer</a>
+          <br/>
+          <a href="http://localhost:3000/users/beforeyoufloat">Before You Float</a>
+          <br />
           <a href="http://localhost:3000/users/faq">FAQ</a>
           </footer>
           </div>

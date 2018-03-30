@@ -4,53 +4,54 @@
 #1AA6B7 light blue
 #022D41  dark blue
 */
-.sidebar {
-  height: 80px;
+
+.filtertitle {
+  text-align: center;
   background-color: #022D41;
   color: #DAECF3;
+}
+
+.topbar {
+  height: 200px;
+  background-color: #022D41;
+  color: #DAECF3;
+  /* padding: .5em; */
+  border-radius: 0px 0px 0px 0px;
   opacity: .9;
-  display: grid;
-  grid-template-columns: 30% 10% 10% 10% 15% 5% 20%;
-  grid-template-rows: 50% 50%;
-}
-
-.search-input,
-.search-input:focus,
-.search-input:active {
-  height: 25px;
-  width:100%;
-
-}
-
-
-.location{
-  grid-column: 1/2;
-  grid-row: 1;
-  width: 90%;
-  margin: 2%;
+  border: 1px solid rgba(2, 45, 65, 0.5);
+  font-size: 15px;
+  display: flex;
+  flex-wrap: nowrap;
+  text-align: center;
+  align-items: inherit;
+  flex: row;
+  overflow: none;
+  padding-top: 3%;
 }
 
 .destination {
-  grid-column: 1/2;
-  grid-row: 2;
-  width: 90%;
-  margin: 2%;
+  /* margin-top: 10%; */
+  /* background-color: #1aa6b7; */
+  height: 100px;
 }
 
+.dates{
+  /* background-color: #1aa6b7; */
+  height: 100px;
+  padding-left: 5%;
+}
 
-
-.travelDates{
-  grid-column: 3/6;
-  grid-row: 1;
-  padding:0;
-  justify-self: center;
-  width:90%;
-
+.location{
+  /* background-color: #1aa6b7; */
+  height: 100px;
+  padding-left: 5%;
 }
 
 .ages{
-  grid-column: 7/8;
-  grid-row: 1/3;
+  /* background-color: #1aa6b7; */
+  color: #DAECF3;
+  padding-left: 5%;
+  height: 100px;
 }
 
 .cursor {
@@ -64,86 +65,10 @@
 .filterBtn{
   background-color: #FE424D;
   color: #DAECF3;
+  padding: 5px;
+  margin: 10px 7px 11px 7px;
   opacity: 0.9; 
-  align-self: end;
-  grid-column: 4/5;
-  grid-row: 2/3;
-}
-
-
-.start_age{
-  height:25px;
-  width: 80%;
-  margin: 2%;
-}
-
-.end_age{
- height:25px;
- width: 80%;
- margin: 2%;
-}
-
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: red;
-  opacity: 1; /* Firefox */
-}
-
-@media screen and (max-width: 632px) {
-  .search-input,
-.search-input:focus,
-.search-input:active {
-  height: 20px;
-  width:100%;
-}
-.sidebar {
-  height: 160px;
-  background-color: #022D41;
-  color: #DAECF3;
-  opacity: .9;
-  display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: 33.33% 33.33% 33.33%;
-}
-
-.location{
-  grid-column: 1/3;
-  grid-row: 1;
-}
-
-.destination {
-  grid-column: 3/5;
-  grid-row: 1;
-}
-
-.start_age{
-  grid-column: 1;
-  grid-row: 3;
-}
-
-.end_age{
-  grid-column: 2;
-  grid-row: 3;
-}
-.travelDates{
-  grid-column: 1/5;
-  grid-row: 2;
-  justify-self: center;
-
-}
-.filterBtn{
-  grid-column: 4;
-  grid-row: 3;
-  align-self: end center;
-}
-
-}
-
-@media screen and (max-width: 480px) {
-  .search-input,
-  .search-input:focus,
-  .search-input:active {
-    height: 25px;
-    width:100%;
-  }
-
+  border: 10px solid #DAECF3;
+  border-radius: 5px;
+  font-size: 16px;
 }
