@@ -378,13 +378,13 @@ class AllBuddies extends Component {
           {/* </div> */}
         </div>
 
-        {/* {filteredUsers ? (
+         {filteredUsers ? (
           <UserProfileCards allUsers={filteredUsers} />
         ) : ( 
-          <div> no users found </div>
-        )} */}
+          this.renderMatchedBuddies()
+        )} 
         {/* TESTING BEGINS FOR MATCHING BUDDIES */}
-        {this.renderMatchedBuddies()}
+        
         {/* TESTING ENDS FOR MATCHING BUDDIES */}
       </div>
     );
