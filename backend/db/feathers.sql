@@ -3,7 +3,9 @@ CREATE DATABASE feathers;
 
 \c feathers;
 
-DROP TABLE IF EXISTS users, likes, trips, attributes, preferences, thread, messages;
+
+DROP TABLE IF EXISTS users, bffs, flagged, trips, attributes, threads, messages;
+
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -16,6 +18,13 @@ CREATE TABLE bffs (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
     bff VARCHAR REFERENCES users(username)
+);
+
+	
+CREATE TABLE flagged (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
+    flagged_user VARCHAR REFERENCES users(username)
 );
 
 CREATE TABLE trips (
@@ -78,23 +87,33 @@ CREATE TABLE messages (
     timestamp VARCHAR NOT NULL
 );
 
--- INSERT INTO users (username, password_digest, hobbies)
---   VALUES ('Tyler', '$2a$10$brAZfSmByFeZmPZ/MH5zne9YDhugjW9CtsBGgXqGfix0g1tcooZWq', 'swimming')
 
 INSERT INTO users (username, password_digest, email)
-    VALUES ('janedoe', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'jane@jane.com'),
+    VALUES ('jandoe', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'jan@jan.com'),
            ('meganfox', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'megan@megan.com'),
-           ('dori', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'dori@dorian.com'),
+           ('dorian', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'dorian@dorian.com'),
            ('michelle', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'michelle@michelle.com'),
            ('princess', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'princess@princess.com'),
-           ('elon', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'elon@elon.com'),
-           ('sergina', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'serge@serge.com');
+           ('sergina', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'serge@serge.com'),
+           ('elonje', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'elonje@elonje.com'),
+           ('simone', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'simone@simone.com'), -- pw: chicken
+           ('davida', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'davida@davida.com'), -- pw: ricecake
+           ('helena', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOdovZlD/O', 'helenc@helenc.com'), -- pw: quinoa
+           ('selena', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'selena@selena.com'), -- pw: chocolate
+           ('erical', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'erical@erical.com'); -- pw: unicorn
 
-INSERT INTO attributes (user_id, first_name, age, my_location, bio, pic, ethnicity, religion, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks)
-    VALUES (1, 'jane', 21, 'nyc', 'i am jane', 'https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/2393540/300/200/m1/fpc/wm0/joerxftwygqsixsq3uvdfb1au6cr1xfz0mptpmenngdh139iukptic7kcn4gwjye-.jpg?1489264056&s=2007613a8e87451091d23572b0f9225d', 'white/caucasian', 'christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE),
-           (2, 'megan', 21, 'san diego', 'i am megan', 'https://media1.britannica.com/eb-media/82/73182-004-B826BA69.jpg', 'white/caucasian', 'jewish', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
-           (3, 'dori', 22, 'nyc', 'i am Dori', 'https://sissinghurstcastle.files.wordpress.com/2015/05/tulip-clara-butt.jpg', 'latin/hispanic', 'christian', FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE),
-           (4, 'michelle', 25, 'nyc', 'i am michelle', 'https://secure.img1-fg.wfcdn.com/im/25504920/resize-h800%5Ecompr-r85/3163/31635838/Faux+Blue+Hydrangea+Bloom.jpg', 'asian', 'agnostic', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
-           (5, 'princess', 25, 'san diego', 'i am princess', 'http://www.aos.org/AOS/media/Content-Images/Orchids/orchid-care-phal.jpg', 'asian', 'christian', FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
-           (6, 'elon', 19, 'new jersey', 'i am elon', 'https://cdn.pixabay.com/photo/2017/06/02/15/58/lotus-2366698_960_720.jpg', 'black/african', 'christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
-           (7, 'sergina', 30, 'texas', 'i am sergina', 'https://draxe.com/wp-content/uploads/2015/05/bigstock-Green-grass-and-chamomiles-in-87444815.jpg', 'latin/hispanic', 'buddhist', FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE);
+
+
+    VALUES (1, 'Jan', 21, 'New York, NY', 'What is life without the beauty of nature?', 'https://3.bp.blogspot.com/-g2AuvgYiOLg/WScTQ8L_wDI/AAAAAAAAIaE/8d-iYFx_Law6fwTvmHxSmqqXHFzOjERywCLcB/s640/unnamed.jpg', 'White / Caucasian', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE),
+           (2, 'Megan', 21, 'San Diego, CA', 'There is nothing like the serenity that being out in nature brings.', 'https://media.glamour.com/photos/57741970db58a48d3ac6fa5c/1:1/w_352/spl1303559_001_720.jpg', 'White / Caucasian', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
+           (3, 'Dori', 22, 'New York, NY', 'Yaaaaaaas, coffeeeeee.', 'https://previews.123rf.com/images/tverdohlib/tverdohlib1706/tverdohlib170601832/80920850-woman-in-garden-pretty-girl-with-fashionable-makeup-and-red-lips-has-rose-flower-in-hair-hispanic-or.jpg', 'Latin / Hispanic', 'Christian', FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE),
+           (4, 'Michelle', 30, 'Kailua-Kona, HI', 'I like dogs.', 'http://petspictures.ru/images/cms/data/news/zvezdi/10358337_640864182661519_1085473283_n.jpg', 'Pacific Islander', 'Agnostic / Non-religious', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
+           (5, 'Princess', 30, 'San Diego, CA', 'Hiiii my name is Princessssss.', 'https://image1.masterfile.com/getImage/NzAwLTAwNzgxOTIyZW4uMDAwMDAwMDA=AAiv8Z/700-00781922en_Masterfile.jpg', 'Asian', 'Christian', TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
+           (6, 'Sergina', 30, 'Dallas, TX', 'heyyyyyyyyyy im Sergina.', 'https://i.pinimg.com/736x/3c/f5/58/3cf558b97d28c6e87e0222a764a357e3--ashley-benzo-pretty-little-liars.jpg', 'Latin / Hispanic', 'Buddhist', FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE),
+           (7, 'Elon', 19, 'Newark, NJ', 'Hiiiii, im Elon.', 'https://i.pinimg.com/originals/21/55/16/2155161daccded2685243c2d3028ef91.jpg', 'Black / African', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE),
+           (8, 'Simone', 22, 'New York, NY', 'Yo, eskedit.' , 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRb_0gFFsEELpUaV2A4sv54cMQDZVIyc35KbdSPHvs_CkUwBFKu', 'Latin / Hispanic', 'Christian', FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE),
+           (9, 'Davida', 24, 'Seattle, WA', 'Coffee, yaaaaassss.', 'http://www.allygong.com/wp-content/uploads/2016/01/Ally-Gong-SF-0928.jpg', 'Asian', 'Christian', TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE),
+           (10, 'Helen', 27, 'Raleigh, NC', 'I like beer.', 'http://res.heraldm.com/phpwas/restmb_jhidxmake.php?idx=5&simg=201504131730143170190_20150413173942_01.jpg', 'Asian', 'Christian', TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE),
+           (11, 'Selena', 26, 'Fort Lee, NJ', 'What up fam, you can call me Selenaaaaa.', 'https://www.usmagazine.com/wp-content/uploads/2018/02/selena-gomez-lunch.jpg', 'Native American', 'New Age (Spiritual, but not religious)', FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE),
+           (12, 'Erica', 25, 'new jersey', 'Sup, Erica here.', 'https://www.internationalteflacademy.com/hubfs/Erica-Overbeek-3.jpg?t=1521859281281', 'White / Caucasian', 'Jewish', FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE);
+

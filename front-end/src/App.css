@@ -43,6 +43,7 @@ body{
   border-radius: 0px 0px 5px 5px;
 }
 
+
 .footer{
   height: 50px;
   background-color: #FE424D;
@@ -55,6 +56,41 @@ body{
   text-align: end;
 }
 
+button{
+  width: 70px;
+}
+.redflagBtn {
+  
+  
+  color: #FE424D;
+  
+}
+.addFriend{
+  
+  color: #FE424D;
+
+}
+
+
+
+ .message{
+   background:white;
+   color:black;
+  
+   /* background-color:black;  */
+  
+} 
+.flagBtn :hover {
+  
+  
+  color: #FE424D;
+  
+}
+.noFriend :hover{
+  
+  color: #FE424D;
+
+}
 
 @media screen and (max-width: 932px) {
   .App {

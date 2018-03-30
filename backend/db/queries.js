@@ -106,6 +106,20 @@ function getUserAttributes(req, res, next) {
     });
 }
 
+// ---------------- Get user's messages ------------------------//
+function getMessages(req,res,next) {
+  db
+  .one(`SELECT *
+  FROM messages
+  WHERE thread_id = ${thread_id}`, {
+    username: req.user.username
+  })
+  .then(data => {
+    res.status(200).json({ user: data });
+  });
+}
+
+// ------------------ GET all photo URLs ------------------ //
 // -------- GET ALL users' attributes (minus logged in user) -------- //
 function getAllUsersAttributes(req, res, next) {
   db
@@ -298,6 +312,45 @@ function editTrip(req, res, next) {
     );
 }
 
+// -------- FLAGGED functions -------//
+
+function getAllFlaggedUsers(req, res, next) {
+  db
+    .any("SELECT flagged_user FROM flagged WHERE user_id=$1", [req.user.id])
+    .then(data => {
+      if (data === []) {
+        res.status(200).send("You haven't flagged any users yet");
+      } else res.status(200).send(data);
+    })
+    .catch(err => {
+      res.status(500).send("There's an error getting your BFFs. ", err);
+    });
+}
+
+function addFlag(req, res, next) {
+  db
+    .none("INSERT INTO flagged VALUES (DEFAULT, ${id}, ${flagged_user})", {
+      id: req.user.id,
+      flagged_user: req.params.username
+    })
+    .then(() => res.status(200).send("Successfully added flagged the user."))
+    .catch(err =>
+      res.status(500).send("Sorry, we couldn't flag the user. ", err)
+    );
+}
+
+function removeFlag(req, res, next) {
+  db
+    .none("DELETE FROM flagged WHERE user_id=${id} AND flagged_user=${flagged_user}", {
+      id: req.user.id,
+      flagged_user: req.params.username
+    })
+    .then(() => res.status(200).send("Successfully removed flag"))
+    .catch(err =>
+      res.status(500).send("Sorry, we couldn't remove the flag. ", err)
+    );
+}
+
 // -------- BFF functions -------- //
 function getAllBffs(req, res, next) {
   db
@@ -437,5 +490,9 @@ module.exports = {
 	addThread,
 	// removeThread,
 	addMessage,
-	getMessages
+  getMessages,
+  getAllFlaggedUsers,
+  addFlag,
+  removeFlag
+  
 };
