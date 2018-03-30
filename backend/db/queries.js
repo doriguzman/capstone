@@ -361,11 +361,11 @@ function addThread(req, res, next) {
       user: req.user.username,
       username: req.params.username
     })
-    .then(() =>
+    .then(() => {
       res
         .status(200)
         .send(`successfully added a new thread for ${req.user.username} and ${req.params.username}`)
-    )
+    })
     .catch(err => res.status(500).send(`could not add new thread`));
 }
 
