@@ -17,6 +17,8 @@ router.get("/addBff/:username", loginRequired, db.addBff) // adds a BFF by usern
 router.get("/getAllThreads", loginRequired, db.getAllThreads)
 router.get("/addThread/:username", loginRequired, db.addThread)
 router.get("/getMessages/:threadId", loginRequired, db.getMessages)
+router.get('/getFlagged', loginRequired, db.getAllFlaggedUsers)
+router.get('/addFlag/:username', loginRequired, db.addFlag)
 
 // POST routes
 router.post("/survey", db.userSurvey); // sets user attributes after user survey is submitted
@@ -26,7 +28,7 @@ router.post("/addMessage", loginRequired, db.addMessage);
 // DELETE routes
 router.delete("/removeTrip/:id", loginRequired, db.removeTrip); // removes a trip by trip ID
 router.delete("/removeBff/:username", loginRequired, db.removeBff) // removes a BFF by username
-
+router.delete('/removeFlag/:username', loginRequired, db.removeFlag )
 // PUT routes
 router.put("/edit/attributes", loginRequired, db.editAttributes)
 router.put("/edit/trip", loginRequired, db.editTrip)

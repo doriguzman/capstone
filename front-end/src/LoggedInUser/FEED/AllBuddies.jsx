@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from "./UserProfileCards";
-// import FilterSidebar from "./FilterSidebar";
+import FilterSidebar from "./FilterSidebar";
 import MatchedBuddies from "./MatchedBuddies";
 
 import DatePicker from "react-datepicker";
@@ -43,6 +43,7 @@ class AllBuddies extends Component {
       userTrips: "",
       mostRecentUserTrip: "",
       errorMsg: "",
+      
       //starting states for the filter functionality
       userFilter: {
         destinationAdd: "",
@@ -60,6 +61,30 @@ class AllBuddies extends Component {
       end_age: ""
     };
   }
+
+  // flagUser = () => {
+  //   //  e.preventDefault()
+  //   this.setState({
+  //     flagged: true
+  //   });
+  //   console.log("You clicked the flag user");
+  //   console.log("Bitch you is flagged: ", this.state.flagged);
+  // };
+  //  flagUser = () => {
+  //    const { allUsers } = this.state
+  //   //  e.preventDefault()
+  //   this.state = {
+  //     flagged: false
+  //   };
+
+  //   console.log("You clicked to flag user : ", allUsers.map(user => (user.username)));
+  //   if('clicked'){
+  //     console.log('button clicked')
+  //   }
+  //    console.log("Bitch you is flagged: ", this.state.flagged);
+  // };
+
+
 
   getUserPics = () => {
     axios
@@ -175,7 +200,7 @@ class AllBuddies extends Component {
   renderFilteredUserPics = e => {
     e.preventDefault();
     console.log("submitting for filters");
-    const { endDate, startDate, allUsers, userFilter } = this.state;
+    const { endDate, startDate, allUsers, userFilter, flagged } = this.state;
     //have to set the state of the calendar dates in the survey (onClick)
 
     console.log("submitting the survey for filter");
@@ -195,8 +220,8 @@ class AllBuddies extends Component {
           matchArr.push(matchingDates);
         }
       }
-      if(userFilter.destinationAdd){
-        matchArr.push(user.destination === userFilter.destinationAdd)
+      if (userFilter.destinationAdd) {
+        matchArr.push(user.destination === userFilter.destinationAdd);
       }
       if (userFilter.locationAdd) {
         matchArr.push(user.my_location === userFilter.locationAdd);
@@ -225,6 +250,7 @@ class AllBuddies extends Component {
       allUsers,
       filteredUsers,
       user,
+      flagged,
       start_date,
       end_date,
       submitted,
@@ -239,7 +265,6 @@ class AllBuddies extends Component {
     console.log("this is state ", this.state);
     console.log("userfilters", userFilter);
 
-    // console.log("address in state: ", address)
     const { ages } = this;
 
     if (submitted) {
@@ -262,21 +287,17 @@ class AllBuddies extends Component {
     };
 
     return (
-      <div>
-				<div className="filtertitle">Filter</div>
-        <div className="topbar">  
-          <br />
-          {/* <div> */}
-						<div className="destination">
-              <div>Please enter a destination:</div>
+      <div >
+        <div className="sidebar">
+
+ 
+            <div className="destination" placeholder=" Please enter a destination">
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
                 inputProps={AddressInputProps}
               />
-						</div>
-            <div className-travel-calendar className="dates">
-              <div>Please Select Travel Dates:</div>
-              
+            </div>
+            <div className-travel-calendar className="travelDates" placeholder=" Travel Dates">
               <DateRangePicker
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
@@ -294,29 +315,27 @@ class AllBuddies extends Component {
                 }}
               />
             </div>
-						
-            <br />
-            <div className="location">
-              <div>Enter your location:</div>{"  "}
+
+            <div className="location" placeholder="Your location">
               {/* <input type="text" /> */}
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
                 inputProps={AddressInputProps2}
               />
             </div>
-            <br />
+
             <div className="ages">
-              <div>Age range:</div>
               <input
+              placeholder="From Age"
                 className="start_age"
                 type="number"
                 name="start_age"
                 value={start_age}
                 onChange={this.handleStartAgeInput}
                 required="required"
-              />{" "}
-              {"  "} to
+              />
               <input
+              placeholder="To Age"
                 className="end_age"
                 type="number"
                 name="end_age"
@@ -332,17 +351,18 @@ class AllBuddies extends Component {
               value="Add Filters"
               onClick={this.renderFilteredUserPics}
             />
-						</div>
-          {/* </div> */}
+        </div>
         </div>
 
         {filteredUsers ? (
+
           <UserProfileCards allUsers={filteredUsers} />
         ) : ( 
           this.renderMatchedBuddies()
         )}
         {/* TESTING BEGINS FOR MATCHING BUDDIES */}
         {/* {this.renderMatchedBuddies()} */}
+
         {/* TESTING ENDS FOR MATCHING BUDDIES */}
       </div>
     );

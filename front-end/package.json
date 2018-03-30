@@ -9,6 +9,7 @@
     "moment-range": "^3.1.1",
     "rc-collapse": "^1.8.0",
     "react": "^16.2.0",
+    "react-chat-window": "^1.0.8",
     "react-datepicker": "^1.2.2",
     "react-dates": "^16.3.6",
     "react-dom": "^16.2.0",

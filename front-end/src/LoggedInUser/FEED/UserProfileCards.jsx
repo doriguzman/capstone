@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import dateFormat from "dateformat";
+import AllBuddies from "./AllBuddies";
 
-// get threads in this component. make this comp stateful with a threads key ok
-// each time you render a user, ask if a thread exists
-// if it does exist - link to it, otherwise make the ajax req to make a new thread
 
 const UserProfileCards = ({ allUsers, bffs }) => {
   return (
@@ -22,6 +20,7 @@ const UserProfileCards = ({ allUsers, bffs }) => {
               height="230"
               width="260"
             />
+
             <div className="userName">
               {" "}
               Username:{" "}
