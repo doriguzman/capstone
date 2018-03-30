@@ -17,6 +17,7 @@ class Messages extends Component {
     };
 	}
 
+	// finds the thread (has id, user_a, user_b) using a username\
 	findThreadByUsername = (threads, username) => {
 		return threads.find(thread => {
 			return ( thread.user_b === username || thread.user_a === username );
