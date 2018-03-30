@@ -53,12 +53,9 @@ class UserProfile extends React.Component {
       })
     if(!this.state.user_id){
       axios.get("/users").then(response => {
-        console.log("RESPONSE FOR GET REQUEST", response.data.data);
         if (response.data.data.find(n => n.username === this.state.user)) {
-          console.log('this is the username' , this.state.user )
             axios.get('/users/getUser')
             .then(response=>{
-              console.log('this is getting one user:' , response )
             this.setState({
               user_id:response.data.user.id
             })
@@ -71,15 +68,12 @@ class UserProfile extends React.Component {
 
   getUserInfo = () => {
     const { username, user } = this.state;
-    console.log("user:", user, "username:", username);
+
     axios
       .get(`/users/userAttributes/${this.state.username}`)
       .then(res => {
         let UserInfo = res.data;
-        console.log("res.data", res.data);
-
         this.setState({
-
           user: UserInfo,
           userImageURL: UserInfo.pic,
           first_name: UserInfo.first_name,
@@ -101,16 +95,13 @@ class UserProfile extends React.Component {
           smokes: UserInfo.smokes,
           drinks: UserInfo.drinks
         });
-        console.log("UserINFO: ", UserInfo);
-
-        // this.getUserLikes();
       })
       .catch(err => {
         console.log(err);
       });
   };
 
-  //getting all the trips for the user we click on 
+
   getUserTrips=()=>{
     const {trips}=this.state
       //getting the current Date;
@@ -119,7 +110,6 @@ class UserProfile extends React.Component {
     .get(`/users/allTrips/${this.state.username}`)
     .then(res => {
       let UserInfo = res.data;
-      console.log("fetching all the trips", res.data);
       this.setState({
         trips:res.data, 
       })
@@ -142,18 +132,12 @@ class UserProfile extends React.Component {
   }
 
   componentDidMount() {
-    console.log("component mounted!");
-    // this.fixUser();
     this.getUserInfo();
-    // this.getUserTrips();
   }
 
   handleClickAddTrip = e => {
     e.preventDefault();
     const { username, user } = this.state;
-    console.log("this is handle click add trip");
-    console.log("please redirect fam");
-    //  return <Redirect to = '/'/>
     return (window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
   };
 
@@ -185,10 +169,6 @@ class UserProfile extends React.Component {
       openTrips, 
       pastTrips
     } = this.state;
-    console.log("THE STATE IS", this.state);
-    console.log("USER_id IS ", user_id);
-    console.log(this.state);
-    console.log("this is userprofile");
 
     return (
       <div>

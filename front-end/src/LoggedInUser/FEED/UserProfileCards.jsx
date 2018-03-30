@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
+import dateFormat from "dateformat";
 
 // get threads in this component. make this comp stateful with a threads key ok
 // each time you render a user, ask if a thread exists
@@ -41,9 +42,10 @@ const UserProfileCards = ({ allUsers, bffs }) => {
                   Destination: {user.destination}{" "}
                 </div>
                 <div className="startDate">
-                  Trip start date: {user.start_date}
+                  Trip start date: {dateFormat (user.start_date, "ddd, mmm, dS, yyyy")} 
+                 
                 </div>
-                <div className="endDate"> Trip end date: {user.end_date}</div>
+                <div className="endDate"> Trip end date: {dateFormat (user.end_date, "ddd, mmm, dS, yyyy")}</div>
               </div>
             ) : (
               ""
