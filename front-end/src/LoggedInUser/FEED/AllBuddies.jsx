@@ -278,7 +278,7 @@ class AllBuddies extends Component {
     console.log("this is state ", this.state);
     console.log("userfilters", userFilter);
 
-    // console.log("address in state: ", address)
+    console.log("address in state: ", address)
     const { ages } = this;
 
     if (submitted) {
