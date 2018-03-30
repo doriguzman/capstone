@@ -9,7 +9,6 @@ import { Route, Link, Switch, Redirect } from "react-router-dom";
 const UserProfileCards = ({ allUsers, bffs }) => {
   return (
     <div className="cardHolder">
-
       {allUsers.map(user => {
         return (
           <div className="card">
@@ -33,7 +32,6 @@ const UserProfileCards = ({ allUsers, bffs }) => {
             <div className="location"> Location: {user.my_location}</div>
             <div>
               <Link to={`/users/messages/${user.username}`}>Message</Link>
-
             </div>
             {!bffs ? (
               <div>

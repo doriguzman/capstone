@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from "./UserProfileCards";
-// import FilterSidebar from "./FilterSidebar";
 import MatchedBuddies from "./MatchedBuddies";
-
 import DatePicker from "react-datepicker";
 import "react-dates/initialize";
 import {
@@ -18,7 +16,6 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
 import "../../Stylesheets/Filter.css";
-
 
 const isThereOverlap = (sdate1, edate1, sdate2, edate2) => {
   const minOfDates = (ed1, ed2) => (ed1 < ed2 ? ed1 : ed2);
@@ -87,10 +84,11 @@ class AllBuddies extends Component {
 
     //get request for all trips;
     axios.get(`/users/allTrips/${username}`).then(res => {
-      //       console.log("fetching all the trips", username, res.data);
+      // console.log("fetching all the trips", username, res.data);
       this.setState({
         userTrips: res.data
-      });
+			});
+			
       // this is getting the open trips
       const currentTrips = res.data.filter(
         trip => new Date(trip.end_date) > dateNow
@@ -98,7 +96,6 @@ class AllBuddies extends Component {
 
       // getting the most recently upcoming trip
       if (currentTrips.length >= 2) {
-        console.log("going thru if statement", currentTrips);
         const nearest = currentTrips.reduce((acc, curr) => {
           if (acc.start_date < curr.start_date) {
             return acc;
@@ -124,7 +121,6 @@ class AllBuddies extends Component {
   }
 
   renderMatchedBuddies = () => {
-    console.log(this.state.allUsers, 'jesus take the wheel');
     return (
       <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
     );
@@ -132,18 +128,15 @@ class AllBuddies extends Component {
 
   //starting the filter functionality
   inputChange = destinationAdd => {
-    console.log(destinationAdd);
     const { userFilter } = this.state;
     this.setState({
       destinationAdd: destinationAdd,
-      // userFilter:[...userFilter, destinationAdd]
       userFilter: { ...userFilter, destinationAdd: destinationAdd }
     });
   };
 
   inputChangeLoc = locationAdd => {
     const { userFilter } = this.state;
-    console.log(locationAdd);
     this.setState({
       locationAdd: locationAdd,
       userFilter: { ...userFilter, locationAdd: locationAdd }
@@ -174,11 +167,8 @@ class AllBuddies extends Component {
 
   renderFilteredUserPics = e => {
     e.preventDefault();
-    console.log("submitting for filters");
     const { endDate, startDate, allUsers, userFilter } = this.state;
     //have to set the state of the calendar dates in the survey (onClick)
-
-    console.log("submitting the survey for filter");
 
     const filteredUsers = allUsers.filter(user => {
       let matchArr = [];
@@ -195,8 +185,8 @@ class AllBuddies extends Component {
           matchArr.push(matchingDates);
         }
       }
-      if(userFilter.destinationAdd){
-        matchArr.push(user.destination === userFilter.destinationAdd)
+      if (userFilter.destinationAdd) {
+        matchArr.push(user.destination === userFilter.destinationAdd);
       }
       if (userFilter.locationAdd) {
         matchArr.push(user.my_location === userFilter.locationAdd);
@@ -207,18 +197,12 @@ class AllBuddies extends Component {
       if (userFilter.end_age) {
         matchArr.push(user.age <= userFilter.end_age);
       }
-
       return matchArr.every(elem => elem === true);
-
     });
-
-    console.log("filtered users", filteredUsers);
     this.setState({
       filteredUsers: filteredUsers
     });
   };
-
-
 
   render() {
     const {
@@ -236,14 +220,9 @@ class AllBuddies extends Component {
       end_age
     } = this.state;
 
-    console.log("this is state ", this.state);
-    console.log("userfilters", userFilter);
-
-    // console.log("address in state: ", address)
     const { ages } = this;
 
     if (submitted) {
-      // console.log("this is the start date", this.state.start_date);
     }
     const AddressInputProps = {
       value: this.state.destinationAdd,
@@ -263,88 +242,82 @@ class AllBuddies extends Component {
 
     return (
       <div>
-				<div className="filtertitle">Filter</div>
-        <div className="topbar">  
+        <div className="filtertitle">Filter</div>
+        <div className="topbar">
           <br />
-          {/* <div> */}
-						<div className="destination">
-              <div>Please enter a destination:</div>
-              <PlacesAutocomplete
-                classNames={addressCSSClasses}
-                inputProps={AddressInputProps}
-              />
-						</div>
-            <div className-travel-calendar className="dates">
-              <div>Please Select Travel Dates:</div>
-              
-              <DateRangePicker
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-                onDatesChange={({ startDate, endDate }) => {
-                  console.log("date changes", startDate, endDate);
-                  this.setState({
-                    startDate,
-                    endDate
-                    // userFilter:{ ...userFilter, start_date:startDate._d, end_date: endDate._d }
-                  });
-                }}
-                focusedInput={this.state.focusedInput}
-                onFocusChange={focusedInput => {
-                  this.setState({ focusedInput });
-                }}
-              />
-            </div>
-						
-            <br />
-            <div className="location">
-              <div>Enter your location:</div>{"  "}
-              {/* <input type="text" /> */}
-              <PlacesAutocomplete
-                classNames={addressCSSClasses}
-                inputProps={AddressInputProps2}
-              />
-            </div>
-            <br />
-            <div className="ages">
-              <div>Age range:</div>
-              <input
-                className="start_age"
-                type="number"
-                name="start_age"
-                value={start_age}
-                onChange={this.handleStartAgeInput}
-                required="required"
-              />{" "}
-              {"  "} to
-              <input
-                className="end_age"
-                type="number"
-                name="end_age"
-                value={end_age}
-                onChange={this.handleEndAgeInput}
-                required="required"
-              />
-            </div>
-						<div className="buttondiv">
+          <div className="destination">
+            <div>Please enter a destination:</div>
+            <PlacesAutocomplete
+              classNames={addressCSSClasses}
+              inputProps={AddressInputProps}
+            />
+          </div>
+          <div className-travel-calendar className="dates">
+            <div>Please Select Travel Dates:</div>
+
+            <DateRangePicker
+              startDate={this.state.startDate}
+              endDate={this.state.endDate}
+              onDatesChange={({ startDate, endDate }) => {
+                this.setState({
+                  startDate,
+                  endDate
+                });
+              }}
+              focusedInput={this.state.focusedInput}
+              onFocusChange={focusedInput => {
+                this.setState({ focusedInput });
+              }}
+            />
+          </div>
+          <br />
+          <div className="location">
+            <div>Enter your location:</div>
+            {"  "}
+            {/* <input type="text" /> */}
+            <PlacesAutocomplete
+              classNames={addressCSSClasses}
+              inputProps={AddressInputProps2}
+            />
+          </div>
+          <br />
+          <div className="ages">
+            <div>Age range:</div>
+            <input
+              className="start_age"
+              type="number"
+              name="start_age"
+              value={start_age}
+              onChange={this.handleStartAgeInput}
+              required="required"
+            />{" "}
+            {"  "} to
+            <input
+              className="end_age"
+              type="number"
+              name="end_age"
+              value={end_age}
+              onChange={this.handleEndAgeInput}
+              required="required"
+            />
+          </div>
+          <div className="buttondiv">
             <input
               className="filterBtn"
               type="submit"
               value="Add Filters"
               onClick={this.renderFilteredUserPics}
             />
-						</div>
-          {/* </div> */}
+          </div>
         </div>
-
 
         {filteredUsers ? (
           <UserProfileCards allUsers={filteredUsers} />
-        ) : ( 
+        ) : (
           this.renderMatchedBuddies()
         )}
         {/* TESTING BEGINS FOR MATCHING BUDDIES */}
         {/* {this.renderMatchedBuddies()} */}
-
         {/* TESTING ENDS FOR MATCHING BUDDIES */}
       </div>
     );

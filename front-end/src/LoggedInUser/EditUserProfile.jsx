@@ -3,7 +3,7 @@ import { Route, Link, Switch, Redirect } from "react-router-dom";
 // import './profile.css';
 import axios from "axios";
 // import Bffs from "./Bffs";
-import NewUserSurvey from "../Users/NewUserSurvey"
+import NewUserSurvey from "../Users/NewUserSurvey";
 
 class Select extends React.Component {
   render() {
@@ -69,7 +69,7 @@ class EditUserProfile extends Component {
       age: "",
       bio: "",
       ethnicity: "",
-      religion:'',
+      religion: "",
       earlyBird: "",
       nightOwl: "",
       clubbing: "",
@@ -88,7 +88,6 @@ class EditUserProfile extends Component {
 
   getUserInfo = () => {
     const { username, user } = this.state;
-    console.log("user:", user, "username:", username);
 
     axios
       .get(`/users/userAttributes/${this.state.username}`)
@@ -127,7 +126,6 @@ class EditUserProfile extends Component {
 
   fixUser = () => {
     const { username, user } = this.state;
-    console.log("user:", user, "username:", username);
     if (!username) {
       this.setState({
         username: this.state.user
@@ -143,13 +141,11 @@ class EditUserProfile extends Component {
     this.getUserInfo();
   }
 
-
   switchMode = () => {
     const lastMode = this.state.editing;
     return this.setState({
       editing: !lastMode
     });
-    console.log("Currently changing info/ editing?:", this.state.editing);
   };
 
   handleInput = e => {
@@ -188,9 +184,6 @@ class EditUserProfile extends Component {
       editing: !this.state.editing
     });
 
-    console.log("the state when the submitForm:", this.state);
-    console.log("id", this.props.user.user_id);
-
     axios
       .put(`/users/edit/attributes`)
       .then(res => {
@@ -220,7 +213,7 @@ class EditUserProfile extends Component {
           drinks: UserInfo.drinks
         });
         console.log("UserINFO: ", UserInfo);
-        console.log("this is after editing", this.state)
+        console.log("this is after editing", this.state);
         // this.getUserLikes();
       })
       .catch(err => {
@@ -258,143 +251,135 @@ class EditUserProfile extends Component {
       submitted,
       editing
     } = this.state;
-    console.log(this.state);
-    console.log("edit profile page loads");
-    console.log("the state of things", this.state);
+
     const { attributes, ethnicities, religions } = this;
-    console.log(this.state);
-    // if (submitted) {
-    //   return <Redirect to="/users/feed" />;
-    // }
 
     return (
-      
+      <div>
         <div>
-          <div>
-            <div className="register-survey-container">
-              <h2>Edit your Profile</h2>
-              <hr />
-              <form>
-                First Name <br />
-                <input
-                  className="firstName"
-                  type="text"
-                  name="firstName"
-                  value={firstName}
-                  onChange={this.handleInput}
+          <div className="register-survey-container">
+            <h2>Edit your Profile</h2>
+            <hr />
+            <form>
+              First Name <br />
+              <input
+                className="firstName"
+                type="text"
+                name="firstName"
+                value={firstName}
+                onChange={this.handleInput}
+              />
+              <br />
+              Age <br />
+              <input
+                className="age"
+                value={age}
+                type="text"
+                name="age"
+                onChange={this.handleInput}
+              />
+              <br />
+              Location <br />
+              <input
+                className="location"
+                placeholder="location"
+                type="text"
+                name="location"
+                value={location}
+                onChange={this.handleInput}
+              />
+              <br />
+              Bio <br />
+              <input
+                className="bio"
+                placeholder="Bio"
+                type="textarea"
+                name="bio"
+                value={bio}
+                onChange={this.handleInput}
+              />
+              <br />
+              {/*  now we are going to start radio buttons here */}
+              <br />
+              <div className="checkBoxes">
+                What are you like on vacation? <br />
+                {attributes.map(value => (
+                  <span>
+                    <input
+                      type="checkbox"
+                      name={value}
+                      value={value}
+                      onChange={this.handleCheckBoxChange}
+                    />{" "}
+                    {value}
+                    <br />
+                  </span>
+                ))}
+              </div>
+              <br />
+              <div className="smoke">
+                Do you smoke?
+                <br />
+                {this.smokes.map(value => (
+                  <span>
+                    <input
+                      type="radio"
+                      name="smokes"
+                      value={value}
+                      onChange={this.handleSmokes}
+                    />{" "}
+                    {value}{" "}
+                  </span>
+                ))}
+              </div>
+              <br />
+              <div className="drink">
+                {" "}
+                How often do you drink?
+                <br />
+                {this.drinks.map(value => (
+                  <span>
+                    <input
+                      type="radio"
+                      name="drinks"
+                      value={drinks}
+                      onChange={this.handleDrinks}
+                    />{" "}
+                    {value}{" "}
+                  </span>
+                ))}
+              </div>
+              <br />
+              <div className="ethnicity">
+                Which ethnicity best describes you?{" "}
+                <Select
+                  values={ethnicities}
+                  name="ethnicity"
+                  selectedValue={ethnicity}
+                  handleSelected={this.handleInput}
                 />
-                <br />
-                Age <br />
-                <input
-                  className="age"
-                  value={age}
-                  type="text"
-                  name="age"
-                  onChange={this.handleInput}
+              </div>
+              <br />
+              <div className="religion">
+                What is your religion?{" "}
+                <Select
+                  values={religions}
+                  name="religion"
+                  selectedValue={religion}
+                  handleSelected={this.handleInput}
                 />
-                <br />
-                Location <br />
-                <input
-                  className="location"
-                  placeholder="location"
-                  type="text"
-                  name="location"
-                  value={location}
-                  onChange={this.handleInput}
-                />
-                <br />
-                Bio <br />
-                <input
-                  className="bio"
-                  placeholder="Bio"
-                  type="textarea"
-                  name="bio"
-                  value={bio}
-                  onChange={this.handleInput}
-                />
-                <br />
-                {/*  now we are going to start radio buttons here */}
-                <br />
-                <div className="checkBoxes">
-                  What are you like on vacation? <br />
-                  {attributes.map(value => (
-                    <span>
-                      <input
-                        type="checkbox"
-                        name={value}
-                        value={value}
-                        onChange={this.handleCheckBoxChange}
-                      />{" "}
-                      {value}
-                      <br />
-                    </span>
-                  ))}
-                </div>
-                <br />
-                <div className="smoke">
-                  Do you smoke?
-                  <br />
-                  {this.smokes.map(value => (
-                    <span>
-                      <input
-                        type="radio"
-                        name="smokes"
-                        value={value}
-                        onChange={this.handleSmokes}
-                      />{" "}
-                      {value}{" "}
-                    </span>
-                  ))}
-                </div>
-                <br />
-                <div className="drink">
-                  {" "}
-                  How often do you drink?
-                  <br />
-                  {this.drinks.map(value => (
-                    <span>
-                      <input
-                        type="radio"
-                        name="drinks"
-                        value={drinks}
-                        onChange={this.handleDrinks}
-                      />{" "}
-                      {value}{" "}
-                    </span>
-                  ))}
-                </div>
-                <br />
-                <div className="ethnicity">
-                  Which ethnicity best describes you?{" "}
-                  <Select
-                    values={ethnicities}
-                    name="ethnicity"
-                    selectedValue={ethnicity}
-                    handleSelected={this.handleInput}
-                  />
-                </div>
-                <br />
-                <div className="religion">
-                  What is your religion?{" "}
-                  <Select
-                    values={religions}
-                    name="religion"
-                    selectedValue={religion}
-                    handleSelected={this.handleInput}
-                  />
-                </div>
-                <input
-                  className="surveyBtn"
-                  type="submit"
-                  value="Submit"
-                  onClick={this.submitForm}
-                />
-              </form>
-            </div>
-            {editing && <Redirect to={`/me/${username}`} />}
+              </div>
+              <input
+                className="surveyBtn"
+                type="submit"
+                value="Submit"
+                onClick={this.submitForm}
+              />
+            </form>
           </div>
+          {editing && <Redirect to={`/me/${username}`} />}
         </div>
-      
+      </div>
     );
   }
 }
