@@ -88,9 +88,10 @@ class AllBuddies extends Component {
 
   getUserPics = () => {
     axios
-      .get("/users/getPics")
+      .get("/users/")
       .then(response => {
-        const filteredUsers = response.data.filter(
+        console.log('user pics, ' ,response.data.data)
+        const filteredUsers = response.data.data.filter(
           user => user.username !== this.state.username
         );
         console.log("filteredUsers", filteredUsers);
