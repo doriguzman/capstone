@@ -10,7 +10,7 @@
   color: #DAECF3;
   opacity: .9;
   display: grid;
-  grid-template-columns: 30% 10% 15% 10% 10% 5% 20%;
+  grid-template-columns: 30% 10% 10% 10% 15% 5% 20%;
   grid-template-rows: 50% 50%;
 }
 
@@ -65,13 +65,9 @@
   background-color: #FE424D;
   color: #DAECF3;
   opacity: 0.9; 
-  font-size: 16px;
+  align-self: end;
   grid-column: 4/5;
   grid-row: 2/3;
-  height:25px;
-  width: 100%;
-  margin: 2%;
-  align-self: end;
 }
 
 

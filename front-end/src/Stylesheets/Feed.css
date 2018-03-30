@@ -14,8 +14,9 @@ margin-top:40px;
 
 .pic {
   border-radius: 50%;
-  height:115px;
-  width: 130px;
+  height:120px;
+  width: 120px;
+  border: 1px solid rgba(2, 45, 65, 0.5);
 }
 
 /*  

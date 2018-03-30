@@ -6,7 +6,7 @@ import "./App.css";
 import "./index.css";
 import "./Stylesheets/Navbar.css";
 import "./Stylesheets/Feed.css";
-import "./Stylesheets/FilterSidebar.css";
+
 import NewUser from "./Users/NewUser";
 import NewUserSurvey from "./Users/NewUserSurvey";
 import LoginUser from "./Users/LoginUser";
@@ -235,13 +235,13 @@ class App extends React.Component {
           </Switch>
         </div>
         <div>
-        <footer>
-          <a href="http://localhost:3000/users/aboutus">About Us</a>
-          <br/>
-          <a href="http://localhost:3000/users/terms">Terms and Disclaimer</a>
-          <br/>
-          <a href="http://localhost:3000/users/beforeyoufloat">Before You Float</a>
-          <br />
+        <footer className="footer">
+          <a href="http://localhost:3000/users/aboutus">About Us |</a>
+ 
+          <a href="http://localhost:3000/users/terms">Terms and Disclaimer |</a>
+
+          <a href="http://localhost:3000/users/beforeyoufloat">Before You Float |</a>
+
           <a href="http://localhost:3000/users/faq">FAQ</a>
           </footer>
           </div>

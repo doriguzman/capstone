@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from "./UserProfileCards";
-// import FilterSidebar from "./FilterSidebar";
+import FilterSidebar from "./FilterSidebar";
 import MatchedBuddies from "./MatchedBuddies";
 
 import DatePicker from "react-datepicker";
@@ -239,7 +239,6 @@ class AllBuddies extends Component {
     console.log("this is state ", this.state);
     console.log("userfilters", userFilter);
 
-    console.log("address in state: ", address)
     const { ages } = this;
 
     if (submitted) {
