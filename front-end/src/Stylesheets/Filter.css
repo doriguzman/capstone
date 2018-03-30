@@ -57,6 +57,10 @@
   cursor: pointer;
 }
 
+.buttondiv {
+  padding-left: 5%;
+}
+
 .filterBtn{
   background-color: #FE424D;
   color: #DAECF3;

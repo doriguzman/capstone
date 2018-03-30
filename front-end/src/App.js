@@ -10,6 +10,9 @@ import "./Stylesheets/FilterSidebar.css";
 import NewUser from "./Users/NewUser";
 import NewUserSurvey from "./Users/NewUserSurvey";
 import LoginUser from "./Users/LoginUser";
+import Terms from "./Users/Terms";
+import BeforeYouFloat from "./Users/BeforeYouFloat";
+import FAQ from "./Users/FAQ";
 import MatchedBuddies from "./LoggedInUser/FEED/MatchedBuddies";
 import AllBuddies from "./LoggedInUser/FEED/AllBuddies";
 import LogOutUser from "./Users/LogOutUser";
@@ -126,6 +129,18 @@ class App extends React.Component {
     return <AboutUs />;
   };
 
+  renderTerms = () => {
+    return <Terms />
+  }
+
+  renderBeforeYouFloat = () => {
+    return <BeforeYouFloat />
+  }
+
+  renderFAQ = () => {
+    return <FAQ />
+  }
+
   renderMessages = () => {
     return <Messages user={this.state.user} />
   };
@@ -174,7 +189,7 @@ class App extends React.Component {
     // if(user){
     //   const username=user.username
     // }
-    console.log("USER: ", user, "USERNAME: ", username, "ACTIVE", active);
+    console.log("USER PASSWORD: ", user);
     //nav bar holds
     return (
       <div className="App">
@@ -184,8 +199,7 @@ class App extends React.Component {
           <div className="top-nav-bar-left"><Link to ='/users/feed'> <img src="https://image.ibb.co/fLe2h7/logo_Smallest.png" alt="feathers logo" /> </Link></div>
           <div className="top-nav-bar-left2"><Link to ='/users/feed'><img src="https://image.ibb.co/g0rb9n/feathers_Smallest.png" alt="drift togeather" /> </Link></div>
           <div className='top-nav-bar-right'>
-          <Link to ='/users/aboutus'>Info</Link>
-           {' '}|{' '}
+
           {user ? <Link to ='/users/feed'>Feed</Link> : <Link to ='/users/register'>Register</Link>} {' '}|{' '}
           {user ? <Link to ='/users/me/bffs'>BFFs |</Link> : <Link to ='/users/login'>Log In</Link>} {' '}
           {user ? <Link to='/users/messages'>Messages |</Link> : ""} {" "}
@@ -196,6 +210,7 @@ class App extends React.Component {
 
            </div>
         {/* logo  and how it works and login functionality  */}
+        
         <div>
           <Switch>
             <Route exact path="/" render={this.renderNewUser} />
@@ -205,6 +220,9 @@ class App extends React.Component {
             <Route path="/users/login" render={this.renderLogin} />
             <Route path="/users/logout" render={this.renderLogOutUser} />
             <Route path="/users/feed" render={this.renderFeed} />
+            <Route path="/users/terms" render={this.renderTerms} />
+            <Route path="/users/beforeyoufloat" render={this.renderBeforeYouFloat} />
+            <Route path="/users/faq" render={this.renderFAQ} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
             <Route exact path="/users/messages" render={this.renderMessages} />
             <Route path="/users/messages/:username" render={this.renderUserThread} />
@@ -216,6 +234,17 @@ class App extends React.Component {
 
           </Switch>
         </div>
+        <div>
+        <footer>
+          <a href="http://localhost:3000/users/aboutus">About Us</a>
+          <br/>
+          <a href="http://localhost:3000/users/terms">Terms and Disclaimer</a>
+          <br/>
+          <a href="http://localhost:3000/users/beforeyoufloat">Before You Float</a>
+          <br />
+          <a href="http://localhost:3000/users/faq">FAQ</a>
+          </footer>
+          </div>
       </div>
     );
   }

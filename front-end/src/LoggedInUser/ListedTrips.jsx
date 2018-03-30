@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import dateFormat from "dateformat";
 
 const ListedTrips = ({ trips }) => {
   return (
@@ -7,9 +8,9 @@ const ListedTrips = ({ trips }) => {
         <div>
           <h3> Destination: {trip.destination}</h3>
           <h4>
-            Starting Date:{trip.start_date}
+            Starting Date: {dateFormat (trip.start_date, "ddd, mmm, dS, yyyy")}
             <br />
-            Ending Date:{trip.end_date}
+            Ending Date:{dateFormat (trip.end_date, "ddd, mmm, dS, yyyy")}
             <br />
             Planned Activities: {trip.todos}
             <br />

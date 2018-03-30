@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from "./UserProfileCards";
-import FilterSidebar from "./FilterSidebar";
+// import FilterSidebar from "./FilterSidebar";
 import MatchedBuddies from "./MatchedBuddies";
 
 import DatePicker from "react-datepicker";
@@ -17,6 +17,8 @@ import PlacesAutocomplete, {
   getLatLng
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
+import "../../Stylesheets/Filter.css";
+
 
 const isThereOverlap = (sdate1, edate1, sdate2, edate2) => {
   const minOfDates = (ed1, ed2) => (ed1 < ed2 ? ed1 : ed2);
@@ -122,6 +124,7 @@ class AllBuddies extends Component {
   }
 
   renderMatchedBuddies = () => {
+    console.log(this.state.allUsers, 'jesus take the wheel');
     return (
       <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
     );
@@ -206,22 +209,7 @@ class AllBuddies extends Component {
       }
 
       return matchArr.every(elem => elem === true);
-      // if (
-      //   // userFilter.destinationAdd &&
-      //   userFilter.locationAdd
-      //   // userFilter.start_date &&
-      //   // userFilter.end_date &&
-      //   // userFilter.start_age &&
-      //   // userFilter.end_age
-      // ) {
-      //   return (
-      //     // user.destination === userFilter.destinationAdd &&
-      //     user.my_location === userFilter.locationAdd
-      //     // (user.start_date >= userFilter.start_date &&
-      //       // user.end_date <= userFilter.end_date) &&
-      //     // (user.age >= userFilter.start_age && user.age <= userFilter.end_age)
-      //   );
-      // }
+
     });
 
     console.log("filtered users", filteredUsers);
@@ -230,34 +218,7 @@ class AllBuddies extends Component {
     });
   };
 
-  //  getFilteredUsers  = (user, userFilter) =>{
 
-  //   if (
-  //     userFilter.destinationAdd &&
-  //     userFilter.locationAdd &&
-  //     userFilter.start_date &&
-  //     userFilter.end_date &&
-  //     userFilter.start_age &&
-  //     userFilter.end_age
-  //   ) {
-  //     return (
-  //       user.destination === userFilter.destinationAdd &&
-  //       user.my_location === userFilter.locationAdd &&
-  //       (user.start_date >= userFilter.start_date &&
-  //         user.end_date <= userFilter.end_date) &&
-  //       (user.age >= userFilter.start_age && user.age <= userFilter.end_age)
-  //     );
-  //   }
-  //   if (
-  //     userFilter.destinationAdd &&
-  //     userFilter.locationAdd &&
-  //     userFilter.start_date &&
-  //     userFilter.end_date &&
-  //     userFilter.start_age &&
-  //     userFilter.end_age
-  //   )
-
-  // }
 
   render() {
     const {
@@ -358,22 +319,24 @@ class AllBuddies extends Component {
                 required="required"
               />
             </div>
+						<div className="buttondiv">
             <input
               className="filterBtn"
               type="submit"
               value="Add Filters"
               onClick={this.renderFilteredUserPics}
             />
-
+        </div>
         </div>
 
         {filteredUsers ? (
           <UserProfileCards allUsers={filteredUsers} />
-        ) : (
-          <div> no users found </div>
+        ) : ( 
+          this.renderMatchedBuddies()
         )}
         {/* TESTING BEGINS FOR MATCHING BUDDIES */}
         {/* {this.renderMatchedBuddies()} */}
+
         {/* TESTING ENDS FOR MATCHING BUDDIES */}
       </div>
     );

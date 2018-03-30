@@ -32,9 +32,19 @@ router.put("/edit/attributes", loginRequired, db.editAttributes)
 router.put("/edit/trip", loginRequired, db.editTrip)
 
 // User authentication routes
-router.post("/register", db.registerUser, passport.authenticate("local"), (req, res) => res.json(req.user.username));
-router.post("/login", passport.authenticate("local"), (req, res) =>
-  res.json({ id: req.user.id, username: req.user.username })
+router.post("/register", db.registerUser, passport.authenticate("local"), (req, res) => {
+  delete req.user.password_digest;
+  res.json({
+    id: req.user.id,
+    username: req.user.username
+  })
+});
+router.post("/login", passport.authenticate("local"), (req, res) => {
+  delete req.user.password_digest;
+  res.json({
+    id: req.user.id,
+    username: req.user.username
+  })}
 );
 router.get("/logout", loginRequired, db.logoutUser);
 
