@@ -28,9 +28,10 @@ const UserProfileCards = ({ allUsers, bffs }) => {
           <div className="age"> Age: {user.age}</div>
           <div className="location"> Location: {user.my_location}</div>
           <div><Link to={`/users/messages/${user.username}`}>Message</Link></div>
+          
           {!bffs ? (
             <div>
-              <div className="destination">
+              <div >
                 Destination: {user.destination}{" "}
               </div>
               <div className="startDate">

@@ -4,45 +4,62 @@
 #1AA6B7 light blue
 #022D41  dark blue
 */
-.sidebar {
+
+.filtertitle {
+  text-align: center;
+  background-color: #022D41;
+  color: #DAECF3;
+}
+
+.topbar {
   height: 200px;
   background-color: #022D41;
   color: #DAECF3;
-  padding: 1em;
+  /* padding: .5em; */
   border-radius: 0px 0px 0px 0px;
   opacity: .9;
   border: 1px solid rgba(2, 45, 65, 0.5);
   font-size: 15px;
   display: flex;
   flex-wrap: nowrap;
-  align-items: center;
+  text-align: center;
+  align-items: inherit;
   flex: row;
   overflow: none;
+  padding-top: 3%;
 }
+
 .destination {
-  margin-top:100px;
-  background-color: #1aa6b7;
+  /* margin-top: 10%; */
+  /* background-color: #1aa6b7; */
   height: 100px;
 }
 
 .dates{
-  background-color: #1aa6b7;
+  /* background-color: #1aa6b7; */
   height: 100px;
+  padding-left: 5%;
 }
+
 .location{
-  background-color: #1aa6b7;
+  /* background-color: #1aa6b7; */
   height: 100px;
+  padding-left: 5%;
 }
 
 .ages{
-  background-color: #1aa6b7;
+  /* background-color: #1aa6b7; */
   color: #DAECF3;
-  margin-left: auto;
+  padding-left: 5%;
   height: 100px;
 }
 
 .cursor {
   cursor: pointer;
+}
+
+.buttondiv {
+  padding-left: 5%;
 }
 
 .filterBtn{

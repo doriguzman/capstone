@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
 
 const AboutUs = () => {
   const places = [
@@ -54,22 +53,11 @@ const AboutUs = () => {
             trips, or send them a message to start discussing your next trip.
           </p>
           <p className="about-us-p">
-	    Are you ready for your next adventure? {" "}
-            <Link to="/users/">Join Us Now!</Link>
-	  </p>
+
+            Are you ready for your next adventure?
+            <Link to="/users/register">Join Us Now!</Link>
+          </p>
         </div>
-      </div>
-      <div className="about-us-disclaimer">
-				<p>Terms & Disclaimer:</p>
-        <p>
-					Anyone that identifies as a woman is welcome to register and become a member. You must be 18 years or older to use feathers.com. All members are
-					expected to complete their profile and upload a photo. Once you have
-					connected with another member and agreed upon a trip, exchange contact
-					info via our in-app messaging to wrap-up your final plans. <br />
-					We strongly recommend our members to set-up a video call prior to meeting
-					with other members. Practice a common sense approach when meeting up with anyone
-					you met online for the first time.
-				</p>
       </div>
     </div>
   );
