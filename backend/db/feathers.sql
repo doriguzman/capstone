@@ -3,7 +3,9 @@ CREATE DATABASE feathers;
 
 \c feathers;
 
-DROP TABLE IF EXISTS users, bffs, trips, attributes, threads, messages;
+
+DROP TABLE IF EXISTS users, bffs, flagged, trips, attributes, threads, messages;
+
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -16,6 +18,13 @@ CREATE TABLE bffs (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
     bff VARCHAR REFERENCES users(username)
+);
+
+	
+CREATE TABLE flagged (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
+    flagged_user VARCHAR REFERENCES users(username)
 );
 
 CREATE TABLE trips (
@@ -93,7 +102,8 @@ INSERT INTO users (username, password_digest, email)
            ('selena', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'selena@selena.com'), -- pw: chocolate
            ('erical', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'erical@erical.com'); -- pw: unicorn
 
-INSERT INTO attributes (user_id, first_name, age, my_location, bio, pic, ethnicity, religion, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks)
+
+
     VALUES (1, 'Jan', 21, 'New York, NY', 'What is life without the beauty of nature?', 'https://3.bp.blogspot.com/-g2AuvgYiOLg/WScTQ8L_wDI/AAAAAAAAIaE/8d-iYFx_Law6fwTvmHxSmqqXHFzOjERywCLcB/s640/unnamed.jpg', 'White / Caucasian', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE),
            (2, 'Megan', 21, 'San Diego, CA', 'There is nothing like the serenity that being out in nature brings.', 'https://media.glamour.com/photos/57741970db58a48d3ac6fa5c/1:1/w_352/spl1303559_001_720.jpg', 'White / Caucasian', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
            (3, 'Dori', 22, 'New York, NY', 'Yaaaaaaas, coffeeeeee.', 'https://previews.123rf.com/images/tverdohlib/tverdohlib1706/tverdohlib170601832/80920850-woman-in-garden-pretty-girl-with-fashionable-makeup-and-red-lips-has-rose-flower-in-hair-hispanic-or.jpg', 'Latin / Hispanic', 'Christian', FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE),
@@ -106,3 +116,4 @@ INSERT INTO attributes (user_id, first_name, age, my_location, bio, pic, ethnici
            (10, 'Helen', 27, 'Raleigh, NC', 'I like beer.', 'http://res.heraldm.com/phpwas/restmb_jhidxmake.php?idx=5&simg=201504131730143170190_20150413173942_01.jpg', 'Asian', 'Christian', TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE),
            (11, 'Selena', 26, 'Fort Lee, NJ', 'What up fam, you can call me Selenaaaaa.', 'https://www.usmagazine.com/wp-content/uploads/2018/02/selena-gomez-lunch.jpg', 'Native American', 'New Age (Spiritual, but not religious)', FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE),
            (12, 'Erica', 25, 'new jersey', 'Sup, Erica here.', 'https://www.internationalteflacademy.com/hubfs/Erica-Overbeek-3.jpg?t=1521859281281', 'White / Caucasian', 'Jewish', FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE);
+
