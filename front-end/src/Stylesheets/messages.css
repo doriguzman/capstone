@@ -1,15 +1,14 @@
 
 
 .messages-parent-container{
+    background-color: #DAECF3;
     color: #022D41;
-
+    width: 80%;
     height: 600px;
     margin: 0 auto;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    background-color: white;
-    border: 1px solid rgba(2, 45, 65, 0.5);
 }
 
 .messages-header {

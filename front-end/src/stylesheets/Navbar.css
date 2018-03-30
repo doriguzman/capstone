@@ -3,11 +3,11 @@ The top navigation bar..thats everywhere
 */
 
 .top-nav-bar{  
-    height: 50px;
+    height: 100px;
     background-color: #FE424D;
     color: rgb(84, 138, 160);
     padding: 1em;
-    border-radius: 25px 25px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
     opacity: .9;
     border: 1px solid rgba(2, 45, 65, 0.5);
     font-size: 15px;
@@ -17,15 +17,16 @@ The top navigation bar..thats everywhere
     flex-direction: row;
   }
   .top-nav-bar-left{
-    height: 50px;
+    height: 100px;
   }
 
   .top-nav-bar-left img{
-    height: 50px;
+    height: 100%;
+    width: 100%;
   }
 
   .top-nav-bar-left2{
-    height: 50px;
+    height: 100px;
   }
   
   .top-nav-bar-right{
