@@ -336,6 +336,7 @@ class AllBuddies extends Component {
           {/* </div> */}
         </div>
 
+
         {filteredUsers ? (
           <UserProfileCards allUsers={filteredUsers} />
         ) : ( 
@@ -343,6 +344,7 @@ class AllBuddies extends Component {
         )}
         {/* TESTING BEGINS FOR MATCHING BUDDIES */}
         {/* {this.renderMatchedBuddies()} */}
+
         {/* TESTING ENDS FOR MATCHING BUDDIES */}
       </div>
     );
