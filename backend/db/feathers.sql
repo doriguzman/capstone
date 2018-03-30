@@ -3,7 +3,7 @@ CREATE DATABASE feathers;
 
 \c feathers;
 
-DROP TABLE IF EXISTS users, bffs, trips, attributes, threads, messages;
+DROP TABLE IF EXISTS users, bffs, flagged, trips, attributes, threads, messages;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -16,6 +16,13 @@ CREATE TABLE bffs (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
     bff VARCHAR REFERENCES users(username)
+);
+
+	
+CREATE TABLE flagged (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
+    flagged_user VARCHAR REFERENCES users(username)
 );
 
 CREATE TABLE trips (

@@ -7,6 +7,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import AddTrips from "./AddTrips";
 import ListedTrips from "./ListedTrips";
+import '../index.css'
 
 class OtherUser extends Component {
   constructor(props) {
@@ -40,7 +41,8 @@ class OtherUser extends Component {
       openTrips: "",
       pastTrips: "",
       userbffs: "",
-      bffle: ""
+      bffle: "",
+      flagged: ""
     };
   }
 
@@ -82,6 +84,7 @@ class OtherUser extends Component {
       .then(() => {
         this.getUserTrips();
         this.getUserBFFS();
+        this.getFlaggedUsers();
       })
       .catch(err => {
         console.log(err);
@@ -161,6 +164,53 @@ class OtherUser extends Component {
     }
   };
 
+  addFlag = e => {
+    e.preventDefault;
+    const { flagged, username, user } = this.state;
+    if (!flagged) {
+      axios
+        .get(`/users/addFlag/${this.state.username}`)
+        .then(res => {
+          console.log("res.data", res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      this.setState({
+        flagged: !flagged
+      });
+    } else {
+      axios.delete(`/users/removeFlag/${this.state.username}`).then(res => {
+        console.log("delete bff ", res.data);
+      });
+      this.setState({
+        flagged: !flagged
+      });
+    }
+  };
+
+  getFlaggedUsers = username => {
+    const { allUsers, bffs, user, flagged } = this.props;
+    axios
+      .get("/users/getFlagged")
+      .then(res => {
+        console.log("gettings the user's flagged people ", res.data);
+
+        console.log("this is before the find ");
+        if (res.data.find(n => n.flagged === username)) {
+          console.log("went to the data");
+          this.setState({
+            flagged: !flagged
+          });
+        }
+      })
+
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+
   componentDidMount() {
     console.log("component mounted!");
     this.getUserInfo();
@@ -193,7 +243,8 @@ class OtherUser extends Component {
       trips,
       openTrips,
       pastTrips,
-      bffle
+      bffle,
+      flagged
     } = this.state;
     console.log("this is userprofile");
     console.log("open Trips", openTrips);
@@ -201,7 +252,15 @@ class OtherUser extends Component {
     console.log("THE STATE IS", this.state);
     console.log("USER_id IS ", user_id);
     console.log(this.state);
-
+    // console.log('active user is', this.state.me )
+    console.log(
+      "You (",
+      username,
+      ") were flagged: (",
+      this.state.flagged,
+      ") by : ",
+      this.state.me
+    );
     return (
       <div>
         <div>
@@ -214,13 +273,49 @@ class OtherUser extends Component {
 
           <div>@{username}</div>
           <div>Location: {my_location}</div>
-
-          <div className="addFriend">
+          <div className="btnLine">
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            />
             {!bffle ? (
-              <button onClick={this.addBFF}> Add BFFL </button>
+              <button onClick={this.addBFF} className="noFriend" >
+
+                {" "}
+                <i class="far fa-user fa-2x"></i>,
+               
+              </button>
             ) : (
-              <button onClick={this.addBFF}> Remove BFFL </button>
+              <button
+                onClick={this.addBFF}
+                className={bffle ? "addFriend" : "noFriend"}
+              >
+                {" "}
+                <i class="far fa-user fa-2x" />{" "} 
+                {this.state.bffle ? <i class="far fa-check-circle"></i> : "" }
+              </button>
             )}
+               {" "}
+            {!flagged ? (
+              <button onClick={this.addFlag} className="flagBtn">
+                {" "}
+                <i class="far fa-flag fa-2x" />{" "}
+              </button>
+            ) : (
+              <button
+                onClick={this.addFlag}
+                className={flagged ? "redflagBtn" : "flagBtn"}
+              >
+                {" "}
+                <i class="far fa-flag fa-2x" />{" "}
+              </button>
+            )}
+              {" "}
+            <button className='message'>
+              <Link className='message' to={`/users/messages/${this.state.username}`}>
+                <i class="far fa-envelope fa-2x" />
+              </Link> 
+            </button>
           </div>
         </div>
         <Tabs>
