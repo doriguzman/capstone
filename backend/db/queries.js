@@ -408,7 +408,11 @@ function getMessages(req, res, next) {
       threadId: req.params.threadId
     })
     .then(data => res.status(200).send(data))
-    .catch(err => res.status(500).send("error fetching messages: ", err));
+    .catch(err => {
+      res
+        .status(statusCode >= 100 && statusCode < 600 ? err.code : 500)
+        .send("error fetching messages: ", err)
+    })
 }
 
 module.exports = {
