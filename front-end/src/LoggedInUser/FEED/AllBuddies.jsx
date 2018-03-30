@@ -209,22 +209,7 @@ class AllBuddies extends Component {
       }
 
       return matchArr.every(elem => elem === true);
-      // if (
-      //   // userFilter.destinationAdd &&
-      //   userFilter.locationAdd
-      //   // userFilter.start_date &&
-      //   // userFilter.end_date &&
-      //   // userFilter.start_age &&
-      //   // userFilter.end_age
-      // ) {
-      //   return (
-      //     // user.destination === userFilter.destinationAdd &&
-      //     user.my_location === userFilter.locationAdd
-      //     // (user.start_date >= userFilter.start_date &&
-      //       // user.end_date <= userFilter.end_date) &&
-      //     // (user.age >= userFilter.start_age && user.age <= userFilter.end_age)
-      //   );
-      // }
+
     });
 
     console.log("filtered users", filteredUsers);
@@ -233,34 +218,7 @@ class AllBuddies extends Component {
     });
   };
 
-  //  getFilteredUsers  = (user, userFilter) =>{
 
-  //   if (
-  //     userFilter.destinationAdd &&
-  //     userFilter.locationAdd &&
-  //     userFilter.start_date &&
-  //     userFilter.end_date &&
-  //     userFilter.start_age &&
-  //     userFilter.end_age
-  //   ) {
-  //     return (
-  //       user.destination === userFilter.destinationAdd &&
-  //       user.my_location === userFilter.locationAdd &&
-  //       (user.start_date >= userFilter.start_date &&
-  //         user.end_date <= userFilter.end_date) &&
-  //       (user.age >= userFilter.start_age && user.age <= userFilter.end_age)
-  //     );
-  //   }
-  //   if (
-  //     userFilter.destinationAdd &&
-  //     userFilter.locationAdd &&
-  //     userFilter.start_date &&
-  //     userFilter.end_date &&
-  //     userFilter.start_age &&
-  //     userFilter.end_age
-  //   )
-
-  // }
 
   render() {
     const {
@@ -378,13 +336,13 @@ class AllBuddies extends Component {
           {/* </div> */}
         </div>
 
-        {/* {filteredUsers ? (
+        {filteredUsers ? (
           <UserProfileCards allUsers={filteredUsers} />
         ) : ( 
-          <div> no users found </div>
-        )} */}
+          this.renderMatchedBuddies()
+        )}
         {/* TESTING BEGINS FOR MATCHING BUDDIES */}
-        {this.renderMatchedBuddies()}
+        {/* {this.renderMatchedBuddies()} */}
         {/* TESTING ENDS FOR MATCHING BUDDIES */}
       </div>
     );
