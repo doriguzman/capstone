@@ -6,13 +6,28 @@ body {
 a:link {
   color:#022D41;
   text-decoration: none;
-  background: #FE424D;
+  background-color: #FE424D;
 
 }
+  .message :visited   {
+  color:black;
+  background: white;
 
+ }
+ .message :hover {
+  color: #FE424D;
+  /* background-image: url("https://image.flaticon.com/icons/svg/55/55413.svg") */
+ 
+ 
+ }
+
+ /* .flagBtn :hover {
+  color: #FE424D;
+  
+} */
 a:visited {
   color: #DAECF3;
-  background: #FE424D;
+  background-color: #FE424D;
 }
 
 a:hover {
@@ -22,5 +37,7 @@ a:hover {
 
 a:active {
   color: #1AA6B7;
-  background: #FE424D;
+  background-color: #FE424D;
 }
+
+

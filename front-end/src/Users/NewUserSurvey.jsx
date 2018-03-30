@@ -91,7 +91,6 @@ class NewUserSurvey extends React.Component {
     };
   }
 
-
   inputChange = address => {
     this.setState({
       address: address
@@ -99,8 +98,8 @@ class NewUserSurvey extends React.Component {
   };
 
   renderSurvey = e => {
+    console.log("submitting survey");
     e.preventDefault();
-    console.log('submitting survey')
     axios
       .post("/users/survey", {
         firstName: this.state.firstName,
@@ -137,7 +136,6 @@ class NewUserSurvey extends React.Component {
   }
   
 
-
   handleInput = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -145,9 +143,11 @@ class NewUserSurvey extends React.Component {
   };
 
   handleCheckBoxChange = e => {
+
     this.setState({
       [e.target.name]: e.target.checked
     });
+    
   };
 
   handleSmokes = e => {
@@ -168,6 +168,12 @@ class NewUserSurvey extends React.Component {
       this.setState({ drinks: true });
     }
   };
+  
+  // handleCheckboxes = () => {
+  //   const { } = this.state
+  //   return !this.state.address || !this.state.smokes || !this.state.drinks && !clubbing || !
+  // }
+
 
   render() {
     const {
@@ -204,7 +210,7 @@ class NewUserSurvey extends React.Component {
       <div className="register-survey-container">
         <h2 id="navLogoName">Tell Us About Yourself</h2>
         <hr />
-        <form>
+        <form >
           First Name <br />
           <input
             className="firstName"
@@ -213,7 +219,7 @@ class NewUserSurvey extends React.Component {
             name="firstName"
             value={firstName}
             onChange={this.handleInput}
-            required= 'required'
+            required
           />
           <br />
           Age <br />
@@ -223,7 +229,7 @@ class NewUserSurvey extends React.Component {
             type="number"
             name="age"
             onChange={this.handleInput}
-            required='required'
+            required
           />
           <br />
           Location: 
@@ -232,8 +238,6 @@ class NewUserSurvey extends React.Component {
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
           />
-        
-          
           <br />
           Bio <br />
           <input
@@ -256,7 +260,7 @@ class NewUserSurvey extends React.Component {
           />
           {/*  now we are going to start radio buttons here */}
           <br />
-          <div className="checkBoxes">
+          <div className="checkBoxes"  >
             What are you like on vacation? <br />
             {attributes.map(value => (
               <span>
@@ -264,7 +268,7 @@ class NewUserSurvey extends React.Component {
                   type="checkbox"
                   name={value}
                   value={value}
-                  onChange={this.handleCheckBoxChange}
+                  onChange={this.handleCheckBoxChange} 
                 />{" "}
                 {value}
                 <br />
@@ -282,7 +286,7 @@ class NewUserSurvey extends React.Component {
                   name="smokes"
                   value={value}
                   onChange={this.handleSmokes}
-                  required='required'
+                  // required="true"
                 />{" "}
                 {value}{" "}
               </span>
@@ -300,7 +304,7 @@ class NewUserSurvey extends React.Component {
                   name="drinks"
                   value={value}
                   onChange={this.handleDrinks}
-                  required='required'
+                  // required
                 />{" "}
                 {value}{" "}
               </span>
@@ -330,12 +334,13 @@ class NewUserSurvey extends React.Component {
             className="surveyBtn"
             type="submit"
             value="Submit"
+             disabled={!this.state.address || this.state.smokes === '' || !this.state.drinks === '' }
             onClick={this.renderSurvey}
             disabled= {!address || smokes==='' ||drinks===''}
           />
         </form>
 
-        {message ? <h2> {message} </h2> :''}
+        {message ? <h2> {message} </h2> : ""}
       </div>
     );
   }
