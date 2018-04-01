@@ -6,10 +6,16 @@ import AllBuddies from "./AllBuddies";
 
 
 const UserProfileCards = ({ allUsers, bffs }) => {
+  console.log('in profile cards ', allUsers.map(user=> {
+    return ('user first name' , user.first_name , user.age)}))
+  
+  
   return (
     <div className="cardHolder">
+    
 
       {allUsers.map(user => {
+        console.log('allUsers' , allUsers)
         return (
           <div className="card">
             <br />
@@ -37,14 +43,14 @@ const UserProfileCards = ({ allUsers, bffs }) => {
             </div>
             {!bffs ? (
               <div>
+                {user.destination ?
                 <div className="destination">
                   Destination: {user.destination}{" "}
-                </div>
-                <div className="startDate">
-                  Trip start date: {dateFormat (user.start_date, "ddd, mmm, dS, yyyy")} 
+                </div> :''}
+                
+                 {user.start_date ? <div className="startDate">Trip start date: {dateFormat (user.start_date, "ddd, mmm, dS, yyyy")}</div> :''}
                  
-                </div>
-                <div className="endDate"> Trip end date: {dateFormat (user.end_date, "ddd, mmm, dS, yyyy")}</div>
+               {user.end_date ? <div className="endDate"> Trip end date: {dateFormat (user.end_date, "ddd, mmm, dS, yyyy")}</div> :''}
               </div>
             ) : (
               ""

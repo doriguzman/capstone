@@ -247,6 +247,8 @@ class MatchedBuddies extends Component {
 		const { user, allUsers } = this.props;
 
 		console.log(this.state.threads)
+		console.log('allUserTrips', allUsersTrips)
+		console.log('usersnoTrips', usersNoTrips)
 
     return (
       <div>

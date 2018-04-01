@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from "./UserProfileCards";
-// import FilterSidebar from "./FilterSidebar";
+import FilterSidebar from "./FilterSidebar";
 import MatchedBuddies from "./MatchedBuddies";
 
 import DatePicker from "react-datepicker";
@@ -53,12 +53,12 @@ class AllBuddies extends Component {
         start_date: "",
         end_date: ""
       },
-      start_date: "",
-      end_date: "",
-      address: "",
-      locationAdd: "",
-      start_age: "",
-      end_age: ""
+      // start_date: "",
+      // end_date: "",
+      // address: "",
+      // locationAdd: "",
+      // start_age: "",
+      // end_age: ""
     };
   }
 
@@ -88,16 +88,16 @@ class AllBuddies extends Component {
 
   getUserPics = () => {
     axios
-      .get("/users/")
+      .get("/users/getPics")
       .then(response => {
-        console.log('user pics, ' ,response.data.data)
-        const filteredUsers = response.data.data.filter(
+        console.log('USER PICSSSSSS, ' ,response.data)
+        const filteredUsers = response.data.filter(
           user => user.username !== this.state.username
         );
         console.log("filteredUsers", filteredUsers);
         this.setState({
           allUsers: filteredUsers,
-          filteredUsers: filteredUsers
+          // filteredUsers: filteredUsers
         });
       })
       .catch(err => {
@@ -225,6 +225,7 @@ class AllBuddies extends Component {
         matchArr.push(user.destination === userFilter.destinationAdd);
       }
       if (userFilter.locationAdd) {
+        console.log(matchArr, user.my_location, userFilter.locationAdd)
         matchArr.push(user.my_location === userFilter.locationAdd);
       }
       if (userFilter.start_age) {
@@ -266,7 +267,6 @@ class AllBuddies extends Component {
     console.log("this is state ", this.state);
     console.log("userfilters", userFilter);
 
-    // console.log("address in state: ", address)
     const { ages } = this;
 
     if (submitted) {
@@ -289,21 +289,17 @@ class AllBuddies extends Component {
     };
 
     return (
-      <div>
-				<div className="filtertitle">Filter</div>
-        <div className="topbar">  
-          <br />
-          {/* <div> */}
-						<div className="destination">
-              <div>Please enter a destination:</div>
+      <div >
+        <div className="sidebar">
+
+ 
+            <div className="destination" placeholder=" Please enter a destination">
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
                 inputProps={AddressInputProps}
               />
-						</div>
-            <div className-travel-calendar className="dates">
-              <div>Please Select Travel Dates:</div>
-              
+            </div>
+            <div className-travel-calendar className="travelDates" placeholder=" Travel Dates">
               <DateRangePicker
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
@@ -321,29 +317,27 @@ class AllBuddies extends Component {
                 }}
               />
             </div>
-						
-            <br />
-            <div className="location">
-              <div>Enter your location:</div>{"  "}
+
+            <div className="location" placeholder="Your location">
               {/* <input type="text" /> */}
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
                 inputProps={AddressInputProps2}
               />
             </div>
-            <br />
+
             <div className="ages">
-              <div>Age range:</div>
               <input
+              placeholder="From Age"
                 className="start_age"
                 type="number"
                 name="start_age"
                 value={start_age}
                 onChange={this.handleStartAgeInput}
                 required="required"
-              />{" "}
-              {"  "} to
+              />
               <input
+              placeholder="To Age"
                 className="end_age"
                 type="number"
                 name="end_age"
@@ -359,10 +353,8 @@ class AllBuddies extends Component {
               value="Add Filters"
               onClick={this.renderFilteredUserPics}
             />
-						</div>
-          {/* </div> */}
         </div>
-
+        </div>
 
         {filteredUsers ? (
 
