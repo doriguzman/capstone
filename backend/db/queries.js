@@ -64,7 +64,7 @@ function userSurvey(req, res, next) {
 
 function getUser(req, res, next) {
   db
-    .one("SELECT * FROM users WHERE username=${username}", {
+    .one("SELECT username, email FROM users WHERE username=${username}", {
       username: req.user.username
     })
     .then(data => {
@@ -221,7 +221,7 @@ function removeTrip(req, res, next) {
   console.log("attempting to remove trip...");
   db
     .none("DELETE FROM trips WHERE username=${username} AND id=${id}", {
-      username: req.user.username,
+      username: req.params.username,
       id: req.params.id
     })
     .then(() => {
