@@ -191,6 +191,66 @@ function addTrip(req, res, next) {
     });
 }
 
+//---------- ADDING TO BUCKET LIST ------------//
+function AddBucketList(req, res, next) {
+  // startDate and endDate have to be in the following format: 'YYYY-MM-DD'
+  db
+    .none(
+      "INSERT INTO bucketlist VALUES (DEFAULT, ${id}, ${username}, ${destination}, ${startDate}, ${endDate}, ${todos})",
+      {
+        id: req.body.id,
+        username: req.body.username,
+        destination: req.body.destination,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        todos: req.body.todos 
+      }
+    )
+    .then(() => {
+      res
+        .status(200)
+        .send(
+          `added a new bucketlist for user_id: ${req.user.id}, username: ${req.user.username}`
+        );
+    })
+    .catch(err => {
+      res.status(500).send(`error adding new bucketlist!`);
+    });
+}
+
+//----- GET BUCKET LIST -----//
+function getBucketListByUsername(req, res, next) {
+  db
+    .any("SELECT * FROM bucketlist WHERE username=${username}", {
+      username: req.params.username
+    })
+    .then(data => {
+      res.status(200).send(data);
+    })
+    .catch(err => {
+      res.status(500).send("error retrieving all bucketlists: ", err);
+    });
+}
+
+
+
+//----- removing a bucket list item -----//
+function removeBucket(req, res, next) {
+  // *** Need to figure out if we're using req.body or req.params for the trip id ***
+  console.log("attempting to remove trip...");
+  db
+    .none("DELETE FROM bucketlist WHERE username=${username} AND id=${id}", {
+      username: req.params.username,
+      id: req.params.id
+    })
+    .then(() => {
+      res.status(200).send("removed bucketlist");
+    })
+    .catch(err => res.status(500).send("error retrieving one bucketlist"));
+}
+
+
+
 // -------- GET ALL TRIPS (minus logged in user) -------- //
 function getAllTrips(req, res, next) {
   db
@@ -475,6 +535,9 @@ module.exports = {
   getUserAttributes,
   getAllUsersAttributes,
   getPics,
+  AddBucketList,
+  getBucketListByUsername,
+  removeBucket, 
   addTrip,
   getAllTrips,
   getTripsByUsername,
