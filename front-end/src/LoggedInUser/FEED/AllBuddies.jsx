@@ -53,12 +53,12 @@ class AllBuddies extends Component {
         start_date: "",
         end_date: ""
       },
-      start_date: "",
-      end_date: "",
-      address: "",
-      locationAdd: "",
-      start_age: "",
-      end_age: ""
+      // start_date: "",
+      // end_date: "",
+      // address: "",
+      // locationAdd: "",
+      // start_age: "",
+      // end_age: ""
     };
   }
 
@@ -88,15 +88,16 @@ class AllBuddies extends Component {
 
   getUserPics = () => {
     axios
-      .get("/users/")
+      .get("/users/getPics")
       .then(response => {
-        const filteredUsers = response.data.data.filter(
+        console.log('USER PICSSSSSS, ' ,response.data)
+        const filteredUsers = response.data.filter(
           user => user.username !== this.state.username
         );
         console.log("filteredUsers", filteredUsers);
         this.setState({
           allUsers: filteredUsers,
-          filteredUsers: filteredUsers
+          // filteredUsers: filteredUsers
         });
       })
       .catch(err => {
@@ -224,6 +225,7 @@ class AllBuddies extends Component {
         matchArr.push(user.destination === userFilter.destinationAdd);
       }
       if (userFilter.locationAdd) {
+        console.log(matchArr, user.my_location, userFilter.locationAdd)
         matchArr.push(user.my_location === userFilter.locationAdd);
       }
       if (userFilter.start_age) {
