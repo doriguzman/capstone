@@ -186,9 +186,9 @@ class NewUserSurvey extends React.Component {
       ethnicity,
       religion,
       submitted,
-       message,
-     smokes, 
-     drinks
+      message,
+      smokes, 
+      drinks
     } = this.state;
     const { attributes, ethnicities, religions } = this;
     console.log("NewUserSurvey", this.state);
