@@ -12,6 +12,7 @@ router.get("/allUsersAttributes", loginRequired, db.getAllUsersAttributes)
 router.get("/getPics", loginRequired, db.getPics); // gets some user info for feed
 router.get("/getAllTrips", loginRequired, db.getAllTrips) // gets ALL the trips
 router.get("/allTrips/:username", loginRequired, db.getTripsByUsername) // gets trip by username
+router.get('/bucketlist/:username', loginRequired, db.getBucketListByUsername)
 router.get("/allBffs", loginRequired, db.getAllBffs)
 router.get("/addBff/:username", loginRequired, db.addBff) // adds a BFF by username
 router.get("/getAllThreads", loginRequired, db.getAllThreads)
@@ -24,8 +25,10 @@ router.get('/addFlag/:username', loginRequired, db.addFlag)
 router.post("/survey", db.userSurvey); // sets user attributes after user survey is submitted
 router.post("/addTrip", loginRequired, db.addTrip);
 router.post("/addMessage", loginRequired, db.addMessage);
+router.post('/addBucketList', loginRequired, db.AddBucketList)
 
 // DELETE routes
+router.delete("/removeBucket/:username/:id", loginRequired, db.removeBucket); // removes a trip by trip ID
 router.delete("/removeTrip/:username/:id", loginRequired, db.removeTrip); // removes a trip by trip ID
 router.delete("/removeBff/:username", loginRequired, db.removeBff) // removes a BFF by username
 router.delete('/removeFlag/:username', loginRequired, db.removeFlag )

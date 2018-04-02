@@ -87,6 +87,15 @@ CREATE TABLE messages (
     timestamp VARCHAR NOT NULL
 );
 
+CREATE TABLE bucketlist (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
+    username VARCHAR REFERENCES users(username),
+    destination VARCHAR,
+    start_date VARCHAR,
+    end_date VARCHAR,
+    todos VARCHAR
+);
 
 INSERT INTO users (username, password_digest, email)
     VALUES ('jandoe', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'jan@jan.com'),

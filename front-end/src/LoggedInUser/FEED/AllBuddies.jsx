@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from "./UserProfileCards";
-import FilterSidebar from "./FilterSidebar";
+// import FilterSidebar from "./FilterSidebar";
 import MatchedBuddies from "./MatchedBuddies";
 
 import DatePicker from "react-datepicker";

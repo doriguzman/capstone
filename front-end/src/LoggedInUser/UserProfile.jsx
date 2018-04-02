@@ -8,7 +8,23 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import AddTrips from "./AddTrips";
 import dateFormat from "dateformat";
-import ListedTrips from './ListedTrips'
+import MyListedTrips from './MyListedTrips'
+// import DatePicker from "react-datepicker";
+// import "react-dates/initialize";
+// import {
+//   DateRangePicker,
+//   SingleDatePicker,
+//   DayPickerRangeController
+// } from "react-dates";
+// import "react-dates/lib/css/_datepicker.css";
+// import PlacesAutocomplete, {
+//   geocodeByAddress,
+//   getLatLng
+// } from "react-places-autocomplete";
+
+import '../Stylesheets/AddTrips.css'
+import BucketList from './BucketList'
+
 
 
 class UserProfile extends React.Component {
@@ -41,30 +57,44 @@ class UserProfile extends React.Component {
       trips:'', 
       openTrips:'', 
       pastTrips:'', 
+      // bucketListTodos:'', 
+      // startDate: null,
+      // endDate: null,
+      // focusedInput: null,
+      // start_date: "",
+      // end_date: "",
+      // address: "",
+      // submitted:false,
+      // bucketlist:[],
+      
 
     };
   }
 
+
   fixUser = () => {
+    console.log('im trying to fix the user!!!')
     const {user, username, user_id}= this.state
     if(!this.state.username){
       this.setState({
         username:this.state.user
       })
-    if(!this.state.user_id){
-      axios.get("/users").then(response => {
-        if (response.data.data.find(n => n.username === this.state.user)) {
-            axios.get('/users/getUser')
-            .then(response=>{
-            this.setState({
-              user_id:response.data.user.id
-            })
-            })
     }
+    if(!this.state.user_id){
+      axios.get("/users/").then(response => {
+        console.log('user id ', response.data.data)
+        const found=response.data.data.find(n => n.username === this.state.user.username)
+        console.log(found)
+        if (found) 
+        this.setState({
+          user_id:found.id
+        })
+         
     })
-  }
+    }
+  
 }
-  }
+  
 
   getUserInfo = () => {
     const { username, user } = this.state;
@@ -93,7 +123,8 @@ class UserProfile extends React.Component {
           nature: UserInfo.nature,
           extroverted: UserInfo.extroverted,
           smokes: UserInfo.smokes,
-          drinks: UserInfo.drinks
+          drinks: UserInfo.drinks, 
+          bucketlist:'', 
         });
       })
       .catch(err => {
@@ -124,15 +155,36 @@ class UserProfile extends React.Component {
     });
   };
 
-// 
+  getBucketList = ()=>{
+    console.log('hitting the bucket list!' )
+    const {username}= this.state
+    
+    axios
+    .get(`/users/bucketlist/${username}`)
+    .then(res =>{
+      console.log('this is the response,', res.data)
+      this.setState({
+        bucketlist: res.data 
+      })
+      console.log(
+      ' in the bucket list function ' , this.state.bucketlist)
+    })
+    .catch(err => {
+      console.log("err in getting bucketlist", err);
+    });
+  }
+
+
 
   componentWillMount() {
     this.fixUser();
     this.getUserTrips();
+    this.getBucketList();
   }
 
   componentDidMount() {
     this.getUserInfo();
+    // this.getBucketList();
   }
 
   handleClickAddTrip = e => {
@@ -140,6 +192,45 @@ class UserProfile extends React.Component {
     const { username, user } = this.state;
     return (window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
   };
+
+  // handleInput = e => {
+  //   this.setState({
+  //     [e.target.name]: e.target.value
+  //   });
+  // };
+
+  // inputChange = address => {
+  //   this.setState({
+  //     address: address
+  //   });
+  // };
+
+  // addToBucketList = e => {
+  //   e.preventDefault();
+  //   console.log("submitting survey");
+  //   console.log(this.state.startDate._d)
+  //   axios
+   
+  //     .post("/users/addBucketList", {
+  //       id: this.state.user_id,
+  //       username: this.state.username,
+  //       destination: this.state.address,
+  //       startDate: this.state.startDate._d,
+  //       endDate: this.state.endDate._d,
+  //       todos: this.state.bucketListTodos
+  //     })
+  //     .then(res => {
+  //       console.log(res);
+  //       // this.getBucketList(); 
+  //       this.setState();
+  //       // window.location.reload();
+        
+  //     })
+  //     .catch(err => {
+  //       console.log("err posting bucket list", err);
+  //     });
+  // };
+
 
   render() {
     const {
@@ -167,8 +258,21 @@ class UserProfile extends React.Component {
       drinks, 
       trips, 
       openTrips, 
-      pastTrips
+      pastTrips, bucketListTodos, startDate, endDate, address, bucketlist
     } = this.state;
+
+    console.log(this.state)
+    console.log(username , 'this is the username')
+    const AddressInputProps = {
+      value: this.state.address,
+      onChange: this.inputChange
+    };
+
+    const addressCSSClasses = {
+      root: "form-group",
+      input: "search-input",
+      autocompleteContainer: "autocomplete-container"
+    };
 console.log('active user ' , activeUser)
     return (
       <div className="userProfile">
@@ -187,6 +291,7 @@ console.log('active user ' , activeUser)
           <TabList>
             <Tab>About</Tab>
             <Tab>Trips</Tab>
+            <Tab>Bucket List </Tab>
           </TabList>
           <TabPanel>
             <div>
@@ -204,7 +309,7 @@ console.log('active user ' , activeUser)
                   </div>
                   <br/>
                 <pre>
-                  <b>As a traveller: </b>
+                  <b>As a traveler: </b>
                   <br />
                   <br /> I am an early bird:{" "}
                   {this.state["early_bird"] ? "yes" : "no"} ,
@@ -231,15 +336,71 @@ console.log('active user ' , activeUser)
               
             <h2> Current Trips</h2>
               {openTrips
-                ? <ListedTrips trips={openTrips} activeUser={activeUser}/>
+                ? <MyListedTrips  activeUser={activeUser} username={username}/>
                 : ""}
               {activeUser ? <button onClick={this.handleClickAddTrip}>Add Trips</button> :''}
-
-
-
             </div>
           </TabPanel>
+          <TabPanel>
+            <div>
+              <h2>My BucketList </h2>
+              <br/>
+              {console.log('my bucketlist!!! , ' , bucketlist)}
+               <BucketList activeUser={activeUser} username={this.state.username}/> 
+              
+
+              {/* Destination:{" "}
+          <PlacesAutocomplete
+            classNames={addressCSSClasses}
+            inputProps={AddressInputProps}
+          />
+          <br />
+          <div className-travel-calendar>
+            <br />
+            Please Select Your Travel Dates:
+            <DateRangePicker
+              startDate={this.state.startDate}
+              endDate={this.state.endDate}
+              onDatesChange={({ startDate, endDate }) => {
+                this.setState({ startDate, endDate });
+              }}
+              focusedInput={this.state.focusedInput}
+              onFocusChange={focusedInput => {
+                this.setState({ focusedInput });
+              }}
+            />
+          </div>
+          <div className="bucketListTodos">
+            Planned Activites:
+            <input
+              type="text"
+              placeholder="todos"
+              name="bucketListTodos"
+              value={bucketListTodos}
+              onChange={this.handleInput}
+            />
+          </div>
+
+              <br />
+         {startDate &&endDate && address? <input
+            className="companionBtn"
+            type="submit"
+            value="Add to my bucket list"
+            onClick={this.addToBucketList}
+          /> : 
+          <input
+            className="companionBtn"
+            type="submit"
+            value="Add  to my bucket list!"
+            onClick={this.addToBucketList}
+            disabled
+          />} */}
+              </div>
+
+
+            </TabPanel>
         </Tabs>
+        
       </div>
     );
   }
