@@ -26,7 +26,7 @@ router.post("/addTrip", loginRequired, db.addTrip);
 router.post("/addMessage", loginRequired, db.addMessage);
 
 // DELETE routes
-router.delete("/removeTrip/:id", loginRequired, db.removeTrip); // removes a trip by trip ID
+router.delete("/removeTrip/:username/:id", loginRequired, db.removeTrip); // removes a trip by trip ID
 router.delete("/removeBff/:username", loginRequired, db.removeBff) // removes a BFF by username
 router.delete('/removeFlag/:username', loginRequired, db.removeFlag )
 // PUT routes
