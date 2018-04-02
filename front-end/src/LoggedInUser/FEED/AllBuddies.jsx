@@ -17,6 +17,8 @@ import PlacesAutocomplete, {
   getLatLng
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
+import "../../Stylesheets/Filter.css";
+
 
 const isThereOverlap = (sdate1, edate1, sdate2, edate2) => {
   const minOfDates = (ed1, ed2) => (ed1 < ed2 ? ed1 : ed2);
@@ -51,12 +53,12 @@ class AllBuddies extends Component {
         start_date: "",
         end_date: ""
       },
-      start_date: "",
-      end_date: "",
-      address: "",
-      locationAdd: "",
-      start_age: "",
-      end_age: ""
+      // start_date: "",
+      // end_date: "",
+      // address: "",
+      // locationAdd: "",
+      // start_age: "",
+      // end_age: ""
     };
   }
 
@@ -88,13 +90,14 @@ class AllBuddies extends Component {
     axios
       .get("/users/getPics")
       .then(response => {
+        console.log('USER PICSSSSSS, ' ,response.data)
         const filteredUsers = response.data.filter(
           user => user.username !== this.state.username
         );
         console.log("filteredUsers", filteredUsers);
         this.setState({
           allUsers: filteredUsers,
-          filteredUsers: filteredUsers
+          // filteredUsers: filteredUsers
         });
       })
       .catch(err => {
@@ -147,6 +150,7 @@ class AllBuddies extends Component {
   }
 
   renderMatchedBuddies = () => {
+    console.log(this.state.allUsers, 'jesus take the wheel');
     return (
       <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
     );
@@ -221,6 +225,7 @@ class AllBuddies extends Component {
         matchArr.push(user.destination === userFilter.destinationAdd);
       }
       if (userFilter.locationAdd) {
+        console.log(matchArr, user.my_location, userFilter.locationAdd)
         matchArr.push(user.my_location === userFilter.locationAdd);
       }
       if (userFilter.start_age) {
@@ -231,22 +236,7 @@ class AllBuddies extends Component {
       }
 
       return matchArr.every(elem => elem === true);
-      // if (
-      //   // userFilter.destinationAdd &&
-      //   userFilter.locationAdd
-      //   // userFilter.start_date &&
-      //   // userFilter.end_date &&
-      //   // userFilter.start_age &&
-      //   // userFilter.end_age
-      // ) {
-      //   return (
-      //     // user.destination === userFilter.destinationAdd &&
-      //     user.my_location === userFilter.locationAdd
-      //     // (user.start_date >= userFilter.start_date &&
-      //       // user.end_date <= userFilter.end_date) &&
-      //     // (user.age >= userFilter.start_age && user.age <= userFilter.end_age)
-      //   );
-      // }
+
     });
 
     console.log("filtered users", filteredUsers);
@@ -255,34 +245,7 @@ class AllBuddies extends Component {
     });
   };
 
-  //  getFilteredUsers  = (user, userFilter) =>{
 
-  //   if (
-  //     userFilter.destinationAdd &&
-  //     userFilter.locationAdd &&
-  //     userFilter.start_date &&
-  //     userFilter.end_date &&
-  //     userFilter.start_age &&
-  //     userFilter.end_age
-  //   ) {
-  //     return (
-  //       user.destination === userFilter.destinationAdd &&
-  //       user.my_location === userFilter.locationAdd &&
-  //       (user.start_date >= userFilter.start_date &&
-  //         user.end_date <= userFilter.end_date) &&
-  //       (user.age >= userFilter.start_age && user.age <= userFilter.end_age)
-  //     );
-  //   }
-  //   if (
-  //     userFilter.destinationAdd &&
-  //     userFilter.locationAdd &&
-  //     userFilter.start_date &&
-  //     userFilter.end_date &&
-  //     userFilter.start_age &&
-  //     userFilter.end_age
-  //   )
-
-  // }
 
   render() {
     const {
@@ -304,7 +267,6 @@ class AllBuddies extends Component {
     console.log("this is state ", this.state);
     console.log("userfilters", userFilter);
 
-    // console.log("address in state: ", address)
     const { ages } = this;
 
     if (submitted) {
@@ -327,22 +289,17 @@ class AllBuddies extends Component {
     };
 
     return (
-      <div>
+      <div >
         <div className="sidebar">
-          <h3>Filter</h3>
-          <br />
-          <form>
-            <div>
-              Please enter a destination:{" "}
+
+ 
+            <div className="destination" placeholder=" Please enter a destination">
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
                 inputProps={AddressInputProps}
               />
             </div>
-            <br />
-            <div className-travel-calendar>
-              Please Select Travel Dates:
-              <br />
+            <div className-travel-calendar className="travelDates" placeholder=" Travel Dates">
               <DateRangePicker
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
@@ -360,28 +317,27 @@ class AllBuddies extends Component {
                 }}
               />
             </div>
-            <br />
-            <div>
-              Enter your location:{"  "}
+
+            <div className="location" placeholder="Your location">
               {/* <input type="text" /> */}
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
                 inputProps={AddressInputProps2}
               />
             </div>
-            <br />
-            <div>
-              Age range:
+
+            <div className="ages">
               <input
+              placeholder="From Age"
                 className="start_age"
                 type="number"
                 name="start_age"
                 value={start_age}
                 onChange={this.handleStartAgeInput}
                 required="required"
-              />{" "}
-              {"  "} to
+              />
               <input
+              placeholder="To Age"
                 className="end_age"
                 type="number"
                 name="end_age"
@@ -390,22 +346,25 @@ class AllBuddies extends Component {
                 required="required"
               />
             </div>
+						<div className="buttondiv">
             <input
               className="filterBtn"
               type="submit"
               value="Add Filters"
               onClick={this.renderFilteredUserPics}
             />
-          </form>
+        </div>
         </div>
 
         {filteredUsers ? (
-          <UserProfileCards allUsers={filteredUsers} user={user} />
-        ) : (
-          <div> no users found </div>
+
+          <UserProfileCards allUsers={filteredUsers} />
+        ) : ( 
+          this.renderMatchedBuddies()
         )}
         {/* TESTING BEGINS FOR MATCHING BUDDIES */}
         {/* {this.renderMatchedBuddies()} */}
+
         {/* TESTING ENDS FOR MATCHING BUDDIES */}
       </div>
     );

@@ -123,11 +123,7 @@ class OtherUser extends Component {
     axios
       .get("/users/allBffs")
       .then(res => {
-        console.log("gettings the user BFFS", res.data);
-
-        console.log("this is before the find ");
         if (res.data.find(n => n.bff === username)) {
-          console.log("went to the data");
           this.setState({
             bffle: !bffle
           });

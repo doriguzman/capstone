@@ -64,7 +64,7 @@ function userSurvey(req, res, next) {
 
 function getUser(req, res, next) {
   db
-    .one("SELECT * FROM users WHERE username=${username}", {
+    .one("SELECT username, email FROM users WHERE username=${username}", {
       username: req.user.username
     })
     .then(data => {
@@ -221,7 +221,7 @@ function removeTrip(req, res, next) {
   console.log("attempting to remove trip...");
   db
     .none("DELETE FROM trips WHERE username=${username} AND id=${id}", {
-      username: req.user.username,
+      username: req.params.username,
       id: req.params.id
     })
     .then(() => {
@@ -414,11 +414,11 @@ function addThread(req, res, next) {
       user: req.user.username,
       username: req.params.username
     })
-    .then(() =>
+    .then(() => {
       res
         .status(200)
         .send(`successfully added a new thread for ${req.user.username} and ${req.params.username}`)
-    )
+    })
     .catch(err => res.status(500).send(`could not add new thread`));
 }
 
@@ -461,7 +461,11 @@ function getMessages(req, res, next) {
       threadId: req.params.threadId
     })
     .then(data => res.status(200).send(data))
-    .catch(err => res.status(500).send("error fetching messages: ", err));
+    .catch(err => {
+      res
+        .status(statusCode >= 100 && statusCode < 600 ? err.code : 500)
+        .send("error fetching messages: ", err)
+    })
 }
 
 module.exports = {

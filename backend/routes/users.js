@@ -26,7 +26,7 @@ router.post("/addTrip", loginRequired, db.addTrip);
 router.post("/addMessage", loginRequired, db.addMessage);
 
 // DELETE routes
-router.delete("/removeTrip/:id", loginRequired, db.removeTrip); // removes a trip by trip ID
+router.delete("/removeTrip/:username/:id", loginRequired, db.removeTrip); // removes a trip by trip ID
 router.delete("/removeBff/:username", loginRequired, db.removeBff) // removes a BFF by username
 router.delete('/removeFlag/:username', loginRequired, db.removeFlag )
 // PUT routes
@@ -34,9 +34,19 @@ router.put("/edit/attributes", loginRequired, db.editAttributes)
 router.put("/edit/trip", loginRequired, db.editTrip)
 
 // User authentication routes
-router.post("/register", db.registerUser, passport.authenticate("local"), (req, res) => res.json(req.user.username));
-router.post("/login", passport.authenticate("local"), (req, res) =>
-  res.json({ id: req.user.id, username: req.user.username })
+router.post("/register", db.registerUser, passport.authenticate("local"), (req, res) => {
+  delete req.user.password_digest;
+  res.json({
+    id: req.user.id,
+    username: req.user.username
+  })
+});
+router.post("/login", passport.authenticate("local"), (req, res) => {
+  delete req.user.password_digest;
+  res.json({
+    id: req.user.id,
+    username: req.user.username
+  })}
 );
 router.get("/logout", loginRequired, db.logoutUser);
 

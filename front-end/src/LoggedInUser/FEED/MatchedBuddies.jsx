@@ -1,24 +1,54 @@
 import React, { Component } from "react";
 import axios from 'axios';
 
+import UserProfileCards from "./UserProfileCards";
+
 // Child component of AllBuddies
 class MatchedBuddies extends Component {
   constructor(props) {
 		super(props); // user (has id and username), allUsers
+		this.getAllUsers();
+		console.log('goodbye cruel world', this.props.allUsers);
     this.state = {
+			allUsers: [],
 			myTrips: [],
 			allUsersTrips: [],
 			allUsersAttributes: [],
+			usersNoTrips: [],
+			threads: []
     };
 	}
 
-	componentWillMount() {
+	getAllUsers = () => {
+		axios
+			.get("/users/getPics")
+			.then(response => {
+				const filteredUsers = response.data.filter(
+					user => user.username !== this.props.user.username
+				);
+				this.setState({
+					allUsers: filteredUsers
+				});
+			})
+			.then(() => {
+				this.getAllThreads();
+			})
+			.catch(err => {
+				console.log(err);
+				this.setState({
+					errorMsg: "Sorry, there's something wrong with your feed."
+				});
+			})
+	}
+
+	componentDidMount() {
 		axios // gets trips for active user
 			.get(`/users/allTrips/${this.props.user.username}`)
 			.then(res => {
 				this.setState({ myTrips: res.data[0] })
 			})
 			.catch(err => console.log("Error retrieving trips for user.", err));
+
 		axios // gets trips for all users minus active user
 			.get("/users/getAllTrips")
 			.then(res => {
@@ -26,20 +56,74 @@ class MatchedBuddies extends Component {
 			})
 			.catch(err => console.log("Error retrieving all the trips."))
 
-		// this.checkDestination();
-
 		axios // gets attributes for all users minus active users
 			.get("/users/allUsersAttributes")
 			.then(res => {
 				this.setState({ allUsersAttributes: res.data })
 			})
+			.then(() => {
+				this.matchingAlgorithm();
+			})
+			.then(() => {
+				this.sortByPoints()
+			})
 			.catch(err => console.log("Error retrieving all User attributes."))
 	}
+	
+		//threads is an array of thread object e.g [{id, usera, userb}]
+		// ----------- THREADS ----------- //
+	getAllThreads = () => {
+		axios
+			.get("/users/getAllThreads")
+			.then(res => {
+				this.setState({
+					threads: res.data
+				})
+			})
+			.then(() => {
+				console.log('inside then statement', this.state.allUsers);
+				// console.log("youre in the second then statement. all users: ", this.props.allUsers)
+				this.state.allUsers.map(user => {
+					// console.log(this.state.threads, user.username, 'bye world')
+					const foundThread = this.findThreadByUsername(this.state.threads, user.username)
 
+					if (!foundThread) {
+						console.log('i am small')
+						this.createThread(user.username)
+					}
+				})
+			})
+			.catch(err => console.log("Error retrieving all threads in UserProfileCards."))
+	}
+
+
+
+	findThreadByUsername = (threads, username) => {
+		const foundThread = threads.find(thread => {
+			return ( thread.user_b === username || thread.user_a === username );
+		})
+		return foundThread
+	}
+
+	createThread = (username) => {
+		// let threadFound = this.findThreadByUsername(this.state.threads, username)
+
+		// if (!threadFound) {
+			axios
+				.get(`/users/addThread/${username}`)
+				.then(() => console.log(`Thread added for ${username}`))
+				// .then(() => {
+				// 	this.getAllThreads()
+				// })
+				.catch(err => console.log("Error adding new thread."))
+		// }
+	}
+
+	// Matching Begins 
 	matchingAlgorithm = () => {
 		const { myTrips, allUsersTrips, allUsersAttributes } = this.state;
 
-		allUsersTrips.forEach(tripObj => {
+		const newTrips = allUsersTrips.map(tripObj => {
 			// Give points for same trip destination
 			if (myTrips) {
 				if (tripObj.destination === myTrips.destination) {
@@ -121,27 +205,57 @@ class MatchedBuddies extends Component {
           }
 				}
 			})
+
+		return tripObj
+		})
+
+		this.setState({
+			allUsersTrips: newTrips
 		})
 	}
 
-	componentDidUpdate() {
-		this.matchingAlgorithm();
+	sortByPoints = () => {
+		let sorted = this.state.allUsersTrips.sort((a, b) => a.points - b.points)
+
+		this.setState({
+			allUsersTrips: sorted
+		})
+	}	
+
+	filterOutUsersWithTrips = (usersArr) => {
+		const { allUsers } = this.props;
+		const { allUsersTrips } = this.state;
+		const tripUsernames = allUsersTrips.map(user => user.username)
+		console.log(usersArr, 'what am i?')
+		const noTrips = usersArr.filter(user => {
+			return !tripUsernames.includes(user.username)
+		})
+
+		this.setState({
+			usersNoTrips: noTrips
+		})
+	}
+
+	componentWillReceiveProps() {
+		// this.getAllThreads()
+		// console.log('am i running three times?')
+		this.filterOutUsersWithTrips(this.state.allUsers)
 	}
 
   render() {
-		const { myTrips, allUsersTrips, allUsersAttributes } = this.state;
+		const { myTrips, allUsersTrips, allUsersAttributes, usersNoTrips } = this.state;
 		const { user, allUsers } = this.props;
 
-		console.log("ALL USER TRIPS: ", allUsersTrips)
-		
+		console.log(this.state.threads)
+		console.log('allUserTrips', allUsersTrips)
+		console.log('usersnoTrips', usersNoTrips)
+
     return (
       <div>
-        <h1>Matched Buddies Testing Starts Here</h1>
-				{this.state.myTrips
-					? "matched buddies"// HEY YOU -- CHANGE THIS
-					: "return all buddies" // THIS TOO!
-				}
-				<h1>Matched Buddies Testing Ends Here</h1>
+        <h3 className="matches-header">People with trips</h3>
+					<UserProfileCards allUsers={allUsersTrips} forRealUsers={allUsers}/>
+				<h3 className="matches-header">People without trips</h3>
+					<UserProfileCards allUsers={usersNoTrips} />
       </div>
     );
   }
