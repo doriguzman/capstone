@@ -70,6 +70,8 @@ CREATE TABLE threads (
     user_b VARCHAR REFERENCES users(username)
 );
 
+CREATE UNIQUE INDEX threads_user_a_user_b_idx ON threads (user_a, user_b);
+
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     username VARCHAR REFERENCES users(username),
