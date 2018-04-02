@@ -169,7 +169,7 @@ class UserProfile extends React.Component {
       openTrips, 
       pastTrips
     } = this.state;
-
+console.log('active user ' , activeUser)
     return (
       <div className="userProfile">
         <div>
@@ -231,7 +231,7 @@ class UserProfile extends React.Component {
               
             <h2> Current Trips</h2>
               {openTrips
-                ? <ListedTrips trips={openTrips} />
+                ? <ListedTrips trips={openTrips} activeUser={activeUser}/>
                 : ""}
               {activeUser ? <button onClick={this.handleClickAddTrip}>Add Trips</button> :''}
 

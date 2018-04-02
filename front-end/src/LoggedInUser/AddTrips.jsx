@@ -145,7 +145,7 @@ class AddTrips extends React.Component {
       message,
       todos,
       username,
-      submitted
+      submitted, startDate, endDate, address
     } = this.state;
     const { attributes } = this;
     console.log(this.state);
@@ -252,15 +252,22 @@ class AddTrips extends React.Component {
             />
           </div>
           <br />
+         {startDate &&endDate && <address></address> ? <input
+            className="companionBtn"
+            type="submit"
+            value="Add trip!"
+            onClick={this.renderSurvey}
+          /> : 
           <input
             className="companionBtn"
             type="submit"
             value="Add trip!"
             onClick={this.renderSurvey}
-          />
+            disabled
+          />}
         </form>
 
-        {message ? <Redirect to={`/users/me/${username}`} /> : ""}
+        {message? <Redirect to={`/users/me/${username}`} /> : ""}
       </div>
     );
   }
