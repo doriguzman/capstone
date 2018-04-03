@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import logo from "./Images/logo.svg";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
-import "./App.css";
-import "./index.css";
+import "./Stylesheets/App.css";
 import "./Stylesheets/Navbar.css";
 import "./Stylesheets/Feed.css";
 
@@ -196,16 +195,29 @@ class App extends React.Component {
         {/* NAV BAR GOES HERE */}
 
         <div className="top-nav-bar">
-          <div className="top-nav-bar-left"><Link to ='/users/feed'> <img src="https://image.ibb.co/fLe2h7/logo_Smallest.png" alt="feathers logo" /> </Link></div>
-          <div className="top-nav-bar-left2"><Link to ='/users/feed'><img src="https://image.ibb.co/g0rb9n/feathers_Smallest.png" alt="drift togeather" /> </Link></div>
-          <div className='top-nav-bar-right'>
+          <div className="top-nav-bar-left">
+            <Link to ='/users/feed'>
+              <img src="https://image.ibb.co/fLe2h7/logo_Smallest.png" alt="feathers logo" />
+            </Link> 
+          </div>
+          {/* <div className="top-nav-bar-left2">
+            <Link to ='/users/feed'>
+              <img src="https://image.ibb.co/g0rb9n/feathers_Smallest.png" alt="drift togeather" />
+            </Link>
+          </div> */}
+          <div className="feathers">
+            <Link to ='/users/feed'>
+              feathers
+            </Link>
+          </div>
 
-          {user ? <Link to ='/users/feed'>Feed</Link> : <Link to ='/users/register'>Register</Link>} {' '}|{' '}
-          {user ? <Link to ='/users/me/bffs'>BFFs |</Link> : <Link to ='/users/login'>Log In</Link>} {' '}
-          {user ? <Link to='/users/messages'>Messages |</Link> : ""} {" "}
-          {user && !username ? <Link to= {`/users/me/${user.username}`}>Profile |</Link> : ''} {' '}{' '}
-          {username ? <Link to= {`/users/me/${username}`}>Profile |</Link> : ''} {' '}{' '}
-          {user ? <Link to='/users/logout'>Logout</Link>:''}
+          <div className='top-nav-bar-right'>
+            {user ? <Link to ='/users/feed'>Feed</Link> : <Link to ='/users/register'>Register</Link>} {' '}{' '}
+            {user ? <Link to ='/users/me/bffs'>BFFs </Link> : <Link to ='/users/login'>Log In</Link>} {' '}
+            {user ? <Link to='/users/messages'>Messages </Link> : ""} {" "}
+            {user && !username ? <Link to= {`/users/me/${user.username}`}>Profile </Link> : ''} {' '}{' '}
+            {username ? <Link to= {`/users/me/${username}`}>Profile </Link> : ''} {' '}{' '}
+            {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 
 
            </div>
@@ -236,12 +248,9 @@ class App extends React.Component {
         </div>
         <div>
         <footer className="footer">
-          <a href="http://localhost:3000/users/aboutus">About Us |</a>
- 
-          <a href="http://localhost:3000/users/terms">Terms and Disclaimer |</a>
-
-          <a href="http://localhost:3000/users/beforeyoufloat">Before You Float |</a>
-
+          <a href="http://localhost:3000/users/aboutus">About Us </a>·{" "}
+          <a href="http://localhost:3000/users/terms">Terms & Disclaimer </a>·{" "}
+          <a href="http://localhost:3000/users/beforeyoufloat">Before You Float </a>·{" "}
           <a href="http://localhost:3000/users/faq">FAQ</a>
           </footer>
           </div>

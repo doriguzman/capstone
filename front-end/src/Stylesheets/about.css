@@ -1,0 +1,36 @@
+/* Styling guidelines for About Us page */
+@import url("https://fonts.googleapis.com/css?family=Dancing+Script");
+
+.info {
+  width: 70%;
+  margin: 0 auto;
+  background-color: #F2F2F2;
+  text-align: left;
+}
+
+.header-h2 {
+  color: rgb(255, 95, 106);
+  text-align: center;
+  /* padding: 10px; */
+}
+
+.content {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.p {
+  line-height: 1.2em;
+}
+
+.features {
+  padding-left: 2em;
+}
+
+.join-us {
+  color: whitesmoke;
+}
+
+.dancing {
+  font-family: "Dancing Script", serif;
+}

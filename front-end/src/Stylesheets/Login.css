@@ -1,209 +1,184 @@
 /*
-This handles not only the login css but also the register css
+Guidelines for Register and Login
 */
 
-.register-survey-container{
-    background-color: white;
-    padding: 1em;
-    opacity: .9;
-    border: 1px solid rgba(2, 45, 65, 0.5);
-    border-radius: 0px 0px 5px 5px;
-  }
-
-  .register-user-container{
-    background-color: white;
-    border-radius: 0px 0px 5px 5px;
-    padding: 1em;
-    opacity: .9;
-    border: 1px solid rgba(2, 45, 65, 0.5);
-    height: 700px;
-    background-image:  
-    url("../Images/frontPage.gif");
-    background-repeat: no-repeat;
-    background-size:     cover;                   
-    background-position: center center;  
-  }
-
-  .login-user-container{
-    padding: 1em;
-    opacity: .9;
-    border: 1px solid rgba(2, 45, 65, 0.5);
-    background-color: white;
-    border-radius: 0px 0px 5px 5px;
-    height: 700px;
-    background-image:  
-    url("../Images/frontPage.gif");
-    background-repeat: no-repeat;
-    background-size:     cover;                   
-    background-position: center center;  
-  }
-
-  .surveyBtn{
-    background-color: #FE424D;
-    color: #DAECF3;
-    padding: 1px;
-    margin: 7px 7px 7px 7px;
-    opacity: 0.9; 
-    border: 10px solid #DAECF3;
-    border-radius: 5px;
-    font-size: 15px;
-  }
+@import url("https://fonts.googleapis.com/css?family=Didact+Gothic");
 
 
-#navLogoName{
-    color: #022D41;
-    text-align: center;
-    font-family: 'Libre Baskerville', serif;
-    text-shadow: 0px 2px 3px rgb(255, 255, 255),
-    0px 4px 13px rgba(0,0,0,0.1),
-    0px 9px 23px rgba(0,0,0,0.1);
+.register-survey-container {
+  background-color: #e6e6fa;
+  padding: 1em;
+  opacity: 0.9;
 }
 
-.sitefont{
-    color: #022D41;
-    text-align: center;
+.register-user-container {
+  padding: 1em;
+  opacity: 0.9;
+  height: 700px;
+  background-image: url("../Images/frontPage.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+	background-position: center center;
 }
 
-.login-box{
-    justify-content: space-around;
-    display: flex;
-    flex-wrap: nowrap;
-}
-.registerBox{
-    justify-content: space-around;
-    display: flex;
-    flex-wrap: nowrap;
+.new-user-form {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
 
-
-.usernameBox{
-    padding: 5px;
-    margin: 7px 7px 7px 7px; 
-    opacity: 0.9; 
-    border: 10px solid #DAECF3;
-    border-radius: 5px;
-    font-size: 16px;
-    width: 25%;  
-    height: 25px; 
+.login-user-container {
+  padding: 1em;
+  opacity: 0.9;
+  background-color: white;
+  border-radius: 0px 0px 5px 5px;
+  height: 700px;
+  background-image: url("../Images/frontPage.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+	background-position: center center;
+	text-align: center;
+	font-family: "Didact Gothic", sans-serif;
 }
 
-.emailBox {
-    padding: 5px;
-    margin: 7px 7px 7px 7px; 
-    opacity: 0.9; 
-    border: 10px solid #DAECF3;
-    border-radius: 5px;
-    font-size: 16px;
-    width: 20%;  
-    height: 25px; 
-
+.surveyBtn {
+	background-color: #E6E6FA;
+  padding: 1px;
+  margin: 7px 7px 7px 7px;
+  opacity: 0.9;
+  border: 10px solid #daecf3;
+  border-radius: 5px;
+  font-size: 15px;
 }
 
-.passwordBox{
-    padding: 5px;
-    margin: 7px 7px 7px 7px;
-    opacity: 0.9; 
-    border: 10px solid #DAECF3;
-    border-radius: 5px;
-    font-size: 16px;
-    width: 20%;  
-    height: 25px; 
-
+#navLogoName {
+  color: #000;
+  text-align: center;
+	text-shadow: 0px 2px 3px rgb(255, 255, 255),
+			 				 0px 4px 13px rgba(0, 0, 0, 0.1),
+  						 0px 9px 23px rgba(0, 0, 0, 0.1);
 }
 
-.loginBtn{
-    background-color: #FE424D;
-    color: #DAECF3;
-    padding: 5px;
-    margin: 10px 7px 11px 7px;
-    opacity: 0.9; 
-    border: 10px solid #DAECF3;
-    border-radius: 5px;
-    font-size: 16px;
-  }
+.sitefont {
+  text-align: center;
+}
 
-  .smaller-box{
-    color: #022D41;
-    font-size: 16px;
-    text-align: center;
-    font-family: 'Libre Baskerville', serif;
-    opacity: 0.9;
-    border-radius: 5px;
-  }
-  .smaller-box span{
-    background-color: #DAECF3;
-  }
+.login-box,
+.registerBox {
+  justify-content: space-around;
+  display: flex;
+  flex-wrap: nowrap;
+}
 
-  
+.usernameBox,
+.emailBox,
+.passwordBox {
+  padding: 5px;
+  margin: 7px;
+  opacity: 0.85;
+  font-size: 16px;
+  width: 30%;
+	height: 25px;
+	border-top: 1px solid white;
+	border-right: 1px solid white;
+	border-left: 1px solid white;
+	border-bottom: 5px solid #E6E6FA;
+	text-align: center;
+}
+.usernameBox:hover,
+.emailBox:hover, 
+.passwordBox:hover {
+	border-bottom: 5px solid black;
+}
+
+.loginBtn {
+  background-color: #e6e6fa;
+  color: #000;
+  padding: 8px;
+  margin: 7px;
+  opacity: 0.9;
+	font-size: 16px;
+	width: auto;
+	border: 1px solid #E6E6FA;
+}
+.loginBtn:hover {
+	border: 1px solid #000;
+}
+
+.smaller-box {
+  color: #000;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 5px;
+}
+.smaller-box span {
+  background-color: #e6e6fa;
+  opacity: 0.8;
+  padding: 10px;
+}
+
+
+/* ----- Media Queries ------ */
 @media screen and (max-width: 932px) {
-    .register-user-container{
-        height: 600px;  
-      }
-      .login-user-container{
-        height: 600px;  
-      }
-      .usernameBox{
-        width: 80%;
-    }
-    .emailBox{
-        width:80%;
-    }
-    .passwordBox{
-        width:80%;
-    }
-    .loginBtn{
-        width:80%;
-    }
+  .register-user-container {
+    height: 600px;
+  }
+  .login-user-container {
+    height: 600px;
+  }
+	.usernameBox,
+	.emailBox,
+	.passwordBox,
+	.loginBtn {
+    width: 80%;
+  }
 }
 
 @media screen and (max-width: 632px) {
-    .register-user-container{
-        height: 550px;  
-      }
-      .login-user-container{
-        height: 550px;  
-      }
-      .registerBox{
-        justify-content: space-around;
-        display: flex;
-        flex-direction: column;
-    }
-    .usernameBox{
-        width: 80%;
-    }
-    .emailBox{
-        width:80%;
-    }
-    .passwordBox{
-        width:80%;
-    }
-    .loginBtn{
-        width:80%;
-    }
+  .register-user-container {
+    height: 550px;
+	}
+	.new-user-form {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+  .login-user-container {
+    height: 550px;
+  }
+  .registerBox {
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+  }
+	.usernameBox,
+	.emailBox,
+	.passwordBox {
+    width: 80%;
+  }
+  .loginBtn {
+    width: 50%;
+  }
 }
 
 @media screen and (max-width: 480px) {
-    .register-user-container{
-        height: 500px;  
-      }
-    .login-user-container{
-        height: 500px;  
-      }
-      form{
-        justify-content: space-around;
-        display: flex;
-        flex-direction: column;
-    }
-    .usernameBox{
-        width: 80%;
-    }
-    .emailBox{
-        width:80%;
-    }
-    .passwordBox{
-        width:80%;
-    }
-    .loginBtn{
-        width:80%;
-    }
+	.register-user-container,
+	.login-user-container {
+		height: 500px;
+  }
+  form {
+    justify-content: space-around;
+    display: flex;
+		flex-direction: column;
+		align-items: center;
+  }
+	.usernameBox,
+	.emailBox,
+	.passwordBox, {
+    width: 80%;
+  }
+  .loginBtn {
+    width: 50%;
+  }
 }

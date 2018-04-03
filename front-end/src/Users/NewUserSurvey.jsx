@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import MatchedBuddies from "../LoggedInUser/FEED/MatchedBuddies";
-import "../App.css";
+import "../Stylesheets/App.css";
 import "../Stylesheets/Navbar.css";
 import "../Stylesheets/Login.css";
 import PlacesAutocomplete, {

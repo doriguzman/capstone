@@ -81,7 +81,6 @@ class User extends Component {
 
   render() {
     const { user, username, user_id } = this.state;
-    console.log("The profile ...... state :", this.state);
 
     return (
       <div>
