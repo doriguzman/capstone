@@ -5,10 +5,10 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // this is the default style sheet for react-tabs
 import "react-tabs/style/react-tabs.css";
 import AddTrips from "./AddTrips";
-import ListedTrips from "./ListedTrips";
+// import ListedTrips from "./ListedTrips";
 import "../Stylesheets/otherUser.css";
 import GeneralListedTrips from "./GeneralListedTrips";
-import '../index.css'
+// import '../index.css'
 
 class OtherUser extends Component {
   constructor(props) {

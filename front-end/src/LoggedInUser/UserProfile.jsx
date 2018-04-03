@@ -22,6 +22,7 @@ import MyListedTrips from './MyListedTrips'
 //   getLatLng
 // } from "react-places-autocomplete";
 
+import "../Stylesheets/userProfile.css";
 import '../Stylesheets/AddTrips.css'
 import BucketList from './BucketList'
 
@@ -175,7 +176,6 @@ class UserProfile extends React.Component {
   }
 
 
-
   componentWillMount() {
     this.fixUser();
     this.getUserTrips();
@@ -261,8 +261,7 @@ class UserProfile extends React.Component {
       pastTrips, bucketListTodos, startDate, endDate, address, bucketlist
     } = this.state;
 
-    console.log(this.state)
-    console.log(username , 'this is the username')
+    
     const AddressInputProps = {
       value: this.state.address,
       onChange: this.inputChange
@@ -273,19 +272,18 @@ class UserProfile extends React.Component {
       input: "search-input",
       autocompleteContainer: "autocomplete-container"
     };
-console.log('active user ' , activeUser)
+    
     return (
       <div className="userProfile">
-        <div>
-          <img src={userImageURL} className="pic" />
-        </div>
-        <div>
-          <div>
-            {first_name}, {age}
+        <div className="blurb">
+          <div className="img-container">
+            <img src={userImageURL} className="profile-pic" />
           </div>
-
-          <div>@{username}</div>
-          <div>{my_location}</div>
+          <div className="general-info">
+            <span className="my-name">{first_name}, {age}</span>
+            <span className="my-username">@{username}</span>
+            <span className="my-location">{my_location}</span>
+          </div>
         </div>
         <Tabs>
           <TabList>

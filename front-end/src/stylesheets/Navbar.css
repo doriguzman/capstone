@@ -26,8 +26,8 @@
   border-bottom: 10px solid #E6E6FA;
 }
 .top-nav-bar-icon {
-  height: 45%;
-  width: 45%;
+  height: 50%;
+  width: 50%;
 }
 
 .top-nav-bar-left {
@@ -39,11 +39,12 @@
 }
 .feathers {
   font-family: "Dancing Script", serif;
-  font-size: 1.5em;
+  font-size: 1.6em;
+  padding-top: 0;
 }
 
 .top-nav-bar-right {
-  color: #daecf3;
+
   margin-left: auto;
 }
 
