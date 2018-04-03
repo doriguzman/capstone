@@ -8,6 +8,7 @@ import "react-tabs/style/react-tabs.css";
 import AddTrips from "./AddTrips";
 import GeneralListedTrips from "./GeneralListedTrips";
 import '../index.css'
+import BucketList from "./BucketList";
 
 class OtherUser extends Component {
   constructor(props) {
@@ -248,6 +249,7 @@ class OtherUser extends Component {
     console.log("THE STATE IS", this.state);
     console.log("USER_id IS ", user_id);
     console.log(this.state);
+    console.log(' NEEDING THE USERNAME', username)
     // console.log('active user is', this.state.me )
     console.log(
       "You (",
@@ -318,6 +320,7 @@ class OtherUser extends Component {
           <TabList>
             <Tab>About</Tab>
             <Tab>Trips</Tab>
+            <Tab>BucketList</Tab>
           </TabList>
           <TabPanel>
             <div>
@@ -368,6 +371,10 @@ class OtherUser extends Component {
               )}
             </div>
           </TabPanel>
+          <TabPanel>
+
+              <BucketList username={username}/>
+            </TabPanel>
         </Tabs>
       </div>
     );

@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import "../Stylesheets/messages.css";
+import openSocket from 'socket.io-client'
+
 
 class Messages extends Component {
   constructor(props) {
     super(props);
+    const socket =openSocket('http://localhost:3001');
+    socket.emit('first shout!');
 
     this.state = {
       threads: [],
@@ -14,6 +18,7 @@ class Messages extends Component {
       activeThreadId: "",
       messages: [],
       newMessage: ""
+      
     };
 	}
 
@@ -208,9 +213,8 @@ class Messages extends Component {
       </div>
 		);      
 		
-		
 
   }
-}
 
+}
 export default Messages;
