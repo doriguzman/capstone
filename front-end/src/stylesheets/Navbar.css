@@ -48,6 +48,7 @@
 
 .top-nav-bar a {
   color: #E6E6FA;
+  margin-right: 10px;
 }
 .top-nav-bar a:hover {
   color: #000;

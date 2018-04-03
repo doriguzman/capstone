@@ -9,7 +9,8 @@
 }
 
 .header-h2 {
-  color: rgb(255, 95, 106);
+  /* color: rgb(255, 95, 106); */
+  color: rgb(66, 163, 253);
   text-align: center;
   /* padding: 10px; */
 }

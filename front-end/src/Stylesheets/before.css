@@ -1,4 +1,12 @@
 /* ------ Guidelines for Before page ------ */
+    /* ------ Color Scheme ------
+        000000 -- black
+        FFFCF9 -- offwhite
+        F2F2F2 -- light grey
+        1B4CFE -- royal blue
+        E6E6FA -- light lavender
+        rgb(66, 163, 253) -- twitter blueish
+    ------ End Color Scheme------ */
 
 @import url('https://fonts.googleapis.com/css?family=Dancing+Script');
 
@@ -9,14 +17,6 @@
 
 .dancing {
     font-family: "Dancing Script", serif;
-}
-
-.before-h2 {
-    /* color: rgb(255, 95, 106); */
-    color: rgb(66, 163, 253);
-    background-color: inherit;
-    margin: 0 auto;
-    padding: 10px;
 }
 
 .before-content {
