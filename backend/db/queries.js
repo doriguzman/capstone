@@ -249,12 +249,12 @@ function removeBucket(req, res, next) {
     .catch(err => res.status(500).send("error retrieving one bucketlist"));
 }
 
-
+//
 
 // -------- GET ALL TRIPS (minus logged in user) -------- //
 function getAllTrips(req, res, next) {
   db
-    .any("SELECT * FROM trips WHERE username!=${username}", 
+    .any('SELECT trips.user_id, trips.username, trips.destination, trips.start_date, trips.end_date, trips.early_bird, trips.night_owl, trips.clubbing, trips.spontaneous, trips.active, trips.sightseeing, trips.foodie, trips.relax, trips.nature, trips.extroverted, trips.smokes, trips.drinks, trips.todos,attributes.first_name, attributes.age, attributes.my_location, attributes.pic FROM trips JOIN attributes ON trips.user_id=attributes.user_id WHERE username!=${username}', 
       { username: req.user.username }
     )
     .then(data => res.status(200).send(data))

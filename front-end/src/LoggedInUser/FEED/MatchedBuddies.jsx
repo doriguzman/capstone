@@ -52,6 +52,8 @@ class MatchedBuddies extends Component {
 		axios // gets trips for all users minus active user
 			.get("/users/getAllTrips")
 			.then(res => {
+				console.log('I WANT TO SLEEEEEEP')
+				console.log(res.data , 'im trying to find the dori name stuff')
 				this.setState({ allUsersTrips: res.data })
 			})
 			.catch(err => console.log("Error retrieving all the trips."))
@@ -216,9 +218,10 @@ class MatchedBuddies extends Component {
 
 	sortByPoints = () => {
 		let sorted = this.state.allUsersTrips.sort((a, b) => a.points - b.points)
-
+console.log('we is getting osrted', sorted)
 		this.setState({
 			allUsersTrips: sorted
+
 		})
 	}	
 
@@ -226,7 +229,6 @@ class MatchedBuddies extends Component {
 		const { allUsers } = this.props;
 		const { allUsersTrips } = this.state;
 		const tripUsernames = allUsersTrips.map(user => user.username)
-		console.log(usersArr, 'what am i?')
 		const noTrips = usersArr.filter(user => {
 			return !tripUsernames.includes(user.username)
 		})
