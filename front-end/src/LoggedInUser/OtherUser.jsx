@@ -6,7 +6,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // this is the default style sheet for react-tabs
 import "react-tabs/style/react-tabs.css";
 import AddTrips from "./AddTrips";
-import ListedTrips from "./ListedTrips";
+import GeneralListedTrips from "./GeneralListedTrips";
 import '../index.css'
 
 class OtherUser extends Component {
@@ -356,12 +356,12 @@ class OtherUser extends Component {
           <TabPanel>
             <div>
               <h2> Current Trips</h2>
-              {openTrips ? <ListedTrips trips={openTrips} /> : ""}
+              {openTrips ? <GeneralListedTrips trips={openTrips} /> : ""}
 
               {pastTrips[0] ? (
                 <div>
                   <h2> Past Trips </h2>
-                  <ListedTrips trips={openTrips} />
+                  <GeneralListedTrips trips={openTrips} />
                 </div>
               ) : (
                 ""
