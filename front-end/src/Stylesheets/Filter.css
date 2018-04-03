@@ -1,3 +1,4 @@
+
     /* ------ Color Scheme ------
         000000 -- black
         FFFCF9 -- offwhite
@@ -6,6 +7,7 @@
         E6E6FA -- light lavender
         rgb(66, 163, 253) -- twitter blueish
     ------ End Color Scheme------ */
+
 .sidebar {
   height: 80px;
   background-color: rgba(66, 163, 253, 0.3);
@@ -22,6 +24,10 @@
   height: 25px;
   width:100%;
 
+}
+
+.pointer{
+  cursor: pointer;
 }
 
 .location{

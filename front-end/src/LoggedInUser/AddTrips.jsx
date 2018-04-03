@@ -252,7 +252,7 @@ class AddTrips extends React.Component {
             />
           </div>
           <br />
-         {startDate &&endDate && <address></address> ? <input
+         {startDate &&endDate && address ? <input
             className="companionBtn"
             type="submit"
             value="Add trip!"
