@@ -4,6 +4,7 @@
 #1AA6B7 light blue
 #022D41  dark blue
 */
+
 .sidebar {
   height: 80px;
   background-color: #022D41;
@@ -22,6 +23,15 @@
 
 }
 
+.filterText {
+  color: #DAECF3;
+  text-align: center;
+  background-color: #022D41;
+}
+
+.pointer{
+  cursor: pointer;
+}
 
 .location{
   grid-column: 1/2;
