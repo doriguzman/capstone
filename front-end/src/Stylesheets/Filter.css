@@ -4,13 +4,14 @@
 #1AA6B7 light blue
 #022D41  dark blue
 */
+
 .sidebar {
-  height: 80px;
+  height: 120px;
   background-color: #022D41;
   color: #DAECF3;
   opacity: .9;
   display: grid;
-  grid-template-columns:25% 25% 25% 15% 10%   ;
+  grid-template-columns:20% 20% 25% 15% 10% 10%   ;
   grid-template-rows: 100%;
   align-content: space-evenly
 
@@ -26,6 +27,15 @@
 
 }
 
+.filterText {
+  color: #DAECF3;
+  text-align: center;
+  background-color: #022D41;
+}
+
+.pointer{
+  cursor: pointer;
+}
 
 .location{
   grid-column: 1;
@@ -35,7 +45,7 @@
   /* height:35px */
   
   align-self: center;
-  margin-left: 70px
+  margin-left: 40px
 }
 
 .destination {
@@ -44,7 +54,7 @@
   width: 200px;
   /* width: 30%; */
   align-self: center;
-  margin-left: 35px
+  margin-left: 20px
 
 }
 
@@ -63,12 +73,15 @@
   padding: 2px 5px 6px;
 } */
 
-.search-input{
+/* .search-input{
   margin-top:5px
-}
+} */
 .DateInput_input{
-  padding: 4px 6px 6px;
+  padding: 4px 7px 10px;
   -webkit-appearance: none;
+}
+.DateInput_input DateInput_input_1{
+  padding-right:0
 }
 .DateRangePickerInput{
   width:100%
@@ -79,19 +92,22 @@
   grid-row: 1;
   /* width: 60%; */
   align-self: center;
+  margin-left: 10px;
+ 
+
 }
 
 .cursor {
   cursor: pointer;
 }
 
-.buttondiv {
+/* .buttondiv {
   grid-column: 5;
-  grid-row: 1/2;
-  align-self: center;
-}
+  grid-row: 1;
+  align-self: center; 
+} */
 
-.filterBtn{
+.applyfilterBtn{
   background-color: #FE424D;
   color: #DAECF3;
   opacity: 0.9; 
@@ -99,19 +115,23 @@
   /* grid-column: 5/6;
   grid-row: 1; */
   padding-top:1%;
-
-  
+  grid-column: 5;
+}
+.clearfilterBtn {
+  grid-column: 6;
+  margin-right: 40px
 }
 
 
 .start_age{
-  height:25px;
+  height:35px;
   width: 30%;
+
   /* margin: 2%; */
 }
 
 .end_age{
- height:25px;
+ height:35px;
  width: 40%;
  /* margin: 2%; */
 }

@@ -19,7 +19,6 @@ import PlacesAutocomplete, {
 import dateFormat from "dateformat";
 import "../../Stylesheets/Filter.css";
 
-
 const isThereOverlap = (sdate1, edate1, sdate2, edate2) => {
   const minOfDates = (ed1, ed2) => (ed1 < ed2 ? ed1 : ed2);
   const maxOfDates = (sd1, sd2) => (sd1 > sd2 ? sd1 : sd2);
@@ -31,6 +30,7 @@ const isThereOverlap = (sdate1, edate1, sdate2, edate2) => {
   return msToDays(msOverlap) >= 1;
 };
 
+
 class AllBuddies extends Component {
   constructor(props) {
     super(props);
@@ -38,12 +38,13 @@ class AllBuddies extends Component {
     this.state = {
       user: this.props.user,
       username: this.props.username,
-      allUsers: [],
+			allUsers: [],
+			holdAllUsers: [],
       dateNow: new Date(),
       userTrips: "",
       mostRecentUserTrip: "",
       errorMsg: "",
-      
+      filterClick: false,
       //starting states for the filter functionality
       userFilter: {
         destinationAdd: "",
@@ -52,7 +53,7 @@ class AllBuddies extends Component {
         end_age: "",
         start_date: "",
         end_date: ""
-      },
+      }
       // start_date: "",
       // end_date: "",
       // address: "",
@@ -61,6 +62,7 @@ class AllBuddies extends Component {
       // end_age: ""
     };
   }
+
 
   // flagUser = () => {
   //   //  e.preventDefault()
@@ -84,19 +86,18 @@ class AllBuddies extends Component {
   //    console.log("Bitch you is flagged: ", this.state.flagged);
   // };
 
-
-
   getUserPics = () => {
     axios
       .get("/users/getPics")
       .then(response => {
-        console.log('USER PICSSSSSS, ' ,response.data)
+        console.log("USER PICSSSSSS, ", response.data);
         const filteredUsers = response.data.filter(
           user => user.username !== this.state.username
         );
         console.log("filteredUsers", filteredUsers);
         this.setState({
-          allUsers: filteredUsers,
+					allUsers: filteredUsers,
+					holdAllUsers: filteredUsers
           // filteredUsers: filteredUsers
         });
       })
@@ -149,12 +150,19 @@ class AllBuddies extends Component {
     this.getUserTrips();
   }
 
+
   renderMatchedBuddies = () => {
-    console.log(this.state.allUsers, 'jesus take the wheel');
+    console.log(this.state.allUsers, "jesus take the wheel");
     return (
       <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
     );
-  };
+	};
+	
+	renderAfterClearFilter = () => {
+		return (
+      <MatchedBuddies user={this.props.user} allUsers={this.state.holdAllUsers} />
+    );
+	}
 
   //starting the filter functionality
   inputChange = destinationAdd => {
@@ -198,6 +206,25 @@ class AllBuddies extends Component {
     });
   };
 
+  handleFilterClick = e => {
+    const { filterClick } = this.state;
+    this.setState({
+      filterClick: !filterClick
+    });
+  };
+
+	handleClearFilter = e => {
+		const { filteredUsers, holdAllUsers } = this.state
+		this.setState({
+			filteredUsers: holdAllUsers,
+			locationAdd: "",
+			destinationAdd: "",
+			start_age: "",
+        end_age: "",
+        start_date: "",
+        end_date: ""
+		})
+	}
   renderFilteredUserPics = e => {
     e.preventDefault();
     console.log("submitting for filters");
@@ -225,7 +252,7 @@ class AllBuddies extends Component {
         matchArr.push(user.destination === userFilter.destinationAdd);
       }
       if (userFilter.locationAdd) {
-        console.log(matchArr, user.my_location, userFilter.locationAdd)
+        console.log(matchArr, user.my_location, userFilter.locationAdd);
         matchArr.push(user.my_location === userFilter.locationAdd);
       }
       if (userFilter.start_age) {
@@ -236,17 +263,14 @@ class AllBuddies extends Component {
       }
 
       return matchArr.every(elem => elem === true);
-
     });
 
     console.log("filtered users", filteredUsers);
     this.setState({
-      filteredUsers: filteredUsers
+			filteredUsers: filteredUsers,
     });
-  };
-
-
-
+	};
+	
   render() {
     const {
       allUsers,
@@ -256,6 +280,7 @@ class AllBuddies extends Component {
       start_date,
       end_date,
       submitted,
+      filterClick,
       destinationAdd,
       locationAdd,
       userFilter,
@@ -274,14 +299,14 @@ class AllBuddies extends Component {
     }
     const AddressInputProps = {
       value: this.state.destinationAdd,
-      onChange: this.inputChange,
-      placeholder:"Please add destination.."
+			onChange: this.inputChange,
+			placeholder: "Please enter a destination"
     };
 
     const AddressInputProps2 = {
       value: this.state.locationAdd,
-      onChange: this.inputChangeLoc,
-      placeholder:"Please add location.."
+			onChange: this.inputChangeLoc,
+			placeholder: "Please enter a location"
     };
 
     const addressCSSClasses = {
@@ -291,19 +316,24 @@ class AllBuddies extends Component {
     };
 
     return (
-      <div >
-        <div className="sidebar">
-          
- 
-            <div className="destination" placeholder="Please enter a destination">
-             
+      <div>
+        <h3 onClick={this.handleFilterClick} className="filterText"><span className="pointer">Filter</span></h3>
+        {filterClick ? (
+          <div className="sidebar">
+            <div
+              className="destination"
+            >
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
                 inputProps={AddressInputProps}
                 
               />
             </div>
-            <div className-travel-calendar className="travelDates" placeholder=" Travel Dates">
+            <div
+              className-travel-calendar
+              className="travelDates"
+              placeholder=" Travel Dates"
+            >
               <DateRangePicker
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
@@ -322,7 +352,7 @@ class AllBuddies extends Component {
               />
             </div>
 
-            <div className="location" placeholder="Your location">
+            <div className="location" >
               {/* <input type="text" /> */}
               
               <PlacesAutocomplete
@@ -333,7 +363,7 @@ class AllBuddies extends Component {
 
             <div className="ages">
               <input
-              placeholder="From Age"
+                placeholder="From Age"
                 className="start_age"
                 type="number"
                 name="start_age"
@@ -342,7 +372,7 @@ class AllBuddies extends Component {
                 required="required"
               />
               <input
-              placeholder="To Age"
+                placeholder="To Age"
                 className="end_age"
                 type="number"
                 name="end_age"
@@ -351,27 +381,38 @@ class AllBuddies extends Component {
                 required="required"
               />
             </div>
-
+            <div className="buttondiv">
+              <input
+                className="applyfilterBtn"
+                type="submit"
+                value="Apply Filters"
+                onClick={this.renderFilteredUserPics}
+              />
+            </div>
 						<div className="buttondiv">
-            <input
-              className="filterBtn"
-              type="submit"
-              value="Add Filters"
-              onClick={this.renderFilteredUserPics}
-            />
-        </div>
-        </div>
-
-        {filteredUsers ? (
-
-          <UserProfileCards allUsers={filteredUsers} />
-        ) : ( 
-          this.renderMatchedBuddies()
+              <input
+                className="clearfilterBtn"
+                type="submit"
+                value="Clear Filters"
+                onClick={this.handleClearFilter}
+              />
+            </div>
+          </div>
+        ) : (
+          ""
         )}
-        {/* TESTING BEGINS FOR MATCHING BUDDIES */}
-        {/* {this.renderMatchedBuddies()} */}
 
-        {/* TESTING ENDS FOR MATCHING BUDDIES */}
+        <div>
+          {filteredUsers ? (
+            <UserProfileCards allUsers={filteredUsers} />
+          ) : (
+            this.renderMatchedBuddies()
+          )}
+          {/* TESTING BEGINS FOR MATCHING BUDDIES */}
+          {/* {this.renderMatchedBuddies()} */}
+
+          {/* TESTING ENDS FOR MATCHING BUDDIES */}
+        </div>
       </div>
     );
   }
