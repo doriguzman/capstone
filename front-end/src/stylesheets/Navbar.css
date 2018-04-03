@@ -7,7 +7,7 @@ The top navigation bar..thats everywhere
     background-color: #FE424D;
     color: rgb(84, 138, 160);
     padding: 1em;
-    border-radius: 25px 25px 0px 0px;
+    /* border-radius: 25px 25px 0px 0px; */
     opacity: .9;
     border: 1px solid rgba(2, 45, 65, 0.5);
     font-size: 15px;

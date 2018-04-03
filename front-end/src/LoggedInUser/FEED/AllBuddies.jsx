@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserProfileCards from "./UserProfileCards";
-import FilterSidebar from "./FilterSidebar";
+// import FilterSidebar from "./FilterSidebar";
 import MatchedBuddies from "./MatchedBuddies";
 
 import DatePicker from "react-datepicker";
@@ -274,12 +274,14 @@ class AllBuddies extends Component {
     }
     const AddressInputProps = {
       value: this.state.destinationAdd,
-      onChange: this.inputChange
+      onChange: this.inputChange,
+      placeholder:"Please add destination.."
     };
 
     const AddressInputProps2 = {
       value: this.state.locationAdd,
-      onChange: this.inputChangeLoc
+      onChange: this.inputChangeLoc,
+      placeholder:"Please add location.."
     };
 
     const addressCSSClasses = {
@@ -291,12 +293,14 @@ class AllBuddies extends Component {
     return (
       <div >
         <div className="sidebar">
-
+          
  
-            <div className="destination" placeholder=" Please enter a destination">
+            <div className="destination" placeholder="Please enter a destination">
+             
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
                 inputProps={AddressInputProps}
+                
               />
             </div>
             <div className-travel-calendar className="travelDates" placeholder=" Travel Dates">
@@ -320,6 +324,7 @@ class AllBuddies extends Component {
 
             <div className="location" placeholder="Your location">
               {/* <input type="text" /> */}
+              
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
                 inputProps={AddressInputProps2}
@@ -346,6 +351,7 @@ class AllBuddies extends Component {
                 required="required"
               />
             </div>
+
 						<div className="buttondiv">
             <input
               className="filterBtn"
