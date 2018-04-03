@@ -312,7 +312,7 @@ console.log('active user ' , activeUser)
                   <b>As a traveler: </b>
                   <br />
                   <br /> I am an early bird:{" "}
-                  {this.state["early_bird"] ? "yes" : "no"} ,
+                  {this.state["early_bird"] ? "yes" : "no"},
                   <br /> A night owl: {this.state["night_owl"] ? "yes" : "no"},
                   <br /> Like clubbing: {this.state["clubbing"] ? "yes" : "no"},
                   <br /> I am spontaneous:{" "}
