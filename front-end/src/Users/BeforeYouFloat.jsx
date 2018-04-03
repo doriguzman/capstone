@@ -5,7 +5,7 @@ import "../Stylesheets/before.css"
 const BeforeYouFloat = () => {
   return (
     <div>
-      <h2 className="before-h2">Before you meet up with your travel partner </h2>
+      <h2>Before you meet up with your travel partner </h2>
       
       <div className="before-content">
         <p className="before-p">

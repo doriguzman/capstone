@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "../Stylesheets/FAQ.css";
+import "../Stylesheets/disclaimer-and-FAQ.css";
 import "rc-collapse/assets/index.css";
 // import 'string.prototype.repeat';
 import Collapse, { Panel } from "rc-collapse";
@@ -8,7 +8,7 @@ import Collapse, { Panel } from "rc-collapse";
 const FAQ = () => {
   return (
     <div className="faq">
-      <h3>Feathers Basic Questions</h3>
+      <h2>Feathers Basic Questions</h2>
       <div>
         <Collapse>
           <Panel header="How do I create a Feathers Profile?">
