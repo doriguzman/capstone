@@ -358,6 +358,7 @@ class EditUserProfile extends Component {
                       type="checkbox"
                       name={value}
                       value={value}
+                      checked={this.state[value]}
                       onChange={this.handleCheckBoxChange}
                     />{" "}
                     {value}
