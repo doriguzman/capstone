@@ -116,12 +116,10 @@ class NewUser extends React.Component {
             <div className="register-user-container">
                 {/* nav bar goes here  */}
 
-            <h2 id="navLogoName"> D R I F T &nbsp;&nbsp;  T O G E T H E R </h2>
+            <h2 id="navLogoName"> Drift Together </h2>
                 <div className="registerBox" class="registerBox">
-
-                    <form onSubmit={this.submitForm}>
+                    <form onSubmit={this.submitForm} className="new-user-form">
                         <input
- 
                             className="usernameBox"
                             placeholder="Username"
                             type="text"
@@ -131,7 +129,6 @@ class NewUser extends React.Component {
                         />
                     
                         <input
-
                             className="emailBox"
                             placeholder="Email"
                             type="email"

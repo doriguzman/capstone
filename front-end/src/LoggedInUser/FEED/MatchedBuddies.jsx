@@ -246,15 +246,13 @@ class MatchedBuddies extends Component {
 		const { myTrips, allUsersTrips, allUsersAttributes, usersNoTrips } = this.state;
 		const { user, allUsers } = this.props;
 
-		console.log(this.state.threads)
-		console.log('allUserTrips', allUsersTrips)
-		console.log('usersnoTrips', usersNoTrips)
-
     return (
       <div>
-        <h3 className="matches-header">People with trips</h3>
+				<p className="matches-header">Other members are ranked from most to least compatible!</p>
+				<p className="matches-subheader">Click <a href="/users/faq">here</a> to find out more about how we match members.</p>
+        {/* <h3 className="matches-header">Your matches!</h3> */}
 					<UserProfileCards allUsers={allUsersTrips} forRealUsers={allUsers}/>
-				<h3 className="matches-header">People without trips</h3>
+				{/* <h3 className="matches-header">Everyone else</h3> */}
 					<UserProfileCards allUsers={usersNoTrips} />
       </div>
     );

@@ -177,11 +177,11 @@ console.log('active user ' , activeUser)
         </div>
         <div>
           <div>
-            Name: {first_name}, Age: {age}
+            {first_name}, {age}
           </div>
 
           <div>@{username}</div>
-          <div>Location: {my_location}</div>
+          <div>{my_location}</div>
         </div>
         <Tabs>
           <TabList>

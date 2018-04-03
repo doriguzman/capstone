@@ -1,12 +1,14 @@
-/* 
-#DAECF3 white
-#FE424D coral red
-#1AA6B7 light blue
-#022D41  dark blue
-*/
+    /* ------ Color Scheme ------
+        000000 -- black
+        FFFCF9 -- offwhite
+        F2F2F2 -- light grey
+        1B4CFE -- royal blue
+        E6E6FA -- light lavender
+        rgb(66, 163, 253) -- twitter blueish
+    ------ End Color Scheme------ */
 .sidebar {
   height: 80px;
-  background-color: #022D41;
+  background-color: rgba(66, 163, 253, 0.3);
   color: #DAECF3;
   opacity: .9;
   display: grid;
@@ -21,7 +23,6 @@
   width:100%;
 
 }
-
 
 .location{
   grid-column: 1/2;
@@ -62,9 +63,8 @@
 }
 
 .filterBtn{
-  background-color: #FE424D;
-  color: #DAECF3;
-  opacity: 0.9; 
+  background-color: #E6E6FA;
+  color: #000;
   align-self: end;
   grid-column: 4/5;
   grid-row: 2/3;
@@ -84,7 +84,7 @@
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: red;
+  color: #CCC;
   opacity: 1; /* Firefox */
 }
 

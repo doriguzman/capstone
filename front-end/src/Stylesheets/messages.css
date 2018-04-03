@@ -1,15 +1,20 @@
-
+    /* ------ Color Scheme ------
+        000000 -- black
+        FFFCF9 -- offwhite
+        F2F2F2 -- light grey
+        1B4CFE -- royal blue
+        E6E6FA -- light lavender
+        rgb(66, 163, 253) -- twitter blueish
+    ------ End Color Scheme------ */
 
 .messages-parent-container{
-    color: #022D41;
-
+    /* color: #022D41; */
     height: 600px;
     margin: 0 auto;
     padding: 10px;
     display: flex;
     flex-direction: column;
     background-color: white;
-    border: 1px solid rgba(2, 45, 65, 0.5);
 }
 
 .messages-header {
@@ -18,9 +23,9 @@
     left: 0;
     text-align: center;
     padding: 10px 0 10px 0;
-    color: #DAECF3;
-    background-color: #022D41;
-    box-shadow: 0 4px 5px -2px #022D41;
+    color: #777;
+    /* background-color: #022D41;
+    box-shadow: 0 4px 5px -2px #022D41; */
     margin-bottom: 10px;
 }
 
@@ -31,11 +36,11 @@
 }
 
 .messages-threads-list {
-    background-color: #022D41;
     width: 20%;
     height: fit-content;
     padding: 5px;
     color: #DAECF3;
+    border-right: 4px solid rgb(66, 163, 253);
 }
 .messages-single-thread {
     padding: 5px;
@@ -81,7 +86,7 @@
     margin-left: auto;
     padding: 5px;
     text-align: right;
-    background-color: rgba(26, 167, 183, 0.164);
+    background-color: #F2F2F2;
     border-radius: 10px;
 }
 
@@ -92,15 +97,15 @@
 .messages-submit {
     padding: 10px;
     font-size: 1rem;
-    background-color: #022D41;
-    color: #DAECF3;
-    border: 1px solid #022D41;
-    box-shadow: 0 4px 5px -2px #022D41;
+    background-color: #E6E6FA;
+    color: rgb(66, 163, 253);
+    border: 1px solid #E6E6FA;
+    box-shadow: 0 4px 5px -2px #000;
 }
 .messages-input:hover,
 .messages-submit:hover {
-    background-color: #1AA6B7;
-    color: #DAECF3;
+    background-color: #CCC;
+    color: #000;
 }
 .messages-input {
     width: 85%;
