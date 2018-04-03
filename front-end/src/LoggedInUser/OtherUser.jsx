@@ -88,6 +88,7 @@ class OtherUser extends Component {
       })
       .catch(err => {
         console.log(err);
+        console.log('its working')
       });
   };
 
