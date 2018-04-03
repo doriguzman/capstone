@@ -210,7 +210,7 @@ class App extends React.Component {
           </div>
 
           <div className='top-nav-bar-right'>
-            {/* {user ? <Link to ='/users/feed'>Feed</Link> : <Link to ='/users/register'>Register</Link>} {' '}{' '} */}
+            {user ? "" : <Link to ='/users/register'>Register</Link>} {' '}{' '}
             {user ? <Link to ='/users/me/bffs'>Faves </Link> : <Link to ='/users/login'>Log In</Link>} {' '}
             {user ? <Link to='/users/messages'>Messages </Link> : ""} {" "}
             {user && !username ? <Link to= {`/users/me/${user.username}`}>Profile </Link> : ''} {' '}{' '}

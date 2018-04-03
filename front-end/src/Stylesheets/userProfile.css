@@ -1,0 +1,51 @@
+/* ------ Guidelines for the logged in user's profile ----- */
+    /* ------ Color Scheme ------
+        000000 -- black
+        FFFCF9 -- offwhite
+        F2F2F2 -- light grey
+        1B4CFE -- royal blue
+        E6E6FA -- light lavender
+        rgb(66, 163, 253) -- twitter blueish
+    ------ End Color Scheme------ */
+
+/* ------ For the top portion of user profile ----- */
+.blurb {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    width: fit-content;
+    margin: 20px auto;
+    /* border-top: 4px solid #E6E6FA;
+    border-bottom: 4px solid #E6E6FA; */
+}
+
+.img-container {
+    height: fit-content;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile-pic {
+    height: 300px;
+    width: 300px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border: 0;
+}
+
+.general-info {
+    text-align: left;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.my-name {
+    font-size: 2em;
+    color: rgb(66, 163, 253);
+}
+.my-username {
+
+}
