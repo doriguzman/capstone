@@ -191,6 +191,7 @@ class BucketList extends React.Component {
     } else if (activeUser) {
       return (
         <div>
+          <h2> hiihihiihhhi</h2>
           Destination:{" "}
           <PlacesAutocomplete
             classNames={addressCSSClasses}
@@ -209,7 +210,7 @@ class BucketList extends React.Component {
             />
           </div>
           <br />
-          {startDate && endDate && address ? (
+          {address ? (
             <input
               className="companionBtn"
               type="submit"
