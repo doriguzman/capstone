@@ -18,6 +18,8 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
 import "../../Stylesheets/Filter.css";
+import Modal from "react-modal";
+import FilterModal from './FilterModal';
 
 const isThereOverlap = (sdate1, edate1, sdate2, edate2) => {
   const minOfDates = (ed1, ed2) => (ed1 < ed2 ? ed1 : ed2);
@@ -44,16 +46,17 @@ class AllBuddies extends Component {
       userTrips: "",
       mostRecentUserTrip: "",
       errorMsg: "",
-      filterClick: false,
+      // filterClick: false,
+      modalIsOpen: false,
       //starting states for the filter functionality
-      userFilter: {
-        destinationAdd: "",
-        locationAdd: "",
-        start_age: "",
-        end_age: "",
-        start_date: "",
-        end_date: ""
-      }
+      // userFilter: {
+      //   destinationAdd: "",
+      //   locationAdd: "",
+      //   start_age: "",
+      //   end_age: "",
+      //   start_date: "",
+      //   end_date: ""
+      // }
       // start_date: "",
       // end_date: "",
       // address: "",
@@ -63,7 +66,12 @@ class AllBuddies extends Component {
     };
   }
 
-
+  toggleModal = () => {
+    let { modalIsOpen } = this.state;
+    this.setState({
+      modalIsOpen: !modalIsOpen
+    })
+  }
   // flagUser = () => {
   //   //  e.preventDefault()
   //   this.setState({
@@ -165,161 +173,171 @@ class AllBuddies extends Component {
 	}
 
   //starting the filter functionality
-  inputChange = destinationAdd => {
-    console.log(destinationAdd);
-    const { userFilter } = this.state;
-    this.setState({
-      destinationAdd: destinationAdd,
-      // userFilter:[...userFilter, destinationAdd]
-      userFilter: { ...userFilter, destinationAdd: destinationAdd }
-    });
-  };
+  // inputChange = destinationAdd => {
+  //   console.log(destinationAdd);
+  //   const { userFilter } = this.state;
+  //   this.setState({
+  //     destinationAdd: destinationAdd,
+  //     // userFilter:[...userFilter, destinationAdd]
+  //     userFilter: { ...userFilter, destinationAdd: destinationAdd }
+  //   });
+  // };
 
-  inputChangeLoc = locationAdd => {
-    const { userFilter } = this.state;
-    console.log(locationAdd);
-    this.setState({
-      locationAdd: locationAdd,
-      userFilter: { ...userFilter, locationAdd: locationAdd }
-    });
-  };
+  // inputChangeLoc = locationAdd => {
+  //   const { userFilter } = this.state;
+  //   console.log(locationAdd);
+  //   this.setState({
+  //     locationAdd: locationAdd,
+  //     userFilter: { ...userFilter, locationAdd: locationAdd }
+  //   });
+  // };
 
-  handleStartAgeInput = e => {
-    const { userFilter, start_age } = this.state;
-    const newStartAge = e.target.value ? Number(e.target.value) : "";
-    this.setState({
-      start_age: newStartAge
-    });
-    this.setState({
-      userFilter: { ...userFilter, start_age: newStartAge }
-    });
-  };
+  // handleStartAgeInput = e => {
+  //   const { userFilter, start_age } = this.state;
+  //   const newStartAge = e.target.value ? Number(e.target.value) : "";
+  //   this.setState({
+  //     start_age: newStartAge
+  //   });
+  //   this.setState({
+  //     userFilter: { ...userFilter, start_age: newStartAge }
+  //   });
+  // };
 
-  handleEndAgeInput = e => {
-    const { userFilter, end_age } = this.state;
-    const newEndAge = e.target.value ? Number(e.target.value) : "";
-    this.setState({
-      end_age: newEndAge
-    });
-    this.setState({
-      userFilter: { ...userFilter, end_age: newEndAge }
-    });
-  };
+  // handleEndAgeInput = e => {
+  //   const { userFilter, end_age } = this.state;
+  //   const newEndAge = e.target.value ? Number(e.target.value) : "";
+  //   this.setState({
+  //     end_age: newEndAge
+  //   });
+  //   this.setState({
+  //     userFilter: { ...userFilter, end_age: newEndAge }
+  //   });
+  // };
 
-  handleFilterClick = e => {
-    const { filterClick } = this.state;
-    this.setState({
-      filterClick: !filterClick
-    });
-  };
+  // handleFilterClick = e => {
+  //   const { filterClick } = this.state;
+  //   this.setState({
+  //     filterClick: !filterClick
+  //   });
+  // };
 
-	handleClearFilter = e => {
-		const { filteredUsers, holdAllUsers } = this.state
-		this.setState({
-			filteredUsers: holdAllUsers,
-			locationAdd: "",
-			destinationAdd: "",
-			start_age: "",
-        end_age: "",
-        start_date: "",
-        end_date: ""
-		})
-	}
-  renderFilteredUserPics = e => {
-    e.preventDefault();
-    console.log("submitting for filters");
-    const { endDate, startDate, allUsers, userFilter, flagged } = this.state;
-    //have to set the state of the calendar dates in the survey (onClick)
+	// handleClearFilter = e => {
+	// 	const { filteredUsers, holdAllUsers } = this.state
+	// 	this.setState({
+	// 		filteredUsers: holdAllUsers,
+	// 		locationAdd: "",
+	// 		destinationAdd: "",
+	// 		start_age: "",
+  //       end_age: "",
+  //       start_date: "",
+  //       end_date: ""
+	// 	})
+	// }
+  // renderFilteredUserPics = e => {
+  //   e.preventDefault();
+  //   console.log("submitting for filters");
+  //   const { endDate, startDate, allUsers, userFilter, flagged } = this.state;
+  //   //have to set the state of the calendar dates in the survey (onClick)
 
-    console.log("submitting the survey for filter");
+  //   console.log("submitting the survey for filter");
 
-    const filteredUsers = allUsers.filter(user => {
-      let matchArr = [];
-      if (startDate && endDate) {
-        if (!user.start_date || !user.end_date) {
-          return false;
-        } else {
-          const matchingDates = isThereOverlap(
-            new Date(startDate._d),
-            new Date(endDate._d),
-            new Date(user.start_date),
-            new Date(user.end_date)
-          );
-          matchArr.push(matchingDates);
-        }
-      }
-      if (userFilter.destinationAdd) {
-        matchArr.push(user.destination === userFilter.destinationAdd);
-      }
-      if (userFilter.locationAdd) {
-        console.log(matchArr, user.my_location, userFilter.locationAdd);
-        matchArr.push(user.my_location === userFilter.locationAdd);
-      }
-      if (userFilter.start_age) {
-        matchArr.push(user.age >= userFilter.start_age);
-      }
-      if (userFilter.end_age) {
-        matchArr.push(user.age <= userFilter.end_age);
-      }
+  //   const filteredUsers = allUsers.filter(user => {
+  //     let matchArr = [];
+  //     if (startDate && endDate) {
+  //       if (!user.start_date || !user.end_date) {
+  //         return false;
+  //       } else {
+  //         const matchingDates = isThereOverlap(
+  //           new Date(startDate._d),
+  //           new Date(endDate._d),
+  //           new Date(user.start_date),
+  //           new Date(user.end_date)
+  //         );
+  //         matchArr.push(matchingDates);
+  //       }
+  //     }
+  //     if (userFilter.destinationAdd) {
+  //       matchArr.push(user.destination === userFilter.destinationAdd);
+  //     }
+  //     if (userFilter.locationAdd) {
+  //       console.log(matchArr, user.my_location, userFilter.locationAdd);
+  //       matchArr.push(user.my_location === userFilter.locationAdd);
+  //     }
+  //     if (userFilter.start_age) {
+  //       matchArr.push(user.age >= userFilter.start_age);
+  //     }
+  //     if (userFilter.end_age) {
+  //       matchArr.push(user.age <= userFilter.end_age);
+  //     }
 
-      return matchArr.every(elem => elem === true);
-    });
+  //     return matchArr.every(elem => elem === true);
+  //   });
 
-    console.log("filtered users", filteredUsers);
-    this.setState({
-			filteredUsers: filteredUsers,
-    });
-	};
+  //   console.log("filtered users", filteredUsers);
+  //   this.setState({
+	// 		filteredUsers: filteredUsers,
+  //   });
+	// };
 	
   render() {
     const {
+      modalIsOpen,
       allUsers,
       filteredUsers,
       user,
       flagged,
-      start_date,
-      end_date,
-      submitted,
-      filterClick,
-      destinationAdd,
-      locationAdd,
+      // start_date,
+      // end_date,
+      // submitted,
+      // filterClick,
+      // destinationAdd,
+      // locationAdd,
       userFilter,
-      age,
-      start_age,
-      end_age
+      // age,
+      // start_age,
+      // end_age
     } = this.state;
 
     console.log("this is state ", this.state);
     console.log("userfilters", userFilter);
 
-    const { ages } = this;
+    // const { ages } = this;
 
-    if (submitted) {
-      // console.log("this is the start date", this.state.start_date);
-    }
-    const AddressInputProps = {
-      value: this.state.destinationAdd,
-			onChange: this.inputChange,
-			placeholder: "Please enter a destination"
-    };
+    // if (submitted) {
+    //   // console.log("this is the start date", this.state.start_date);
+    // }
+    // const AddressInputProps = {
+    //   value: this.state.destinationAdd,
+		// 	onChange: this.inputChange,
+		// 	placeholder: "Please enter a destination"
+    // };
 
-    const AddressInputProps2 = {
-      value: this.state.locationAdd,
-			onChange: this.inputChangeLoc,
-			placeholder: "Please enter a location"
-    };
+    // const AddressInputProps2 = {
+    //   value: this.state.locationAdd,
+		// 	onChange: this.inputChangeLoc,
+		// 	placeholder: "Please enter a location"
+    // };
 
-    const addressCSSClasses = {
-      root: "form-group",
-      input: "search-input",
-      autocompleteContainer: "autocomplete-container"
-    };
+    // const addressCSSClasses = {
+    //   root: "form-group",
+    //   input: "search-input",
+    //   autocompleteContainer: "autocomplete-container"
+    // };
 
     return (
       <div>
-        <h3 onClick={this.handleFilterClick} className="filterText"><span className="pointer">Filter</span></h3>
-        {filterClick ? (
-          <div className="sidebar">
+       <Modal isOpen={modalIsOpen} contentLabel="Filter Modal">
+                    <FilterModal toggleModal={this.toggleModal} />
+                  </Modal>
+
+        <h3 onClick={this.toggleModal} className="filterText">
+          <span className="pointer">Filter</span>
+
+           
+          </h3>
+         {/*{filterClick ? (
+          {<div className="sidebar">
+          <span className='close' onClick={this.props.toggleModal}>&times;</span>
             <div
               className="destination"
             >
@@ -353,7 +371,7 @@ class AllBuddies extends Component {
             </div>
 
             <div className="location" >
-              {/* <input type="text" /> */}
+              
               
               <PlacesAutocomplete
                 classNames={addressCSSClasses}
@@ -400,7 +418,7 @@ class AllBuddies extends Component {
           </div>
         ) : (
           ""
-        )}
+        )} */}
 
         <div>
           {filteredUsers ? (
