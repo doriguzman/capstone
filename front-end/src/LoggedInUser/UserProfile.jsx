@@ -243,7 +243,6 @@ console.log('active user ' , activeUser)
             <Tab>About</Tab>
             <Tab>Trips</Tab>
             <Tab>Bucket List </Tab>
-            <Tab> Passport </Tab>
           </TabList>
           <TabPanel>
             <div>
@@ -301,12 +300,7 @@ console.log('active user ' , activeUser)
                <BucketList activeUser={activeUser} username={this.state.username}/> 
                 </div>
             </TabPanel>
-            <TabPanel> 
-                <div>
-
-                  hihihihihi
-                  </div>
-              </TabPanel>
+            
         </Tabs>
         
       </div>
