@@ -8,7 +8,7 @@ class MatchedBuddies extends Component {
   constructor(props) {
 		super(props); // user (has id and username), allUsers
 		this.getAllUsers();
-		console.log('goodbye cruel world', this.props.allUsers);
+		// console.log('goodbye cruel world', this.props.allUsers);
     this.state = {
 			allUsers: [],
 			myTrips: [],
@@ -45,7 +45,8 @@ class MatchedBuddies extends Component {
 	}
 
 	componentWillMount() {
-	
+		this.getAllUsers();
+
 		axios // gets trips for active user
 			.get(`/users/allTrips/${this.props.user.username}`)
 			.then(res => {

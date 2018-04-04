@@ -196,7 +196,7 @@ function AddBucketList(req, res, next) {
   // startDate and endDate have to be in the following format: 'YYYY-MM-DD'
   db
     .none(
-      "INSERT INTO bucketlist VALUES (DEFAULT, ${id}, ${username}, ${destination}, ${startDate}, ${endDate}, ${todos})",
+      "INSERT INTO bucketlist VALUES (DEFAULT, ${id}, ${username}, ${destination}, ${todos})",
       {
         id: req.body.id,
         username: req.body.username,

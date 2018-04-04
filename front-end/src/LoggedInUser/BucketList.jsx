@@ -50,7 +50,6 @@ class BucketList extends React.Component {
   addToBucketList = e => {
     e.preventDefault();
     console.log("submitting survey");
-    console.log(this.state.startDate._d);
     axios
 
       .post("/users/addBucketList", {
@@ -121,7 +120,7 @@ class BucketList extends React.Component {
     console.log(bucketlistArray, activeUser, username);
     console.log(this.state);
 
-    if (activeUser && bucketlistArray) {
+    if (activeUser && bucketlistArray[0]) {
       return (
         <div className="main div">
           <div>
@@ -132,7 +131,6 @@ class BucketList extends React.Component {
                   {list.destination}{" "}
                 </h3>
 
-             <br/>
                 <h3> Planned Activities: {list.todos}</h3>
 
                 {activeUser ? (
@@ -157,7 +155,6 @@ class BucketList extends React.Component {
               inputProps={AddressInputProps}
             />
             <br />
-      
             <div className="bucketListTodos">
               Planned Activites:
               <input
@@ -169,7 +166,7 @@ class BucketList extends React.Component {
               />
             </div>
             <br />
-            {startDate && endDate && address ? (
+            {address ? (
               <input
                 className="companionBtn"
                 type="submit"
@@ -191,14 +188,12 @@ class BucketList extends React.Component {
     } else if (activeUser) {
       return (
         <div>
-          <h2> hiihihiihhhi</h2>
           Destination:{" "}
           <PlacesAutocomplete
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
           />
           <br />
- 
           <div className="bucketListTodos">
             Planned Activites:
             <input
@@ -238,8 +233,6 @@ class BucketList extends React.Component {
                   Wish Destination:
                   {list.destination}{" "}
                 </h3>
-
-            <br/>
 
                 <h3> Planned Activities: {list.todos}</h3>
 
