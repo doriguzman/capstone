@@ -53,37 +53,8 @@ class AllBuddies extends Component {
         start_date: "",
         end_date: ""
       },
-      // start_date: "",
-      // end_date: "",
-      // address: "",
-      // locationAdd: "",
-      // start_age: "",
-      // end_age: ""
     };
   }
-
-  // flagUser = () => {
-  //   //  e.preventDefault()
-  //   this.setState({
-  //     flagged: true
-  //   });
-  //   console.log("You clicked the flag user");
-  //   console.log("Bitch you is flagged: ", this.state.flagged);
-  // };
-  //  flagUser = () => {
-  //    const { allUsers } = this.state
-  //   //  e.preventDefault()
-  //   this.state = {
-  //     flagged: false
-  //   };
-
-  //   console.log("You clicked to flag user : ", allUsers.map(user => (user.username)));
-  //   if('clicked'){
-  //     console.log('button clicked')
-  //   }
-  //    console.log("Bitch you is flagged: ", this.state.flagged);
-  // };
-
 
 
   getUserPics = () => {
