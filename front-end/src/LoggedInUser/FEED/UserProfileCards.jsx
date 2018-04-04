@@ -7,8 +7,9 @@ import AllBuddies from "./AllBuddies";
 
 const UserProfileCards = ({ allUsers, bffs }) => {
   allUsers.map(user=> {
+
     return ('user first name' , user.first_name , user.age)})
-  
+
   
   return (
     <div className="cardHolder">
@@ -16,7 +17,8 @@ const UserProfileCards = ({ allUsers, bffs }) => {
         return (
           <div className="card">
             <img className="pic" src={user.pic} alt="profile picture" />
-            <div className="name-age"> {user.first_name}, {user.age}, {user.my_location}</div>
+            <div className="name-age"> {user.first_name}, {user.age}, {user.my_location} </div>
+        <div>{user.points ? <div>{user.points}% matched</div> : <div>0% matched </div>}</div>
             {/* <div className="location">{user.my_location}</div> */}
             <div className="userName">
               <Link to={`/users/u/${user.username}/profile`}>
