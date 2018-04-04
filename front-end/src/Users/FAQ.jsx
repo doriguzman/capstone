@@ -8,7 +8,7 @@ import Collapse, { Panel } from "rc-collapse";
 const FAQ = () => {
   return (
     <div className="faq">
-      <h2>Feathers Basic Questions</h2>
+      <h2>Frequently Asked Questions</h2>
       <div>
         <Collapse>
           <Panel header="Is it free to join feathers?">
