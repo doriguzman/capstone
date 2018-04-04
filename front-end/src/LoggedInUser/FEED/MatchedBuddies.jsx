@@ -222,7 +222,6 @@ class MatchedBuddies extends Component {
 
 	sortByPoints = () => {
 		let sorted = this.state.allUsersTrips.sort((a, b) => b.points - a.points)
-console.log('we is getting sorted', sorted)
 		this.setState({
 			allUsersTrips: sorted
 		})
