@@ -18,7 +18,7 @@ const UserProfileCards = ({ allUsers, bffs }) => {
           <div className="card">
             <img className="pic" src={user.pic} alt="profile picture" />
             <div className="name-age"> {user.first_name}, {user.age}, {user.my_location} </div>
-        <div>{user.points ? <div>you are {user.points}% matched</div> : <div>you are not matched </div>}</div>
+        <div>{user.points ? <div>{user.points}% matched</div> : <div>0% matched </div>}</div>
             {/* <div className="location">{user.my_location}</div> */}
             <div className="userName">
               <Link to={`/users/u/${user.username}/profile`}>
