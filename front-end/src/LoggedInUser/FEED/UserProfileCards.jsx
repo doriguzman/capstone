@@ -6,6 +6,10 @@ import AllBuddies from "./AllBuddies";
 
 
 const UserProfileCards = ({ allUsers, bffs }) => {
+  allUsers.map(user=> {
+    return ('user first name' , user.first_name , user.age)})
+  
+  
   return (
     <div className="cardHolder">
       {allUsers.map(user => {
