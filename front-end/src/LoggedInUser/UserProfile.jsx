@@ -12,7 +12,7 @@ import MyListedTrips from './MyListedTrips'
 
 import '../Stylesheets/AddTrips.css'
 import BucketList from './BucketList'
-
+import '../Stylesheets/userProfile.css'
 
 
 class UserProfile extends React.Component {
