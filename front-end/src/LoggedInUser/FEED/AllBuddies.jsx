@@ -53,46 +53,11 @@ class AllBuddies extends Component {
         end_age: "",
         start_date: "",
         end_date: ""
-<<<<<<< HEAD
       },
-=======
-      }
-      // start_date: "",
-      // end_date: "",
-      // address: "",
-      // locationAdd: "",
-      // start_age: "",
-      // end_age: ""
->>>>>>> 9360f11d544b501228f4a1ab715b75df7a2c29ad
     };
   }
 
 
-<<<<<<< HEAD
-=======
-  // flagUser = () => {
-  //   //  e.preventDefault()
-  //   this.setState({
-  //     flagged: true
-  //   });
-  //   console.log("You clicked the flag user");
-  //   console.log("Bitch you is flagged: ", this.state.flagged);
-  // };
-  //  flagUser = () => {
-  //    const { allUsers } = this.state
-  //   //  e.preventDefault()
-  //   this.state = {
-  //     flagged: false
-  //   };
-
-  //   console.log("You clicked to flag user : ", allUsers.map(user => (user.username)));
-  //   if('clicked'){
-  //     console.log('button clicked')
-  //   }
-  //    console.log("Bitch you is flagged: ", this.state.flagged);
-  // };
-
->>>>>>> 9360f11d544b501228f4a1ab715b75df7a2c29ad
   getUserPics = () => {
     axios
       .get("/users/getPics")

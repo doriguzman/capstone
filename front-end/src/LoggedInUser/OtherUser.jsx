@@ -8,7 +8,7 @@ import AddTrips from "./AddTrips";
 // import ListedTrips from "./ListedTrips";
 import "../Stylesheets/otherUser.css";
 import GeneralListedTrips from "./GeneralListedTrips";
-import '../index.css'
+// import '../index.css'
 import BucketList from "./BucketList";
 // import '../index.css'
 
