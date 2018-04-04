@@ -1,18 +1,72 @@
-/*
-.form-group {
+/* ------ Guidelines for Adding Trip tab in User Profile ----- */
+    /* ------ Color Scheme ------
+        000000 -- black
+        FFFCF9 -- offwhite
+        F2F2F2 -- light grey
+        1B4CFE -- royal blue
+        E6E6FA -- light lavender
+        rgb(66, 163, 253) -- twitter blueish
+    ------ End Color Scheme------ */
 
+.trips-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* background-color: pink; */
+    justify-content: flex-start;
+    align-items: top;
+    margin: 5px;
+    height: 300px;
+}
+.single-trip {
+    overflow: scroll;
+    width: 30%;
+    border: 2px solid #CCC;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+.trip-destination {
+    border-bottom: 2px solid #CCC;
+    color: rgb(66, 163, 253);
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 0 10px 0;
+}
+.trip-title {
+    background-color: #E6E6FA;
+    color: #555;
+    font-style: italic;
+    font-size: 0.8em;
+}
+.trip-body {
+    padding: 10px 0 10px 0;
+}
+.trip-todos {
+    height: 100px;
+}
+.delete-trip {
+    margin-bottom: auto;
+    background-color: #555;
+    color: white;
+    border-bottom: 2px solid #555;
+}
+.delete-trip:hover {
+    background-color: #999;
+    border-bottom: 2px solid #000;
+    transition: 0.5s;
 }
 
-.autocomplete-container {
-
+.add-trip {
+    background-color: #999;
+    color: white;
+    padding: 10px;
+    margin: 0 auto;
+    width: fit-content;
+    border-bottom: 4px solid rgb(66, 163, 253);
 }
-
-
-.search-input,
-.search-input:focus,
-.search-input:active {
-
-
+.add-trip:hover {
+    background-color: rgb(66, 163, 253);
+    border-bottom: 4px solid black;
+    transition: 0.5s;
 }
-
-*/
