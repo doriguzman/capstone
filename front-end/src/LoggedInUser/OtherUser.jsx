@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 import axios from "axios";
-// import OtherUserProfile from "./OtherUserProfile";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // this is the default style sheet for react-tabs
 import "react-tabs/style/react-tabs.css";
 import AddTrips from "./AddTrips";
+// import ListedTrips from "./ListedTrips";
+import "../Stylesheets/otherUser.css";
 import GeneralListedTrips from "./GeneralListedTrips";
 import '../index.css'
 import BucketList from "./BucketList";
+// import '../index.css'
 
 class OtherUser extends Component {
   constructor(props) {
@@ -89,6 +91,7 @@ class OtherUser extends Component {
       })
       .catch(err => {
         console.log(err);
+        console.log('its working')
       });
   };
 
@@ -243,22 +246,6 @@ class OtherUser extends Component {
       bffle,
       flagged
     } = this.state;
-    console.log("this is userprofile");
-    console.log("open Trips", openTrips);
-    console.log("past trips", pastTrips);
-    console.log("THE STATE IS", this.state);
-    console.log("USER_id IS ", user_id);
-    console.log(this.state);
-    console.log(' NEEDING THE USERNAME', username)
-    // console.log('active user is', this.state.me )
-    console.log(
-      "You (",
-      username,
-      ") were flagged: (",
-      this.state.flagged,
-      ") by : ",
-      this.state.me
-    );
     return (
       <div>
         <div>
@@ -309,7 +296,7 @@ class OtherUser extends Component {
               </button>
             )}
               {" "}
-            <button className='message'>
+            <button className='message-button'>
               <Link className='message' to={`/users/messages/${this.state.username}`}>
                 <i class="far fa-envelope fa-2x" />
               </Link> 

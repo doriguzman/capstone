@@ -3,7 +3,11 @@ import { Route, Link, Switch, Redirect } from "react-router-dom";
 // import './profile.css';
 import axios from "axios";
 // import Bffs from "./Bffs";
-import NewUserSurvey from "../Users/NewUserSurvey"
+import NewUserSurvey from "../Users/NewUserSurvey";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng
+} from "react-places-autocomplete";
 
 class Select extends React.Component {
   render() {
@@ -63,26 +67,27 @@ class EditUserProfile extends Component {
       user: this.props.user,
       user_id: this.props.user.id,
       username: this.props.user.username,
-      userImageURL: "",
       firstName: "",
-      location: "",
       age: "",
+      location: "",
       bio: "",
-      ethnicity: "",
-      religion:'',
-      earlyBird: "",
-      nightOwl: "",
-      clubbing: "",
-      spontaneous: "",
-      active: "",
-      sightseeing: "",
-      foodie: "",
-      relax: "",
-      nature: "",
-      extroverted: "",
+      pic: "",
+      Clubbing: false,
+      "Night Owl": false,
+      "Early Bird": false,
+      Active: false,
+      Foodie: false,
+      "Mainly likes to relax": false,
+      "Nature-Lover": false,
+      "Likes sightseeing": false,
+      Spontaneous: false,
+      Extroverted: false,
       smokes: "",
       drinks: "",
-      editing: false
+      ethnicity: "",
+      religion: "",
+      USERLOGGED:this.props.active, 
+      edited: false
     };
   }
 
@@ -98,27 +103,28 @@ class EditUserProfile extends Component {
 
         this.setState({
           user: UserInfo,
-          userImageURL: UserInfo.pic,
+          pic: UserInfo.pic,
           firstName: UserInfo.first_name,
           location: UserInfo.my_location,
           age: UserInfo.age,
           bio: UserInfo.bio,
           ethnicity: UserInfo.ethnicity,
           religion: UserInfo.religion,
-          earlyBird: UserInfo.early_bird,
-          nightOwl: UserInfo.night_owl,
-          clubbing: UserInfo.clubbing,
-          spontaneous: UserInfo.spontaneous,
-          active: UserInfo.active,
-          sightseeing: UserInfo.sightseeing,
-          foodie: UserInfo.foodie,
-          relax: UserInfo.relax,
-          nature: UserInfo.nature,
-          extroverted: UserInfo.extroverted,
+          "Early Bird": UserInfo.early_bird,
+          "Night Owl": UserInfo.night_owl,
+          Clubbing: UserInfo.clubbing,
+          Spontaneous: UserInfo.spontaneous,
+          Active: UserInfo.active,
+          "Likes sightseeing": UserInfo.sightseeing,
+          Foodie: UserInfo.foodie,
+          "Mainly likes to relax": UserInfo.relax,
+          "Nature-Lover": UserInfo.nature,
+          Extroverted: UserInfo.extroverted,
           smokes: UserInfo.smokes,
           drinks: UserInfo.drinks
         });
         console.log("UserINFO: ", UserInfo);
+        console.log("drinks ", this.state.drinks)
       })
       .catch(err => {
         console.log(err);
@@ -143,6 +149,11 @@ class EditUserProfile extends Component {
     this.getUserInfo();
   }
 
+  inputChange = location => {
+    this.setState({
+      location: location
+    });
+  };
 
   switchMode = () => {
     const lastMode = this.state.editing;
@@ -156,6 +167,31 @@ class EditUserProfile extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
+  };
+
+  handleCheckBoxChange = e => {
+    this.setState({
+      [e.target.name]: e.target.checked
+    });
+  };
+
+  handleSmokes = e => {
+    if (
+      e.target.value === "Yes-occasionally" ||
+      e.target.value === "Yes-daily"
+    ) {
+      this.setState({ smokes: true });
+    } else {
+      this.setState({ smokes: false });
+    }
+  };
+
+  handleDrinks = e => {
+    if (e.target.value === "Never") {
+      this.setState({ drinks: false });
+    } else {
+      this.setState({ drinks: true });
+    }
   };
 
   submitForm = e => {
@@ -181,7 +217,7 @@ class EditUserProfile extends Component {
       extroverted,
       smokes,
       drinks,
-      editing
+      edited
     } = this.state;
 
     this.setState({
@@ -192,35 +228,33 @@ class EditUserProfile extends Component {
     console.log("id", this.props.user.user_id);
 
     axios
-      .put(`/users/edit/attributes`)
+      .put(`/users/edit/attributes`, {
+        firstName: this.state.firstName,
+        age: this.state.age,
+        location: this.state.location,
+        bio: this.state.bio,
+        pic: this.state.pic,
+        ethnicity: this.state.ethnicity,
+        religion: this.state.religion,
+        earlyBird: this.state["Early Bird"],
+        nightOwl: this.state["Night Owl"],
+        clubbing: this.state.Clubbing,
+        spontaneous: this.state.Spontaneous,
+        active: this.state.Active,
+        sightseeing: this.state["Likes sightseeing"],
+        foodie: this.state.Foodie,
+        relax: this.state["Mainly likes to relax"],
+        nature: this.state["Nature-Lover"],
+        extroverted: this.state.Extroverted,
+        smokes: this.state.smokes,
+        drinks: this.state.drinks
+      })
       .then(res => {
-        let UserInfo = res.data;
         console.log("res.data", res.data);
-
         this.setState({
-          user: UserInfo,
-          userImageURL: UserInfo.pic,
-          firstName: UserInfo.first_name,
-          location: UserInfo.my_location,
-          age: UserInfo.age,
-          bio: UserInfo.bio,
-          ethnicity: UserInfo.ethnicity,
-          religion: UserInfo.religion,
-          earlyBird: UserInfo.early_bird,
-          nightOwl: UserInfo.night_owl,
-          clubbing: UserInfo.clubbing,
-          spontaneous: UserInfo.spontaneous,
-          active: UserInfo.active,
-          sightseeing: UserInfo.sightseeing,
-          foodie: UserInfo.foodie,
-          relax: UserInfo.relax,
-          nature: UserInfo.nature,
-          extroverted: UserInfo.extroverted,
-          smokes: UserInfo.smokes,
-          drinks: UserInfo.drinks
+          edited: !edited
         });
-        console.log("UserINFO: ", UserInfo);
-        console.log("this is after editing", this.state)
+        console.log("this is after editing", this.state);
         // this.getUserLikes();
       })
       .catch(err => {
@@ -228,25 +262,10 @@ class EditUserProfile extends Component {
       });
   };
 
-  // fetch(`/users/u/${this.props.user.user_id}/edit`, {
-  //     headers: {
-  //         "ACCEPT": "application/json",
-  //         "Content-Type": "application/json"
-  //     },
-  //     method: "PATCH",
-  //     body: JSON.stringify({
-  //         newName: username,
-  //         newEmail: email,
-  //         newFullname: fullname,
-  //         newProfile_pic: profilepicUrl,
-  //         newDescription: userdescription,
-  //         id: this.props.user.user_id
-  //     })
-  // })
-
   render() {
     const {
       username,
+      pic,
       firstName,
       age,
       location,
@@ -255,8 +274,7 @@ class EditUserProfile extends Component {
       religion,
       smokes,
       drinks,
-      submitted,
-      editing
+      edited
     } = this.state;
     console.log(this.state);
     console.log("edit profile page loads");
@@ -267,134 +285,151 @@ class EditUserProfile extends Component {
     //   return <Redirect to="/users/feed" />;
     // }
 
+    const AddressInputProps = {
+      value: this.state.location,
+      onChange: this.inputChange
+    };
+
+    const addressCSSClasses = {
+      root: "form-group",
+      input: "search-input",
+      autocompleteContainer: "autocomplete-container"
+    };
+
     return (
-      
+      <div>
         <div>
-          <div>
-            <div className="register-survey-container">
-              <h2>Edit your Profile</h2>
-              <hr />
-              <form>
-                First Name <br />
-                <input
-                  className="firstName"
-                  type="text"
-                  name="firstName"
-                  value={firstName}
-                  onChange={this.handleInput}
+          <div className="register-survey-container">
+            <h2>Edit your Profile</h2>
+            <hr />
+            <form>
+              Photo <br />
+              <input
+                className="pic"
+                placeholder="URL"
+                type="text"
+                name="pic"
+                value={pic}
+                onChange={this.handleInput}
+              />
+              <br />
+              First Name <br />
+              <input
+                className="firstName"
+                type="text"
+                name="firstName"
+                value={firstName}
+                onChange={this.handleInput}
+              />
+              <br />
+              Age <br />
+              <input
+                className="age"
+                value={age}
+                type="text"
+                name="age"
+                onChange={this.handleInput}
+              />
+              <br />
+              Location:
+              <br />
+              <PlacesAutocomplete
+                classNames={addressCSSClasses}
+                inputProps={AddressInputProps}
+              />
+              <br />
+              Bio <br />
+              <input
+                className="bio"
+                placeholder="Bio"
+                type="textarea"
+                name="bio"
+                value={bio}
+                onChange={this.handleInput}
+              />
+              <br />
+              {/*  now we are going to start radio buttons here */}
+              <br />
+              <div className="checkBoxes">
+                What are you like on vacation? <br />
+                {attributes.map(value => (
+                  <span>
+                    <input
+                      type="checkbox"
+                      name={value}
+                      value={value}
+                      checked={this.state[value]}
+                      onChange={this.handleCheckBoxChange}
+                    />{" "}
+                    {value}
+                    <br />
+                  </span>
+                ))}
+              </div>
+              <br />
+              <div className="smoke">
+                Do you smoke?
+                <br />
+                {this.smokes.map(value => (
+                  <span>
+                    <input
+                      type="radio"
+                      name="smokes"
+                      value={value}
+                      onChange={this.handleSmokes}
+                    />{" "}
+                    {value}{" "}
+                  </span>
+                ))}
+              </div>
+              <br />
+              <div className="drink">
+                {" "}
+                How often do you drink?
+                <br />
+                {this.drinks.map(value => (
+                  <span>
+                    <input
+                      type="radio"
+                      name="drinks"
+                      value={value}
+                      onChange={this.handleDrinks}
+                    />{" "}
+                    {value}{" "}
+                  </span>
+                ))}
+              </div>
+              <br />
+              <div className="ethnicity">
+                Which ethnicity best describes you?{" "}
+                <Select
+                  values={ethnicities}
+                  name="ethnicity"
+                  selectedValue={ethnicity}
+                  handleSelected={this.handleInput}
                 />
-                <br />
-                Age <br />
-                <input
-                  className="age"
-                  value={age}
-                  type="text"
-                  name="age"
-                  onChange={this.handleInput}
+              </div>
+              <br />
+              <div className="religion">
+                What is your religion?{" "}
+                <Select
+                  values={religions}
+                  name="religion"
+                  selectedValue={religion}
+                  handleSelected={this.handleInput}
                 />
-                <br />
-                Location <br />
-                <input
-                  className="location"
-                  placeholder="location"
-                  type="text"
-                  name="location"
-                  value={location}
-                  onChange={this.handleInput}
-                />
-                <br />
-                Bio <br />
-                <input
-                  className="bio"
-                  placeholder="Bio"
-                  type="textarea"
-                  name="bio"
-                  value={bio}
-                  onChange={this.handleInput}
-                />
-                <br />
-                {/*  now we are going to start radio buttons here */}
-                <br />
-                <div className="checkBoxes">
-                  What are you like on vacation? <br />
-                  {attributes.map(value => (
-                    <span>
-                      <input
-                        type="checkbox"
-                        name={value}
-                        value={value}
-                        onChange={this.handleCheckBoxChange}
-                      />{" "}
-                      {value}
-                      <br />
-                    </span>
-                  ))}
-                </div>
-                <br />
-                <div className="smoke">
-                  Do you smoke?
-                  <br />
-                  {this.smokes.map(value => (
-                    <span>
-                      <input
-                        type="radio"
-                        name="smokes"
-                        value={value}
-                        onChange={this.handleSmokes}
-                      />{" "}
-                      {value}{" "}
-                    </span>
-                  ))}
-                </div>
-                <br />
-                <div className="drink">
-                  {" "}
-                  How often do you drink?
-                  <br />
-                  {this.drinks.map(value => (
-                    <span>
-                      <input
-                        type="radio"
-                        name="drinks"
-                        value={drinks}
-                        onChange={this.handleDrinks}
-                      />{" "}
-                      {value}{" "}
-                    </span>
-                  ))}
-                </div>
-                <br />
-                <div className="ethnicity">
-                  Which ethnicity best describes you?{" "}
-                  <Select
-                    values={ethnicities}
-                    name="ethnicity"
-                    selectedValue={ethnicity}
-                    handleSelected={this.handleInput}
-                  />
-                </div>
-                <br />
-                <div className="religion">
-                  What is your religion?{" "}
-                  <Select
-                    values={religions}
-                    name="religion"
-                    selectedValue={religion}
-                    handleSelected={this.handleInput}
-                  />
-                </div>
-                <input
-                  className="surveyBtn"
-                  type="submit"
-                  value="Submit"
-                  onClick={this.submitForm}
-                />
-              </form>
-            </div>
-            {editing && <Redirect to={`/me/${username}`} />}
+              </div>
+              <input
+                className="surveyBtn"
+                type="submit"
+                value="Submit"
+                onClick={this.submitForm}
+              />
+            </form>
           </div>
+          {edited && <Redirect to={`/users/me/${username}`} />}
         </div>
-      
+      </div>
     );
   }
 }

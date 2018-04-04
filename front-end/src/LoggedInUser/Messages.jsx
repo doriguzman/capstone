@@ -162,7 +162,7 @@ class Messages extends Component {
           <div className="messages-thread-content">
             {activeThreadUsername
               ? ""
-              : "Adventure waits for now one... Click on someone to continue chatting!"}
+              : "Adventure waits for no one... Click on someone to continue chatting!"}
             <div className="messages-thread-body">
               {messages ? messages.map(message => {
                 if (message.username === activeThreadUsername) {

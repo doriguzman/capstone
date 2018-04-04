@@ -1,0 +1,60 @@
+/* ------ General guidelines ------ */
+    /* ------ Color Scheme ------
+        000000 -- black
+        FFFCF9 -- offwhite
+        F2F2F2 -- light grey
+        1B4CFE -- royal blue
+        E6E6FA -- light lavender
+        rgb(66, 163, 253) -- twitter blueish
+    ------ End Color Scheme------ */
+
+@import url("https://fonts.googleapis.com/css?family=Dancing+Script|Didact+Gothic");
+
+html {
+  background-color: #F2F2F2;
+  color: #000;
+  height: 100%;
+  width: 100%;
+  font-size: 18px;
+  font-family: "Didact Gothic", sans-serif;
+}
+
+body {
+  background-color: #F2F2F2;
+  margin: 0;
+  padding: 0;
+  font-family: "Didact Gothic", sans-serif;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* ------ Guidelines for links ------ */
+a {
+  color: #777;
+  text-decoration: none;
+}
+a:hover {
+  color: rgb(66, 163, 253);
+  transition: 0.5s;
+  border-bottom: 4px solid #E6E6FA;
+}
+
+
+/* ------ Media Queries ------ */
+@media screen and (max-width: 932px) {
+  .App {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 632px) {
+  .App {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .App {
+    font-size: 14px;
+  }
+}

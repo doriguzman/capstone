@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "../Stylesheets/about.css";
 
 const AboutUs = () => {
   const places = [
@@ -20,41 +21,36 @@ const AboutUs = () => {
   const randomPlace = arr => arr[Math.floor(Math.random() * arr.length)];
 
   return (
-    <div className="info">
-      <div>
-        <div className="about-us-header-div"> Who You Are </div>
+    <div>
+      <div className="info">
+        <h2 className="header-h2"> Who You Are </h2>
         <div>
           <p className="about-us-p">
             You're an independent woman just dying to {randomPlace(places)}, but
             your girlfriends are all busy or broke.
-            <br />
             Or maybe you're a cautious woman, and would prefer not to travel
             alone to avoid some potentially dangerous situations.
-            <br />
+            <br /><br />
             Well, you're not alone.
           </p>
         </div>
-        <div className="about-us-header-div"> Who We Are </div>
+        <h2 className="header-h2"> Who We Are </h2>
         <div>
           <p className="about-us-p">
-            At feathers, we aim to connect solo female travellers with others
-            just like them. <br />
+            At <span className="dancing">feathers</span>, we aim to connect solo female travellers with others
+            just like them. <br /><br />
             We'll match you with other women based on a variety of things
             including:<br />
-            <span className="features">Destination</span>
-            <br />
-            <span className="features">Trip dates</span>
-            <br />
-            <span className="features">Compatibility</span>
-            <br />
+            <span className="features">Destination</span><br />
+            <span className="features">Trip dates</span><br />
+            <span className="features">Compatibility</span><br />
           </p>
           <p className="about-us-p">
             Message, favorite, or simply browse through other members' profiles,
             trips, or send them a message to start discussing your next trip.
           </p>
           <p className="about-us-p">
-
-            Are you ready for your next adventure?
+            Are you ready for your next adventure? {" "}
             <Link to="/users/register">Join Us Now!</Link>
           </p>
         </div>

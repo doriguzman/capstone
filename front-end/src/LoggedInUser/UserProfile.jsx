@@ -12,6 +12,25 @@ import MyListedTrips from "./MyListedTrips";
 import "../Stylesheets/AddTrips.css";
 import BucketList from "./BucketList";
 import Passport from "./Passport";
+import MyListedTrips from './MyListedTrips'
+// import DatePicker from "react-datepicker";
+// import "react-dates/initialize";
+// import {
+//   DateRangePicker,
+//   SingleDatePicker,
+//   DayPickerRangeController
+// } from "react-dates";
+// import "react-dates/lib/css/_datepicker.css";
+// import PlacesAutocomplete, {
+//   geocodeByAddress,
+//   getLatLng
+// } from "react-places-autocomplete";
+
+import "../Stylesheets/userProfile.css";
+import '../Stylesheets/AddTrips.css'
+
+
+
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -207,8 +226,7 @@ class UserProfile extends React.Component {
       bucketlist
     } = this.state;
 
-    console.log(this.state);
-    console.log(username, "this is the username");
+    
     const AddressInputProps = {
       value: this.state.address,
       onChange: this.inputChange
@@ -219,19 +237,14 @@ class UserProfile extends React.Component {
       input: "search-input",
       autocompleteContainer: "autocomplete-container"
     };
-    console.log("active user ", activeUser);
-    return (
-      <div className="userProfile">
-        <div>
-          <img src={userImageURL} className="pic" />
-        </div>
-        <div>
-          <div>
-            Name: {first_name}, Age: {age}
+    
+          <div className="img-container">
           </div>
-
-          <div>@{username}</div>
-          <div>Location: {my_location}</div>
+          <div className="general-info">
+            <span className="my-name">{first_name}, {age}</span>
+            <span className="my-username">@{username}</span>
+            <span className="my-location">{my_location}</span>
+          </div>
         </div>
         <Tabs>
           <TabList>
@@ -263,7 +276,7 @@ class UserProfile extends React.Component {
                   <b>As a traveler: </b>
                   <br />
                   <br /> I am an early bird:{" "}
-                  {this.state["early_bird"] ? "yes" : "no"} ,
+                  {this.state["early_bird"] ? "yes" : "no"},
                   <br /> A night owl: {this.state["night_owl"] ? "yes" : "no"},
                   <br /> Like clubbing: {this.state["clubbing"] ? "yes" : "no"},
                   <br /> I am spontaneous:{" "}

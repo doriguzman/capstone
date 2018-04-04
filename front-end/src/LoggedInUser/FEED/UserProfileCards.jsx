@@ -6,46 +6,37 @@ import AllBuddies from "./AllBuddies";
 
 
 const UserProfileCards = ({ allUsers, bffs }) => {
+<<<<<<< HEAD
   allUsers.map(user=> {
     return ('user first name' , user.first_name , user.age)})
   
   
+=======
+>>>>>>> 9360f11d544b501228f4a1ab715b75df7a2c29ad
   return (
     <div className="cardHolder">
-    
-
       {allUsers.map(user => {
         return (
           <div className="card">
-            <br />
-            <img
-              className="pic"
-              src={user.pic}
-              alt="profile picture"
-              height="230"
-              width="260"
-            />
-
+            <img className="pic" src={user.pic} alt="profile picture" />
+            <div className="name-age"> {user.first_name}, {user.age}, {user.my_location}</div>
+            {/* <div className="location">{user.my_location}</div> */}
             <div className="userName">
-              {" "}
-              Username:{" "}
               <Link to={`/users/u/${user.username}/profile`}>
-                {user.username}
-              </Link>{" "}
+                @{user.username}
+              </Link>
             </div>
-            <div className="firstName"> First Name: {user.first_name} </div>
-            <div className="age"> Age: {user.age}</div>
-            <div className="location"> Location: {user.my_location}</div>
             <div>
-              <Link to={`/users/messages/${user.username}`}>Message</Link>
-
+              <Link to={`/users/messages/${user.username}`}>
+                <i class="far fa-envelope fa-1x" />
+              </Link>
             </div>
             {!bffs ? (
               <div>
                 {user.destination ?
                 <div className="destination">
                   Destination: {user.destination}{" "}
-                </div> :''}
+                </div> : ''}
                 
                  {user.start_date ? <div className="startDate">Trip start date: {dateFormat (user.start_date, "ddd, mmm, dS, yyyy")}</div> :''}
                  
