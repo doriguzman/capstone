@@ -54,8 +54,6 @@ class UserProfile extends React.Component {
       // address: "",
       // submitted:false,
       // bucketlist:[],
-      
-
     };
   }
 
@@ -227,82 +225,108 @@ class UserProfile extends React.Component {
 console.log('active user ' , activeUser)
     return (
       <div className="userProfile">
-        <div>
-          <img src={userImageURL} className="pic" />
-        </div>
-        <div>
-          <div>
-            Name: {first_name}, Age: {age}
+        <div className="blurb">
+          <div className="img-container">
+            <img src={userImageURL} className="profile-pic" />
+          </div>
+          <div className="general-info">
+            <span className="my-name">
+              {first_name}, {age}
+            </span>
+            <span>@{username}</span>
+            <span className="my-location">{my_location}</span>
+            <div className="my-bio">{bio}</div>
           </div>
 
           <div>@{username}</div>
           <div>Location: {my_location}</div>
         </div>
-        <Tabs>
-          <TabList>
-            <Tab>About</Tab>
-            <Tab>Trips</Tab>
-            <Tab>Bucket List </Tab>
+        
+        <Tabs className="tabs">
+          <TabList className="tab-list">
+            <Tab className="single-tab">About</Tab>
+            <Tab className="single-tab">Trips</Tab>
+            <Tab className="single-tab">Bucket List</Tab>
           </TabList>
-          <TabPanel>
+
+          {/* About tab */}
+          <TabPanel className="tab-panel">
             <div>
+
               <div>
-               {activeUser ? <Link to={`/users/me/${username}/editprofile`}><i className="far fa-edit fa-2x" /></Link>  :''} 
+                {activeUser ? <Link to={`/users/me/${username}/editprofile`}>
+                    <i className="far fa-edit fa-2x" />
+                  </Link> : ""}
               </div>
-              <div>
-                <h3>About me: {bio} </h3>
-              </div>
-              Ethnicity: {ethnicity}
-              <div>
-                <br/>
-                <div> 
-                  Religion: {religion}
-                  </div>
-                  <br/>
-                <pre>
-                  <b>As a traveler: </b>
-                  <br />
-                  <br /> I am an early bird:{" "}
-                  {this.state["early_bird"] ? "yes" : "no"} ,
-                  <br /> A night owl: {this.state["night_owl"] ? "yes" : "no"},
-                  <br /> Like clubbing: {this.state["clubbing"] ? "yes" : "no"},
-                  <br /> I am spontaneous:{" "}
-                  {this.state["spontaneous"] ? "yes" : "no"},
-                  <br /> I am active: {this.state["active"] ? "yes" : "no"},
-                  <br /> I like sightseeing:{" "}
-                  {this.state["sightseeing"] ? "yes" : "no"},
-                  <br /> I am a foodie: {this.state["foodie"] ? "yes" : "no"},
-                  <br /> Relax: {this.state["relax"] ? "yes" : "no"},
-                  <br /> Enjoy nature: {this.state["nature"] ? "yes" : "no"},
-                  <br /> I am extroverted:{" "}
-                  {this.state["extroverted"] ? "yes" : "no"},
-                  <br /> Smoke: {this.state["smokes"] ? "yes" : "no"},
-                  <br /> Drink: {this.state["drinks"] ? "yes" : "no"}
-                </pre>
-              </div>
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div>
               
-            <h2> Current Trips</h2>
-              {openTrips
-                ? <MyListedTrips  activeUser={activeUser} username={username}/>
-                : ""}
-              {activeUser ? <button onClick={this.handleClickAddTrip}>Add Trips</button> :''}
+              <div className="about-header">As a traveler...</div>
+              <div className="attributes-container">
+                {this.state["early_bird"]
+                  ? <div className="attributes-true">I'm an early bird.</div>
+                  : <div className="attributes-false">I'm an early bird.</div>}
+                {this.state["night_owl"]
+                  ? <div className="attributes-true">I'm a night owl.</div>
+                  : <div className="attributes-false">I'm a night owl.</div>}
+                {this.state["clubbing"]
+                  ? <div className="attributes-true">I enjoy clubbing.</div>
+                  : <div className="attributes-false">I enjoy clubbing.</div>}
+                {this.state["spontaneous"]
+                  ? <div className="attributes-true">I'm spontaneous.</div>
+                  : <div className="attributes-false">I'm spontaneous.</div>}
+                {this.state["active"]
+                  ? <div className="attributes-true">I'm active.</div>
+                  : <div className="attributes-false">I'm active.</div>}
+                {this.state["sightseeing"]
+                  ? <div className="attributes-true">I like sightseeing.</div>
+                  : <div className="attributes-false">I like sightseeing.</div>}
+                {this.state["foodie"]
+                  ? <div className="attributes-true">I'm a foodie.</div>
+                  : <div className="attributes-false">I'm a foodie.</div>}
+                {this.state["relax"]
+                  ? <div className="attributes-true">I mainly like to relax.</div>
+                  : <div className="attributes-false">I mainly like to relax.</div>}
+                {this.state["nature"]
+                  ? <div className="attributes-true">I enjoy nature.</div>
+                  : <div className="attributes-false">I enjoy nature.</div>}
+                {this.state["extroverted"]
+                  ? <div className="attributes-true">I'm extroverted.</div>
+                  : <div className="attributes-false">I'm extroverted.</div>}
+                {this.state["smokes"]
+                  ? <div className="attributes-true">I smoke.</div>
+                  : <div className="attributes-false">I smoke.</div>}
+                {this.state["drinks"]
+                  ? <div className="attributes-true">I drink.</div>
+                  : <div className="attributes-false">I drink.</div>}
+              </div>
+
+              <div className="about-header">Ethnicity</div>
+              <div> {ethnicity}</div>
+              <div className="about-header">Religion</div>
+              <div>{religion}</div>
             </div>
           </TabPanel>
-          <TabPanel>
+
+          {/* Trips tab */}
+          <TabPanel className="tab-panel">
+            <div>
+              <h2> Current Trips</h2>
+              {openTrips ? <MyListedTrips activeUser={activeUser} username={username} /> : ""}
+              {activeUser ? <button onClick={this.handleClickAddTrip}>
+                  Add Trips
+                </button> : ""}
+            </div>
+          </TabPanel>
+
+          {/* Bucketlist tab */}
+          <TabPanel className="tab-panel">
             <div>
               <h2>My BucketList </h2>
               <br/>
-              {console.log('my bucketlist!!! , ' , bucketlist)}
                <BucketList activeUser={activeUser} username={this.state.username}/> 
                 </div>
             </TabPanel>
             
         </Tabs>
-        
       </div>
     );
   }
