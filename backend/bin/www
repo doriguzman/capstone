@@ -91,16 +91,8 @@ function onListening() {
 
 
 
-// about to create a web socket 
 
-var io = require('socket.io')(server);
-io.on('connection', function(socket){
-  console.log('a user connected')
-  socket.on('first shout!', function (){
-    console.log('we have a connection from the front end')
-  })
-})
-server.listen(3001)
+
 
 
 
