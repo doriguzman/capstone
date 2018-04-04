@@ -160,11 +160,11 @@ class MatchedBuddies extends Component {
 				let numOverlap = overlap(tripObj, myTrips) // this is either a positive or neg num
 
 				const overlapPoints = (numDaysOverlap) => {
-					let pts = numOverlap / (msToDays(parseInt(new Date(myTrips.end_date) - new Date(myTrips.start_date)))) * 24;
+					let pts = Math.round((numOverlap / (msToDays(parseInt(new Date(myTrips.end_date) - new Date(myTrips.start_date)))) * 24) * 100) / 100;
 
 					if (pts > 0) {
 						tripObj.points += pts;
-					}
+				}
 				}
 				overlapPoints();
 			}
@@ -221,11 +221,9 @@ class MatchedBuddies extends Component {
 	}
 
 	sortByPoints = () => {
-		let sorted = this.state.allUsersTrips.sort((a, b) => a.points - b.points)
-console.log('we is getting osrted', sorted)
+		let sorted = this.state.allUsersTrips.sort((a, b) => b.points - a.points)
 		this.setState({
 			allUsersTrips: sorted
-
 		})
 	}	
 
