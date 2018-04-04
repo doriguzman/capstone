@@ -12,7 +12,7 @@ import MyListedTrips from './MyListedTrips'
 
 import '../Stylesheets/AddTrips.css'
 import BucketList from './BucketList'
-
+import '../Stylesheets/userProfile.css'
 
 
 class UserProfile extends React.Component {
@@ -320,8 +320,7 @@ console.log('active user ' , activeUser)
           {/* Bucketlist tab */}
           <TabPanel className="tab-panel">
             <div>
-              <h2>My BucketList </h2>
-              <br/>
+             
                <BucketList activeUser={activeUser} username={this.state.username}/> 
                 </div>
             </TabPanel>

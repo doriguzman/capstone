@@ -14,8 +14,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
-import '../Stylesheets/BucketList.css'
-
+import "../Stylesheets/BucketList.css";
 
 class BucketList extends React.Component {
   constructor(props) {
@@ -64,13 +63,13 @@ class BucketList extends React.Component {
         console.log(res);
         this.getBucketList();
         this.setState({
-          address:'', 
-          bucketListTodos:''
-        })
+          address: "",
+          bucketListTodos: ""
+        });
 
         // window.location.reload();
       })
-      
+
       .catch(err => {
         console.log("err posting bucket list", err);
       });
@@ -123,17 +122,16 @@ class BucketList extends React.Component {
       autocompleteContainer: "autocomplete-container"
     };
 
-  
-
     ///////------ starting the return ---------//////////
 
     if (activeUser && bucketlistArray[0]) {
       return (
-        <div className="main div">
+        <div className="mainDiv">
+          <br />
 
-          <div className='bucketlist-Container'>
+          <div className="bucketlist-Container">
             {bucketlistArray.map(list => (
-              <div className='bucketlist-Item'> 
+              <div className="bucketlist-Item">
                 <h3>
                   Wish Destination:
                   {list.destination}{" "}
@@ -142,7 +140,7 @@ class BucketList extends React.Component {
                 <h3> Planned Activities: {list.todos}</h3>
 
                 {activeUser ? (
-                  <button
+                  <button className='delete-Bucketlist-Button'
                     onClick={e =>
                       this.handleDeleteBucket(e, list.id, list.username)
                     }
@@ -154,22 +152,21 @@ class BucketList extends React.Component {
                 )}
               </div>
             ))}
-
           </div>
-
-
-          <div>
+          <br/>
+          <div className='add-Bucketlist-Div'>
             Destination:{" "}
             <PlacesAutocomplete
               classNames={addressCSSClasses}
               inputProps={AddressInputProps}
             />
             <br />
-            <div className="bucketListTodos">
-              Planned Activites:
+            <div className="bucketlist-Todos">
+              Planned Activites: 
+              <br/>
               <input
+              className='bucketlist-Todos-Input'
                 type="text"
-                placeholder="todos"
                 name="bucketListTodos"
                 value={bucketListTodos}
                 onChange={this.handleInput}
@@ -178,14 +175,14 @@ class BucketList extends React.Component {
             <br />
             {address ? (
               <input
-                className="companionBtn"
-                type="submit"
+              className='add-Bucketlist-Button'
+              type="submit"
                 value="Add to my bucket list"
                 onClick={this.addToBucketList}
               />
             ) : (
               <input
-                className="companionBtn"
+              className='add-Bucketlist-Button'
                 type="submit"
                 value="Add  to my bucket list!"
                 onClick={this.addToBucketList}
@@ -197,18 +194,17 @@ class BucketList extends React.Component {
       );
     } else if (activeUser) {
       return (
-        <div>
+        <div className='add-Bucketlist-Div'>
           Destination:{" "}
           <PlacesAutocomplete
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
           />
           <br />
-          <div className="bucketListTodos">
+          <div className="bucketList-Todos">
             Planned Activites:
             <input
               type="text"
-              placeholder="todos"
               name="bucketListTodos"
               value={bucketListTodos}
               onChange={this.handleInput}
@@ -216,15 +212,14 @@ class BucketList extends React.Component {
           </div>
           <br />
           {address ? (
-            <input
-              className="companionBtn"
+            <input className='add-Bucketlist-Button'
               type="submit"
               value="Add to my bucket list"
               onClick={this.addToBucketList}
             />
           ) : (
             <input
-              className="companionBtn"
+            className='add-Bucketlist-Button'
               type="submit"
               value="Add  to my bucket list!"
               onClick={this.addToBucketList}
@@ -235,14 +230,10 @@ class BucketList extends React.Component {
       );
     } else if (bucketlistArray[0]) {
       return (
-        <div className="main div">
-         {/* <ScrollArea
-            speed={0.8}
-            className="area"
-            contentClassName="content"
-            horizontal={false}
-            > */}
-          <div>
+        <div className="mainDiv">
+          <br />
+
+          <div className="bucketlist-Container">
             {bucketlistArray.map(list => (
               <div>
                 <h3>
@@ -251,11 +242,9 @@ class BucketList extends React.Component {
                 </h3>
 
                 <h3> Planned Activities: {list.todos}</h3>
-
               </div>
             ))}
           </div>
-          {/* </ScrollArea> */}
         </div>
       );
     } else {
