@@ -23,11 +23,7 @@ class BucketList extends React.Component {
       activeUser: this.props.activeUser,
       username: this.props.username,
       bucketListTodos: "",
-      startDate: null,
-      endDate: null,
-      focusedInput: null,
-      start_date: "",
-      end_date: "",
+      // focusedInput: null,
       address: "",
       submitted: false,
       bucketlist: []
@@ -61,8 +57,6 @@ class BucketList extends React.Component {
         id: this.state.user_id,
         username: this.state.username,
         destination: this.state.address,
-        startDate: this.state.startDate._d,
-        endDate: this.state.endDate._d,
         todos: this.state.bucketListTodos
       })
       .then(res => {
@@ -138,15 +132,7 @@ class BucketList extends React.Component {
                   {list.destination}{" "}
                 </h3>
 
-                <h3> Wish Travel Dates</h3>
-                <h4>
-                  {" "}
-                  Starting from:
-                  {dateFormat(list.start_date, "ddd, mmm, dS, yyyy")}
-                  Ending near:
-                  {dateFormat(list.end_date, "ddd, mmm, dS, yyyy")}
-                </h4>
-
+             <br/>
                 <h3> Planned Activities: {list.todos}</h3>
 
                 {activeUser ? (
@@ -171,21 +157,7 @@ class BucketList extends React.Component {
               inputProps={AddressInputProps}
             />
             <br />
-            <div className-travel-calendar>
-              <br />
-              Please Select Your Travel Dates:
-              <DateRangePicker
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-                onDatesChange={({ startDate, endDate }) => {
-                  this.setState({ startDate, endDate });
-                }}
-                focusedInput={this.state.focusedInput}
-                onFocusChange={focusedInput => {
-                  this.setState({ focusedInput });
-                }}
-              />
-            </div>
+      
             <div className="bucketListTodos">
               Planned Activites:
               <input
@@ -225,21 +197,7 @@ class BucketList extends React.Component {
             inputProps={AddressInputProps}
           />
           <br />
-          <div className-travel-calendar>
-            <br />
-            Please Select Your Travel Dates:
-            <DateRangePicker
-              startDate={this.state.startDate}
-              endDate={this.state.endDate}
-              onDatesChange={({ startDate, endDate }) => {
-                this.setState({ startDate, endDate });
-              }}
-              focusedInput={this.state.focusedInput}
-              onFocusChange={focusedInput => {
-                this.setState({ focusedInput });
-              }}
-            />
-          </div>
+ 
           <div className="bucketListTodos">
             Planned Activites:
             <input
@@ -280,14 +238,7 @@ class BucketList extends React.Component {
                   {list.destination}{" "}
                 </h3>
 
-                <h3> Wish Travel Dates</h3>
-                <h4>
-                  {" "}
-                  Starting from:
-                  {dateFormat(list.start_date, "ddd, mmm, dS, yyyy")}
-                  Ending near:
-                  {dateFormat(list.end_date, "ddd, mmm, dS, yyyy")}
-                </h4>
+            <br/>
 
                 <h3> Planned Activities: {list.todos}</h3>
 

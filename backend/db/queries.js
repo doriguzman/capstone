@@ -201,8 +201,6 @@ function AddBucketList(req, res, next) {
         id: req.body.id,
         username: req.body.username,
         destination: req.body.destination,
-        startDate: req.body.startDate,
-        endDate: req.body.endDate,
         todos: req.body.todos 
       }
     )

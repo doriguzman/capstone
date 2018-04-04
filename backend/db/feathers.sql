@@ -92,8 +92,6 @@ CREATE TABLE bucketlist (
     user_id INT REFERENCES users(id),
     username VARCHAR REFERENCES users(username),
     destination VARCHAR,
-    start_date VARCHAR,
-    end_date VARCHAR,
     todos VARCHAR
 );
 

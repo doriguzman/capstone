@@ -236,7 +236,6 @@ console.log('we is getting osrted', sorted)
 		const { allUsers } = this.props;
 		const { allUsersTrips } = this.state;
 		console.log('we are filtering users with trips', allUsersTrips)
-		if(allUsersTrips){
 		const tripUsernames = allUsersTrips.map(user => user.username)
 		console.log(tripUsernames)
 		const noTrips = usersArr.filter(user => {
@@ -251,7 +250,7 @@ console.log('we is getting osrted', sorted)
 		})
 		console.log('setting the exact state of users with no trips' , noTrips)
 
-	}
+	
 
 	}
 	
