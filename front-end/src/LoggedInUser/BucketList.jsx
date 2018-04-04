@@ -14,6 +14,8 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
+import '../Stylesheets/BucketList.css'
+
 
 class BucketList extends React.Component {
   constructor(props) {
@@ -61,9 +63,14 @@ class BucketList extends React.Component {
       .then(res => {
         console.log(res);
         this.getBucketList();
+        this.setState({
+          address:'', 
+          bucketListTodos:''
+        })
 
         // window.location.reload();
       })
+      
       .catch(err => {
         console.log("err posting bucket list", err);
       });
@@ -116,16 +123,17 @@ class BucketList extends React.Component {
       autocompleteContainer: "autocomplete-container"
     };
 
-    console.log("im trying to get the bucketlist Array");
-    console.log(bucketlistArray, activeUser, username);
-    console.log(this.state);
+  
+
+    ///////------ starting the return ---------//////////
 
     if (activeUser && bucketlistArray[0]) {
       return (
         <div className="main div">
-          <div>
+
+          <div className='bucketlist-Container'>
             {bucketlistArray.map(list => (
-              <div>
+              <div className='bucketlist-Item'> 
                 <h3>
                   Wish Destination:
                   {list.destination}{" "}
@@ -146,7 +154,9 @@ class BucketList extends React.Component {
                 )}
               </div>
             ))}
+
           </div>
+
 
           <div>
             Destination:{" "}
@@ -226,6 +236,12 @@ class BucketList extends React.Component {
     } else if (bucketlistArray[0]) {
       return (
         <div className="main div">
+         {/* <ScrollArea
+            speed={0.8}
+            className="area"
+            contentClassName="content"
+            horizontal={false}
+            > */}
           <div>
             {bucketlistArray.map(list => (
               <div>
@@ -236,20 +252,10 @@ class BucketList extends React.Component {
 
                 <h3> Planned Activities: {list.todos}</h3>
 
-                {activeUser ? (
-                  <button
-                    onClick={e =>
-                      this.handleDeleteBucket(e, list.id, list.username)
-                    }
-                  >
-                    Delete Bucketlist
-                  </button>
-                ) : (
-                  ""
-                )}
               </div>
             ))}
           </div>
+          {/* </ScrollArea> */}
         </div>
       );
     } else {

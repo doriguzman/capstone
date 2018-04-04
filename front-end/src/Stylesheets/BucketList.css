@@ -1,0 +1,12 @@
+.bucketlist-Container{
+    overflow:scroll;
+    height:400px;
+    width:500px; 
+    color: rgb(66, 163, 253);
+    border: 2px solid blue
+}
+
+.bucketlist-Item{
+    border:1px solid  gray;
+    background-color: white ;
+}

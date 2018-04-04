@@ -248,7 +248,7 @@ class App extends React.Component {
         <footer className="footer">
           <a href="http://localhost:3000/users/aboutus">About Us </a>·{" "}
           <a href="http://localhost:3000/users/disclaimer">Disclaimer </a>·{" "}
-          <a href="http://localhost:3000/users/beforeyoufloat">Before You Go </a>·{" "}
+          <a href="http://localhost:3000/users/beforeyoufloat">Before You Float </a>·{" "}
           <a href="http://localhost:3000/users/faq">FAQ</a>
           </footer>
           </div>

@@ -112,8 +112,8 @@ INSERT INTO users (username, password_digest, email)
 
  INSERT INTO attributes (user_id, first_name, age, my_location, bio, pic, ethnicity, religion, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks)   
   VALUES (1, 'Jan', 21, 'New York, NY, USA', 'What is life without the beauty of nature?', 'https://preview.ibb.co/jghFRc/jan.jpg', 'White / Caucasian', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE),
-           (2, 'Megan', 21, 'San Diego, CA, USA', 'There is nothing like the serenity that being out in nature brings.', 'https://image.ibb.co/gAsJCH/megan.jpg', 'White / Caucasian', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
-           (3, 'Dori', 22, 'New York, NY, USA', 'Yaaaaaaas, coffeeeeee.', 'https://image.ibb.co/eBQKmc/dori.jpg', 'Latin / Hispanic', 'Christian', FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE),
+           (2, 'Megan', 21, 'San Diego, CA, USA', 'There is nothing like the serenity that being out in nature brings.', 'https://image.ibb.co/mQggjx/megan.jpg', 'White / Caucasian', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
+           (3, 'Dori', 22, 'New York, NY, USA', 'Yaaaaaaas, coffeeeeee.', 'https://image.ibb.co/eBQKmc/dori.jpg','Black / African', 'Christian', FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE),
            (4, 'Michelle', 30, 'Kailua-Kona, HI', 'I like dogs.', 'https://image.ibb.co/dQDfRc/michelle.jpg', 'Pacific Islander', 'Agnostic / Non-religious', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
            (5, 'Princess', 30, 'San Diego, CA, USA', 'Hiiii my name is Princessssss.', 'https://image.ibb.co/d8Fc6c/princess.jpg', 'Asian', 'Christian', TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
            (6, 'Sergina', 30, 'Dallas, TX, USA', 'heyyyyyyyyyy im Sergina.', 'https://image.ibb.co/fDBvsH/sergina.jpg', 'Latin / Hispanic', 'Buddhist', FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE),
@@ -122,5 +122,7 @@ INSERT INTO users (username, password_digest, email)
            (9, 'Davida', 24, 'Seattle, WA, USA', 'Coffee, yaaaaassss.', 'https://image.ibb.co/m3GTCH/davida.jpg', 'Asian', 'Christian', TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE),
            (10, 'Helen', 27, 'Raleigh, NC,USA', 'I like beer.', 'https://image.ibb.co/fopgXH/helen.jpg', 'Asian', 'Christian', TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE),
            (11, 'Selena', 26, 'Fort Lee, NJ, USA', 'What up fam, you can call me Selenaaaaa.', 'https://image.ibb.co/b3jWXH/selena.jpg', 'Native American', 'New Age (Spiritual, but not religious)', FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE),
-           (12, 'Erica', 25, 'new jersey', 'Sup, Erica here.', 'https://image.ibb.co/iDq5sH/erica.jpg', 'White / Caucasian', 'Jewish', FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE);
-
+           (12, 'Erica', 25, 'new jersey', 'Sup, Erica here.', 'https://image.ibb.co/iDq5sH/erica.jpg', 'White / Caucasian', 'Jewish', FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE),
+           (13, 'Tereza', 22, 'Concord, CA, USA', 'Going going back back to cali cali', 'https://image.ibb.co/ffiNrc/tereza.jpg','Latin / Hispanic', 'Christian', FALSE, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE),
+           (14, 'Nina', 28, 'Brooklyn, NY, USA', 'Feeeling Good.', 'https://image.ibb.co/fFgWjx/nina.jpg', 'Black / African', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE),
+           (15, 'Talia', 24, 'New York, NY, USA', 'I love traveling', 'https://image.ibb.co/mkdGHH/Talia.jpg', 'Pacific Islander', 'Agnostic / Non-religious', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE);

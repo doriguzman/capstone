@@ -33,6 +33,8 @@ feathers was built using Express on the back-end and React on the front-end. We 
 ### Acknowledgements 
 * [Lev Izraelit](https://github.com/lizraeli)
 * [Reed Gaines](https://github.com/crymall)
+* [Ten-Young Guh](https://github.com/tenyoung795)
 * [Newton Brooks](https://github.com/newton-brooks)
 * [David Shin](https://github.com/davidyshin)
 * [Alejandro Franco](https://github.com/alejo4373)
+* [Eric Liu](https://github.com/husheric)
