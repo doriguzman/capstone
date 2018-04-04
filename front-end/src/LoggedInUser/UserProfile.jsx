@@ -259,7 +259,7 @@ class UserProfile extends React.Component {
                     <i className="far fa-edit fa-2x" />
                   </Link> : ""}
               </div>
-
+              
               <div className="about-header">As a traveler...</div>
               <div className="attributes-container">
                 {this.state["early_bird"]
@@ -323,7 +323,6 @@ class UserProfile extends React.Component {
             <div>
               <h2>My BucketList </h2>
               <br/>
-              {console.log('my bucketlist!!! , ' , bucketlist)}
                <BucketList activeUser={activeUser} username={this.state.username}/> 
                 </div>
             </TabPanel>
