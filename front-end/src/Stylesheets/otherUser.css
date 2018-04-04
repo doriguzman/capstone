@@ -2,20 +2,13 @@
 
 .message-button:visited {
   color: #000000;
-  background: white;
 }
 .message-button:hover {
   color: #fe424d;
 }
-/* .info {
-  padding: 20px;
-  background-color: white;
-  padding: 1em;
-  opacity: 0.9;
-} */
+
 .userProfile {
   padding: 20px;
-  background-color: white;
   padding: 1em;
   opacity: 0.9;
 }

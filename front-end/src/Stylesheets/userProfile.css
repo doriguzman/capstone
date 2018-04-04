@@ -16,8 +16,6 @@
     align-items: flex-start;
     width: fit-content;
     margin: 20px auto;
-    /* border-top: 4px solid #E6E6FA;
-    border-bottom: 4px solid #E6E6FA; */
 }
 
 .img-container {
@@ -41,11 +39,88 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    width: 35%;
 }
 .my-name {
     font-size: 2em;
     color: rgb(66, 163, 253);
 }
-.my-username {
+.my-location {
+    border-bottom: 4px solid rgb(66, 163, 253);
+    height: 50%;
+    float: bottom;
+}
 
+/* ------ Guidelines for Tabs ------ */
+.tabs {
+    width: 70%;
+    margin: 0 auto;
+    /* padding: 20px; */
+    overflow: scroll;
+    margin-bottom: 8%;
+    padding: 0;
+}
+.tab-list {
+    display: flex;
+    /* flex-direction: row; */
+    width: 100%;
+    padding: 0;
+}
+.single-tab {
+    width: 33%;
+    list-style-type: none;
+    margin: 0 auto;  
+    border-bottom: 4px solid #E6E6FA;
+    border-radius: 5px 5px 0 0;
+    padding: 10px;
+}
+.single-tab:hover {
+    border-bottom: 4px solid #CCC;
+    background-color: rgb(66, 163, 253);
+    transition: 0.5s;
+    color: #FFF;
+}
+.react-tabs__tab--selected {
+    background-color: rgb(66, 163, 253);
+    border-bottom: 4px solid #CCC;
+    color: #FFF;
+}
+.tab-panel {
+    /* background-color: #E6E6FA; */
+    
+}
+
+/* ------ Guidelines for About ------ */
+.attributes-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.about-header {
+    width: auto;
+    background-color: #DDD;
+    margin: 20px 0 10px 0;
+    padding: 5px;
+    border-bottom: 4px solid #E6E6FA;
+}
+
+.attributes-true,
+.attributes-false {
+    width: 23%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border-radius: 5px;
+}
+.attributes-true {
+    background-color: rgb(66, 163, 253);
+    color: #FFF;
+}
+.attributes-false {
+    background-color: #CCC;
+    color: #999;
 }
