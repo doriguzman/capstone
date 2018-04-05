@@ -158,7 +158,7 @@ class App extends React.Component {
     }
   };
 
-  renderi = () => {
+  renderAddTrips = () => {
     const { user } = this.state;
     if (user) {
       return <AddTrips user={user} />;
