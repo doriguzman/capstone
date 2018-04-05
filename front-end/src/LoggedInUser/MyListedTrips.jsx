@@ -50,31 +50,27 @@ class MyListedTrips extends React.Component {
 
     if (trips) {
       return (
-        <div>
+        <div className="trips-container">
           {trips.map(trip => (
-            <div>
-              <h3> Destination: {trip.destination}</h3>
-              <h4>
-                Starting Date:{" "}
-                {dateFormat(trip.start_date, "ddd, mmm, dS, yyyy")}
-                <br />
-                Ending Date:{dateFormat(trip.end_date, "ddd, mmm, dS, yyyy")}
-                <br />
-                Planned Activities: {trip.todos}
-                <br />
-                {activeUser && trips ? (
-                  <button
-                    onClick={e =>
-                      this.handleDeleteTrip(e, trip.id, trip.username)
-                    }
-                  >
-                    Delete Trip
-                  </button>
-                ) : (
-                  ""
-                )}
-              </h4>
-            </div>
+            <div className="single-trip">
+              <div className="trip-destination">{trip.destination}</div>
+              <div className="trip-title">Departing</div>
+              <div className="trip-body">{dateFormat(trip.start_date, "ddd, mmm, dS, yyyy")}</div>
+              <div className="trip-title">Returning</div>
+              <div className="trip-body">{dateFormat(trip.end_date, "ddd, mmm, dS, yyyy")}</div>
+              <div className="trip-title">Planned Activities</div>
+              <div className="trip-todos">{trip.todos}</div>
+              {activeUser && trips ? (
+                <div
+                  className="delete-trip"
+                  onClick={e =>this.handleDeleteTrip(e, trip.id, trip.username)}
+                >
+                  Delete Trip
+                </div>
+              ) : (
+                ""
+              )}
+              </div>
           ))}
         </div>
       );

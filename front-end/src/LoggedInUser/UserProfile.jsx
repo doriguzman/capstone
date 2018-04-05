@@ -10,7 +10,8 @@ import AddTrips from "./AddTrips";
 import dateFormat from "dateformat";
 import MyListedTrips from './MyListedTrips'
 
-import '../Stylesheets/AddTrips.css'
+import '../Stylesheets/userProfile.css'
+import '../Stylesheets/addTrips.css'
 import BucketList from './BucketList'
 import '../Stylesheets/userProfile.css'
 
@@ -210,8 +211,6 @@ class UserProfile extends React.Component {
       pastTrips, bucketListTodos, startDate, endDate, address, bucketlist
     } = this.state;
 
-    console.log(this.state)
-    console.log(username , 'this is the username')
     const AddressInputProps = {
       value: this.state.address,
       onChange: this.inputChange
@@ -222,7 +221,7 @@ class UserProfile extends React.Component {
       input: "search-input",
       autocompleteContainer: "autocomplete-container"
     };
-console.log('active user ' , activeUser)
+    
     return (
       <div className="userProfile">
         <div className="blurb">
@@ -237,27 +236,18 @@ console.log('active user ' , activeUser)
             <span className="my-location">{my_location}</span>
             <div className="my-bio">{bio}</div>
           </div>
-
-          <div>@{username}</div>
-          <div>Location: {my_location}</div>
         </div>
         
         <Tabs className="tabs">
           <TabList className="tab-list">
             <Tab className="single-tab">About</Tab>
-            <Tab className="single-tab">Trips</Tab>
+            <Tab className="single-tab">Current Trips</Tab>
             <Tab className="single-tab">Bucket List</Tab>
           </TabList>
 
           {/* About tab */}
           <TabPanel className="tab-panel">
             <div>
-
-              <div>
-                {activeUser ? <Link to={`/users/me/${username}/editprofile`}>
-                    <i className="far fa-edit fa-2x" />
-                  </Link> : ""}
-              </div>
               
               <div className="about-header">As a traveler...</div>
               <div className="attributes-container">
@@ -303,17 +293,22 @@ console.log('active user ' , activeUser)
               <div> {ethnicity}</div>
               <div className="about-header">Religion</div>
               <div>{religion}</div>
+              <br />
+              <div>
+                {activeUser ? <Link to={`/users/me/${username}/editprofile`}>
+                    <i className="far fa-edit fa-2x" />
+                  </Link> : ""}
+              </div>
             </div>
           </TabPanel>
 
           {/* Trips tab */}
           <TabPanel className="tab-panel">
             <div>
-              <h2> Current Trips</h2>
               {openTrips ? <MyListedTrips activeUser={activeUser} username={username} /> : ""}
-              {activeUser ? <button onClick={this.handleClickAddTrip}>
-                  Add Trips
-                </button> : ""}
+              {activeUser
+                ? <div className="add-trip" onClick={this.handleClickAddTrip}>Add Trip</div>
+                : ""}
             </div>
           </TabPanel>
 

@@ -15,7 +15,7 @@ import PlacesAutocomplete, {
   getLatLng
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
-import "../Stylesheets/AddTrips.css";
+import "../Stylesheets/addTrips.css";
 
 //AIzaSyDXrD14HzNu5D-8-apQ9TLJpDhaHwC4IAk <--- googleAPI KEY
 
@@ -165,9 +165,8 @@ class AddTrips extends React.Component {
 
     return (
       <div className="add-Trip-form">
-        <br />
 
-        <h2> Add an up-coming trip!</h2>
+        <h2> Add an upcoming trip!</h2>
         <hr />
         <form>
           <br />
