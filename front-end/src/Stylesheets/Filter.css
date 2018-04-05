@@ -1,5 +1,4 @@
-
-    /* ------ Color Scheme ------
+/* ------ Color Scheme ------
         000000 -- black
         FFFCF9 -- offwhite
         F2F2F2 -- light grey
@@ -7,6 +6,12 @@
         E6E6FA -- light lavender
         rgb(66, 163, 253) -- twitter blueish
     ------ End Color Scheme------ */
+/* The Modal (background) */
+/* .ReactModal__Body--open{
+  position: absolute;
+  width: 40%;
+} */
+
 
 .sidebar {
   height: 80px;
@@ -78,7 +83,6 @@
   color: #CCC;
   opacity: 1; /* Firefox */
 }
-
 
 @media screen and (max-width: 632px) {
 
