@@ -1,0 +1,39 @@
+.pic{
+    width:auto;
+    height:20px
+}
+
+ h4 {
+    font-size:20px
+}
+
+.register-survey-container{
+    width:70%;
+    margin:auto;
+    background-color: #DDD;
+    border-bottom:4px solid #E6E6FA; 
+}
+
+::-webkit-input-placeholder {
+    text-align: center;
+ }
+
+ input[type='checkbox']{
+    width:20px;
+    height: 20px;
+    display:flex;
+    justify-content: left;
+}
+ .surveyCheck{
+     display:flex;
+     justify-content: center;
+        align-items:center;
+     width:20%;
+     text-align: center;
+     margin:auto;
+ }
+ 
+ input{
+     height: 20px;
+     font-size: 15px
+ }
