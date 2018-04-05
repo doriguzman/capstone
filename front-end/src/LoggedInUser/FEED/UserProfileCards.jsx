@@ -4,53 +4,72 @@ import { Route, Link, Switch, Redirect } from "react-router-dom";
 import dateFormat from "dateformat";
 import AllBuddies from "./AllBuddies";
 
-
 const UserProfileCards = ({ allUsers, bffs }) => {
-  allUsers.map(user=> {
+  allUsers.map(user => {
+    return "user first name", user.first_name, user.age;
+  });
 
-    return ('user first name' , user.first_name , user.age)})
-
-  
   return (
     <div className="cardHolder">
       {allUsers.map(user => {
-        return (
-          <div className="card">
+        return <div className="card">
             <Link to={`/users/u/${user.username}/profile`}>
               <img className="pic" src={user.pic} alt="profile picture" />
             </Link>
-            <div className="name-age"> {user.first_name}, {user.age}, {user.my_location} </div>
 
-        <div>{user.points ? <div>{user.points}% matched</div> : ""}</div>
+            <div className="card-content">
+              <div className="card-general">
+                <div className="name-age">
+                  <span className="blue">{user.first_name}</span>, {user.age}, <Link
+                    to={`/users/u/${user.username}/profile`}
+                  >
+                    @{user.username}
+                  </Link>
+                </div>
 
+                <div className="card-location">{user.my_location}</div>
 
-            {/* <div className="location">{user.my_location}</div> */}
-            <div className="userName">
-              <Link to={`/users/u/${user.username}/profile`}>
-                @{user.username}
-              </Link>
-            </div>
-            <div>
-              <Link to={`/users/messages/${user.username}`}>
-                <i class="far fa-envelope fa-1x" />
-              </Link>
-            </div>
-            {!bffs ? (
-              <div>
-                {user.destination ?
-                <div className="destination">
-                  Destination: {user.destination}{" "}
-                </div> : ''}
-                
-                 {user.start_date ? <div className="startDate">Trip start date: {dateFormat (user.start_date, "ddd, mmm, dS, yyyy")}</div> :''}
-                 
-               {user.end_date ? <div className="endDate"> Trip end date: {dateFormat (user.end_date, "ddd, mmm, dS, yyyy")}</div> :''}
+                <div className="match-percent">
+                  {user.points ? <div> {user.points}% matched </div> : ""}
+                </div>
+
+                <div>
+                  <Link to={`/users/messages/${user.username}`}>
+                    <i class="far fa-envelope fa-1x" />
+                  </Link>
+                </div>
               </div>
-            ) : (
-              ""
-            )}
-          </div>
-        );
+
+              <div className="card-trips">
+                {!bffs ? 
+                  <div>
+                  <div className="upcoming-trips">Upcoming Trips</div>
+                    {user.destination ? 
+                      <div className="card-destination">
+                        {user.destination}
+                      </div> : ""}
+
+                    {user.start_date ? 
+                      <div className="card-trip-date">
+                        Departing:{" "}
+                        {dateFormat(
+                          user.start_date,
+                          "ddd, mmm, dS, yyyy"
+                        )}
+                      </div> : ""}
+
+                    {user.end_date ? 
+                      <div className="card-trip-date">
+                        Returning:{" "}
+                        {dateFormat(
+                          user.end_date,
+                          "ddd, mmm, dS, yyyy"
+                        )}
+                      </div> : ""} 
+                  </div> : ""}
+              </div>
+            </div>
+          </div>;
       })}
     </div>
   );

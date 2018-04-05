@@ -263,8 +263,12 @@ class MatchedBuddies extends Component {
 
     return (
       <div>
-				<p className="matches-header">Other members are ranked from most to least compatible!</p>
-				<p className="matches-subheader">Click <a href="/users/faq">here</a> to find out more about how we match members.</p>
+				<span className="matches-header">Feathers Community</span><br />
+				<span className="matches-subheader">
+					Members are shown from most to least compatible. <br />
+					Click <span className="matches-here"><a href="/users/faq">here </a></span>
+					 to find out more about how we match members.
+				</span>
         {/* <h3 className="matches-header">Your matches!</h3> */}
 					<UserProfileCards allUsers={allUsersTrips} forRealUsers={allUsers}/>
 				{/* <h3 className="matches-header">Everyone else</h3> */}

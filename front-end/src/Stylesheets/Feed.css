@@ -12,31 +12,86 @@ html {
   align-items: center;
 }
 
+.matches-header {
+  font-size: 3em;
+}
+.matches-here {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 .cardHolder {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-around;
   padding: 20px;
   margin: 0 auto;
+  width: 90%;
+  align-items: center;
 }
 
 .card {
+  width: 600px;
+  height: 300px;
+  display: flex;
+  flex-direction: row;
+  margin: 15px 5px 15px 5px;
+  overflow: hidden;
+  border-top: 2px solid #DDD;
+  border-bottom: 2px solid #DDD;
+  padding: 0;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
   width: 300px;
-  height: auto;
-  margin: 5px;
-  padding: 10px;
-  overflow: scroll;
-  border: 2px solid #E6E6FA;
 }
 
 .card img {
   width: 300px;
   height: 300px;
+  border-right: 4px solid rgb(66, 163, 253);
 }
 
-.pic {
+.card-general {
+  text-align: center;
+}
+/* .pic {
   height: 75%;
   width: 75%;
-  border-bottom: 4px solid rgb(66, 163, 253);
+} */
+.blue {
+  color: rgb(66, 163, 253);
+}
+.name-age {
+  font-size: 1.4em;
+}
+.card-location {
+  font-style: italic;
+}
+
+
+.card-trips {
+  background-color: #DDD;
+  overflow: scroll;
+  height: 220px;
+  padding: 5px;
+  margin: 0;
+}
+.upcoming-trips {
+  font-style: italic;
+  text-decoration: underline;
+  font-size: 0.8em;
+  padding-bottom: 5px;
+  text-align: center;
+}
+.card-destination {
+  text-transform: uppercase;
+}
+.card-trip-date {
+  font-size: 0.9em;
 }
