@@ -32,14 +32,10 @@ class BffFeed extends React.Component {
         // console.log("gettings the user BFFS", arrayOfbffs);
       });
       //   if (arrayOfbffs){
-      console.log("second axios call");
       //getting all the users in the system
       axios.get("/users/getPics").then(response => {
-        console.log(response.data);
-        console.log("arraybffs", arrayOfbffs);
         this.setState({
           allUsers: response.data,
-    
         });
         this.renderFilter();
       });
@@ -47,21 +43,18 @@ class BffFeed extends React.Component {
   };
 
   renderFilter() {
-    console.log("rendering filter function");
     const { arrayOfbffs, allUsers, BffsInfo } = this.state;
+
     if (arrayOfbffs) {
       const filteredBFFS = arrayOfbffs.map(elem =>
         allUsers.find(obj => obj.username === elem)
       );
-      var merged = [].concat.apply([], filteredBFFS);
-      console.log(filteredBFFS);
-      console.log("merged", merged);
-      console.log("hiii");
+      const merged = [].concat.apply([], filteredBFFS);
+
       this.setState({
         BffsInfo: [...merged], 
       });
-    }
-    else{
+    } else {
       this.setState({
         message:`you haven't added any bffs!`
       })
@@ -70,24 +63,20 @@ class BffFeed extends React.Component {
 
   render() {
     const { arrayOfbffs, BffsInfo, message } = this.state;
-    console.log(
-      "rendering the state after the component will mount ",
-      this.state
-    );
+    
     return (
-      <div>
-     
+      <div> 
         {BffsInfo[0] ? (
           //passing in bff just to know that its the bffs feed, which
           //doesnt show the dates of destination 
           <UserProfileCards allUsers={BffsInfo} bffs={BffsInfo}/>
         ) : (
-          <h2> no profiles favorited yet</h2>
+          <div>
+            <h2> You haven't added anyone to your Faves yet! </h2>
+            <h3>Add a member to your Faves by clicking <i class="far fa-user fa-1x"></i> on their page. </h3>
+          </div>
         )}
-
         {message}
-
-
       </div>
     );
   }

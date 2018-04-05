@@ -38,8 +38,8 @@ html {
   flex-direction: row;
   margin: 15px 5px 15px 5px;
   overflow: hidden;
-  border-top: 2px solid #DDD;
-  border-bottom: 2px solid #DDD;
+  /* border-top: 2px solid #DDD;
+  border-bottom: 2px solid #DDD; */
   padding: 0;
 }
 
@@ -76,7 +76,8 @@ html {
 
 
 .card-trips {
-  background-color: #DDD;
+  /* background-color: #DDD; */
+  background: linear-gradient(to top, #F2F2F2, rgba(66, 163, 253, 0.253));
   overflow: scroll;
   height: 220px;
   padding: 5px;

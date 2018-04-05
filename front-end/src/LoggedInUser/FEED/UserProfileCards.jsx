@@ -51,7 +51,7 @@ const UserProfileCards = ({ allUsers, bffs }) => {
 =======
 
               <div className="card-trips">
-                {!bffs ? 
+                
                   <div>
                   <div className="upcoming-trips">Upcoming Trips</div>
                     {user.destination ? 
@@ -76,7 +76,7 @@ const UserProfileCards = ({ allUsers, bffs }) => {
                           "ddd, mmm, dS, yyyy"
                         )}
                       </div> : ""} 
-                  </div> : ""}
+                  </div>
               </div>
             </div>
           </div>;
