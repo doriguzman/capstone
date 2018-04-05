@@ -1,98 +1,93 @@
-.bucketlist-Container{
-    overflow:scroll;
-    display:flex; 
-    flex-direction: column; 
-    /* justify-content:center;  */
-    /* align-items:center;  */
-    left:50%;
-    height:500px;
-    width:800px; 
-    color: rgb(66, 163, 253);
-    border: 4 px #CCC;
+.mainDiv {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.bucketlist-Item{
-    border:1px solid   rgb(66, 163, 253);
-    background-color: rgb(66, 163, 253);
-    color: #FFF;
-    border-bottom:4px solid #E6E6FA;
-    border-radius:5px; 
-    padding-top:10px;
-    padding-bottom:10px; 
-    height:200px;
-    /* width:550px;    */
-    justify-content:center; 
-    align-items:center;  
-    
-
+.bucketlist-Container {
+  /* background-color: white; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
 }
 
-/* having to use cc for the color of the buttons on deleting a trip */
+.bucketlist-Item {
+  width: 33%;
+}
 
-.mainDiv{
-    display:flex; 
-    margin-top:20px;
-    /* flex-direction: column; 
-    justify-content:center; 
-        align-items:center;  */
+.bucketlist-Item-Destination {
+  width: 15vw;
+  height: 15vw;
+  border-radius: 50%;
+  background-color: rgb(66, 163, 253);
+  color: white;
+  box-shadow: 5px 5px 3px rgb(194, 204, 226);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  margin: 0 20px 0 20px;
+}
 
+.bucketlist-Item-Destination:hover + .bucketlist-Item-Planned {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  overflow: wrap;
+}
+
+.bucketlist-Item-Planned {
+  display: none;
+  text-align: center;
+  height: 100px;
+  width: 100%;
+}
+
+.bucketlist-Item-Destination:hover + .delete-Bucketlist-Button {
+  display: block;
+  background-color: black;
+}
+
+
+
+.delete-Bucketlist-Button {
+  border-radius: 5px;
+  width: 50px;
+}
+
+.trash-Icon {
+  height: 20px;
+  width: 20px;
 }
 
 .add-Bucketlist-Div {
-    border: 1 px #CCC;
-   color: rgb(66, 163, 253);
-    padding-top:20px;
-        display:flex;
-
-     flex-direction: column;
-     /* align-items:center;   */
-     justify-content: center;
-
-    /*justify-content:center; 
-        align-items:center;  */
+  background-color: #999;
+  color: white;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 10px;
+  margin: 0 auto;
+  width: fit-content;
+  border-bottom: 4px solid rgb(66, 163, 253);
+  border-radius: 10px;
 }
 
-.bucketlist-Todos-Input{
-    width:350px;
-    height:25px;
+.bucketlist-Todos-Input {
+  height: 25px;
+  width: 220px;
 }
 
-
-
-.add-Bucketlist-Div{
-    border:1px;
-    background-color:white ; 
-    height:480px;
-    width:500px;
-    border-radius:5px;
-
-
-}
-input{
-    /* background-color: #DDD; */
-    /* border:1px solid rgb(174, 172, 172);  */
-    border-radius:5px;
-    
+.header {
+  color: rgb(66, 163, 253);
 }
 
-.add-Bucketlist-Button{
-    background-color:rgb(66, 163, 253);
-    /* background-color: gray; */
-    border-radius:5px; 
-    color:white;
-    padding:8px;
-    width:200px;
-    margin-left:100px
-}
-
-.delete-Bucketlist-Button{
-    border-radius:5px;
-    /* background-color: white; */
-    background-color: #DDD;
-color:black;
-color: #999;
-    text-transform: capitalize;
-    width:200px; 
-    padding:8px;
-
+.add-Bucketlist-Button {
+  background: white;
+  /* color:rgb(66, 163, 253); */
+  /* background:rgb(66, 163, 253); */
+  /* color:white; */
+  margin-bottom: 10px;
 }

@@ -315,8 +315,7 @@ class UserProfile extends React.Component {
           {/* Bucketlist tab */}
           <TabPanel className="tab-panel">
             <div>
-              <h2>My BucketList </h2>
-              <br/>
+           
                <BucketList activeUser={activeUser} username={this.state.username}/> 
                 </div>
             </TabPanel>

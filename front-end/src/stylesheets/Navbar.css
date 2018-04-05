@@ -81,13 +81,13 @@ footer a {
 
 /* ------ Media Queries ------ */
 @media screen and (max-width: 632px) {
-  .top-nav-bar-left2 {
+  .top-nav-bar-left img {
     display: none;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .top-nav-bar-left2 {
+  .top-nav-bar-left img {
     display: none;
   }
 }

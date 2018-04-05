@@ -131,3 +131,28 @@
     background-color: #CCC;
     color: #999;
 }
+/* ------ Media Queries ------ */
+@media screen and (max-width: 632px) {
+    .blurb {
+    flex-direction: column;
+    }
+    .attributes-true,
+    .attributes-false {
+        width: 35%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 5px;
+        border-radius: 5px;
+        size: 0.7em;
+    }
+
+
+  }
+  
+  @media screen and (max-width: 480px) {
+    .top-nav-bar-left img {
+    flex-direction: column;
+    }
+  }
