@@ -8,9 +8,8 @@ import AddTrips from "./AddTrips";
 // import ListedTrips from "./ListedTrips";
 import "../Stylesheets/otherUser.css";
 import GeneralListedTrips from "./GeneralListedTrips";
-// import '../index.css'
 import BucketList from "./BucketList";
-// import '../index.css'
+
 
 class OtherUser extends Component {
   constructor(props) {
@@ -247,122 +246,132 @@ class OtherUser extends Component {
       flagged
     } = this.state;
     return (
-      <div>
-        <div>
-          <img src={userImageURL} />
-        </div>
-        <div>
-          <div>
-            Name: {first_name}, Age: {age}
+      <div className="userProfile">
+        <div className="blurb">
+          <div className="img-container">
+            <img src={userImageURL} className="profile-pic" />
           </div>
-
-          <div>@{username}</div>
-          <div>Location: {my_location}</div>
-          <div className="btnLine">
-            <link
-              rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-            />
-            {!bffle ? (
-              <button onClick={this.addBFF} className="noFriend" >
-
-                {" "}
-                <i class="far fa-user fa-2x"></i>,
-               
-              </button>
-            ) : (
-              <button
-                onClick={this.addBFF}
-                className={bffle ? "addFriend" : "noFriend"}
-              >
-                {" "}
-                <i class="far fa-user fa-2x" />{" "} 
-                {this.state.bffle ? <i class="far fa-check-circle"></i> : "" }
-              </button>
-            )}
-               {" "}
-            {!flagged ? (
-              <button onClick={this.addFlag} className="flagBtn">
-                {" "}
-                <i class="far fa-flag fa-2x" />{" "}
-              </button>
-            ) : (
-              <button
-                onClick={this.addFlag}
-                className={flagged ? "redflagBtn" : "flagBtn"}
-              >
-                {" "}
-                <i class="far fa-flag fa-2x" />{" "}
-              </button>
-            )}
-              {" "}
-            <button className='message-button'>
-              <Link className='message' to={`/users/messages/${this.state.username}`}>
-                <i class="far fa-envelope fa-2x" />
-              </Link> 
-            </button>
-          </div>
-        </div>
-        <Tabs>
-          <TabList>
-            <Tab>About</Tab>
-            <Tab>Trips</Tab>
-            <Tab>BucketList</Tab>
-          </TabList>
-          <TabPanel>
-            <div>
-              <div />
-              <div>
-                <h3>About me: {bio} </h3>
-              </div>
-              Ethnicity: {ethnicity}
-              <div>
-                <br />
-                <div>Religion:{religion}</div>
-                <br />
-                <pre>
-                  <b>As a traveller: </b>
-                  <br />
-                  <br /> I am an early bird:{" "}
-                  {this.state["early_bird"] ? "yes" : "no"} ,
-                  <br /> A night owl: {this.state["night_owl"] ? "yes" : "no"},
-                  <br /> Like clubbing: {this.state["clubbing"] ? "yes" : "no"},
-                  <br /> I am spontaneous:{" "}
-                  {this.state["spontaneous"] ? "yes" : "no"},
-                  <br /> I am active: {this.state["active"] ? "yes" : "no"},
-                  <br /> I like sightseeing:{" "}
-                  {this.state["sightseeing"] ? "yes" : "no"},
-                  <br /> I am a foodie: {this.state["foodie"] ? "yes" : "no"},
-                  <br /> Relax: {this.state["relax"] ? "yes" : "no"},
-                  <br /> Enjoy nature: {this.state["nature"] ? "yes" : "no"},
-                  <br /> I am extroverted:{" "}
-                  {this.state["extroverted"] ? "yes" : "no"},
-                  <br /> Smoke: {this.state["smokes"] ? "yes" : "no"},
-                  <br /> Drink: {this.state["drinks"] ? "yes" : "no"}
-                </pre>
-              </div>
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div>
-              <h2> Current Trips</h2>
-              {openTrips ? <GeneralListedTrips trips={openTrips} /> : ""}
-
-              {pastTrips[0] ? (
-                <div>
-                  <h2> Past Trips </h2>
-                  <GeneralListedTrips trips={openTrips} />
+          <div className="general-info">
+            <span className="my-name">{first_name}, {age}</span>
+            <span>@{username}</span>
+            <span>{my_location}</span>
+            <div className="my-bio">{bio}</div>
+            <div className="btnLine">
+              <link 
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+              />
+              {!bffle ? (
+                <div onClick={this.addBFF} className="noFriend">
+                  <i class="far fa-user fa-2x"></i>
                 </div>
               ) : (
-                ""
+                <div 
+                  onClick={this.addBFF}
+                  className={bffle ? "addFriend" : "noFriend"}
+                >
+                  <i class="far fa-user fa-2x" />
+                  {this.state.bffle ? <i class="far fa-check-circle"></i> : "" }
+                </div>
               )}
-            </div>
-          </TabPanel>
-          <TabPanel>
+              {!flagged ? (
+                <div onClick={this.addFlag} className="flagBtn">
+                  <i class="far fa-flag fa-2x" />
+                </div>
+              ) : (
+                <div
+                  onClick={this.addFlag}
+                  className={flagged ? "redflagBtn" : "flagBtn"}
+                >
+                  <i class="far fa-flag fa-2x" />
+                </div>
+              )}
+                
+              <div className='message-div'>
+                <Link className='message' to={`/users/messages/${this.state.username}`}>
+                  <i class="far fa-envelope fa-2x" />
+                </Link> 
+              </div>
+            </div>   
+          </div>
+        </div>
 
+        <div>
+          <Tabs className="tabs">
+            <TabList className="tab-list">
+              <Tab className="single-tab">About</Tab>
+              <Tab className="single-tab">Current Trips</Tab>
+              <Tab className="single-tab">Bucket List</Tab>
+            </TabList>
+
+            <TabPanel className="tab-panel">
+              <div className="about-header">As a traveler...</div>
+              <div className="attributes-container">
+                {this.state["early_bird"]
+                  ? <div className="attributes-true">I'm an early bird.</div>
+                  : <div className="attributes-false">I'm an early bird.</div>}
+                {this.state["night_owl"]
+                  ? <div className="attributes-true">I'm a night owl.</div>
+                  : <div className="attributes-false">I'm a night owl.</div>}
+                {this.state["clubbing"]
+                  ? <div className="attributes-true">I enjoy clubbing.</div>
+                  : <div className="attributes-false">I enjoy clubbing.</div>}
+                {this.state["spontaneous"]
+                  ? <div className="attributes-true">I'm spontaneous.</div>
+                  : <div className="attributes-false">I'm spontaneous.</div>}
+                {this.state["active"]
+                  ? <div className="attributes-true">I'm active.</div>
+                  : <div className="attributes-false">I'm active.</div>}
+                {this.state["sightseeing"]
+                  ? <div className="attributes-true">I like sightseeing.</div>
+                  : <div className="attributes-false">I like sightseeing.</div>}
+                {this.state["foodie"]
+                  ? <div className="attributes-true">I'm a foodie.</div>
+                  : <div className="attributes-false">I'm a foodie.</div>}
+                {this.state["relax"]
+                  ? <div className="attributes-true">I mainly like to relax.</div>
+                  : <div className="attributes-false">I mainly like to relax.</div>}
+                {this.state["nature"]
+                  ? <div className="attributes-true">I enjoy nature.</div>
+                  : <div className="attributes-false">I enjoy nature.</div>}
+                {this.state["extroverted"]
+                  ? <div className="attributes-true">I'm extroverted.</div>
+                  : <div className="attributes-false">I'm extroverted.</div>}
+                {this.state["smokes"]
+                  ? <div className="attributes-true">I smoke.</div>
+                  : <div className="attributes-false">I smoke.</div>}
+                {this.state["drinks"]
+                  ? <div className="attributes-true">I drink.</div>
+                  : <div className="attributes-false">I drink.</div>}
+              </div>
+
+                <div className="about-header">Ethnicity</div>
+                <div>{ethnicity}</div>
+                <div className="about-header">Religion</div>
+                <div>{religion}</div>
+            </TabPanel>
+            
+            <TabPanel className="tab-panel">
+              <div>
+                {openTrips ? <GeneralListedTrips trips={openTrips} /> : ""}
+
+                {pastTrips[0] ? (
+                  <div>
+                    <h2> Past Trips </h2>
+                    <GeneralListedTrips trips={openTrips} />
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            </TabPanel>
+            
+            <TabPanel className="tab-panel">
               <BucketList username={username}/>
             </TabPanel>
-        </Tabs>
+
+          </Tabs>
+        </div>
       </div>
     );
   }
