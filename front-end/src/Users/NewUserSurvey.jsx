@@ -254,7 +254,7 @@ class NewUserSurvey extends React.Component {
           <h4> What are you like on vacation?</h4>
           <div className="checkBoxes">
             {attributes.map(value => (
-              <div className="div-surveyCheck">
+              
                 <span className="surveyCheck">
                   <input
                     type="checkbox"
@@ -265,7 +265,7 @@ class NewUserSurvey extends React.Component {
                   {value}
                   <br />
                 </span>
-              </div>
+             
             ))}
           </div>
           <br />
