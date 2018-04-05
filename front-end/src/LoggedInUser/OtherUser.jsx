@@ -193,9 +193,6 @@ class OtherUser extends Component {
     axios
       .get("/users/getFlagged")
       .then(res => {
-        console.log("gettings the user's flagged people ", res.data);
-
-        console.log("this is before the find ");
         if (res.data.find(n => n.flagged === username)) {
           console.log("went to the data");
           this.setState({
@@ -211,7 +208,6 @@ class OtherUser extends Component {
 
 
   componentDidMount() {
-    console.log("component mounted!");
     this.getUserInfo();
     // this.getUserBFFS();
   }
@@ -245,6 +241,7 @@ class OtherUser extends Component {
       bffle,
       flagged
     } = this.state;
+    
     return (
       <div className="userProfile">
         <div className="blurb">
