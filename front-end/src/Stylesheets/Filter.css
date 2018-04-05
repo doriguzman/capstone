@@ -78,7 +78,7 @@
   
 } */
 
- /* .search-input,
+ .search-input,
 .search-input:focus,
 .search-input:active {
   height: 35px;
@@ -134,7 +134,7 @@
   grid-row: 1;
   align-self: center;
 
-}   */
+}  
 
 /* .search-input{
   margin-top:5px
