@@ -19,7 +19,6 @@ import PlacesAutocomplete, {
 import dateFormat from "dateformat";
 import "../../Stylesheets/Filter.css";
 import Modal from "react-modal";
-import FilterModal from './FilterModal';
 
 const isThereOverlap = (sdate1, edate1, sdate2, edate2) => {
   const minOfDates = (ed1, ed2) => (ed1 < ed2 ? ed1 : ed2);
