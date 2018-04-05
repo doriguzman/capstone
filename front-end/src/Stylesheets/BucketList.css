@@ -191,8 +191,9 @@ display: block;
     }
 
   .add-Bucketlist-Button{
-      /* background:white;  */
+      background:white; 
       /* color:rgb(66, 163, 253); */
       /* background:rgb(66, 163, 253); */
-      color:white;
+      /* color:white; */
+    margin-bottom:10px;
   }
