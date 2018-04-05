@@ -127,34 +127,47 @@ class BucketList extends React.Component {
     if (activeUser && bucketlistArray[0]) {
       return (
         <div className="mainDiv">
-          <br />
-
+          <h3 className="header">
+            {" "}
+            Hover over the bucklists to see planned activities!{" "}
+          </h3>
           <div className="bucketlist-Container">
             {bucketlistArray.map(list => (
               <div className="bucketlist-Item">
-                <h3>
-                  Wish Destination:
-                  {list.destination}{" "}
-                </h3>
+                <div className="bucketlist-Item-Destination">
+                  <h4>{list.destination} </h4>
+                  {activeUser ? (
+                    <button
+                      className="delete-Bucketlist-Button"
+                      onClick={e =>
+                        this.handleDeleteBucket(e, list.id, list.username)
+                      }
+                    >
+                      <img
+                        className="trash-Icon"
+                        src="https://cdn1.iconfinder.com/data/icons/hawcons/32/699013-icon-27-trash-can-128.png"
+                      />
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                </div>
 
-                <h3> Planned Activities: {list.todos}</h3>
-
-                {activeUser ? (
-                  <button className='delete-Bucketlist-Button'
-                    onClick={e =>
-                      this.handleDeleteBucket(e, list.id, list.username)
-                    }
-                  >
-                    Delete Bucketlist
-                  </button>
+                {list.todos ? (
+                  <div className="bucketlist-Item-Planned">
+                    <h3>
+                      {/* brings back an array of split values, now get them in a sentence  */}
+                      {list.todos.split()}
+                    </h3>
+                  </div>
                 ) : (
                   ""
                 )}
               </div>
             ))}
           </div>
-          <br/>
-          <div className='add-Bucketlist-Div'>
+          <br />
+          <div className="add-Bucketlist-Div">
             Destination:{" "}
             <PlacesAutocomplete
               classNames={addressCSSClasses}
@@ -162,10 +175,10 @@ class BucketList extends React.Component {
             />
             <br />
             <div className="bucketlist-Todos">
-              Planned Activites: 
-              <br/>
+              Planned Activites:
+              <br />
               <input
-              className='bucketlist-Todos-Input'
+                className="bucketlist-Todos-Input"
                 type="text"
                 name="bucketListTodos"
                 value={bucketListTodos}
@@ -175,14 +188,14 @@ class BucketList extends React.Component {
             <br />
             {address ? (
               <input
-              className='add-Bucketlist-Button'
-              type="submit"
+                className="add-Bucketlist-Button"
+                type="submit"
                 value="Add to my bucket list"
                 onClick={this.addToBucketList}
               />
             ) : (
               <input
-              className='add-Bucketlist-Button'
+                className="add-Bucketlist-Button"
                 type="submit"
                 value="Add  to my bucket list!"
                 onClick={this.addToBucketList}
@@ -194,16 +207,18 @@ class BucketList extends React.Component {
       );
     } else if (activeUser) {
       return (
-        <div className='add-Bucketlist-Div'>
+        <div className="add-Bucketlist-Div">
           Destination:{" "}
           <PlacesAutocomplete
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
           />
           <br />
-          <div className="bucketList-Todos">
+          <div className="bucketlist-Todos">
             Planned Activites:
+            <br />
             <input
+              className="bucketlist-Todos-Input"
               type="text"
               name="bucketListTodos"
               value={bucketListTodos}
@@ -212,14 +227,15 @@ class BucketList extends React.Component {
           </div>
           <br />
           {address ? (
-            <input className='add-Bucketlist-Button'
+            <input
+              className="add-Bucketlist-Button"
               type="submit"
               value="Add to my bucket list"
               onClick={this.addToBucketList}
             />
           ) : (
             <input
-            className='add-Bucketlist-Button'
+              className="add-Bucketlist-Button"
               type="submit"
               value="Add  to my bucket list!"
               onClick={this.addToBucketList}
@@ -231,17 +247,27 @@ class BucketList extends React.Component {
     } else if (bucketlistArray[0]) {
       return (
         <div className="mainDiv">
-          <br />
-
+          <h3 className="header">
+            {" "}
+            Hover over the bucklists to see planned activities!{" "}
+          </h3>
           <div className="bucketlist-Container">
             {bucketlistArray.map(list => (
-              <div>
-                <h3>
-                  Wish Destination:
-                  {list.destination}{" "}
-                </h3>
+              <div className="bucketlist-Item">
+                <div className="bucketlist-Item-Destination">
+                  <h4>{list.destination} </h4>
+                </div>
 
-                <h3> Planned Activities: {list.todos}</h3>
+                {list.todos ? (
+                  <div className="bucketlist-Item-Planned">
+                    <h3>
+                      {/* brings back an array of split values, now get them in a sentence  */}
+                      {list.todos.split()}
+                    </h3>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             ))}
           </div>
