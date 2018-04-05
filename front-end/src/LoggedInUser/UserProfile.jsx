@@ -11,7 +11,6 @@ import dateFormat from "dateformat";
 import MyListedTrips from './MyListedTrips'
 
 import '../Stylesheets/userProfile.css'
-import '../Stylesheets/addTrips.css'
 import BucketList from './BucketList'
 import '../Stylesheets/userProfile.css'
 

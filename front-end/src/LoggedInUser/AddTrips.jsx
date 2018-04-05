@@ -15,7 +15,7 @@ import PlacesAutocomplete, {
   getLatLng
 } from "react-places-autocomplete";
 import dateFormat from "dateformat";
-import "../Stylesheets/addTrips.css";
+import "../Stylesheets/AddTrips.css";
 
 //AIzaSyDXrD14HzNu5D-8-apQ9TLJpDhaHwC4IAk <--- googleAPI KEY
 
