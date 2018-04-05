@@ -39,16 +39,6 @@ const UserProfileCards = ({ allUsers, bffs }) => {
                   </Link>
                 </div>
               </div>
-<<<<<<< HEAD
-            ) : (
-              ""
-            )}
-            <div >
-              <Link to={`/users/messages/${user.username}`}>Message Me</Link>
-            </div>
-          </div>
-        );
-=======
 
               <div className="card-trips">
                 
@@ -80,7 +70,6 @@ const UserProfileCards = ({ allUsers, bffs }) => {
               </div>
             </div>
           </div>;
->>>>>>> b88a1d76701edfe975262e9f846eac2fa0930f09
       })}
     </div>
   );

@@ -71,6 +71,7 @@
   color: #DAECF3;
   opacity: .9;
   display: grid;
+<<<<<<< HEAD
   grid-template-columns:20% 20% 25% 15% 10% 10%   ;
   grid-template-rows: 100%;
   align-content: space-evenly
@@ -86,22 +87,48 @@
   
      
  
+=======
+  grid-template-columns:20% 20% 30% 10% 10% 10%   ;
+  grid-template-rows: 100%;
+  grid-column-gap: 0.1em;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.DateInput_input{
+  padding: 0;
+}
+
+.search-input,
+.search-input:focus,
+.search-input:active {
+  height: 35px;
+  width:200px;
+>>>>>>> 4d77c6ab44d21a289d049496733b62c1382eff2f
 }
 
 .location{
   grid-column: 1;
   grid-row: 1;
   align-self: center;
+<<<<<<< HEAD
   width:80%
+=======
+>>>>>>> 4d77c6ab44d21a289d049496733b62c1382eff2f
 }
 
 .destination {
   grid-column: 2;
   grid-row: 1;
   align-self: center;
+<<<<<<< HEAD
   width:80%
   
 
+=======
+>>>>>>> 4d77c6ab44d21a289d049496733b62c1382eff2f
 }
 
 
@@ -110,15 +137,19 @@
   grid-column: 3;
   grid-row: 1;
   align-self: center;
+<<<<<<< HEAD
   
  
 
+=======
+>>>>>>> 4d77c6ab44d21a289d049496733b62c1382eff2f
 }  
 
 .ages{
   grid-column: 4;
   grid-row: 1;
   align-self: center;
+<<<<<<< HEAD
 
 }  
 
@@ -173,66 +204,84 @@
   margin-right: 40px
 }
 */
+=======
+}  
+
+
+.applyfilterBtn{
+  grid-column: 5;
+  grid-row: 1;
+  align-self: center;
+}  
+.clearfilterBtn{
+  grid-column: 6;
+  grid-row: 1;
+  align-self: center;
+}  
+
+>>>>>>> 4d77c6ab44d21a289d049496733b62c1382eff2f
 
 
 /* margin: 2%; */
 
+<<<<<<< HEAD
 /*
 ::placeholder { Chrome, Firefox, Opera, Safari 10.1+
   color: #CCC; 
  opacity: 1; Firefox
 } */
 /* 
-@media screen and (max-width: 632px) {
-  .search-input,
-.search-input:focus,
-.search-input:active {
-  height: 20px;
-  width:100%;
-}
-.sidebar {
-  height: 160px;
-  background-color: #022D41;
-  color: #DAECF3;
-  opacity: .9;
-  display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: 33.33% 33.33% 33.33%;
-}
+=======
 
+>>>>>>> 4d77c6ab44d21a289d049496733b62c1382eff2f
+@media screen and (max-width: 632px) {
+
+.sidebar {
+  height: 400px;
+  display: grid;
+  grid-template-columns: 100% ;
+  grid-template-rows:20% 20% 30% 10% 10% 10% ;
+  grid-row-gap: 0.1em;
+}
 .location{
-  grid-column: 1/3;
+  grid-column: 1;
   grid-row: 1;
+  align-self: center;
 }
 
 .destination {
-  grid-column: 3/5;
-  grid-row: 1;
+  grid-column: 1;
+  grid-row: 2;
+  align-self: center;
 }
 
-.start_age{
+
+
+.travelDates{
   grid-column: 1;
   grid-row: 3;
-}
+  align-self: center;
+}  
 
-.end_age{
-  grid-column: 2;
-  grid-row: 3;
-}
-.travelDates{
-  grid-column: 1/5;
-  grid-row: 2;
-  justify-self: center;
+.ages{
+  grid-column: 1;
+  grid-row: 4;
+  align-self: center;
+}  
 
-}
-.filterBtn{
-  grid-column: 4;
-  grid-row: 3;
-  align-self: end center;
-}
 
-}
+.applyfilterBtn{
+  grid-column: 1;
+  grid-row: 5;
+  align-self: center;
+}  
+.clearfilterBtn{
+  grid-column: 1;
+  grid-row: 6;
+  align-self: center;
+}  
 
+<<<<<<< HEAD
 @media screen and (max-width: 480px) {
   .search-input,
   .search-input:focus,
@@ -240,5 +289,7 @@
     height: 30px;
     width:100%;
   }
+=======
+>>>>>>> 4d77c6ab44d21a289d049496733b62c1382eff2f
 
 } */
