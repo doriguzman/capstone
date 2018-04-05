@@ -103,11 +103,11 @@ INSERT INTO users (username, password_digest, email)
            ('princess', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'princess@princess.com'),
            ('sergina', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'serge@serge.com'),
            ('elonje', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'elonje@elonje.com'),
-           ('simone', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'simone@simone.com'), -- pw: chicken
-           ('davida', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'davida@davida.com'), -- pw: ricecake
-           ('helena', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOdovZlD/O', 'helenc@helenc.com'), -- pw: quinoa
-           ('selena', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'selena@selena.com'), -- pw: chocolate
-           ('erical', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'erical@erical.com'); -- pw: unicorn
+           ('simone', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'simone@simone.com'),
+           ('davida', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'davida@davida.com'),
+           ('helena', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOdovZlD/O', 'helenc@helenc.com'),
+           ('selena', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'selena@selena.com'),
+           ('erical', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'erical@erical.com');
 
 
  INSERT INTO attributes (user_id, first_name, age, my_location, bio, pic, ethnicity, religion, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks)   
@@ -122,7 +122,7 @@ INSERT INTO users (username, password_digest, email)
            (9, 'Davida', 24, 'Seattle, WA, USA', 'Coffee, yaaaaassss.', 'https://image.ibb.co/m3GTCH/davida.jpg', 'Asian', 'Christian', TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE),
            (10, 'Helen', 27, 'Raleigh, NC,USA', 'I like beer.', 'https://image.ibb.co/fopgXH/helen.jpg', 'Asian', 'Christian', TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE),
            (11, 'Selena', 26, 'Fort Lee, NJ, USA', 'What up fam, you can call me Selenaaaaa.', 'https://image.ibb.co/b3jWXH/selena.jpg', 'Native American', 'New Age (Spiritual, but not religious)', FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE),
-           (12, 'Erica', 25, 'new jersey', 'Sup, Erica here.', 'https://image.ibb.co/iDq5sH/erica.jpg', 'White / Caucasian', 'Jewish', FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE),
+           (12, 'Erica', 25, 'Anaheim, CA, USA', 'Sup, Erica here.', 'https://image.ibb.co/iDq5sH/erica.jpg', 'White / Caucasian', 'Jewish', FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE),
            (13, 'Tereza', 22, 'Concord, CA, USA', 'Going going back back to cali cali', 'https://image.ibb.co/ffiNrc/tereza.jpg','Latin / Hispanic', 'Christian', FALSE, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE),
            (14, 'Nina', 28, 'Brooklyn, NY, USA', 'Feeeling Good.', 'https://image.ibb.co/fFgWjx/nina.jpg', 'Black / African', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE),
            (15, 'Talia', 24, 'New York, NY, USA', 'I love traveling', 'https://image.ibb.co/mkdGHH/Talia.jpg', 'Pacific Islander', 'Agnostic / Non-religious', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE);
