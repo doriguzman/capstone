@@ -165,9 +165,8 @@ class AddTrips extends React.Component {
 
     return (
       <div className="add-Trip-form">
-        <br />
 
-        <h2> Add an up-coming trip!</h2>
+        <h2> Add an upcoming trip!</h2>
         <hr />
         <form>
           <br />

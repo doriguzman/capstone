@@ -14,6 +14,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
+import "../Stylesheets/BucketList.css";
 
 class BucketList extends React.Component {
   constructor(props) {
@@ -23,11 +24,7 @@ class BucketList extends React.Component {
       activeUser: this.props.activeUser,
       username: this.props.username,
       bucketListTodos: "",
-      startDate: null,
-      endDate: null,
-      focusedInput: null,
-      start_date: "",
-      end_date: "",
+      // focusedInput: null,
       address: "",
       submitted: false,
       bucketlist: []
@@ -54,23 +51,25 @@ class BucketList extends React.Component {
   addToBucketList = e => {
     e.preventDefault();
     console.log("submitting survey");
-    console.log(this.state.startDate._d);
     axios
 
       .post("/users/addBucketList", {
         id: this.state.user_id,
         username: this.state.username,
         destination: this.state.address,
-        startDate: this.state.startDate._d,
-        endDate: this.state.endDate._d,
         todos: this.state.bucketListTodos
       })
       .then(res => {
         console.log(res);
         this.getBucketList();
+        this.setState({
+          address: "",
+          bucketListTodos: ""
+        });
 
         // window.location.reload();
       })
+
       .catch(err => {
         console.log("err posting bucket list", err);
       });
@@ -123,34 +122,25 @@ class BucketList extends React.Component {
       autocompleteContainer: "autocomplete-container"
     };
 
-    console.log("im trying to get the bucketlist Array");
-    console.log(bucketlistArray, activeUser, username);
-    console.log(this.state);
+    ///////------ starting the return ---------//////////
 
-    if (activeUser && bucketlistArray) {
+    if (activeUser && bucketlistArray[0]) {
       return (
-        <div className="main div">
-          <div>
+        <div className="mainDiv">
+          <br />
+
+          <div className="bucketlist-Container">
             {bucketlistArray.map(list => (
-              <div>
+              <div className="bucketlist-Item">
                 <h3>
                   Wish Destination:
                   {list.destination}{" "}
                 </h3>
 
-                <h3> Wish Travel Dates</h3>
-                <h4>
-                  {" "}
-                  Starting from:
-                  {dateFormat(list.start_date, "ddd, mmm, dS, yyyy")}
-                  Ending near:
-                  {dateFormat(list.end_date, "ddd, mmm, dS, yyyy")}
-                </h4>
-
                 <h3> Planned Activities: {list.todos}</h3>
 
                 {activeUser ? (
-                  <button
+                  <button className='delete-Bucketlist-Button'
                     onClick={e =>
                       this.handleDeleteBucket(e, list.id, list.username)
                     }
@@ -163,50 +153,36 @@ class BucketList extends React.Component {
               </div>
             ))}
           </div>
-
-          <div>
+          <br/>
+          <div className='add-Bucketlist-Div'>
             Destination:{" "}
             <PlacesAutocomplete
               classNames={addressCSSClasses}
               inputProps={AddressInputProps}
             />
             <br />
-            <div className-travel-calendar>
-              <br />
-              Please Select Your Travel Dates:
-              <DateRangePicker
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-                onDatesChange={({ startDate, endDate }) => {
-                  this.setState({ startDate, endDate });
-                }}
-                focusedInput={this.state.focusedInput}
-                onFocusChange={focusedInput => {
-                  this.setState({ focusedInput });
-                }}
-              />
-            </div>
-            <div className="bucketListTodos">
-              Planned Activites:
+            <div className="bucketlist-Todos">
+              Planned Activites: 
+              <br/>
               <input
+              className='bucketlist-Todos-Input'
                 type="text"
-                placeholder="todos"
                 name="bucketListTodos"
                 value={bucketListTodos}
                 onChange={this.handleInput}
               />
             </div>
             <br />
-            {startDate && endDate && address ? (
+            {address ? (
               <input
-                className="companionBtn"
-                type="submit"
+              className='add-Bucketlist-Button'
+              type="submit"
                 value="Add to my bucket list"
                 onClick={this.addToBucketList}
               />
             ) : (
               <input
-                className="companionBtn"
+              className='add-Bucketlist-Button'
                 type="submit"
                 value="Add  to my bucket list!"
                 onClick={this.addToBucketList}
@@ -218,49 +194,32 @@ class BucketList extends React.Component {
       );
     } else if (activeUser) {
       return (
-        <div>
+        <div className='add-Bucketlist-Div'>
           Destination:{" "}
           <PlacesAutocomplete
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
           />
           <br />
-          <div className-travel-calendar>
-            <br />
-            Please Select Your Travel Dates:
-            <DateRangePicker
-              startDate={this.state.startDate}
-              endDate={this.state.endDate}
-              onDatesChange={({ startDate, endDate }) => {
-                this.setState({ startDate, endDate });
-              }}
-              focusedInput={this.state.focusedInput}
-              onFocusChange={focusedInput => {
-                this.setState({ focusedInput });
-              }}
-            />
-          </div>
-          <div className="bucketListTodos">
+          <div className="bucketList-Todos">
             Planned Activites:
             <input
               type="text"
-              placeholder="todos"
               name="bucketListTodos"
               value={bucketListTodos}
               onChange={this.handleInput}
             />
           </div>
           <br />
-          {startDate && endDate && address ? (
-            <input
-              className="companionBtn"
+          {address ? (
+            <input className='add-Bucketlist-Button'
               type="submit"
               value="Add to my bucket list"
               onClick={this.addToBucketList}
             />
           ) : (
             <input
-              className="companionBtn"
+            className='add-Bucketlist-Button'
               type="submit"
               value="Add  to my bucket list!"
               onClick={this.addToBucketList}
@@ -271,8 +230,10 @@ class BucketList extends React.Component {
       );
     } else if (bucketlistArray[0]) {
       return (
-        <div className="main div">
-          <div>
+        <div className="mainDiv">
+          <br />
+
+          <div className="bucketlist-Container">
             {bucketlistArray.map(list => (
               <div>
                 <h3>
@@ -280,28 +241,7 @@ class BucketList extends React.Component {
                   {list.destination}{" "}
                 </h3>
 
-                <h3> Wish Travel Dates</h3>
-                <h4>
-                  {" "}
-                  Starting from:
-                  {dateFormat(list.start_date, "ddd, mmm, dS, yyyy")}
-                  Ending near:
-                  {dateFormat(list.end_date, "ddd, mmm, dS, yyyy")}
-                </h4>
-
                 <h3> Planned Activities: {list.todos}</h3>
-
-                {activeUser ? (
-                  <button
-                    onClick={e =>
-                      this.handleDeleteBucket(e, list.id, list.username)
-                    }
-                  >
-                    Delete Bucketlist
-                  </button>
-                ) : (
-                  ""
-                )}
               </div>
             ))}
           </div>

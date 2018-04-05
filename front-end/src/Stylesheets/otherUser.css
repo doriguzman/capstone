@@ -1,29 +1,38 @@
 /* ------ Guidelines for another user's profile ------ */
 
-.message-button:visited {
-  color: #000000;
-  background: white;
+.btnLine {
+  display: flex;
+  flex-direction: row;
 }
-.message-button:hover {
+
+.addFriend,
+.flagBtn,
+.message-button {
+
+}
+
+.addFriend {
+
+}
+.noFriend {
+
+}
+.flagBtn {
+
+}
+.addFlag{
+
+}
+.redflagBtn {
   color: #fe424d;
 }
-/* .info {
-  padding: 20px;
-  background-color: white;
-  padding: 1em;
-  opacity: 0.9;
-} */
 .userProfile {
   padding: 20px;
-  background-color: white;
   padding: 1em;
   opacity: 0.9;
 }
 button {
   width: 70px;
-}
-.redflagBtn {
-  color: #fe424d;
 }
 .addFriend {
   color: #fe424d;
@@ -31,4 +40,5 @@ button {
 .message-button {
   background: white;
   color: black;
+  padding: 5px 0 5px 0;
 }

@@ -8,7 +8,7 @@ class MatchedBuddies extends Component {
   constructor(props) {
 		super(props); // user (has id and username), allUsers
 		this.getAllUsers();
-		console.log('goodbye cruel world', this.props.allUsers);
+		// console.log('goodbye cruel world', this.props.allUsers);
     this.state = {
 			allUsers: [],
 			myTrips: [],
@@ -45,25 +45,27 @@ class MatchedBuddies extends Component {
 	}
 
 	componentWillMount() {
+		this.getAllUsers();
+
 		axios // gets trips for active user
 			.get(`/users/allTrips/${this.props.user.username}`)
 			.then(res => {
 				this.setState({ myTrips: res.data[0] })
+				
+				return axios // gets trips for all users minus active user
+					.get("/users/getAllTrips")
+				
 			})
-			.catch(err => console.log("Error retrieving trips for user.", err));
-
-		axios // gets trips for all users minus active user
-			.get("/users/getAllTrips")
 			.then(res => {
 				console.log('I WANT TO SLEEEEEEP')
 				console.log(res.data , 'im trying to find the dori name stuff')
 				this.setState({ allUsersTrips: res.data })
 				this.filterOutUsersWithTrips(this.state.allUsers)
-			})
-			.catch(err => console.log("Error retrieving all the trips."))
+			
 
-		axios // gets attributes for all users minus active users
-			.get("/users/allUsersAttributes")
+		 		return axios // gets attributes for all users minus active users
+					.get("/users/allUsersAttributes")
+			})
 			.then(res => {
 				this.setState({ allUsersAttributes: res.data })
 			})
@@ -160,11 +162,11 @@ class MatchedBuddies extends Component {
 				let numOverlap = overlap(tripObj, myTrips) // this is either a positive or neg num
 
 				const overlapPoints = (numDaysOverlap) => {
-					let pts = numOverlap / (msToDays(parseInt(new Date(myTrips.end_date) - new Date(myTrips.start_date)))) * 24;
+					let pts = Math.round((numOverlap / (msToDays(parseInt(new Date(myTrips.end_date) - new Date(myTrips.start_date)))) * 24) * 100) / 100;
 
 					if (pts > 0) {
 						tripObj.points += pts;
-					}
+				}
 				}
 				overlapPoints();
 			}
@@ -221,11 +223,9 @@ class MatchedBuddies extends Component {
 	}
 
 	sortByPoints = () => {
-		let sorted = this.state.allUsersTrips.sort((a, b) => a.points - b.points)
-console.log('we is getting osrted', sorted)
+		let sorted = this.state.allUsersTrips.sort((a, b) => b.points - a.points)
 		this.setState({
 			allUsersTrips: sorted
-
 		})
 	}	
 
@@ -236,7 +236,6 @@ console.log('we is getting osrted', sorted)
 		const { allUsers } = this.props;
 		const { allUsersTrips } = this.state;
 		console.log('we are filtering users with trips', allUsersTrips)
-		if(allUsersTrips){
 		const tripUsernames = allUsersTrips.map(user => user.username)
 		console.log(tripUsernames)
 		const noTrips = usersArr.filter(user => {
@@ -251,7 +250,7 @@ console.log('we is getting osrted', sorted)
 		})
 		console.log('setting the exact state of users with no trips' , noTrips)
 
-	}
+	
 
 	}
 	
