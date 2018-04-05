@@ -89,7 +89,6 @@ class BucketList extends React.Component {
 
   handleDeleteBucket = (e, id, username) => {
     e.preventDefault();
-    console.log(id, username);
     axios.delete(`/users/removeBucket/${username}/${id}`).then(response => {
       console.log(this.state.bucketlistArray);
       //   window.location.reload();
@@ -128,8 +127,7 @@ class BucketList extends React.Component {
       return (
         <div className="mainDiv">
           <h3 className="header">
-            {" "}
-            Hover over the bucklists to see planned activities!{" "}
+            Hover over each circle to see planned activities!{" "}
           </h3>
           <div className="bucketlist-Container">
             {bucketlistArray.map(list => (
@@ -168,14 +166,14 @@ class BucketList extends React.Component {
           </div>
           <br />
           <div className="add-Bucketlist-Div">
-            Destination:{" "}
+            Destination
             <PlacesAutocomplete
               classNames={addressCSSClasses}
               inputProps={AddressInputProps}
             />
             <br />
             <div className="bucketlist-Todos">
-              Planned Activites:
+              Planned Activites <span>(separate with commas)</span>
               <br />
               <input
                 className="bucketlist-Todos-Input"
