@@ -216,57 +216,99 @@ class BucketList extends React.Component {
           </div>
         </div>
       );
+    } else if (activeUser) {
+      return (
+        <div>
+          Destination:{" "}
+          <PlacesAutocomplete
+            classNames={addressCSSClasses}
+            inputProps={AddressInputProps}
+          />
+          <br />
+          <div className-travel-calendar>
+            <br />
+            Please Select Your Travel Dates:
+            <DateRangePicker
+              startDate={this.state.startDate}
+              endDate={this.state.endDate}
+              onDatesChange={({ startDate, endDate }) => {
+                this.setState({ startDate, endDate });
+              }}
+              focusedInput={this.state.focusedInput}
+              onFocusChange={focusedInput => {
+                this.setState({ focusedInput });
+              }}
+            />
+          </div>
+          <div className="bucketListTodos">
+            Planned Activites:
+            <input
+              type="text"
+              placeholder="todos"
+              name="bucketListTodos"
+              value={bucketListTodos}
+              onChange={this.handleInput}
+            />
+          </div>
+          <br />
+          {startDate && endDate && address ? (
+            <input
+              className="companionBtn"
+              type="submit"
+              value="Add to my bucket list"
+              onClick={this.addToBucketList}
+            />
+          ) : (
+            <input
+              className="companionBtn"
+              type="submit"
+              value="Add  to my bucket list!"
+              onClick={this.addToBucketList}
+              disabled
+            />
+          )}
+        </div>
+      );
+    } else if (bucketlistArray[0]) {
+      return (
+        <div className="main div">
+          <div>
+            {bucketlistArray.map(list => (
+              <div>
+                <h3>
+                  Wish Destination:
+                  {list.destination}{" "}
+                </h3>
+
+                <h3> Wish Travel Dates</h3>
+                <h4>
+                  {" "}
+                  Starting from:
+                  {dateFormat(list.start_date, "ddd, mmm, dS, yyyy")}
+                  Ending near:
+                  {dateFormat(list.end_date, "ddd, mmm, dS, yyyy")}
+                </h4>
+
+                <h3> Planned Activities: {list.todos}</h3>
+
+                {activeUser ? (
+                  <button
+                    onClick={e =>
+                      this.handleDeleteBucket(e, list.id, list.username)
+                    }
+                  >
+                    Delete Bucketlist
+                  </button>
+                ) : (
+                  ""
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
     } else {
-      return           <div>
-      Destination:{" "}
-      <PlacesAutocomplete
-        classNames={addressCSSClasses}
-        inputProps={AddressInputProps}
-      />
-      <br />
-      <div className-travel-calendar>
-        <br />
-        Please Select Your Travel Dates:
-        <DateRangePicker
-          startDate={this.state.startDate}
-          endDate={this.state.endDate}
-          onDatesChange={({ startDate, endDate }) => {
-            this.setState({ startDate, endDate });
-          }}
-          focusedInput={this.state.focusedInput}
-          onFocusChange={focusedInput => {
-            this.setState({ focusedInput });
-          }}
-        />
-      </div>
-      <div className="bucketListTodos">
-        Planned Activites:
-        <input
-          type="text"
-          placeholder="todos"
-          name="bucketListTodos"
-          value={bucketListTodos}
-          onChange={this.handleInput}
-        />
-      </div>
-      <br />
-      {startDate && endDate && address ? (
-        <input
-          className="companionBtn"
-          type="submit"
-          value="Add to my bucket list"
-          onClick={this.addToBucketList}
-        />
-      ) : (
-        <input
-          className="companionBtn"
-          type="submit"
-          value="Add  to my bucket list!"
-          onClick={this.addToBucketList}
-          disabled
-        />
-      )}
-    </div>;
+      return <div> </div>;
     }
   }
 }

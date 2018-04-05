@@ -1,0 +1,38 @@
+    /* ------ Color Scheme ------
+        000000 -- black
+        FFFCF9 -- offwhite
+        F2F2F2 -- light grey
+        1B4CFE -- royal blue
+        E6E6FA -- light lavender
+        rgb(66, 163, 253) -- twitter blueish
+    ------ End Color Scheme------ */
+
+/* ------ Guidelines for Disclaimer ------ */
+.disclaimer-div {
+    width: 70%;
+    margin: 0 auto;
+}
+
+h2 {
+    color: rgb(66, 163, 253);
+}
+
+p {
+    text-align: left;
+}
+
+/* ------ Guidelines for FAQ ------ */
+.faq {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.rc-collapse-header {
+    background-color: #E6E6FA;
+    border: 4px solid #E6E6FA;
+}
+.rc-collapse-header:hover {
+    border-bottom: 4px solid #000;
+    border-top: 4px solid #000;
+    transition: 0.5s;
+}

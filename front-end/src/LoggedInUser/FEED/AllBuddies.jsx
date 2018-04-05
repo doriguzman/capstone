@@ -46,23 +46,7 @@ class AllBuddies extends Component {
       userTrips: "",
       mostRecentUserTrip: "",
       errorMsg: "",
-      // filterClick: false,
       modalIsOpen: false,
-      //starting states for the filter functionality
-      // userFilter: {
-      //   destinationAdd: "",
-      //   locationAdd: "",
-      //   start_age: "",
-      //   end_age: "",
-      //   start_date: "",
-      //   end_date: ""
-      // }
-      // start_date: "",
-      // end_date: "",
-      // address: "",
-      // locationAdd: "",
-      // start_age: "",
-      // end_age: ""
     };
   }
 
@@ -72,27 +56,7 @@ class AllBuddies extends Component {
       modalIsOpen: !modalIsOpen
     })
   }
-  // flagUser = () => {
-  //   //  e.preventDefault()
-  //   this.setState({
-  //     flagged: true
-  //   });
-  //   console.log("You clicked the flag user");
-  //   console.log("Bitch you is flagged: ", this.state.flagged);
-  // };
-  //  flagUser = () => {
-  //    const { allUsers } = this.state
-  //   //  e.preventDefault()
-  //   this.state = {
-  //     flagged: false
-  //   };
 
-  //   console.log("You clicked to flag user : ", allUsers.map(user => (user.username)));
-  //   if('clicked'){
-  //     console.log('button clicked')
-  //   }
-  //    console.log("Bitch you is flagged: ", this.state.flagged);
-  // };
 
   getUserPics = () => {
     axios
@@ -170,115 +134,54 @@ class AllBuddies extends Component {
 		return (
       <MatchedBuddies user={this.props.user} allUsers={this.state.holdAllUsers} />
     );
-	}
+  }
+  
+  renderFilteredUserPics = e => {
+    e.preventDefault();
+    console.log("submitting for filters");
+    const { endDate, startDate, allUsers, userFilter, flagged } = this.state;
+    //have to set the state of the calendar dates in the survey (onClick)
 
-  //starting the filter functionality
-  // inputChange = destinationAdd => {
-  //   console.log(destinationAdd);
-  //   const { userFilter } = this.state;
-  //   this.setState({
-  //     destinationAdd: destinationAdd,
-  //     // userFilter:[...userFilter, destinationAdd]
-  //     userFilter: { ...userFilter, destinationAdd: destinationAdd }
-  //   });
-  // };
+    console.log("submitting the survey for filter");
 
-  // inputChangeLoc = locationAdd => {
-  //   const { userFilter } = this.state;
-  //   console.log(locationAdd);
-  //   this.setState({
-  //     locationAdd: locationAdd,
-  //     userFilter: { ...userFilter, locationAdd: locationAdd }
-  //   });
-  // };
+  const filteredUsers = allUsers.filter(user => {
+    let matchArr = [];
+    if (startDate && endDate) {
+      if (!user.start_date || !user.end_date) {
+        return false;
+      } else {
+        const matchingDates = isThereOverlap(
+          new Date(startDate._d),
+          new Date(endDate._d),
+          new Date(user.start_date),
+          new Date(user.end_date)
+        );
+        matchArr.push(matchingDates);
+      }
+    }
+    if (userFilter.destinationAdd) {
+      matchArr.push(user.destination === userFilter.destinationAdd);
+    }
+    if (userFilter.locationAdd) {
+      console.log(matchArr, user.my_location, userFilter.locationAdd);
+      matchArr.push(user.my_location === userFilter.locationAdd);
+    }
+    if (userFilter.start_age) {
+      matchArr.push(user.age >= userFilter.start_age);
+    }
+    if (userFilter.end_age) {
+      matchArr.push(user.age <= userFilter.end_age);
+    }
 
-  // handleStartAgeInput = e => {
-  //   const { userFilter, start_age } = this.state;
-  //   const newStartAge = e.target.value ? Number(e.target.value) : "";
-  //   this.setState({
-  //     start_age: newStartAge
-  //   });
-  //   this.setState({
-  //     userFilter: { ...userFilter, start_age: newStartAge }
-  //   });
-  // };
+    return matchArr.every(elem => elem === true);
+  });
 
-  // handleEndAgeInput = e => {
-  //   const { userFilter, end_age } = this.state;
-  //   const newEndAge = e.target.value ? Number(e.target.value) : "";
-  //   this.setState({
-  //     end_age: newEndAge
-  //   });
-  //   this.setState({
-  //     userFilter: { ...userFilter, end_age: newEndAge }
-  //   });
-  // };
+  console.log("filtered users", filteredUsers);
+  this.setState({
+    filteredUsers: filteredUsers
+  });
+};
 
-  // handleFilterClick = e => {
-  //   const { filterClick } = this.state;
-  //   this.setState({
-  //     filterClick: !filterClick
-  //   });
-  // };
-
-	// handleClearFilter = e => {
-	// 	const { filteredUsers, holdAllUsers } = this.state
-	// 	this.setState({
-	// 		filteredUsers: holdAllUsers,
-	// 		locationAdd: "",
-	// 		destinationAdd: "",
-	// 		start_age: "",
-  //       end_age: "",
-  //       start_date: "",
-  //       end_date: ""
-	// 	})
-	// }
-  // renderFilteredUserPics = e => {
-  //   e.preventDefault();
-  //   console.log("submitting for filters");
-  //   const { endDate, startDate, allUsers, userFilter, flagged } = this.state;
-  //   //have to set the state of the calendar dates in the survey (onClick)
-
-  //   console.log("submitting the survey for filter");
-
-  //   const filteredUsers = allUsers.filter(user => {
-  //     let matchArr = [];
-  //     if (startDate && endDate) {
-  //       if (!user.start_date || !user.end_date) {
-  //         return false;
-  //       } else {
-  //         const matchingDates = isThereOverlap(
-  //           new Date(startDate._d),
-  //           new Date(endDate._d),
-  //           new Date(user.start_date),
-  //           new Date(user.end_date)
-  //         );
-  //         matchArr.push(matchingDates);
-  //       }
-  //     }
-  //     if (userFilter.destinationAdd) {
-  //       matchArr.push(user.destination === userFilter.destinationAdd);
-  //     }
-  //     if (userFilter.locationAdd) {
-  //       console.log(matchArr, user.my_location, userFilter.locationAdd);
-  //       matchArr.push(user.my_location === userFilter.locationAdd);
-  //     }
-  //     if (userFilter.start_age) {
-  //       matchArr.push(user.age >= userFilter.start_age);
-  //     }
-  //     if (userFilter.end_age) {
-  //       matchArr.push(user.age <= userFilter.end_age);
-  //     }
-
-  //     return matchArr.every(elem => elem === true);
-  //   });
-
-  //   console.log("filtered users", filteredUsers);
-  //   this.setState({
-	// 		filteredUsers: filteredUsers,
-  //   });
-	// };
-	
   render() {
     const {
       modalIsOpen,
@@ -286,139 +189,20 @@ class AllBuddies extends Component {
       filteredUsers,
       user,
       flagged,
-      // start_date,
-      // end_date,
-      // submitted,
-      // filterClick,
-      // destinationAdd,
-      // locationAdd,
       userFilter,
-      // age,
-      // start_age,
-      // end_age
     } = this.state;
 
     console.log("this is state ", this.state);
     console.log("userfilters", userFilter);
 
-    // const { ages } = this;
-
-    // if (submitted) {
-    //   // console.log("this is the start date", this.state.start_date);
-    // }
-    // const AddressInputProps = {
-    //   value: this.state.destinationAdd,
-		// 	onChange: this.inputChange,
-		// 	placeholder: "Please enter a destination"
-    // };
-
-    // const AddressInputProps2 = {
-    //   value: this.state.locationAdd,
-		// 	onChange: this.inputChangeLoc,
-		// 	placeholder: "Please enter a location"
-    // };
-
-    // const addressCSSClasses = {
-    //   root: "form-group",
-    //   input: "search-input",
-    //   autocompleteContainer: "autocomplete-container"
-    // };
-
     return (
       <div>
-       <Modal isOpen={modalIsOpen} contentLabel="Filter Modal">
-                    <FilterModal toggleModal={this.toggleModal} />
-                  </Modal>
-
+       <Modal className='modal' isOpen={modalIsOpen} contentLabel="Filter Modal">
+          <FilterModal allUsers={allUsers}toggleModal={this.toggleModal} />
+       </Modal>
         <h3 onClick={this.toggleModal} className="filterText">
           <span className="pointer">Filter</span>
-
-           
-          </h3>
-         {/*{filterClick ? (
-          {<div className="sidebar">
-          <span className='close' onClick={this.props.toggleModal}>&times;</span>
-            <div
-              className="destination"
-            >
-              <PlacesAutocomplete
-                classNames={addressCSSClasses}
-                inputProps={AddressInputProps}
-                
-              />
-            </div>
-            <div
-              className-travel-calendar
-              className="travelDates"
-              placeholder=" Travel Dates"
-            >
-              <DateRangePicker
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-                onDatesChange={({ startDate, endDate }) => {
-                  console.log("date changes", startDate, endDate);
-                  this.setState({
-                    startDate,
-                    endDate
-                    // userFilter:{ ...userFilter, start_date:startDate._d, end_date: endDate._d }
-                  });
-                }}
-                focusedInput={this.state.focusedInput}
-                onFocusChange={focusedInput => {
-                  this.setState({ focusedInput });
-                }}
-              />
-            </div>
-
-            <div className="location" >
-              
-              
-              <PlacesAutocomplete
-                classNames={addressCSSClasses}
-                inputProps={AddressInputProps2}
-              />
-            </div>
-
-            <div className="ages">
-              <input
-                placeholder="From Age"
-                className="start_age"
-                type="number"
-                name="start_age"
-                value={start_age}
-                onChange={this.handleStartAgeInput}
-                required="required"
-              />
-              <input
-                placeholder="To Age"
-                className="end_age"
-                type="number"
-                name="end_age"
-                value={end_age}
-                onChange={this.handleEndAgeInput}
-                required="required"
-              />
-            </div>
-            <div className="buttondiv">
-              <input
-                className="applyfilterBtn"
-                type="submit"
-                value="Apply Filters"
-                onClick={this.renderFilteredUserPics}
-              />
-            </div>
-						<div className="buttondiv">
-              <input
-                className="clearfilterBtn"
-                type="submit"
-                value="Clear Filters"
-                onClick={this.handleClearFilter}
-              />
-            </div>
-          </div>
-        ) : (
-          ""
-        )} */}
+        </h3>
 
         <div>
           {filteredUsers ? (
