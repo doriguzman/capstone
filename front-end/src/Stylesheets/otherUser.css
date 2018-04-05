@@ -1,12 +1,31 @@
 /* ------ Guidelines for another user's profile ------ */
 
-.message-button:visited {
-  color: #000000;
-}
-.message-button:hover {
-  color: #fe424d;
+.btnLine {
+  display: flex;
+  flex-direction: row;
 }
 
+.addFriend,
+.flagBtn,
+.message-button {
+
+}
+
+.addFriend {
+
+}
+.noFriend {
+
+}
+.flagBtn {
+
+}
+.addFlag{
+
+}
+.redflagBtn {
+  color: #fe424d;
+}
 .userProfile {
   padding: 20px;
   padding: 1em;
@@ -15,13 +34,11 @@
 button {
   width: 70px;
 }
-.redflagBtn {
-  color: #fe424d;
-}
 .addFriend {
   color: #fe424d;
 }
 .message-button {
   background: white;
   color: black;
+  padding: 5px 0 5px 0;
 }
