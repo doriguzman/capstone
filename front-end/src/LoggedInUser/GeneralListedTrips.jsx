@@ -3,6 +3,8 @@ import dateFormat from "dateformat";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 
+import "../Stylesheets/AddTrips.css";
+
 class GeneralListedTrips extends React.Component {
   constructor(props) {
     super(props);
@@ -16,23 +18,19 @@ class GeneralListedTrips extends React.Component {
 
   render() {
     const { trips, activeUser, } = this.state;
-    {
-      this.props.trips;
-    }
+    { this.props.trips };
 
     return (
       <div>
         {trips.map(trip => (
-          <div>
-            <h3> Destination: {trip.destination}</h3>
-            <h4>
-              Starting Date: {dateFormat(trip.start_date, "ddd, mmm, dS, yyyy")}
-              <br />
-              Ending Date:{dateFormat(trip.end_date, "ddd, mmm, dS, yyyy")}
-              <br />
-              Planned Activities: {trip.todos}
-              <br />
-            </h4>
+          <div className="single-trip">
+            <div className="trip-destination">{trip.destination}</div>
+            <div className="trip-title">Departing</div>
+            <div className="trip-body">{dateFormat(trip.start_date, "ddd, mmm, dS, yyyy")}</div>
+            <div className="trip-title">Returning</div>
+            <div className="trip-body">{dateFormat(trip.end_date, "ddd, mmm, dS, yyyy")}</div>
+            <div className="trip-title">Planned Activities</div>
+            <div className="trip-todos">{trip.todos}</div>
           </div>
         ))}
       </div>

@@ -1,44 +1,52 @@
 /* ------ Guidelines for another user's profile ------ */
+    /* ------ Color Scheme ------
+        000000 -- black
+        FFFCF9 -- offwhite
+        F2F2F2 -- light grey
+        1B4CFE -- royal blue
+        E6E6FA -- light lavender
+        rgb(66, 163, 253) -- twitter blueish
+    ------ End Color Scheme------ */
+    
+
+.other-user-bio {
+    overflow: wrap;
+    font-size: 0.8em;
+    height: 150px;
+    padding: 5px 0 5px 0;
+    overflow: scroll;
+}
 
 .btnLine {
+  border-top: 1px solid  rgb(66, 163, 253);
+  padding-top: 5px;
+  bottom: 0;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .addFriend,
+.noFriend,
 .flagBtn,
-.message-button {
-
+.redflagBtn,
+.message-div {
+  width: 33%;
+  text-align: center;
+  padding: 2px;
+  border: 1px solid white;
+  color: #555;
 }
 
-.addFriend {
-
+.fa-1x:hover {
+  color: #fe424d;
 }
-.noFriend {
 
-}
-.flagBtn {
-
-}
-.addFlag{
-
-}
 .redflagBtn {
   color: #fe424d;
 }
-.userProfile {
-  padding: 20px;
-  padding: 1em;
-  opacity: 0.9;
-}
-button {
-  width: 70px;
-}
+
 .addFriend {
-  color: #fe424d;
-}
-.message-button {
-  background: white;
-  color: black;
-  padding: 5px 0 5px 0;
+  color: rgb(66, 163, 253);
 }

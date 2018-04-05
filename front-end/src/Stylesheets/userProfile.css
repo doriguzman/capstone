@@ -14,12 +14,12 @@
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    width: fit-content;
+    width: 600px;
     margin: 20px auto;
 }
 
 .img-container {
-    height: fit-content;
+    height: 300px;
     padding: 0;
     margin: 0;
     display: flex;
@@ -36,19 +36,26 @@
 
 .general-info {
     text-align: left;
-    padding: 20px;
+    padding-left: 20px;
     display: flex;
     flex-direction: column;
-    width: 35%;
+    width: 300px;
 }
 .my-name {
     font-size: 2em;
     color: rgb(66, 163, 253);
 }
 .my-location {
-    border-bottom: 4px solid rgb(66, 163, 253);
+    border-bottom: 1px solid rgb(66, 163, 253);
     height: 50%;
     float: bottom;
+}
+.my-bio {
+    overflow: wrap;
+    font-size: 0.8em;
+    height: 190px;
+    padding: 5px 0 5px 0;
+    overflow: scroll;
 }
 
 /* ------ Guidelines for Tabs ------ */

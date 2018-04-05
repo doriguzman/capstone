@@ -254,8 +254,8 @@ class OtherUser extends Component {
           <div className="general-info">
             <span className="my-name">{first_name}, {age}</span>
             <span>@{username}</span>
-            <span>{my_location}</span>
-            <div className="my-bio">{bio}</div>
+            <span className="my-location">{my_location}</span>
+            <div className="other-user-bio">{bio}</div>
             <div className="btnLine">
               <link 
                 rel="stylesheet"
@@ -263,33 +263,33 @@ class OtherUser extends Component {
               />
               {!bffle ? (
                 <div onClick={this.addBFF} className="noFriend">
-                  <i class="far fa-user fa-2x"></i>
+                  <i class="far fa-user fa-1x"></i>
                 </div>
               ) : (
                 <div 
                   onClick={this.addBFF}
                   className={bffle ? "addFriend" : "noFriend"}
                 >
-                  <i class="far fa-user fa-2x" />
+                  <i class="far fa-user fa-1x" />
                   {this.state.bffle ? <i class="far fa-check-circle"></i> : "" }
                 </div>
               )}
               {!flagged ? (
                 <div onClick={this.addFlag} className="flagBtn">
-                  <i class="far fa-flag fa-2x" />
+                  <i class="far fa-flag fa-1x" />
                 </div>
               ) : (
                 <div
                   onClick={this.addFlag}
                   className={flagged ? "redflagBtn" : "flagBtn"}
                 >
-                  <i class="far fa-flag fa-2x" />
+                  <i class="far fa-flag fa-1x" />
                 </div>
               )}
                 
               <div className='message-div'>
-                <Link className='message' to={`/users/messages/${this.state.username}`}>
-                  <i class="far fa-envelope fa-2x" />
+                <Link to={`/users/messages/${this.state.username}`}>
+                  <i class="far fa-envelope fa-1x" />
                 </Link> 
               </div>
             </div>   

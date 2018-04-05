@@ -11,8 +11,9 @@ import dateFormat from "dateformat";
 import MyListedTrips from './MyListedTrips'
 
 import '../Stylesheets/userProfile.css'
+import '../Stylesheets/AddTrips.css'
 import BucketList from './BucketList'
-import '../Stylesheets/userProfile.css'
+
 
 
 class UserProfile extends React.Component {
