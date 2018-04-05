@@ -76,12 +76,13 @@ class BffFeed extends React.Component {
     );
     return (
       <div>
-        {BffsInfo ? (
+     
+        {BffsInfo[0] ? (
           //passing in bff just to know that its the bffs feed, which
           //doesnt show the dates of destination 
           <UserProfileCards allUsers={BffsInfo} bffs={BffsInfo}/>
         ) : (
-          ''
+          <h2> no profiles favorited yet</h2>
         )}
 
         {message}
