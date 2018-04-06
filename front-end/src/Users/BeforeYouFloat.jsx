@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "../Stylesheets/before.css"
+import "../Stylesheets/before.css";
+import "../Images/video-chat.png";
 
 const BeforeYouFloat = () => {
   return (
@@ -33,6 +34,13 @@ const BeforeYouFloat = () => {
           </li>
         </ul>
       </div>
+
+      <img 
+        src="https://i.imgur.com/89zLonV.png" 
+        title="source: imgur.com"
+        alt="woman video chatting with another woman"
+        className="video-chat-img" 
+      />
 
     </div>
   );

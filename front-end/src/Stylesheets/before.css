@@ -42,3 +42,22 @@
     width: 60%;
 }
 
+.video-chat-img {
+    height: 50%;
+    width: 50%;
+    animation-name: move;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1; 
+    }
+
+    @keyframes move {
+    0% {
+    background-position: 0% 0%;
+    }
+
+    100% {
+    background-position: 100% 100%;
+
+    }
+}
