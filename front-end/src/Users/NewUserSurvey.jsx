@@ -228,6 +228,7 @@ class NewUserSurvey extends React.Component {
           Location:
           <br />
           <PlacesAutocomplete
+            id='location'
             classNames={addressCSSClasses}
             inputProps={AddressInputProps}
           />
@@ -254,7 +255,6 @@ class NewUserSurvey extends React.Component {
           <h4> What are you like on vacation?</h4>
           <div className="checkBoxes">
             {attributes.map(value => (
-              
                 <span className="surveyCheck">
                   <input
                     type="checkbox"
@@ -265,7 +265,6 @@ class NewUserSurvey extends React.Component {
                   {value}
                   <br />
                 </span>
-             
             ))}
           </div>
           <br />

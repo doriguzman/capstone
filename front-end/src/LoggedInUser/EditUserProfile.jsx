@@ -4,6 +4,9 @@ import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 // import Bffs from "./Bffs";
 import NewUserSurvey from "../Users/NewUserSurvey";
+import '../Stylesheets/survey.css'
+// import "../Stylesheets/AddTrips.css";
+
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
@@ -353,7 +356,7 @@ class EditUserProfile extends Component {
               <div className="checkBoxes">
                 What are you like on vacation? <br />
                 {attributes.map(value => (
-                  <span>
+                  <span className="surveyCheck-EUP">
                     <input
                       type="checkbox"
                       name={value}

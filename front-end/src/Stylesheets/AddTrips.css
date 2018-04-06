@@ -82,16 +82,11 @@
     font-size: 3em;
 }
 
-/* .add-trip {
-    background-color: #999;
-    color: white;
-    padding: 10px;
-    margin: 0 auto;
-    width: fit-content;
-    border-bottom: 4px solid rgb(66, 163, 253);
+.surveyCheck-AT{
+    display:flex;
+    justify-content: left;
+    width:14%;
+    align-items: center;
+    margin: auto;
+  
 }
-.add-trip:hover {
-    background-color: rgb(66, 163, 253);
-    border-bottom: 4px solid black;
-    transition: 0.5s;
-} */
