@@ -305,10 +305,10 @@ class UserProfile extends React.Component {
           {/* Trips tab */}
           <TabPanel className="tab-panel">
             <div>
-              {openTrips ? <MyListedTrips activeUser={activeUser} username={username} /> : ""}
-              {activeUser
+              {openTrips ? <MyListedTrips activeUser={activeUser} username={username} handleClickAddTrip={this.handleClickAddTrip} /> : ""}
+              {/* {activeUser
                 ? <div className="add-trip" onClick={this.handleClickAddTrip}>Add Trip</div>
-                : ""}
+                : ""} */}
             </div>
           </TabPanel>
 

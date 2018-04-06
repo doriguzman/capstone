@@ -15,9 +15,15 @@ html {
 .matches-header {
   font-size: 3em;
 }
-.matches-here {
+.matches-here a {
   font-weight: bold;
   text-transform: uppercase;
+  color: rgb(66, 163, 253);
+}
+.matches-here a:hover {
+  color: #000;
+  border-bottom: 2px solid rgb(66, 163, 253);
+  transition: 0.5s;
 }
 
 .cardHolder {
@@ -59,6 +65,7 @@ html {
 
 .card-general {
   text-align: center;
+  background: linear-gradient(to bottom, #F2F2F2, rgba(66, 163, 253, 0.253));
 }
 /* .pic {
   height: 75%;

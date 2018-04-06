@@ -16,15 +16,17 @@
     justify-content: flex-start;
     align-items: top;
     margin: 5px;
-    height: 300px;
+    height: 350px;
 }
 .single-trip {
     overflow: scroll;
-    width: 30%;
+    /* width: 30%; */
+    width: 200px;
     border: 2px solid #CCC;
     display: flex;
     flex-direction: column;
     margin: 10px;
+    height: 350px;
 }
 .trip-destination {
     border-bottom: 2px solid #CCC;
@@ -43,7 +45,7 @@
     padding: 10px 0 10px 0;
 }
 .trip-todos {
-    height: 100px;
+    height: 150px;
     overflow: scroll;
 }
 .delete-trip {
@@ -59,17 +61,25 @@
 }
 
 .add-trip {
-    background-color: #999;
-    color: white;
-    padding: 10px;
-    margin: 0 auto;
-    width: fit-content;
-    border-bottom: 4px solid rgb(66, 163, 253);
+    color: #555;
+    overflow: scroll;
+    /* width: 30%; */
+    width: 200px;
+    border: 2px solid #CCC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    height: 350px;
+    background-color: #CCC;
 }
 .add-trip:hover {
-    background-color: rgb(66, 163, 253);
-    border-bottom: 4px solid black;
-    transition: 0.5s;
+    background: linear-gradient(to bottom, rgb(202, 202, 255), #E6E6FA);
+    border-color: #E6E6FA;
+}
+.plus {
+    font-size: 3em;
 }
 
 .surveyCheck-AT{

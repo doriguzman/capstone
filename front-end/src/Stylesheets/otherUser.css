@@ -38,13 +38,19 @@
   border: 1px solid white;
   color: #555;
 }
+.fa-heart:hover {
+  color: rgb(66, 163, 253);
+}
 
 .fa-1x:hover {
   color: #fe424d;
 }
-
 .redflagBtn {
   color: #fe424d;
+}
+.fa-envelope:hover {
+  color: rgb(66, 163, 253);
+  border-bottom: none;
 }
 
 .addFriend {

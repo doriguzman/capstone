@@ -73,7 +73,7 @@ class BffFeed extends React.Component {
         ) : (
           <div>
             <h2> You haven't added anyone to your Faves yet! </h2>
-            <h3>Add a member to your Faves by clicking <i class="far fa-user fa-1x"></i> on their page. </h3>
+            <h3>Add a member to your Faves by clicking <i class="far fa-heart"></i> on their page. </h3>
           </div>
         )}
         {message}
