@@ -351,22 +351,22 @@ class AllBuddies extends Component {
                 required="required"
               />
             </div>
-            <div className="buttondiv">
+            {/* <div className="applyfilterBtn"> */}
               <input
                 className="filterBtn"
                 type="submit"
                 value="Apply Filters"
                 onClick={this.renderFilteredUserPics}
               />
-            </div>
-						<div className="buttondiv">
+            {/* </div> */}
+						{/* <div className="clearfilterBtn"> */}
               <input
                 className="filterBtn"
                 type="submit"
                 value="Clear Filters"
                 onClick={this.handleClearFilter}
               />
-            </div>
+            {/* </div> */}
           </div>
         ) : (
           ""
