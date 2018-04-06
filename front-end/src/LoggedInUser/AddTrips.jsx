@@ -179,6 +179,7 @@ class AddTrips extends React.Component {
           <div className-travel-calendar>
             <br />
             Please Select Your Travel Dates:
+            <br />
             <DateRangePicker
               startDate={this.state.startDate}
               endDate={this.state.endDate}
@@ -194,8 +195,9 @@ class AddTrips extends React.Component {
           <br />
           What would you like in a travel buddy (check all that apply)?
           <br />
+          <div className="checkBoxes">
           {attributes.map(value => (
-            <span>
+            <span className="surveyCheck-AT">
               <input
                 type="checkbox"
                 name={value}
@@ -205,7 +207,9 @@ class AddTrips extends React.Component {
               {value}
               <br />
             </span>
+
           ))}
+          </div> 
           <br />
           <div className="smoke">
             Smokes:

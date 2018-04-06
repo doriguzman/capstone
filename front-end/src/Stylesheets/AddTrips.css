@@ -70,3 +70,12 @@
     border-bottom: 4px solid black;
     transition: 0.5s;
 }
+
+.surveyCheck-AT{
+    display:flex;
+    justify-content: left;
+    width:14%;
+    align-items: center;
+    margin: auto;
+  
+}
