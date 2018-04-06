@@ -109,11 +109,11 @@ INSERT INTO users (username, password_digest, email)
            ('selena', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'selena@selena.com'),
            ('erical', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'erical@erical.com'), 
            ('tereza', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'tereza@tereza.com'),
-           ('nina', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'nina@nina.com'),
-           ('talia', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'talia@talia.com');
+           ('ninaxo', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'nina@nina.com'),
+           ('taliax', '$2a$10$f17jjX0NASQWYOln23Ogk.ePXm0TpAs2oq.k4.YOGQGTnkOvZlD/O', 'talia@talia.com');
 
- INSERT INTO attributes (user_id, first_name, age, my_location, bio, pic, ethnicity, religion, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks)   
-  VALUES (1, 'Jane', 21, 'New York, NY, USA', 'What is life without the beauty of nature?', 'https://preview.ibb.co/jghFRc/jan.jpg', 'White / Caucasian', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE),
+INSERT INTO attributes (user_id, first_name, age, my_location, bio, pic, ethnicity, religion, early_bird, night_owl, clubbing, spontaneous, active, sightseeing, foodie, relax, nature, extroverted, smokes, drinks)   
+    VALUES (1, 'Jane', 21, 'New York, NY, USA', 'What is life without the beauty of nature?', 'https://preview.ibb.co/jghFRc/jan.jpg', 'White / Caucasian', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE),
            (2, 'Megan', 21, 'San Diego, CA, USA', 'There is nothing like the serenity that being out in nature brings.', 'https://image.ibb.co/mQggjx/megan.jpg', 'White / Caucasian', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
            (3, 'Dori', 22, 'New York, NY, USA', 'Yaaaaaaas, coffeeeeee.', 'https://image.ibb.co/eBQKmc/dori.jpg','Black / African', 'Christian', FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE),
            (4, 'Michelle', 30, 'Kailua-Kona, HI', 'I like dogs.', 'https://image.ibb.co/dQDfRc/michelle.jpg', 'Pacific Islander', 'Agnostic / Non-religious', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
@@ -128,3 +128,38 @@ INSERT INTO users (username, password_digest, email)
            (13, 'Tereza', 22, 'Concord, CA, USA', 'Going going back back to cali cali', 'https://image.ibb.co/ffiNrc/tereza.jpg','Latin / Hispanic', 'Christian', FALSE, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE),
            (14, 'Nina', 28, 'Brooklyn, NY, USA', 'Feeeling Good.', 'https://image.ibb.co/fFgWjx/nina.jpg', 'Black / African', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE),
            (15, 'Talia', 24, 'New York, NY, USA', 'I love traveling', 'https://image.ibb.co/mkdGHH/Talia.jpg', 'Pacific Islander', 'Agnostic / Non-religious', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE);
+
+INSERT INTO threads (id, user_a, user_b)
+    VALUES (1, 'janedoe', 'meganfox'),
+           (2, 'janedoe', 'dorian'),
+           (3, 'janedoe', 'michelle'),
+           (4, 'janedoe', 'princess'),
+           (5, 'janedoe', 'sergina'),
+           (6, 'janedoe', 'elonje'),
+           (7, 'janedoe', 'simone'),
+           (8, 'janedoe', 'davida'),
+           (9, 'janedoe', 'helena'),
+           (10, 'janedoe', 'selena'),
+           (11, 'janedoe', 'erical'),
+           (12, 'janedoe', 'tereza'),
+           (13, 'janedoe', 'ninaxo'),
+           (14, 'janedoe', 'taliax'),
+           (15, 'meganfox', 'dorian'),
+           (16, 'meganfox', 'michelle'),
+           (17, 'meganfox', 'princess'),
+           (18, 'meganfox', 'sergina'),
+           (19, 'meganfox', 'elonje'),
+           (20, 'meganfox', 'simone'),
+           (21, 'meganfox', 'davida'),
+           (22, 'meganfox', 'helena'),
+           (23, 'meganfox', 'selena'),
+           (24, 'meganfox', 'erical'),
+           (25, 'meganfox', 'tereza'),
+           (26, 'meganfox', 'ninaxo'),
+           (27, 'meganfox', 'taliax');
+
+INSERT INTO messages (id, username, thread_id, body, timestamp)
+    VALUES (1, 'janedoe', 1, 'Hi Megan, how are you?', 'Fri Apr 06 2018 09:52:13 GMT-0400 (EDT)'),
+           (2, 'janedoe', 1, 'I see you are a nature lover... me too!', 'Fri Apr 06 2018 09:53:20 GMT-0400 (EDT)'),
+           (3, 'meganfox', 1, 'Hello Jane, thats awesome!', 'Fri Apr 06 2018 10:06:39 GMT-0400 (EDT)'),
+           (4, 'meganfox', 1, 'Yeah I see we have overlapping trip dates... we should meet up.', 'Fri Apr 06 2018 10:08:20 GMT-0400 (EDT)');
