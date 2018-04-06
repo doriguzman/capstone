@@ -67,11 +67,20 @@ class MyListedTrips extends React.Component {
                 >
                   Delete Trip
                 </div>
-              ) : (
-                ""
-              )}
-              </div>
+                ) : (
+                  ""
+                )}
+            </div>
           ))}
+          <div>
+            {activeUser
+            ? (
+              <div className="add-trip" onClick={this.props.handleClickAddTrip}>
+                Add Trip<br />
+                <span className="plus">+</span>
+              </div>
+            ) : ""}
+          </div>
         </div>
       );
     }else{

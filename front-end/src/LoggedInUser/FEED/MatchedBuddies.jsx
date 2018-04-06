@@ -258,8 +258,6 @@ class MatchedBuddies extends Component {
   render() {
 		const { myTrips, allUsersTrips, allUsersAttributes, usersNoTrips } = this.state;
 		const { user, allUsers } = this.props;
-		console.log('users with no trips', usersNoTrips)
-		console.log(' all users trips', allUsersTrips)
 
     return (
       <div>

@@ -62,8 +62,7 @@
 .tabs {
     width: 70%;
     margin: 0 auto;
-    /* padding: 20px; */
-    overflow: scroll;
+    /* overflow: scroll; */
     margin-bottom: 8%;
     padding: 0;
 }

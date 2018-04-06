@@ -260,15 +260,14 @@ class OtherUser extends Component {
               />
               {!bffle ? (
                 <div onClick={this.addBFF} className="noFriend">
-                  <i class="far fa-user fa-1x"></i>
+                  <i class="far fa-heart"></i>
                 </div>
               ) : (
                 <div 
                   onClick={this.addBFF}
                   className={bffle ? "addFriend" : "noFriend"}
                 >
-                  <i class="far fa-user fa-1x" />
-                  {this.state.bffle ? <i class="far fa-check-circle"></i> : "" }
+                  {this.state.bffle ? <i class="fas fa-heart"></i> : "" }
                 </div>
               )}
               {!flagged ? (
