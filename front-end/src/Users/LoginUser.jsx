@@ -100,9 +100,10 @@ class LoginUser extends React.Component {
             Don't have an account?<Link to="/users/register"> Sign up!</Link>
         </div> {/* End smaller-box */}
 
-        <div className="login-error-message">
-          {message}
-        </div>
+        { message
+          ? <div className="login-error-message">{message}</div>
+          : <span></span>
+        }
       </div>
     );
   }
