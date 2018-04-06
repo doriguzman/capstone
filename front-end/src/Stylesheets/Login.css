@@ -41,15 +41,7 @@ Guidelines for Register and Login
 	font-family: "Didact Gothic", sans-serif;
 }
 
-.surveyBtn {
-	background-color: #E6E6FA;
-  padding: 1px;
-  margin: 7px 7px 7px 7px;
-  opacity: 0.9;
-  border: 10px solid #daecf3;
-  border-radius: 5px;
-  font-size: 15px;
-}
+
 
 #navLogoName {
   color: #000;
