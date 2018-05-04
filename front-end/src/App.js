@@ -246,10 +246,10 @@ class App extends React.Component {
         </div>
         <div>
         <footer className="footer">
-          <a href="http://localhost:3000/users/aboutus">About Us </a>·{" "}
-          <a href="http://localhost:3000/users/disclaimer">Disclaimer </a>·{" "}
-          <a href="http://localhost:3000/users/beforeyoufloat">Before You Float </a>·{" "}
-          <a href="http://localhost:3000/users/faq">FAQ</a>
+          <a href="/users/aboutus">About Us </a>·{" "}
+          <a href="/users/disclaimer">Disclaimer </a>·{" "}
+          <a href="/users/beforeyoufloat">Before You Float </a>·{" "}
+          <a href="/users/faq">FAQ</a>
           </footer>
           </div>
       </div>
