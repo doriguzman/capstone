@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS feathers;
-CREATE DATABASE feathers;
+-- DROP DATABASE IF EXISTS feathers;
+-- CREATE DATABASE feathers;
 
-\c feathers;
+-- \c feathers;
 
 
 DROP TABLE IF EXISTS users, bffs, flagged, trips, attributes, threads, messages, bucketlist;
@@ -128,3 +128,5 @@ INSERT INTO users (username, password_digest, email)
            (13, 'Tereza', 22, 'Concord, CA, USA', 'Going going back back to cali cali', 'https://image.ibb.co/ffiNrc/tereza.jpg','Latin / Hispanic', 'Christian', FALSE, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE),
            (14, 'Nina', 28, 'Brooklyn, NY, USA', 'Feeeling Good.', 'https://image.ibb.co/fFgWjx/nina.jpg', 'Black / African', 'Christian', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE),
            (15, 'Talia', 24, 'New York, NY, USA', 'I love traveling', 'https://image.ibb.co/mkdGHH/Talia.jpg', 'Pacific Islander', 'Agnostic / Non-religious', TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE);
+
+INSERT INTO messages ()
