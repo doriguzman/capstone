@@ -1,6 +1,7 @@
 const passport = require('passport')
 const pgp = require('pg-promise')({})
-const db = process.env.DATABASE_URL
+const connectionString= process.env.DATABASE_URL
+const db = pgp(connectionString)
 //pgp('postgres://localhost/feathers') 
 
 module.exports = () => {

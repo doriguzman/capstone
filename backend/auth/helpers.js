@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const pgp = require("pg-promise")({});
-const db = process.env.DATABASE_URL
+const connectionString= process.env.DATABASE_URL
+const db = pgp(connectionString)
 //pgp("postgres://localhost/feathers");
 
 function comparePassword(userPassword, dbPassword) {
