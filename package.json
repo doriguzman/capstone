@@ -1,6 +1,7 @@
 {
-    "scripts": {
-    "start": "node ./bin/www",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+  "scripts": {
+    "start": "node ./backend/bin/www",
+    "heroku-postbuild":
+      "cd front-end && npm install --only=dev && npm install && npm run build"
   }
 }
