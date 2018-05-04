@@ -52,7 +52,7 @@ class NewUser extends React.Component {
                   message: "Username must be at least 6 characters"
                 });
               }
-              if (username.length< 6){
+              if (password.length< 6){
                 return this.setState({
                   message:'Password must be at least 6 characters'
                 })
