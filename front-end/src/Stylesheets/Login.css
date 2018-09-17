@@ -1,0 +1,181 @@
+/*
+Guidelines for Register and Login
+*/
+
+@import url("https://fonts.googleapis.com/css?family=Didact+Gothic");
+
+
+.register-survey-container {
+  background-color: #e6e6fa;
+  padding: 1em;
+  opacity: 0.9;
+}
+
+.register-user-container {
+  padding: 1em;
+  opacity: 0.9;
+  height: 700px;
+  background-image: url("../Images/frontPage.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+	background-position: center center;
+}
+
+.new-user-form {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.login-user-container {
+  padding: 1em;
+  opacity: 0.9;
+  background-color: white;
+  border-radius: 0px 0px 5px 5px;
+  height: 700px;
+  background-image: url("../Images/frontPage.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+	background-position: center center;
+	text-align: center;
+	font-family: "Didact Gothic", sans-serif;
+}
+
+
+
+#navLogoName {
+  color: #000;
+  text-align: center;
+	text-shadow: 0px 2px 3px rgb(255, 255, 255),
+			 				 0px 4px 13px rgba(0, 0, 0, 0.1),
+  						 0px 9px 23px rgba(0, 0, 0, 0.1);
+}
+
+.sitefont {
+  text-align: center;
+}
+
+.login-box,
+.registerBox {
+  justify-content: space-around;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.usernameBox,
+.emailBox,
+.passwordBox {
+  padding: 5px;
+  margin: 7px;
+  opacity: 0.85;
+  font-size: 16px;
+  width: 30%;
+	height: 25px;
+	border-top: 1px solid white;
+	border-right: 1px solid white;
+	border-left: 1px solid white;
+  border-bottom: 5px solid #E6E6FA;
+  border-radius: 5px;
+	text-align: center;
+}
+.usernameBox:hover,
+.emailBox:hover, 
+.passwordBox:hover {
+	border-bottom: 5px solid black;
+}
+
+.loginBtn {
+  background-color: #e6e6fa;
+  color: #000;
+/*   padding: 8px; */
+  padding-bottom:20px;
+  margin: 7px;
+  opacity: 0.9;
+	font-size: 16px;
+	width: auto;
+  border: 1px solid #E6E6FA;
+  border-radius: 5px;
+}
+.loginBtn:hover {
+	border: 1px solid #000;
+}
+
+.smaller-box,
+.login-error-message {
+  color: #000;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #e6e6fa;
+  opacity: 0.8;
+  padding: 10px;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+
+
+/* ----- Media Queries ------ */
+@media screen and (max-width: 932px) {
+  .register-user-container {
+    height: 600px;
+  }
+  .login-user-container {
+    height: 600px;
+  }
+	.usernameBox,
+	.emailBox,
+	.passwordBox,
+	.loginBtn {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 632px) {
+  .register-user-container {
+    height: 550px;
+	}
+	.new-user-form {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+  .login-user-container {
+    height: 550px;
+  }
+  .registerBox {
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+  }
+	.usernameBox,
+	.emailBox,
+	.passwordBox {
+    width: 80%;
+  }
+  .loginBtn {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+	.register-user-container,
+	.login-user-container {
+		height: 500px;
+  }
+  form {
+    justify-content: space-around;
+    display: flex;
+		flex-direction: column;
+		align-items: center;
+  }
+	.usernameBox,
+	.emailBox,
+	.passwordBox, {
+    width: 80%;
+  }
+  .loginBtn {
+    width: 50%;
+  }
+}

@@ -1,0 +1,143 @@
+/* ------ Color Scheme ------
+        000000 -- black
+        FFFCF9 -- offwhite
+        F2F2F2 -- light grey
+        1B4CFE -- royal blue
+        E6E6FA -- light lavender
+        rgb(66, 163, 253) -- twitter blueish
+    ------ End Color Scheme------ */
+/* The Modal (background) */
+/* .ReactModal__Body--open{
+  position: absolute;
+  width: 40%;
+} */
+
+
+.sidebar {
+  height: 80px;
+  background-color: rgba(66, 163, 253, 0.3);
+  color: #DAECF3;
+  opacity: .9;
+  display: grid;
+  grid-template-columns: 20% 20% 25% 15% 10% 10%   ;
+  grid-template-rows: 100%;
+  grid-column-gap: 0.1em;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.DateInput_input{
+  padding: 0;
+}
+
+.search-input,
+.search-input:focus,
+.search-input:active {
+  height: 35px;
+  width:200px;
+}
+
+.location{
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+}
+
+.destination {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+}
+
+
+
+.travelDates{
+  grid-column: 3;
+  grid-row: 1;
+  align-self: center;
+}  
+
+.ages{
+  grid-column: 4;
+  grid-row: 1;
+  align-self: center;
+}  
+
+.filterBtn {
+  color: white;
+  padding: 3px;
+  height: fit-content;
+  width: 75%;
+  align-self: center;
+  background-color: rgba(66, 163, 253, 1);
+}
+
+.applyfilterBtn{
+  grid-column: 5;
+  grid-row: 1;
+  align-self: center;
+}  
+.clearfilterBtn{
+  grid-column: 6;
+  grid-row: 1;
+  align-self: center;
+}  
+
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #CCC;
+  opacity: 1; /* Firefox */
+}
+
+@media screen and (max-width: 632px) {
+
+.sidebar {
+  height: 400px;
+  display: grid;
+  grid-template-columns: 100% ;
+  grid-template-rows:20% 20% 30% 10% 10% 10% ;
+  grid-row-gap: 0.1em;
+}
+.location{
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+}
+
+.destination {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: center;
+}
+
+
+
+.travelDates{
+  grid-column: 1;
+  grid-row: 3;
+  align-self: center;
+}  
+
+.ages{
+  grid-column: 1;
+  grid-row: 4;
+  align-self: center;
+}  
+
+
+.applyfilterBtn{
+  grid-column: 1;
+  grid-row: 5;
+  align-self: center;
+}  
+.clearfilterBtn{
+  grid-column: 1;
+  grid-row: 6;
+  align-self: center;
+}  
+
+
+}

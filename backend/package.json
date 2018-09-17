@@ -20,6 +20,7 @@
     "password-hash-and-salt": "^0.1.4",
     "pg-promise": "^8.2.2",
     "serve-favicon": "~2.4.5",
+    "socket.io": "^2.1.0",
     "sweetalert": "^2.1.0"
   },
   "devDependencies": {

@@ -1,16 +1,28 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import logo from "./Images/logo.svg";
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
-import "./App.css";
+import "./Stylesheets/App.css";
+import "./Stylesheets/Navbar.css";
+import "./Stylesheets/Feed.css";
+
 import NewUser from "./Users/NewUser";
 import NewUserSurvey from "./Users/NewUserSurvey";
 import LoginUser from "./Users/LoginUser";
+import Disclaimer from "./Users/Disclaimer";
+import BeforeYouFloat from "./Users/BeforeYouFloat";
+import FAQ from "./Users/FAQ";
 import MatchedBuddies from "./LoggedInUser/FEED/MatchedBuddies";
+import AllBuddies from "./LoggedInUser/FEED/AllBuddies";
 import LogOutUser from "./Users/LogOutUser";
 import AboutUs from "./Users/AboutUs";
+import Messages from "./LoggedInUser/Messages";
 import User from "./LoggedInUser/User";
 import UserProfile from "./LoggedInUser/UserProfile";
+import AddTrips from "./LoggedInUser/AddTrips";
+import EditUserProfile from "./LoggedInUser/EditUserProfile";
+import OtherUser from './LoggedInUser/OtherUser'
+import BffFeed from './LoggedInUser/BffFeed'
 
 class App extends React.Component {
   constructor() {
@@ -18,19 +30,20 @@ class App extends React.Component {
     this.state = {
       user: null,
       active: false,
-      username:null
+      username:null, 
+      bffs:null
     };
   }
 
   setUser = user => {
-    this.setState({ 
-      user: user, 
-      
+    this.setState({
+      user: user,
+      username: user.username
     });
-    if(!user.username){
+    if (!user.username) {
       this.setState({
-        username:user
-      })
+        username: user
+      });
     }
   };
 
@@ -40,6 +53,7 @@ class App extends React.Component {
       .then(res => {
         this.setState({
           user: null,
+          username: null,
           active: false
         });
       })
@@ -82,15 +96,16 @@ class App extends React.Component {
     );
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const { user, active, username } = this.state;
+    console.log("HIIIII");
     axios
       .get("/users/getUser")
       .then(res => {
         console.log("THIS IS A RESPONSE test", res);
         this.setState({
           user: res.data.user,
-          username:res.data.user.username, 
+          username: res.data.user.username,
           active: true
         });
       })
@@ -101,9 +116,9 @@ class App extends React.Component {
 
   // Home is the feed screen
   renderFeed = () => {
-    const { user } = this.state;
+    const { user, username } = this.state;
     if (user) {
-      return <MatchedBuddies user={user} />;
+      return <AllBuddies user={user} username={username}/>;
     } else {
       return this.renderLogin();
     }
@@ -113,70 +128,135 @@ class App extends React.Component {
     return <AboutUs />;
   };
 
+  renderDisclaimer = () => {
+    return <Disclaimer />
+  }
+
+  renderBeforeYouFloat = () => {
+    return <BeforeYouFloat />
+  }
+
+  renderFAQ = () => {
+    return <FAQ />
+  }
+
+  renderMessages = () => {
+    return <Messages user={this.state.user} />
+  };
+
+  renderUserThread = (props) => {
+    let username = props.match.params.username
+    console.log(username)
+    return <Messages user={this.state.user} username={username}/>
+  };
+
   renderMyProfile = () => {
-    const { user } = this.state;
+    const { user, active } = this.state;
     console.log(`newton asked for this`, user);
     if (user) {
-      return <User user={user} setUser={this.setUser} />;
+      return <User user={user} setUser={this.setUser} active={active}/>;
     }
   };
 
-  render() {
+  renderAddTrips = () => {
+    const { user } = this.state;
+    if (user) {
+      return <AddTrips user={user} />;
+    }
+  };
 
-    const {user, active,username} = this.state
+  renderEditUserProfile = () => {
+    const { user, active } = this.state;
+    if (user) {
+      return <EditUserProfile user={user} setUser={this.setUser} active={active} />
+    }
+  };
+
+  renderMyBFFS = () => {
+    const { user } = this.state
+    if (user){
+      return <BffFeed user={user}/>
+    }
+  }
+
+
+  render() {
+    const { user, active, username } = this.state;
 
     // if(user){
     //   const username=user.username
     // }
-    console.log("USER: ", user, 'USERNAME: ' , username, 'ACTIVE' , active);
+    console.log("USER PASSWORD: ", user);
     //nav bar holds
     return (
       <div className="App">
         {/* NAV BAR GOES HERE */}
 
         <div className="top-nav-bar">
-          <div className="top-nav-bar-left">logo icon goes here</div>
+          <div className="top-nav-bar-left">
+            <Link to ='/users/feed'>
+              <img src="https://image.ibb.co/fLe2h7/logo_Smallest.png" alt="feathers logo" />
+            </Link> 
+          </div>
+          {/* <div className="top-nav-bar-left2">
+            <Link to ='/users/feed'>
+              <img src="https://image.ibb.co/g0rb9n/feathers_Smallest.png" alt="drift togeather" />
+            </Link>
+          </div> */}
+          <div className="feathers">
+            <Link to ='/users/feed'>
+              feathers
+            </Link>
+          </div>
 
           <div className='top-nav-bar-right'>
-          <Link to ='/users/aboutus'>How it Works</Link>
-           {' '}
-
-           {user ? <Link to ='/users/feed'>Feed</Link>: 
-          <Link to ='/users/register'>Register</Link>}
-          {' '}
-           {user ? <Link to ='/users/bffs'>BFFs</Link>:
-          <Link to ='/users/login'>Log In</Link>}
-          {' '}
-          {user &&!username ? <Link to= {`/users/me/${user.username}`}>Profile</Link> : ''}
-          {' '}
-          {username ? <Link to= {`/users/me/${username}`}>Profile</Link> : ''}
-          {' '}
-          {user ? <Link to='/users/logout'>Logout</Link>:''}
+            {user ? "" : <Link to ='/users/register'>Register</Link>} {' '}{' '}
+            {user ? <Link to ='/users/me/bffs'>Faves </Link> : <Link to ='/users/login'>Log In</Link>} {' '}
+            {user ? <Link to='/users/messages'>Messages </Link> : ""} {" "}
+            {user && !username ? <Link to= {`/users/me/${user.username}`}>Profile </Link> : ''} {' '}{' '}
+            {username ? <Link to= {`/users/me/${username}`}>Profile </Link> : ''} {' '}{' '}
+            {user ? <Link to='/users/logout'>Logout</Link>:''}
           </div> 
 
            </div>
         {/* logo  and how it works and login functionality  */}
+        
         <div>
           <Switch>
             <Route exact path="/" render={this.renderNewUser} />
-            <Route exact path="/users" render={this.renderNewUser} />
+            <Route exact path="/users/" render={this.renderNewUser} />
             <Route exact path="/users/register" render={this.renderNewUser} />
-            <Route
-              exact
-              path="/users/signup/survey"
-              render={this.renderSurvey}
-            />
+            <Route exact path="/users/signup/survey" render={this.renderSurvey} Q/>
             <Route path="/users/login" render={this.renderLogin} />
             <Route path="/users/logout" render={this.renderLogOutUser} />
             <Route path="/users/feed" render={this.renderFeed} />
+            <Route path="/users/disclaimer" render={this.renderDisclaimer} />
+            <Route path="/users/beforeyoufloat" render={this.renderBeforeYouFloat} />
+            <Route path="/users/faq" render={this.renderFAQ} />
             <Route path="/users/aboutus" render={this.renderAboutUs} />
+            <Route exact path="/users/messages" render={this.renderMessages} />
+            <Route path="/users/messages/:username" render={this.renderUserThread} />
+            <Route exact path={`/users/me/${username}`} render={this.renderMyProfile} />
+            <Route exact path = {`/users/me/${username}/trips/add`} render={this.renderAddTrips} />
+            <Route exact path = {`/users/me/${username}/editprofile`} render={this.renderEditUserProfile} />
+            {user ? <Route path="/users/u/:username/profile" render={(props) => <OtherUser user={user} active={active} {...props} />} />   :''}          {/* <Route  path="/users/u/:username" component={OtherUser} /> */}
+            <Route exact path = '/users/me/bffs' render = {this.renderMyBFFS}/>
 
-            
-            <Route path={`/users/me/${this.state.username}`} render={this.renderMyProfile} />
           </Switch>
         </div>
+        <div>
+        <footer className="footer">
+          <a href="http://localhost:3000/users/aboutus">About Us </a>·{" "}
+          <a href="http://localhost:3000/users/disclaimer">Disclaimer </a>·{" "}
+          <a href="http://localhost:3000/users/beforeyoufloat">Before You Float </a>·{" "}
+          <a href="http://localhost:3000/users/faq">FAQ</a>
+          </footer>
+          </div>
       </div>
     );
   }
 }
 export default App;
+
+
+// (props) => <otherUser user={user} active={active} {...props} />}

@@ -1,28 +1,111 @@
+/*
+#DAECF3 white
+#FE424D coral red
+#1AA6B7 light blue
+#022D41  dark blue
+
+*/
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400i');
+@import url('https://fonts.googleapis.com/css?family=Armata');
+
+html {
+  height: 100%;
+}
+
+body{
+  background-color:#DAECF3;
+}
+
 .App {
-  text-align: center;
+  width:80%;
+  margin:auto;
+  font-size: 16px;
+  font-family: 'Armata', sans-serif;
+  color: #022D41;
+  background-color:#DAECF3;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
+.info{
   padding: 20px;
-  color: white;
+  background-color: white;
+  padding: 1em;
+  opacity: .9;
+  border: 1px solid rgba(2, 45, 65, 0.5);
+  /* border-radius: 0px 0px 5px 5px; */
+}
+.userProfile{
+  padding: 20px;
+  background-color: white;
+  padding: 1em;
+  opacity: .9;
+  border: 1px solid rgba(2, 45, 65, 0.5);
+  /* border-radius: 0px 0px 5px 5px; */
 }
 
-.App-title {
-  font-size: 1.5em;
+
+.footer{
+  height: 50px;
+  background-color: #FE424D;
+  color: rgb(84, 138, 160);
+  padding: 1em;
+  /* border-radius: 0px 0px 25px 25px; */
+  opacity: .9;
+  border: 1px solid rgba(2, 45, 65, 0.5);
+  font-size: 15px;
+  text-align: end;
 }
 
-.App-intro {
-  font-size: large;
+button{
+  width: 70px;
+}
+.redflagBtn {
+  
+  
+  color: #FE424D;
+  
+}
+.addFriend{
+  
+  color: #FE424D;
+
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+
+
+ .message{
+   background:white;
+   color:black;
+  
+   /* background-color:black;  */
+  
+} 
+.flagBtn :hover {
+  
+  
+  color: #FE424D;
+  
+}
+.noFriend :hover{
+  
+  color: #FE424D;
+
+}
+
+@media screen and (max-width: 932px) {
+  .App {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 632px) {
+  .App {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .App {
+    font-size: 14px;
+  }
 }

@@ -1,0 +1,92 @@
+/* ------ Guidelines for Adding Trip tab in User Profile ----- */
+    /* ------ Color Scheme ------
+        000000 -- black
+        FFFCF9 -- offwhite
+        F2F2F2 -- light grey
+        1B4CFE -- royal blue
+        E6E6FA -- light lavender
+        rgb(66, 163, 253) -- twitter blueish
+    ------ End Color Scheme------ */
+
+.trips-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* background-color: pink; */
+    justify-content: flex-start;
+    align-items: top;
+    margin: 5px;
+    height: 350px;
+}
+.single-trip {
+    overflow: scroll;
+    /* width: 30%; */
+    width: 200px;
+    border: 2px solid #CCC;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    height: 350px;
+}
+.trip-destination {
+    border-bottom: 2px solid #CCC;
+    color: rgb(66, 163, 253);
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 0 10px 0;
+}
+.trip-title {
+    background-color: #E6E6FA;
+    color: #555;
+    font-style: italic;
+    font-size: 0.8em;
+}
+.trip-body {
+    padding: 10px 0 10px 0;
+}
+.trip-todos {
+    height: 150px;
+    overflow: scroll;
+}
+.delete-trip {
+    margin-bottom: auto;
+    background-color: #555;
+    color: white;
+    border-bottom: 2px solid #555;
+}
+.delete-trip:hover {
+    background-color: #999;
+    border-bottom: 2px solid #000;
+    transition: 0.5s;
+}
+
+.add-trip {
+    color: #555;
+    overflow: scroll;
+    /* width: 30%; */
+    width: 200px;
+    border: 2px solid #CCC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    height: 350px;
+    background-color: #CCC;
+}
+.add-trip:hover {
+    background: linear-gradient(to bottom, rgb(202, 202, 255), #E6E6FA);
+    border-color: #E6E6FA;
+}
+.plus {
+    font-size: 3em;
+}
+
+.surveyCheck-AT{
+    display:flex;
+    justify-content: left;
+    width:14%;
+    align-items: center;
+    margin: auto;
+  
+}

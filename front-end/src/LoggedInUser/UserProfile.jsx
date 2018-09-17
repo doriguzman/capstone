@@ -3,6 +3,18 @@ import { Route, Link, Switch, Redirect } from "react-router-dom";
 // import './profile.css';
 import axios from "axios";
 // import Bffs from "./Bffs";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+// this is the default style sheet for react-tabs
+import "react-tabs/style/react-tabs.css";
+import AddTrips from "./AddTrips";
+import dateFormat from "dateformat";
+import MyListedTrips from './MyListedTrips'
+
+import '../Stylesheets/userProfile.css'
+import '../Stylesheets/AddTrips.css'
+import BucketList from './BucketList'
+
+
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -10,13 +22,15 @@ class UserProfile extends React.Component {
     this.state = {
       user: this.props.user,
       user_id: this.props.user.id,
-      username: this.props.user.username,
+      username: this.props.username,
+      activeUser:this.props.active,
       userImageURL: "",
       first_name: "",
       my_location: "",
       age: "",
       bio: "",
       ethnicity: "",
+      religion:'', 
       early_bird: "",
       night_owl: "",
       clubbing: "",
@@ -28,35 +42,54 @@ class UserProfile extends React.Component {
       nature: "",
       extroverted: "",
       smokes: "",
-      drinks: "",
-      toggleTripsBtn: false,
-      toggleAboutBtn: false
+      drinks: "", 
+      trips:'', 
+      openTrips:'', 
+      pastTrips:'', 
+      // bucketListTodos:'', 
+      // startDate: null,
+      // endDate: null,
+      // focusedInput: null,
+      // start_date: "",
+      // end_date: "",
+      // address: "",
+      // submitted:false,
+      // bucketlist:[],
     };
   }
 
-fixUser = ()=>{
-  const {username, user}=this.state
-  console.log('user:' , user, 'username:' , username)
-  if (!username){
-    this.setState({
-      username:this.state.user
-    })
-  }
-}
 
+  fixUser = () => {
+    console.log('im trying to fix the user!!!')
+    const {user, username, user_id}= this.state
+    if(!this.state.username){
+      this.setState({
+        username:this.state.user
+      })
+    }
+    if(!this.state.user_id){
+      axios.get("/users/").then(response => {
+        console.log('user id ', response.data.data)
+        const found=response.data.data.find(n => n.username === this.state.user.username)
+        console.log(found)
+        if (found) 
+        this.setState({
+          user_id:found.id
+        })
+         
+    })
+    }
+  
+}
+  
 
   getUserInfo = () => {
-
-    const {username, user}=this.state
-    console.log('user:' , user, 'username:' , username)
-    // console.log("get user info"), console.log("this is the username", username);
+    const { username, user } = this.state;
 
     axios
       .get(`/users/userAttributes/${this.state.username}`)
       .then(res => {
         let UserInfo = res.data;
-        console.log("res.data", res.data);
-
         this.setState({
           user: UserInfo,
           userImageURL: UserInfo.pic,
@@ -65,6 +98,7 @@ fixUser = ()=>{
           age: UserInfo.age,
           bio: UserInfo.bio,
           ethnicity: UserInfo.ethnicity,
+          religion:UserInfo.religion, 
           early_bird: UserInfo.early_bird,
           night_owl: UserInfo.night_owl,
           clubbing: UserInfo.clubbing,
@@ -76,50 +110,91 @@ fixUser = ()=>{
           nature: UserInfo.nature,
           extroverted: UserInfo.extroverted,
           smokes: UserInfo.smokes,
-          drinks: UserInfo.drinks
+          drinks: UserInfo.drinks, 
+          bucketlist:'', 
         });
-        console.log("UserINFO: ", UserInfo);
-
-        // this.getUserLikes();
       })
       .catch(err => {
         console.log(err);
       });
   };
-  componentWillMount(){
-    this.fixUser()
+
+
+  getUserTrips=()=>{
+    const {trips}=this.state
+      //getting the current Date;
+      const dateNow= new Date()
+    axios
+    .get(`/users/allTrips/${this.state.username}`)
+    .then(res => {
+      let UserInfo = res.data;
+      this.setState({
+        trips:res.data, 
+      })
+     //have to create a date object bc its originally a string
+      // comparing date objects with date objects 
+      const pastTrips= this.state.trips.filter(trip=> new Date(trip.end_date)< dateNow)
+      const openTrips= this.state.trips.filter(trip=> new Date(trip.end_date)> dateNow)
+      this.setState({
+        pastTrips:pastTrips, 
+        openTrips:openTrips
+      })
+    });
+  };
+
+  getBucketList = ()=>{
+    console.log('hitting the bucket list!' )
+    const {username}= this.state
+    
+    axios
+    .get(`/users/bucketlist/${username}`)
+    .then(res =>{
+      console.log('this is the response,', res.data)
+      this.setState({
+        bucketlist: res.data 
+      })
+      console.log(
+      ' in the bucket list function ' , this.state.bucketlist)
+    })
+    .catch(err => {
+      console.log("err in getting bucketlist", err);
+    });
+  }
+
+
+
+  componentWillMount() {
+    this.fixUser();
+    this.getUserTrips();
+    this.getBucketList();
   }
 
   componentDidMount() {
-    console.log("component mounted!");
-    // this.fixUser();
     this.getUserInfo();
+    // this.getBucketList();
   }
 
   handleClickAddTrip = e => {
-    const { username } = this.state;
-    window.location = `/users/me/${username}/trips/add`;
+    e.preventDefault();
+    const { username, user } = this.state;
+    return (window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
   };
 
-  handleClickTrips = e => {
-    const { username } = this.state;
-    window.location = `/users/me/${username}/trips`;
-    this.setState({
-        toggleTripsBtn: true
-    })   
-  }
+ 
 
   render() {
     const {
       user,
       user_id,
       username,
+      activeUser,
       userImageURL,
       first_name,
       my_location,
       age,
       bio,
       ethnicity,
+      religion,
       early_bird,
       night_owl,
       clubbing,
@@ -130,67 +205,122 @@ fixUser = ()=>{
       nature,
       extroverted,
       smokes,
-      drinks,
-      toggleTripsBtn,
-      toggleAboutBtn
+      drinks, 
+      trips, 
+      openTrips, 
+      pastTrips, bucketListTodos, startDate, endDate, address, bucketlist
     } = this.state;
-    console.log("THE STATE IS", this.state);
-    console.log("USER_id IS ", user_id);
-    console.log(this.state);
-    console.log("this is userprofile");
 
+    const AddressInputProps = {
+      value: this.state.address,
+      onChange: this.inputChange
+    };
+
+    const addressCSSClasses = {
+      root: "form-group",
+      input: "search-input",
+      autocompleteContainer: "autocomplete-container"
+    };
+    
     return (
-      <div>
-        <div>
-          <img src={userImageURL} />
-        </div>
-        <div>
-          <div>
-            Name:{" "}{first_name}, Age:{" "}{age}
+      <div className="userProfile">
+        <div className="blurb">
+          <div className="img-container">
+            <img src={userImageURL} className="profile-pic" />
           </div>
+          <div className="general-info">
+            <span className="my-name">
+              {first_name}, {age}
+            </span>
+            <span>@{username}</span>
+            <span className="my-location">{my_location}</span>
+            <div className="my-bio">{bio}</div>
+          </div>
+        </div>
+        
+        <Tabs className="tabs">
+          <TabList className="tab-list">
+            <Tab className="single-tab">About</Tab>
+            <Tab className="single-tab">Current Trips</Tab>
+            <Tab className="single-tab">Bucket List</Tab>
+          </TabList>
 
-           <div>@{username}</div>
-          <div>Location:{" "} {my_location}</div>
-        </div>
-        <div>
-          <div >About</div>
-          <div>About me:{" "}{bio}</div>
-          Ethnicity: {" "}{ethnicity}
-          <div>
-            <pre>
-              <b>As a traveller: </b>
+          {/* About tab */}
+          <TabPanel className="tab-panel">
+            <div>
+              
+              <div className="about-header">As a traveler...</div>
+              <div className="attributes-container">
+                {this.state["early_bird"]
+                  ? <div className="attributes-true">I'm an early bird.</div>
+                  : <div className="attributes-false">I'm an early bird.</div>}
+                {this.state["night_owl"]
+                  ? <div className="attributes-true">I'm a night owl.</div>
+                  : <div className="attributes-false">I'm a night owl.</div>}
+                {this.state["clubbing"]
+                  ? <div className="attributes-true">I enjoy clubbing.</div>
+                  : <div className="attributes-false">I enjoy clubbing.</div>}
+                {this.state["spontaneous"]
+                  ? <div className="attributes-true">I'm spontaneous.</div>
+                  : <div className="attributes-false">I'm spontaneous.</div>}
+                {this.state["active"]
+                  ? <div className="attributes-true">I'm active.</div>
+                  : <div className="attributes-false">I'm active.</div>}
+                {this.state["sightseeing"]
+                  ? <div className="attributes-true">I like sightseeing.</div>
+                  : <div className="attributes-false">I like sightseeing.</div>}
+                {this.state["foodie"]
+                  ? <div className="attributes-true">I'm a foodie.</div>
+                  : <div className="attributes-false">I'm a foodie.</div>}
+                {this.state["relax"]
+                  ? <div className="attributes-true">I mainly like to relax.</div>
+                  : <div className="attributes-false">I mainly like to relax.</div>}
+                {this.state["nature"]
+                  ? <div className="attributes-true">I enjoy nature.</div>
+                  : <div className="attributes-false">I enjoy nature.</div>}
+                {this.state["extroverted"]
+                  ? <div className="attributes-true">I'm extroverted.</div>
+                  : <div className="attributes-false">I'm extroverted.</div>}
+                {this.state["smokes"]
+                  ? <div className="attributes-true">I smoke.</div>
+                  : <div className="attributes-false">I smoke.</div>}
+                {this.state["drinks"]
+                  ? <div className="attributes-true">I drink.</div>
+                  : <div className="attributes-false">I drink.</div>}
+              </div>
+
+              <div className="about-header">Ethnicity</div>
+              <div> {ethnicity}</div>
+              <div className="about-header">Religion</div>
+              <div>{religion}</div>
               <br />
-              <br /> I am an early bird:{" "}
-              {this.state["early_bird"] ? "yes" : "no"} ,
-              <br /> A night owl: {" "}
-              {this.state["night_owl"] ? "yes" : "no"},
-              <br /> Like clubbing: {" "}
-              {this.state["clubbing"] ? "yes" : "no"},
-              <br /> I am spontaneous:{" "}
-              {this.state["spontaneous"] ? "yes" : "no"}, 
-              <br /> I am active: {" "}
-              {this.state["active"] ? "yes" : "no"},
-              <br />  I like sightseeing:{" "}
-              {this.state["sightseeing"] ? "yes" : "no"}, 
-              <br /> I am a foodie:{" "}
-               {this.state["foodie"] ? "yes" : "no"}, 
-              <br /> Relax:{" "}
-               {this.state["relax"] ? "yes" : "no"}, 
-              <br /> Enjoy nature:{" "}
-              {this.state["nature"] ? "yes" : "no"}, 
-              <br /> I am extroverted:{" "}
-               {this.state["extroverted"] ? "yes" : "no"}, 
-              <br /> Smoke:{" "}
-               {this.state["smokes"] ? "yes" : "no"},
-              <br /> Drink:{" "}
-               {this.state["drinks"] ? "yes" : "no"}
-            </pre>
-          </div>
-                <div onClick={this.handleClickTrips}>Trips
-            {toggleTripsBtn ? <button onClick={this.handleClickAddTrip}>Add trips</button> : ""}
-      
-        </div>
-      </div>
+              <div>
+                {activeUser ? <Link to={`/users/me/${username}/editprofile`}>
+                    <i className="far fa-edit fa-2x" />
+                  </Link> : ""}
+              </div>
+            </div>
+          </TabPanel>
+
+          {/* Trips tab */}
+          <TabPanel className="tab-panel">
+            <div>
+              {openTrips ? <MyListedTrips activeUser={activeUser} username={username} handleClickAddTrip={this.handleClickAddTrip} /> : ""}
+              {/* {activeUser
+                ? <div className="add-trip" onClick={this.handleClickAddTrip}>Add Trip</div>
+                : ""} */}
+            </div>
+          </TabPanel>
+
+          {/* Bucketlist tab */}
+          <TabPanel className="tab-panel">
+            <div>
+           
+               <BucketList activeUser={activeUser} username={this.state.username}/> 
+                </div>
+            </TabPanel>
+            
+        </Tabs>
       </div>
     );
   }

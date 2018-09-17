@@ -1,0 +1,70 @@
+.pic{
+    width:auto;
+    height:20px
+}
+
+ h4 {
+    font-size:20px
+}
+
+.register-survey-container{
+    width:70%;
+    margin:auto;
+    background-color: #DDD;
+    border-bottom:4px solid #E6E6FA; 
+}
+
+::-webkit-input-placeholder {
+    text-align: center;
+ }
+
+ input[type='checkbox']{
+    width:20px;
+    height: 20px;
+    display:flex;
+    align-items: center;
+    
+}
+/* .checkBoxes{
+    background: saddlebrown
+} */
+ .surveyCheck{
+     display:flex;
+     justify-content: left;
+     width:20%;
+     align-items: center;
+     margin:auto;
+     /* margin-left:45%; */
+     /* background: yellow */
+   
+ }
+ 
+ input{
+     height: 20px;
+     font-size: 15px
+ }
+
+ .search-input {
+     height:22px;
+     width: auto;
+ }
+
+ .surveyBtn {
+  color: black;
+  height:26px;
+  width:60px;
+  padding: 1px;
+  margin: 20px 7px 7px 7px;
+  opacity: 0.9;
+  background-color: #daecf3;
+  border-radius: 5px;
+  font-size: 15px;
+ }
+ .surveyCheck-EUP{
+    display:flex;
+    justify-content: left;
+    width:19%;
+    align-items: center;
+    margin: auto;
+  
+}

@@ -114,11 +114,11 @@ class NewUser extends React.Component {
 
         return (
             <div className="register-user-container">
-            
-            <h2> Drift Together </h2>
-                <div className="registerBox">
+                {/* nav bar goes here  */}
 
-                    <form onSubmit={this.submitForm}>
+            <h2 id="navLogoName"> Drift Together </h2>
+                <div className="registerBox" class="registerBox">
+                    <form onSubmit={this.submitForm} className="new-user-form">
                         <input
                             className="usernameBox"
                             placeholder="Username"
@@ -139,6 +139,7 @@ class NewUser extends React.Component {
                       
 
                         <input
+
                             className="passwordBox"
                             placeholder="Password"
                             type="password"
@@ -147,7 +148,7 @@ class NewUser extends React.Component {
                             onChange={this.handleInput}
                         />
 
-                        <input className="loginBtn" type="submit" value="Join Us" onClick={this.renderSurvey}/>
+                        <input className="loginBtn" type="submit" value="Join Us!" onClick={this.renderSurvey}/>
 
                     </form>
                 </div>

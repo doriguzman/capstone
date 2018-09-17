@@ -1,0 +1,63 @@
+/* ------ Guidelines for Before page ------ */
+    /* ------ Color Scheme ------
+        000000 -- black
+        FFFCF9 -- offwhite
+        F2F2F2 -- light grey
+        1B4CFE -- royal blue
+        E6E6FA -- light lavender
+        rgb(66, 163, 253) -- twitter blueish
+    ------ End Color Scheme------ */
+
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+
+.before-container {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.dancing {
+    font-family: "Dancing Script", serif;
+}
+
+.before-content {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.before-p {
+    text-align: left;
+}
+
+.before-ul {
+    text-align: left;
+}
+
+.before-traveling {
+    color: rgb(66, 163, 253);
+    list-style-type: circle;
+}
+
+.recommendations {
+    list-style-type: circle;
+    width: 60%;
+}
+
+.video-chat-img {
+    height: 50%;
+    width: 50%;
+    animation-name: move;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1; 
+    }
+
+    @keyframes move {
+    0% {
+    background-position: 0% 0%;
+    }
+
+    100% {
+    background-position: 100% 100%;
+
+    }
+}
