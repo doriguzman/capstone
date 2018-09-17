@@ -100,7 +100,8 @@ Guidelines for Register and Login
 	border: 1px solid #000;
 }
 
-.smaller-box {
+.smaller-box,
+.login-error-message {
   color: #000;
   font-size: 16px;
   text-align: center;
