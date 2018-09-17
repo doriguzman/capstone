@@ -12,9 +12,15 @@ const UserProfileCards = ({ allUsers, bffs }) => {
   return (
     <div className="cardHolder">
       {allUsers.map(user => {
+        
+        let userPic= user.pic
+        if (userPic ==='' && (!userPic.includes('.png')|| !userPic.includes('.img')|| !userPic.includes('.jpeg') || !userPic.includes('.jpg'))){
+          userPic= `https://image.ibb.co/mP5Xuz/image_placeholder_female_1.png`
+        }
+        
         return <div className="card">
             <Link to={`/users/u/${user.username}/profile`}>
-              <img className="pic" src={user.pic} alt="profile picture" />
+              <img className="pic" src={userPic} alt="profile picture" />
             </Link>
 
             <div className="card-content">
