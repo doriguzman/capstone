@@ -93,14 +93,15 @@ class LoginUser extends React.Component {
             <input className="loginBtn" type="submit" value="Log in" />
           </form>
 
-        {message}
-
         </div> {/* End login-box */}
 
         <div className='smaller-box'>
             Don't have an account?<Link to="/users/register"> Sign up!</Link>
         </div> {/* End smaller-box */}
-
+         { message
+           ? <div className="login-error-message">{message}</div>
+           : <span></span>
+          }
       </div>
     );
   }
