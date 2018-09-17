@@ -84,7 +84,7 @@ class UserProfile extends React.Component {
   
 
   getUserInfo = () => {
-    const { username, user, pic } = this.state;
+    const { username, user } = this.state;
 
     axios
       .get(`/users/userAttributes/${this.state.username}`)
@@ -113,12 +113,12 @@ class UserProfile extends React.Component {
           drinks: UserInfo.drinks, 
           bucketlist:'', 
         })
-         if (
-          pic === "" ||
-          !pic.includes(".png") ||
-          !pic.includes(".img") ||
-          !pic.includes(".jpeg") ||
-          !pic.includes(".jpg")
+           if (
+          this.state.pic === "" ||
+          (this.state.pic.slice(-4) !== ".png" &&
+          this.state.pic.slice(-4) !== ".img" &&
+          this.state.pic.slice(-4) !== ".jpeg" &&
+          this.state.pic.slice(-4) !== ".jpg")
         ) {
           this.setState({
             pic: "https://image.ibb.co/mP5Xuz/image_placeholder_female_1.png"
