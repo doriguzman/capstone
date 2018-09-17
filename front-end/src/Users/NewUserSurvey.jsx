@@ -101,6 +101,13 @@ class NewUserSurvey extends React.Component {
   renderSurvey = e => {
     console.log("submitting survey");
     e.preventDefault();
+     let pic=this.state.pic
+
+    if(pic ===''&& (!pic.includes('.png')|| !pic.includes('.img')|| !pic.includes('.jpeg') || !pic.includes('.jpg'))){
+      this.setState({
+        pic:'https://image.ibb.co/mP5Xuz/image_placeholder_female_1.png'
+      })
+    }
     axios
       .post("/users/survey", {
         firstName: this.state.firstName,
