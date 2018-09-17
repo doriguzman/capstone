@@ -4,7 +4,7 @@ import { Route, Link, Switch, Redirect } from "react-router-dom";
 import axios from "axios";
 // import Bffs from "./Bffs";
 import NewUserSurvey from "../Users/NewUserSurvey";
-import '../Stylesheets/survey.css'
+import "../Stylesheets/survey.css";
 // import "../Stylesheets/AddTrips.css";
 
 import PlacesAutocomplete, {
@@ -89,20 +89,19 @@ class EditUserProfile extends Component {
       drinks: "",
       ethnicity: "",
       religion: "",
-      USERLOGGED:this.props.active, 
+      USERLOGGED: this.props.active,
       edited: false
     };
   }
 
   getUserInfo = () => {
     const { username, user } = this.state;
-    console.log("user:", user, "username:", username);
 
     axios
       .get(`/users/userAttributes/${this.state.username}`)
       .then(res => {
         let UserInfo = res.data;
-        console.log("res.data", res.data);
+        console.log("res.data", res.data.pic);
 
         this.setState({
           user: UserInfo,
@@ -126,8 +125,6 @@ class EditUserProfile extends Component {
           smokes: UserInfo.smokes,
           drinks: UserInfo.drinks
         });
-        console.log("UserINFO: ", UserInfo);
-        console.log("drinks ", this.state.drinks)
       })
       .catch(err => {
         console.log(err);
@@ -201,7 +198,7 @@ class EditUserProfile extends Component {
     e.preventDefault();
     const {
       username,
-      userImageURL,
+      pic,
       firstName,
       location,
       age,

@@ -13,6 +13,7 @@ import MyListedTrips from './MyListedTrips'
 import '../Stylesheets/userProfile.css'
 import '../Stylesheets/AddTrips.css'
 import BucketList from './BucketList'
+import { userInfo } from "os";
 
 
 
@@ -21,10 +22,10 @@ class UserProfile extends React.Component {
     super(props);
     this.state = {
       user: this.props.user,
-      user_id: this.props.user.id,
+      userid: this.props.user_id,
       username: this.props.username,
       activeUser:this.props.active,
-      userImageURL: "",
+      pic: "",
       first_name: "",
       my_location: "",
       age: "",
@@ -46,21 +47,12 @@ class UserProfile extends React.Component {
       trips:'', 
       openTrips:'', 
       pastTrips:'', 
-      // bucketListTodos:'', 
-      // startDate: null,
-      // endDate: null,
-      // focusedInput: null,
-      // start_date: "",
-      // end_date: "",
-      // address: "",
-      // submitted:false,
-      // bucketlist:[],
+
     };
   }
 
 
   fixUser = () => {
-    console.log('im trying to fix the user!!!')
     const {user, username, user_id}= this.state
     if(!this.state.username){
       this.setState({
@@ -84,15 +76,17 @@ class UserProfile extends React.Component {
   
 
   getUserInfo = () => {
-    const { username, user } = this.state;
-
+    const { username, user, pic } = this.state;
+    console.log('HI')
     axios
       .get(`/users/userAttributes/${this.state.username}`)
       .then(res => {
         let UserInfo = res.data;
+        console.log('resdata', res.data.pic)
+        
         this.setState({
           user: UserInfo,
-          userImageURL: UserInfo.pic,
+          pic: UserInfo.pic,
           first_name: UserInfo.first_name,
           my_location: UserInfo.my_location,
           age: UserInfo.age,
@@ -112,8 +106,23 @@ class UserProfile extends React.Component {
           smokes: UserInfo.smokes,
           drinks: UserInfo.drinks, 
           bucketlist:'', 
-        });
+        })
+        
+        if (
+          pic === "" ||
+          !pic.includes(".png") ||
+          !pic.includes(".img") ||
+          !pic.includes(".jpeg") ||
+          !pic.includes(".jpg")
+        ) {
+          this.setState({
+            pic: "https://image.ibb.co/mP5Xuz/image_placeholder_female_1.png"
+          });
+        };
       })
+
+
+
       .catch(err => {
         console.log(err);
       });
@@ -143,18 +152,14 @@ class UserProfile extends React.Component {
   };
 
   getBucketList = ()=>{
-    console.log('hitting the bucket list!' )
     const {username}= this.state
     
     axios
     .get(`/users/bucketlist/${username}`)
     .then(res =>{
-      console.log('this is the response,', res.data)
       this.setState({
         bucketlist: res.data 
       })
-      console.log(
-      ' in the bucket list function ' , this.state.bucketlist)
     })
     .catch(err => {
       console.log("err in getting bucketlist", err);
@@ -174,11 +179,14 @@ class UserProfile extends React.Component {
     // this.getBucketList();
   }
 
-  handleClickAddTrip = e => {
-    e.preventDefault();
-    const { username, user } = this.state;
-    return (window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
-  };
+  // handleClickAddTrip = e => {
+  //   e.preventDefault();
+  //   const { username, user } = this.state;
+  //   <Link to={`/users/me/${username}/trips/add`}>
+    
+  //   </Link> 
+  //   // (window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
+  // };
 
  
 
@@ -188,7 +196,7 @@ class UserProfile extends React.Component {
       user_id,
       username,
       activeUser,
-      userImageURL,
+      pic,
       first_name,
       my_location,
       age,
@@ -221,12 +229,14 @@ class UserProfile extends React.Component {
       input: "search-input",
       autocompleteContainer: "autocomplete-container"
     };
+
+  
     
     return (
       <div className="userProfile">
         <div className="blurb">
           <div className="img-container">
-            <img src={userImageURL} className="profile-pic" />
+            <img src={pic} className="profile-pic" />
           </div>
           <div className="general-info">
             <span className="my-name">
@@ -305,7 +315,7 @@ class UserProfile extends React.Component {
           {/* Trips tab */}
           <TabPanel className="tab-panel">
             <div>
-              {openTrips ? <MyListedTrips activeUser={activeUser} username={username} handleClickAddTrip={this.handleClickAddTrip} /> : ""}
+              {openTrips ? <MyListedTrips activeUser={activeUser} username={username}  /> : ""}
               {/* {activeUser
                 ? <div className="add-trip" onClick={this.handleClickAddTrip}>Add Trip</div>
                 : ""} */}

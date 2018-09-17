@@ -62,11 +62,9 @@ class AllBuddies extends Component {
     axios
       .get("/users/getPics")
       .then(response => {
-        console.log("USER PICSSSSSS, ", response.data);
         const filteredUsers = response.data.filter(
           user => user.username !== this.state.username
         );
-        console.log("filteredUsers", filteredUsers);
         this.setState({
 					allUsers: filteredUsers,
 					holdAllUsers: filteredUsers
@@ -124,7 +122,6 @@ class AllBuddies extends Component {
 
 
   renderMatchedBuddies = () => {
-    console.log(this.state.allUsers, "jesus take the wheel");
     return (
       <MatchedBuddies user={this.props.user} allUsers={this.state.allUsers} />
     );
@@ -149,7 +146,6 @@ class AllBuddies extends Component {
 
   inputChangeLoc = locationAdd => {
     const { userFilter } = this.state;
-    console.log(locationAdd);
     this.setState({
       locationAdd: locationAdd,
       userFilter: { ...userFilter, locationAdd: locationAdd }
@@ -199,7 +195,6 @@ class AllBuddies extends Component {
 	}
   renderFilteredUserPics = e => {
     e.preventDefault();
-    console.log("submitting for filters");
     const { endDate, startDate, allUsers, userFilter, flagged } = this.state;
     //have to set the state of the calendar dates in the survey (onClick)
 

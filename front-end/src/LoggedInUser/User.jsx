@@ -63,17 +63,17 @@ class User extends Component {
 
   renderMyProfileInfo = () => {
     const { user, username, user_id, active } = this.state;
-    console.log(
-      "im seeing if these things are passed correctly",
-      user,
-      username,
-      user_id
-    );
+    // console.log(
+    //   "im seeing if these things are passed correctly",
+    //   user,
+    //   username,
+    //   user_id
+    // );
     return (
       <UserProfile
         user={user}
         username={username}
-        user_id={user_id}
+        userid={user_id}
         active={active}
       />
     );

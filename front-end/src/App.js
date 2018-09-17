@@ -80,7 +80,6 @@ class App extends React.Component {
 
   renderNewUser = () => {
     const { user, active } = this.state;
-    console.log(this.state);
     if (active === false) {
       return <NewUser setUser={this.setUser} active={this.isActive} />;
     } else {
@@ -90,7 +89,6 @@ class App extends React.Component {
 
   renderSurvey = () => {
     const { user, active } = this.state;
-    console.log(this.state);
     return (
       <NewUserSurvey setUser={this.setUser} username={user} active={active} />
     );
@@ -98,7 +96,6 @@ class App extends React.Component {
 
   componentWillMount() {
     const { user, active, username } = this.state;
-    console.log("HIIIII");
     axios
       .get("/users/getUser")
       .then(res => {
@@ -152,7 +149,6 @@ class App extends React.Component {
 
   renderMyProfile = () => {
     const { user, active } = this.state;
-    console.log(`newton asked for this`, user);
     if (user) {
       return <User user={user} setUser={this.setUser} active={active}/>;
     }

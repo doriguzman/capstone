@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import dateFormat from "dateformat";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link} from "react-router-dom";
 import axios from "axios";
 
 class MyListedTrips extends React.Component {
@@ -46,7 +46,7 @@ class MyListedTrips extends React.Component {
   }
 
   render() {
-    const { trips, activeUser, isDeleted } = this.state;
+    const { trips, activeUser, isDeleted, username} = this.state;
 
     if (trips) {
       return (
@@ -75,9 +75,11 @@ class MyListedTrips extends React.Component {
           <div>
             {activeUser
             ? (
-              <div className="add-trip" onClick={this.props.handleClickAddTrip}>
+              <div className="add-trip" >
+                 <Link to={`/users/me/${username}/trips/add`}>
                 Add Trip<br />
                 <span className="plus">+</span>
+                </Link> 
               </div>
             ) : ""}
           </div>
