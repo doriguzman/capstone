@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import dateFormat from "dateformat";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
 
 class MyListedTrips extends React.Component {
