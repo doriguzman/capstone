@@ -104,7 +104,7 @@ class NewUserSurvey extends React.Component {
 
     let pic=this.state.pic
 
-    if(pic ===''||!pic.includes('.png')|| !pic.includes('.img')|| !pic.includes('.jpeg') || !pic.includes('.jpg')){
+    if(pic ===''&& (!pic.includes('.png')|| !pic.includes('.img')|| !pic.includes('.jpeg') || !pic.includes('.jpg'))){
       this.setState({
         pic:'https://image.ibb.co/mP5Xuz/image_placeholder_female_1.png'
       })

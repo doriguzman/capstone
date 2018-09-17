@@ -20,7 +20,7 @@ class OtherUser extends Component {
       user: "",
       //   user_id:'',
       username: "",
-      userImageURL: "",
+      pic: "",
       first_name: "",
       my_location: "",
       age: "",
@@ -54,6 +54,7 @@ class OtherUser extends Component {
 
   getUserInfo = () => {
     const username = this.props.match.params.username;
+    const {pic}=this.state
     console.log("this is the props.req", username);
     axios
       .get(`/users/userAttributes/${username}`)
@@ -62,7 +63,7 @@ class OtherUser extends Component {
         this.setState({
           user: UserInfo,
           username: username,
-          userImageURL: UserInfo.pic,
+          pic: UserInfo.pic,
           first_name: UserInfo.first_name,
           my_location: UserInfo.my_location,
           age: UserInfo.age,
@@ -82,6 +83,18 @@ class OtherUser extends Component {
           smokes: UserInfo.smokes,
           drinks: UserInfo.drinks
         });
+
+        if (
+          pic === "" ||
+          !pic.includes(".png") ||
+          !pic.includes(".img") ||
+          !pic.includes(".jpeg") ||
+          !pic.includes(".jpg")
+        ) {
+          this.setState({
+            pic: "https://image.ibb.co/mP5Xuz/image_placeholder_female_1.png"
+          });
+        };
       })
       .then(() => {
         this.getUserTrips();
@@ -217,7 +230,7 @@ class OtherUser extends Component {
       user,
       user_id,
       username,
-      userImageURL,
+      pic,
       first_name,
       my_location,
       age,
@@ -246,7 +259,7 @@ class OtherUser extends Component {
       <div className="userProfile">
         <div className="blurb">
           <div className="img-container">
-            <img src={userImageURL} className="profile-pic" />
+            <img src={pic} className="profile-pic" />
           </div>
           <div className="general-info">
             <span className="my-name">{first_name}, {age}</span>
