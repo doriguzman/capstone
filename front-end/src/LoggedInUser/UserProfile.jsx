@@ -174,11 +174,13 @@ class UserProfile extends React.Component {
     // this.getBucketList();
   }
 
-  handleClickAddTrip = e => {
-    e.preventDefault();
-    const { username, user } = this.state;
-    return (window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
-  };
+//this was an issue with the heroku when using the return window.location
+// fixed this through the mylisted trips file!
+//   handleClickAddTrip = e => {
+//     e.preventDefault();
+//     const { username, user } = this.state;
+//     return (window.location.href = `http://localhost:3000/users/me/${username}/trips/add`);
+//   };
 
  
 
@@ -305,7 +307,7 @@ class UserProfile extends React.Component {
           {/* Trips tab */}
           <TabPanel className="tab-panel">
             <div>
-              {openTrips ? <MyListedTrips activeUser={activeUser} username={username} handleClickAddTrip={this.handleClickAddTrip} /> : ""}
+              {openTrips ? <MyListedTrips activeUser={activeUser} username={username}  /> : ""}
               {/* {activeUser
                 ? <div className="add-trip" onClick={this.handleClickAddTrip}>Add Trip</div>
                 : ""} */}
