@@ -6,15 +6,15 @@ import AllBuddies from "./AllBuddies";
 
 const UserProfileCards = ({ allUsers, bffs }) => {
   allUsers.map(user => {
-    return "user first name", user.first_name, user.age;
+    return "user first name", user.first_name, user.age, user.pic;
   });
 
   return (
     <div className="cardHolder">
       {allUsers.map(user => {
         let userPic= user.pic
-
-        if (userPic ==='' && (!userPic.includes('.png')|| !userPic.includes('.img')|| !userPic.includes('.jpeg') || !userPic.includes('.jpg'))){
+        let ending= userPic.slice(-4)
+        if (user.pic ==='' ||(ending !=='.png'&& ending!=='.img'&& ending!==('.jpeg')&& ending!=='.jpg')){
           userPic= `https://image.ibb.co/mP5Xuz/image_placeholder_female_1.png`
         }
 
