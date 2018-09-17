@@ -54,8 +54,6 @@ class OtherUser extends Component {
 
   getUserInfo = () => {
     const username = this.props.match.params.username;
-    const {pic}=this.state
-
     console.log("this is the props.req", username);
     axios
       .get(`/users/userAttributes/${username}`)
@@ -84,13 +82,13 @@ class OtherUser extends Component {
           smokes: UserInfo.smokes,
           drinks: UserInfo.drinks
         });
-         if (
-          pic === "" &&
-         ( !pic.includes(".png") ||
-          !pic.includes(".img") ||
-          !pic.includes(".jpeg") ||
-          !pic.includes(".jpg")
-        )) {
+            if (
+          this.state.pic === "" ||
+          (this.state.pic.slice(-4) !== ".png" &&
+          this.state.pic.slice(-4) !== ".img" &&
+          this.state.pic.slice(-4) !== ".jpeg" &&
+          this.state.pic.slice(-4) !== ".jpg")
+        )  {
           this.setState({
             pic: "https://image.ibb.co/mP5Xuz/image_placeholder_female_1.png"
           });
