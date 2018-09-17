@@ -85,12 +85,12 @@ class OtherUser extends Component {
           drinks: UserInfo.drinks
         });
          if (
-          pic === "" ||
-          !pic.includes(".png") ||
+          pic === "" &&
+         ( !pic.includes(".png") ||
           !pic.includes(".img") ||
           !pic.includes(".jpeg") ||
           !pic.includes(".jpg")
-        ) {
+        )) {
           this.setState({
             pic: "https://image.ibb.co/mP5Xuz/image_placeholder_female_1.png"
           });
