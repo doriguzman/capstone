@@ -13,8 +13,9 @@ const UserProfileCards = ({ allUsers, bffs }) => {
     <div className="cardHolder">
       {allUsers.map(user => {
         
-        let userPic= user.pic
-        if (userPic ==='' && (!userPic.includes('.png')|| !userPic.includes('.img')|| !userPic.includes('.jpeg') || !userPic.includes('.jpg'))){
+      let userPic= user.pic
+        let ending= userPic.slice(-4)
+        if (user.pic ==='' ||(ending !=='.png'&& ending!=='.img'&& ending!==('.jpeg')&& ending!=='.jpg')){
           userPic= `https://image.ibb.co/mP5Xuz/image_placeholder_female_1.png`
         }
         
