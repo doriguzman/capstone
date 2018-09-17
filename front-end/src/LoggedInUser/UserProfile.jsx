@@ -21,7 +21,7 @@ class UserProfile extends React.Component {
     super(props);
     this.state = {
       user: this.props.user,
-      user_id: this.props.user.id,
+      userid: this.props.user.id,
       username: this.props.username,
       activeUser:this.props.active,
       pic: "",
