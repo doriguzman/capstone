@@ -24,7 +24,7 @@ class UserProfile extends React.Component {
       user_id: this.props.user.id,
       username: this.props.username,
       activeUser:this.props.active,
-      userImageURL: "",
+      pic: "",
       first_name: "",
       my_location: "",
       age: "",
@@ -84,7 +84,7 @@ class UserProfile extends React.Component {
   
 
   getUserInfo = () => {
-    const { username, user } = this.state;
+    const { username, user, pic } = this.state;
 
     axios
       .get(`/users/userAttributes/${this.state.username}`)
@@ -92,7 +92,7 @@ class UserProfile extends React.Component {
         let UserInfo = res.data;
         this.setState({
           user: UserInfo,
-          userImageURL: UserInfo.pic,
+          pic: UserInfo.pic,
           first_name: UserInfo.first_name,
           my_location: UserInfo.my_location,
           age: UserInfo.age,
@@ -112,7 +112,19 @@ class UserProfile extends React.Component {
           smokes: UserInfo.smokes,
           drinks: UserInfo.drinks, 
           bucketlist:'', 
-        });
+        })
+         if (
+          pic === "" ||
+          !pic.includes(".png") ||
+          !pic.includes(".img") ||
+          !pic.includes(".jpeg") ||
+          !pic.includes(".jpg")
+        ) {
+          this.setState({
+            pic: "https://image.ibb.co/mP5Xuz/image_placeholder_female_1.png"
+          });
+        };
+      
       })
       .catch(err => {
         console.log(err);
@@ -190,7 +202,7 @@ class UserProfile extends React.Component {
       user_id,
       username,
       activeUser,
-      userImageURL,
+      pic,
       first_name,
       my_location,
       age,
@@ -228,7 +240,7 @@ class UserProfile extends React.Component {
       <div className="userProfile">
         <div className="blurb">
           <div className="img-container">
-            <img src={userImageURL} className="profile-pic" />
+            <img src={pic} className="profile-pic" />
           </div>
           <div className="general-info">
             <span className="my-name">
